@@ -1,1 +1,298 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17172b">
+  <meta name="description" content="Discover WOBBLE Arcade — play free casual games, challenge yourself and have fun.">
+  <meta property="og:title" content="About WOBBLE Arcade">
+  <meta property="og:description" content="Play. Challenge. Repeat. Discover the world of WOBBLE Arcade.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://masego101-coder.github.io/wobble/about.html">
+  <link rel="canonical" href="https://masego101-coder.github.io/wobble/about.html">
+
+  <title>About Us | WOBBLE Arcade</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #17172b;
+      color: #ffffff;
+      line-height: 1.7;
+      padding: 25px 16px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 15px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #34334d;
+    }
+
+    .logo {
+      color: #a78bfa;
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      color: #20d6c2;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .about-card {
+      background: #25243f;
+      border: 1px solid #403b61;
+      border-radius: 18px;
+      padding: 30px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 20px 5px 30px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span {
+      color: #a78bfa;
+    }
+
+    .hero p {
+      color: #20d6c2;
+      font-size: 14px;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    h2 {
+      color: #a78bfa;
+      font-size: 20px;
+      margin: 28px 0 10px;
+    }
+
+    p {
+      color: #d0cde0;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .game {
+      background: #17172b;
+      border: 1px solid #403b61;
+      border-radius: 12px;
+      padding: 17px;
+      text-align: center;
+    }
+
+    .game h3 {
+      color: #20d6c2;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .game p {
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .closing {
+      text-align: center;
+      margin-top: 30px;
+      padding: 22px 12px;
+      background: #17172b;
+      border-radius: 12px;
+      border: 1px solid #403b61;
+    }
+
+    .closing h2 {
+      margin-top: 0;
+    }
+
+    a {
+      color: #20d6c2;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #a78bfa;
+      text-decoration: underline;
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 11px 20px;
+      background: #8B5CF6;
+      color: white;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .home-link:hover {
+      background: #a78bfa;
+      color: white;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      color: #77758e;
+      font-size: 12px;
+    }
+
+    footer a {
+      margin: 0 7px;
+    }
+
+    @media (max-width: 550px) {
+      .about-card {
+        padding: 21px 17px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .games {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <div class="logo">WOBBLE.</div>
+      <div class="tagline">PLAY. CHALLENGE. REPEAT.</div>
+    </header>
+
+    <main class="about-card">
+
+      <section class="hero">
+        <h1>Welcome to <span>WOBBLE</span>!</h1>
+        <p>YOUR NEXT GAMING BREAK STARTS HERE.</p>
+      </section>
+
+      <h2>Who We Are</h2>
+
+      <p>
+        WOBBLE Arcade is an independent online gaming project
+        built around one simple idea: fun should be easy to access.
+      </p>
+
+      <p>
+        We bring together casual arcade games, brain challenges
+        and playful experiences in one place. Whether you have
+        a few minutes to spare or want to challenge yourself
+        for longer, there's something to enjoy.
+      </p>
+
+      <h2>What You Can Play</h2>
+
+      <p>
+        WOBBLE features different games designed to test your
+        memory, knowledge, vocabulary and problem-solving skills.
+      </p>
+
+      <div class="games">
+
+        <div class="game">
+          <h3>Memory Blitz</h3>
+          <p>Test your memory and matching skills.</p>
+        </div>
+
+        <div class="game">
+          <h3>Quick Quiz</h3>
+          <p>Challenge your knowledge with quiz questions.</p>
+        </div>
+
+        <div class="game">
+          <h3>Word Rush</h3>
+          <p>Put your vocabulary and speed to the test.</p>
+        </div>
+
+        <div class="game">
+          <h3>HOOP</h3>
+          <p>Sort colours and challenge your strategy.</p>
+        </div>
+
+      </div>
+
+      <h2>Our Goal</h2>
+
+      <p>
+        Our goal is to keep growing WOBBLE into an enjoyable
+        destination for casual gaming. We want to introduce
+        new challenges, improve the player experience and
+        continue exploring creative ways to make gaming fun.
+      </p>
+
+      <h2>Made for Players</h2>
+
+      <p>
+        WOBBLE is designed to be accessible on mobile devices
+        and desktop screens. We believe that a good gaming
+        experience should be simple to start and enjoyable
+        to return to.
+      </p>
+
+      <section class="closing">
+        <h2>Ready to Play?</h2>
+
+        <p>
+          Explore our games, challenge yourself and see
+          how far you can go.
+        </p>
+
+        <p>
+          <strong>Play. Challenge. Repeat.</strong>
+        </p>
+      </section>
+
+      <a href="./index.html" class="home-link">
+        ← Back to WOBBLE
+      </a>
+
+    </main>
+
+    <footer>
+      WOBBLE © 2026 · Play. Challenge. Repeat.
+      <br><br>
+      <a href="./privacy.html">Privacy Policy</a>
+      <a href="mailto:wobblearcade@outlook.com">Contact</a>
+    </footer>
+
+  </div>
+</body>
+</html>
+
