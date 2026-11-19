@@ -5,20 +5,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#17172b">
-<meta name="description" content="Play HOOP free online at WOBBLE ARCADE! Sort colourful donuts, solve satisfying sorting puzzles, earn coins and unlock new challenges.">
+<meta name="description" content="Play HOOP free online at WOBBLE ARCADE! Sort realistic colourful donuts, solve puzzles and earn coins.">
 <link rel="canonical" href="https://masego101-coder.github.io/wobble/hoop.html">
-
-<title>HOOP - Free Online Donut Sorting Puzzle Game | WOBBLE ARCADE</title>
-
+<title>HOOP - Donut Sorting Puzzle | WOBBLE ARCADE</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="HOOP - Free Online Sorting Puzzle Game | WOBBLE ARCADE">
-<meta property="og:description" content="Sort colourful donuts, solve puzzles, earn coins and beat the levels in HOOP. Play free at WOBBLE ARCADE!">
+<meta property="og:title" content="HOOP - WOBBLE ARCADE">
+<meta property="og:description" content="Sort colourful donuts, earn coins and beat the levels!">
 <meta property="og:url" content="https://masego101-coder.github.io/wobble/hoop.html">
 <meta property="og:site_name" content="WOBBLE ARCADE">
-
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HOOP - Donut Sorting Puzzle Game">
-<meta name="twitter:description" content="Sort the colours, earn coins and beat the levels. Play HOOP free at WOBBLE ARCADE!">
 
 <style>
 :root {
@@ -30,24 +25,54 @@
   --text:#f8f5ff;
   --muted:#aaa5c5;
 }
+
 * {box-sizing:border-box}
+
 body {
   margin:0;
   min-height:100vh;
   padding:20px 12px 35px;
   color:var(--text);
-  background:radial-gradient(ellipse at top,#38265a 0%,transparent 55%),var(--bg);
+  background:
+    radial-gradient(ellipse at 50% 0%,#49306d 0%,transparent 55%),
+    var(--bg);
   font-family:system-ui,-apple-system,sans-serif;
   text-align:center;
   -webkit-tap-highlight-color:transparent;
   overflow-x:hidden;
 }
+
 button {font:inherit;cursor:pointer}
-.brand {font-size:20px;font-weight:950;letter-spacing:2px}
+
+.brand {
+  font-size:20px;
+  font-weight:950;
+  letter-spacing:2px;
+}
+
 .brand span {color:var(--purple)}
-.arcade {font-size:10px;color:var(--muted);letter-spacing:4px;font-weight:800}
-h1 {font-size:46px;letter-spacing:4px;color:var(--gold);margin:20px 0 3px}
-.subtitle {font-size:13px;color:var(--muted);margin:5px 0 22px}
+
+.arcade {
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:4px;
+  font-weight:800;
+}
+
+h1 {
+  font-size:46px;
+  letter-spacing:4px;
+  color:var(--gold);
+  margin:20px 0 3px;
+  text-shadow:0 4px 15px #ffc85735;
+}
+
+.subtitle {
+  font-size:13px;
+  color:var(--muted);
+  margin:5px 0 22px;
+}
+
 .stats {
   width:min(100%,440px);
   margin:auto;
@@ -55,15 +80,31 @@ h1 {font-size:46px;letter-spacing:4px;color:var(--gold);margin:20px 0 3px}
   grid-template-columns:repeat(3,1fr);
   gap:8px;
 }
+
 .stat {
-  background:#252541;
-  border:1px solid #ffffff15;
+  background:linear-gradient(145deg,#302c50,#211f39);
+  border:1px solid #ffffff18;
   border-radius:14px;
   padding:11px 4px;
+  box-shadow:0 5px 12px #0003;
 }
-.stat small {display:block;color:var(--muted);font-size:9px;font-weight:850;letter-spacing:1px}
-.stat strong {display:block;font-size:20px;margin-top:4px}
+
+.stat small {
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:1px;
+}
+
+.stat strong {
+  display:block;
+  font-size:20px;
+  margin-top:4px;
+}
+
 #coins {color:var(--gold)}
+
 .message {
   width:min(100%,440px);
   min-height:40px;
@@ -76,41 +117,57 @@ h1 {font-size:46px;letter-spacing:4px;color:var(--gold);margin:20px 0 3px}
   font-size:12px;
   font-weight:700;
 }
+
 .board-wrap {
   width:min(100%,470px);
   margin:auto;
-  padding:22px 8px 17px;
-  border-radius:20px;
-  background:linear-gradient(145deg,#292947,#1d1d36);
-  border:1px solid #ffffff16;
-  box-shadow:0 15px 35px #0004;
+  padding:22px 8px 20px;
+  border-radius:22px;
+  background:
+    radial-gradient(ellipse at 50% 0%,#ffffff0c,transparent 65%),
+    linear-gradient(145deg,#302e4e,#1b1a31);
+  border:1px solid #ffffff1c;
+  box-shadow:
+    0 18px 40px #0006,
+    inset 0 1px 0 #ffffff12;
 }
+
 .board {
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
   gap:clamp(5px,2vw,11px);
   align-items:end;
   justify-items:center;
-  min-height:220px;
+  min-height:230px;
 }
-.board.six {grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+
+.board.six {
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:4px;
+}
+
 .stick {
   width:100%;
-  height:202px;
+  height:210px;
   min-width:0;
-  padding:8px 2px 9px;
+  padding:9px 2px 10px;
   display:flex;
   flex-direction:column-reverse;
   align-items:center;
   justify-content:flex-start;
   position:relative;
-  border:1px solid #ffffff14;
-  border-radius:13px 13px 10px 10px;
-  background:linear-gradient(90deg,#ffffff08,#ffffff12,#ffffff06);
-  box-shadow:inset 0 0 12px #0003;
+  border:1px solid #ffffff18;
+  border-radius:14px 14px 11px 11px;
+  background:
+    linear-gradient(90deg,#ffffff05,#ffffff0c 45%,#ffffff04),
+    #151426;
+  box-shadow:
+    inset 0 0 12px #0007,
+    0 5px 10px #0003;
   touch-action:none;
   transition:background .15s,border-color .15s,transform .15s;
 }
+
 .stick:before {
   content:"";
   position:absolute;
@@ -120,74 +177,133 @@ h1 {font-size:46px;letter-spacing:4px;color:var(--gold);margin:20px 0 3px}
   width:5px;
   transform:translateX(-50%);
   border-radius:8px;
-  background:linear-gradient(90deg,#77718c,#d0c9e0 50%,#716b83);
-  box-shadow:0 0 5px #0008;
+  background:linear-gradient(
+    90deg,
+    #72513b,
+    #d5b18a 35%,
+    #f0d3a8 50%,
+    #94704e 80%,
+    #63432f
+  );
+  box-shadow:
+    1px 0 4px #0009,
+    inset 0 0 2px #fff8;
 }
+
 .stick:after {
   content:"";
   position:absolute;
   bottom:3px;
   left:50%;
-  width:85%;
-  height:8px;
+  width:88%;
+  height:9px;
   transform:translateX(-50%);
   border-radius:50%;
-  background:linear-gradient(#c4badb,#615a79);
+  background:linear-gradient(#d6b58c,#715035);
+  box-shadow:0 3px 5px #0009;
 }
+
 .stick.drag-over {
   border-color:var(--teal);
   background:#20d6c225;
   transform:translateY(-4px);
 }
+
 .stick.invalid {border-color:var(--pink)}
+
+/* REALISTIC 3D DONUTS */
+
 .donut {
   --icing:#ff6b9d;
   --shadow:#a51e58;
   width:88%;
-  max-width:55px;
-  height:35px;
-  flex:0 0 35px;
-  margin-top:-3px;
+  max-width:58px;
+  height:39px;
+  flex:0 0 39px;
+  margin-top:-2px;
   position:relative;
   z-index:2;
   border-radius:50%;
-  border:2px solid #a75e32;
+  border:1px solid #a45d32;
   background:
-    radial-gradient(ellipse at center,transparent 0 13%,#713d25 14% 19%,transparent 20%),
-    radial-gradient(ellipse at 30% 18%,#fff9 0 5%,transparent 25%),
-    linear-gradient(160deg,#ffe0a0,#d98d46 65%,#9d5429);
-  box-shadow:inset 0 2px 3px #fff9,inset 0 -4px 5px #68331c99,0 3px 4px #0007;
+    radial-gradient(
+      ellipse at 50% 48%,
+      #6f3b20 0 12%,
+      #b87842 13% 17%,
+      transparent 18%
+    ),
+    radial-gradient(
+      ellipse at 30% 18%,
+      #fff9 0 4%,
+      transparent 30%
+    ),
+    linear-gradient(
+      155deg,
+      #ffe8b7 0%,
+      #e9ad68 40%,
+      #bd713c 75%,
+      #8e4a27 100%
+    );
+  box-shadow:
+    inset 0 3px 4px #fff9,
+    inset 0 -5px 6px #65301699,
+    0 5px 5px #0009,
+    0 2px 2px #0008;
   cursor:grab;
   touch-action:none;
   user-select:none;
   -webkit-user-select:none;
+  transition:filter .12s;
 }
+
 .donut:before {
   content:"";
   position:absolute;
   inset:2px 2px 7px;
-  border-radius:50% 50% 44% 44%;
+  border-radius:50%;
   background:
-    radial-gradient(ellipse at 50% 100%,transparent 0 15%,#0000 16%),
-    radial-gradient(ellipse at 30% 15%,#fff9,transparent 45%),
-    linear-gradient(180deg,#ffffff25,#00000012),
+    radial-gradient(
+      ellipse at 50% 65%,
+      transparent 0 13%,
+      #0000 14%
+    ),
+    radial-gradient(
+      ellipse at 29% 12%,
+      #ffffffbd 0%,
+      transparent 39%
+    ),
+    linear-gradient(
+      160deg,
+      #ffffff35,
+      transparent 40%,
+      #00000022
+    ),
     var(--icing);
-  box-shadow:inset 0 2px 2px #ffffff99,inset 0 -3px 4px var(--shadow);
+  box-shadow:
+    inset 0 2px 3px #ffffffaa,
+    inset 0 -4px 5px var(--shadow),
+    0 2px 3px #0005;
 }
+
 .donut:after {
   content:"";
   position:absolute;
   z-index:4;
   left:50%;
   top:11px;
-  width:11px;
-  height:10px;
+  width:12px;
+  height:11px;
   transform:translateX(-50%);
   border-radius:50%;
-  background:#21182b;
-  border:2px solid #a96538;
-  box-shadow:inset 0 2px 3px #000b,0 1px 2px #fff5;
+  background:
+    radial-gradient(circle at 50% 45%,#080710 0 55%,#392318 75%,#a96a3c 100%);
+  border:2px solid #bd7c49;
+  box-shadow:
+    inset 0 3px 4px #000e,
+    0 1px 2px #fff7,
+    0 2px 3px #0008;
 }
+
 .sprinkles {
   position:absolute;
   z-index:3;
@@ -199,22 +315,27 @@ h1 {font-size:46px;letter-spacing:4px;color:var(--gold);margin:20px 0 3px}
     radial-gradient(ellipse 2px 4px at 72% 30%,#ffe36b 98%,transparent),
     radial-gradient(ellipse 2px 4px at 32% 72%,#ff4f87 98%,transparent),
     radial-gradient(ellipse 2px 4px at 78% 67%,#fff 98%,transparent),
-    radial-gradient(ellipse 2px 4px at 52% 15%,#20d6c2 98%,transparent);
+    radial-gradient(ellipse 2px 4px at 52% 15%,#20d6c2 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 55% 80%,#ffe36b 98%,transparent);
 }
+
 .pink {--icing:#ff6b9d;--shadow:#a51e58}
 .blue {--icing:#59c8ff;--shadow:#176ba7}
 .yellow {--icing:#ffd45e;--shadow:#a36b12}
 .green {--icing:#55e6a4;--shadow:#138b5a}
 .purple {--icing:#b58aff;--shadow:#6840b4}
 .orange {--icing:#ff9d50;--shadow:#b94e16}
+
 .dragging-source {opacity:.18}
+
 .drag-ghost {
   position:fixed;
   z-index:9999;
   pointer-events:none;
-  transform:translate(-50%,-50%) scale(1.2) rotate(-5deg);
-  filter:drop-shadow(0 12px 10px #0009);
+  transform:translate(-50%,-50%) scale(1.28) rotate(-5deg);
+  filter:drop-shadow(0 15px 12px #000c);
 }
+
 .controls {
   display:flex;
   flex-wrap:wrap;
@@ -222,6 +343,7 @@ h1 {font-size:46px;letter-spacing:4px;color:var(--gold);margin:20px 0 3px}
   gap:9px;
   margin:18px auto;
 }
+
 button {
   border:0;
   border-radius:12px;
@@ -232,10 +354,17 @@ button {
   font-weight:850;
   box-shadow:0 4px 0 #211b36;
 }
-button:active {transform:translateY(2px);box-shadow:none}
+
+button:active {
+  transform:translateY(2px);
+  box-shadow:none;
+}
+
 button:disabled {opacity:.4}
+
 .primary {background:var(--purple)}
 .gold {background:#916319}
+
 .how-to {
   width:min(100%,440px);
   margin:25px auto 0;
@@ -248,9 +377,20 @@ button:disabled {opacity:.4}
   font-size:13px;
   line-height:1.7;
 }
-.how-to h2 {color:white;font-size:15px;margin:0 0 8px}
-.how-to ol {padding-left:20px;margin:0}
+
+.how-to h2 {
+  color:white;
+  font-size:15px;
+  margin:0 0 8px;
+}
+
+.how-to ol {
+  padding-left:20px;
+  margin:0;
+}
+
 .how-to p {margin-bottom:0}
+
 .overlay {
   position:fixed;
   inset:0;
@@ -261,7 +401,9 @@ button:disabled {opacity:.4}
   padding:20px;
   background:#090817dc;
 }
+
 .overlay.show {display:flex}
+
 .modal {
   width:min(100%,340px);
   padding:28px 22px;
@@ -270,19 +412,35 @@ button:disabled {opacity:.4}
   border:1px solid var(--purple);
   box-shadow:0 20px 60px #0009;
 }
-.modal h2 {font-size:28px;margin:0 0 8px}
-.modal p {color:var(--muted);line-height:1.5}
-footer {margin-top:25px;color:#77718f;font-size:11px}
+
+.modal h2 {
+  font-size:28px;
+  margin:0 0 8px;
+}
+
+.modal p {
+  color:var(--muted);
+  line-height:1.5;
+}
+
+footer {
+  margin-top:25px;
+  color:#77718f;
+  font-size:11px;
+}
+
 @media(max-width:370px) {
   body {padding-left:7px;padding-right:7px}
   .board {gap:4px}
   .stick {height:190px}
-  .donut {height:32px;flex-basis:32px}
+  .donut {height:34px;flex-basis:34px}
+  .donut:after {top:9px}
 }
 </style>
 </head>
 
 <body>
+
 <header>
   <div class="brand">WOBBLE<span>.</span></div>
   <div class="arcade">⚡ ARCADE</div>
@@ -291,12 +449,23 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 </header>
 
 <section class="stats">
-  <div class="stat"><small>LEVEL</small><strong id="level">1</strong></div>
-  <div class="stat"><small>COINS 🪙</small><strong id="coins">0</strong></div>
-  <div class="stat"><small>MOVES</small><strong id="moves">0</strong></div>
+  <div class="stat">
+    <small>LEVEL</small>
+    <strong id="level">1</strong>
+  </div>
+  <div class="stat">
+    <small>COINS 🪙</small>
+    <strong id="coins">0</strong>
+  </div>
+  <div class="stat">
+    <small>MOVES</small>
+    <strong id="moves">0</strong>
+  </div>
 </section>
 
-<div class="message" id="message">Hold a donut, drag it, and release!</div>
+<div class="message" id="message">
+  Hold a donut, drag it, and release!
+</div>
 
 <div class="board-wrap">
   <div class="board" id="board"></div>
@@ -336,23 +505,43 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 
   const STORAGE_KEY = "wobbleHoopProgress";
   const CAPACITY = 4;
-  const COLOURS = ["pink","blue","yellow","green","purple","orange"];
+
+  const COLOURS = [
+    "pink",
+    "blue",
+    "yellow",
+    "green",
+    "purple",
+    "orange"
+  ];
 
   const $ = id => document.getElementById(id);
+
   const boardEl = $("board");
   const messageEl = $("message");
   const overlay = $("winOverlay");
 
   function loadProgress() {
     try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      const saved = JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "{}"
+      );
+
       return {
         level:Math.max(1,Number(saved.level)||1),
         coins:Math.max(0,Number(saved.coins)||0),
-        extraStick:Boolean(saved.extraStick || saved.extraTube || saved.unlocked)
+        extraStick:Boolean(
+          saved.extraStick ||
+          saved.extraTube ||
+          saved.unlocked
+        )
       };
     } catch {
-      return {level:1,coins:0,extraStick:false};
+      return {
+        level:1,
+        coins:0,
+        extraStick:false
+      };
     }
   }
 
@@ -367,9 +556,12 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 
   function saveProgress() {
     try {
-      localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
-    } catch(e) {
-      console.warn("Could not save progress",e);
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(progress)
+      );
+    } catch(error) {
+      console.warn("Could not save progress",error);
     }
   }
 
@@ -377,48 +569,86 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
     return value.map(tube => [...tube]);
   }
 
-  function colourCount() {
-    return Math.min(6,2 + Math.floor((progress.level-1)/2));
-  }
-
   function stickCount() {
     return progress.extraStick ? 6 : 5;
   }
 
+  // Never create more colours than there are usable sticks.
+  function colourCount() {
+    const difficulty =
+      2 + Math.floor((progress.level-1)/2);
+
+    return Math.min(
+      COLOURS.length,
+      stickCount()-1,
+      difficulty
+    );
+  }
+
+  function shuffleArray(array) {
+    for(let i=array.length-1;i>0;i--) {
+      const j=Math.floor(Math.random()*(i+1));
+      [array[i],array[j]]=[array[j],array[i]];
+    }
+
+    return array;
+  }
+
+  function isMixed(tube) {
+    return new Set(tube).size>1;
+  }
+
+  // Creates a genuinely mixed puzzle.
+  // Every colour has exactly four donuts.
+  // At least one empty stick is always available.
   function makePuzzle() {
     const count = colourCount();
-    const puzzle = COLOURS.slice(0,count).map(c => Array(4).fill(c));
+    const colours = COLOURS.slice(0,count);
 
-    while(puzzle.length < stickCount()) puzzle.push([]);
+    let puzzle = null;
 
-    // Shuffle by making legal moves from a solved board.
-    let lastMove = null;
-    const shuffleSteps = 45 + progress.level * 15;
+    for(let attempt=0;attempt<5000;attempt++) {
+      const donuts = [];
 
-    for(let i=0;i<shuffleSteps;i++) {
-      const choices = [];
-
-      for(let from=0;from<puzzle.length;from++) {
-        if(!puzzle[from].length) continue;
-
-        for(let to=0;to<puzzle.length;to++) {
-          if(from===to || puzzle[to].length>=CAPACITY) continue;
-
-          const moving = puzzle[from][puzzle[from].length-1];
-          if(puzzle[to].length &&
-             puzzle[to][puzzle[to].length-1]!==moving) continue;
-
-          if(lastMove && lastMove.from===to && lastMove.to===from) continue;
-
-          choices.push({from,to});
+      colours.forEach(colour => {
+        for(let i=0;i<CAPACITY;i++) {
+          donuts.push(colour);
         }
+      });
+
+      shuffleArray(donuts);
+
+      const candidate = [];
+
+      for(let i=0;i<count;i++) {
+        candidate.push(
+          donuts.slice(i*CAPACITY,(i+1)*CAPACITY)
+        );
       }
 
-      if(!choices.length) break;
+      // Do not allow already-solved or nearly-solved boards.
+      if(candidate.every(isMixed)) {
+        puzzle = candidate;
+        break;
+      }
+    }
 
-      const chosen = choices[Math.floor(Math.random()*choices.length)];
-      puzzle[chosen.to].push(puzzle[chosen.from].pop());
-      lastMove = chosen;
+    // Safe fallback if random generation repeatedly fails.
+    if(!puzzle) {
+      puzzle = colours.map((colour,index) => {
+        const next = colours[(index+1)%count];
+
+        return shuffleArray([
+          colour,
+          colour,
+          next,
+          next
+        ]);
+      });
+    }
+
+    while(puzzle.length<stickCount()) {
+      puzzle.push([]);
     }
 
     return puzzle;
@@ -428,8 +658,13 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
     $("level").textContent = progress.level;
     $("coins").textContent = progress.coins;
     $("moves").textContent = moves;
-    $("undoBtn").disabled = !history.length || completed;
-    $("extraBtn").disabled = progress.extraStick || progress.coins<100;
+
+    $("undoBtn").disabled =
+      !history.length || completed;
+
+    $("extraBtn").disabled =
+      progress.extraStick || progress.coins<100;
+
     $("extraBtn").textContent = progress.extraStick
       ? "✓ SIXTH STICK UNLOCKED"
       : "🔓 EXTRA STICK · 100 🪙";
@@ -437,29 +672,46 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 
   function createDonut(colour) {
     const donut = document.createElement("div");
+
     donut.className = "donut " + colour;
-    donut.setAttribute("aria-label",colour+" donut");
+    donut.setAttribute(
+      "aria-label",
+      colour + " donut"
+    );
 
     const sprinkles = document.createElement("span");
     sprinkles.className = "sprinkles";
+
     donut.appendChild(sprinkles);
+
     return donut;
   }
 
   function render() {
     boardEl.innerHTML = "";
-    boardEl.classList.toggle("six",tubes.length===6);
+
+    boardEl.classList.toggle(
+      "six",
+      tubes.length===6
+    );
 
     tubes.forEach((tube,index) => {
       const stick = document.createElement("div");
+
       stick.className = "stick";
       stick.dataset.index = index;
 
       tube.forEach((colour,donutIndex) => {
         const donut = createDonut(colour);
 
-        if(donutIndex===tube.length-1 && !completed) {
-          donut.addEventListener("pointerdown",startDrag);
+        if(
+          donutIndex===tube.length-1 &&
+          !completed
+        ) {
+          donut.addEventListener(
+            "pointerdown",
+            startDrag
+          );
         } else {
           donut.style.cursor = "default";
         }
@@ -475,37 +727,62 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 
   function say(message,colour) {
     messageEl.textContent = message;
-    messageEl.style.color = colour || "var(--teal)";
+    messageEl.style.color =
+      colour || "var(--teal)";
   }
 
   function canMove(from,to) {
-    if(from===to || !tubes[from] || !tubes[to]) return false;
-    if(!tubes[from].length || tubes[to].length>=CAPACITY) return false;
+    if(
+      from===to ||
+      !tubes[from] ||
+      !tubes[to]
+    ) {
+      return false;
+    }
+
+    if(
+      !tubes[from].length ||
+      tubes[to].length>=CAPACITY
+    ) {
+      return false;
+    }
 
     const destination = tubes[to];
-    if(!destination.length) return true;
+
+    if(!destination.length) {
+      return true;
+    }
 
     return destination[destination.length-1] ===
       tubes[from][tubes[from].length-1];
   }
 
   function startDrag(event) {
-    if(completed || drag || event.button!==0) return;
+    if(
+      completed ||
+      drag ||
+      event.button!==0
+    ) {
+      return;
+    }
 
     const donut = event.currentTarget;
     const stick = donut.closest(".stick");
     const from = Number(stick.dataset.index);
-    const colour = tubes[from][tubes[from].length-1];
+
+    const colour =
+      tubes[from][tubes[from].length-1];
 
     if(!colour) return;
 
     event.preventDefault();
 
-    const rect = donut.getBoundingClientRect();
     ghost = donut.cloneNode(true);
     ghost.classList.add("drag-ghost");
+
     ghost.style.left = event.clientX+"px";
     ghost.style.top = event.clientY+"px";
+
     document.body.appendChild(ghost);
 
     donut.classList.add("dragging-source");
@@ -519,57 +796,120 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 
     say("Release over a stick to drop your donut!");
 
-    window.addEventListener("pointermove",moveDrag,{passive:false});
-    window.addEventListener("pointerup",endDrag);
-    window.addEventListener("pointercancel",cancelDrag);
+    window.addEventListener(
+      "pointermove",
+      moveDrag,
+      {passive:false}
+    );
+
+    window.addEventListener(
+      "pointerup",
+      endDrag
+    );
+
+    window.addEventListener(
+      "pointercancel",
+      cancelDrag
+    );
   }
 
   function moveDrag(event) {
-    if(!drag || event.pointerId!==drag.pointerId) return;
+    if(
+      !drag ||
+      event.pointerId!==drag.pointerId
+    ) {
+      return;
+    }
 
     event.preventDefault();
-    ghost.style.left = event.clientX+"px";
-    ghost.style.top = event.clientY+"px";
+
+    if(ghost) {
+      ghost.style.left = event.clientX+"px";
+      ghost.style.top = event.clientY+"px";
+    }
 
     document.querySelectorAll(".stick").forEach(stick => {
-      stick.classList.remove("drag-over","invalid");
+      stick.classList.remove(
+        "drag-over",
+        "invalid"
+      );
     });
 
-    const target = document.elementFromPoint(event.clientX,event.clientY);
+    const target = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
     const stick = target && target.closest(".stick");
 
     if(stick) {
       const to = Number(stick.dataset.index);
+
       if(to!==drag.from) {
-        stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
+        stick.classList.add(
+          canMove(drag.from,to)
+            ? "drag-over"
+            : "invalid"
+        );
       }
     }
   }
 
   function cleanDrag() {
-    if(ghost) ghost.remove();
+    if(ghost) {
+      ghost.remove();
+    }
+
     ghost = null;
 
     if(drag && drag.source) {
-      drag.source.classList.remove("dragging-source");
+      drag.source.classList.remove(
+        "dragging-source"
+      );
     }
 
     document.querySelectorAll(".stick").forEach(stick => {
-      stick.classList.remove("drag-over","invalid");
+      stick.classList.remove(
+        "drag-over",
+        "invalid"
+      );
     });
 
-    window.removeEventListener("pointermove",moveDrag);
-    window.removeEventListener("pointerup",endDrag);
-    window.removeEventListener("pointercancel",cancelDrag);
+    window.removeEventListener(
+      "pointermove",
+      moveDrag
+    );
+
+    window.removeEventListener(
+      "pointerup",
+      endDrag
+    );
+
+    window.removeEventListener(
+      "pointercancel",
+      cancelDrag
+    );
   }
 
   function endDrag(event) {
-    if(!drag || event.pointerId!==drag.pointerId) return;
+    if(
+      !drag ||
+      event.pointerId!==drag.pointerId
+    ) {
+      return;
+    }
 
-    const target = document.elementFromPoint(event.clientX,event.clientY);
+    const target = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
     const stick = target && target.closest(".stick");
+
     const from = drag.from;
-    const to = stick ? Number(stick.dataset.index) : -1;
+    const to = stick
+      ? Number(stick.dataset.index)
+      : -1;
 
     cleanDrag();
     drag = null;
@@ -578,20 +918,30 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
       makeMove(from,to);
     } else {
       render();
-      say("Try an empty stick or a matching colour.","var(--pink)");
+      say(
+        "Try an empty stick or a matching colour.",
+        "var(--pink)"
+      );
     }
   }
 
   function cancelDrag() {
     if(!drag) return;
+
     cleanDrag();
     drag = null;
+
     render();
     say("Drag cancelled. Try again!");
   }
 
   function makeMove(from,to) {
-    if(!canMove(from,to) || completed) return;
+    if(
+      !canMove(from,to) ||
+      completed
+    ) {
+      return;
+    }
 
     history.push({
       tubes:cloneTubes(tubes),
@@ -599,7 +949,9 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
     });
 
     tubes[to].push(tubes[from].pop());
+
     moves++;
+
     render();
 
     if(isSolved()) {
@@ -612,49 +964,79 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
   function isSolved() {
     return tubes.every(tube =>
       tube.length===0 ||
-      (tube.length===CAPACITY && tube.every(c=>c===tube[0]))
+      (
+        tube.length===CAPACITY &&
+        tube.every(colour=>colour===tube[0])
+      )
     );
   }
 
   function finishLevel() {
     completed = true;
+
     const reward = 10 + progress.level*2;
+
     progress.coins += reward;
+
     saveProgress();
     render();
 
     $("winText").textContent =
-      "You completed level "+progress.level+
-      " and earned "+reward+" coins! 🪙";
+      "You completed level " +
+      progress.level +
+      " and earned " +
+      reward +
+      " coins! 🪙";
 
     overlay.classList.add("show");
-    say("All colours sorted! Amazing work!","var(--gold)");
+
+    say(
+      "All colours sorted! Amazing work!",
+      "var(--gold)"
+    );
   }
 
   function startLevel() {
     tubes = makePuzzle();
+
     startingPuzzle = cloneTubes(tubes);
+
     history = [];
     moves = 0;
     completed = false;
+
     render();
-    say("Hold a donut, drag it, and release!");
+
+    say(
+      "A new puzzle awaits! Sort every colour."
+    );
   }
 
   function nextLevel() {
     progress.level++;
+
     saveProgress();
+
     overlay.classList.remove("show");
+
     startLevel();
   }
 
   $("undoBtn").addEventListener("click",() => {
-    if(!history.length || completed) return;
+    if(
+      !history.length ||
+      completed
+    ) {
+      return;
+    }
 
     const previous = history.pop();
+
     tubes = cloneTubes(previous.tubes);
     moves = previous.moves;
+
     render();
+
     say("Last move undone.");
   });
 
@@ -662,9 +1044,12 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
     if(completed) return;
 
     tubes = cloneTubes(startingPuzzle);
+
     history = [];
     moves = 0;
+
     render();
+
     say("Level restarted. You can do this!");
   });
 
@@ -675,21 +1060,35 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
     }
 
     if(progress.coins<100) {
-      say("You need 100 coins to unlock another stick.","var(--gold)");
+      say(
+        "You need 100 coins to unlock another stick.",
+        "var(--gold)"
+      );
       return;
     }
 
     progress.coins -= 100;
     progress.extraStick = true;
+
     saveProgress();
+
     startLevel();
-    say("Sixth stick unlocked! More room to sort!","var(--gold)");
+
+    say(
+      "Sixth stick unlocked! More room to sort!",
+      "var(--gold)"
+    );
   });
 
-  $("nextBtn").addEventListener("click",nextLevel);
+  $("nextBtn").addEventListener(
+    "click",
+    nextLevel
+  );
 
   startLevel();
+
 })();
 </script>
+
 </body>
 </html>
