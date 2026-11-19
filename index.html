@@ -5,8 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#17172b">
-  <meta name="description" content="Welcome to WOBBLE Arcade. Play, challenge yourself and beat your best scores.">
-  <title>WOBBLE | Play. Challenge. Repeat.</title>
+  <meta name="description" content="Read the WOBBLE Arcade Privacy Policy to understand how information and game progress are handled.">
+
+  <meta property="og:title" content="Privacy Policy | WOBBLE Arcade">
+  <meta property="og:description" content="Learn how WOBBLE Arcade handles information, local storage and privacy.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://masego101-coder.github.io/wobble/privacy.html">
+
+  <link rel="canonical" href="https://masego101-coder.github.io/wobble/privacy.html">
+
+  <title>Privacy Policy | WOBBLE Arcade</title>
 
   <style>
     * {
@@ -14,271 +22,297 @@
       margin: 0;
       padding: 0;
     }
+
     body {
       font-family: Arial, sans-serif;
       background: #17172b;
       color: #ffffff;
-      min-height: 100vh;
+      line-height: 1.7;
+      padding: 25px 16px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
     }
 
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 22px 7%;
+      text-align: center;
+      padding: 30px 15px;
+      margin-bottom: 25px;
       border-bottom: 1px solid #34334d;
     }
 
     .logo {
-      font-size: 28px;
+      color: #a78bfa;
+      font-size: 30px;
       font-weight: 900;
-      letter-spacing: 2px;
-      color: #a78bfa;
-    }
-    .header-tag {
-      color: #20d6c2;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    main {
-      width: 100%;
-      max-width: 1050px;
-      margin: auto;
-      padding: 45px 7%;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 55px 20px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #292646, #25243f);
-      border: 1px solid #403b61;
-    }
-    .hero-label {
-      display: block;
-      color: #20d6c2;
-      font-size: 12px;
-      font-weight: bold;
       letter-spacing: 3px;
-      margin-bottom: 18px;
+      margin-bottom: 8px;
     }
 
-    .hero h1 {
-      font-size: clamp(38px, 8vw, 62px);
-      margin-bottom: 15px;
-    }
-
-    .hero h1 span {
-      color: #a78bfa;
-    }
-
-    .hero p {
-      color: #c5c2d8;
-      line-height: 1.7;
-      font-size: 15px;
-    }
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 45px 0 20px;
-    }
-
-    .section-heading h2 {
-      font-size: 23px;
-    }
-
-    .section-heading span {
-      color: #aaa8bf;
+    .tagline {
+      color: #20d6c2;
       font-size: 12px;
+      letter-spacing: 2px;
     }
 
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-    .game-card {
-      display: block;
-      padding: 25px;
-      min-height: 205px;
+    .policy-card {
       background: #25243f;
-      border: 1px solid #3b3858;
+      border: 1px solid #403b61;
       border-radius: 18px;
-      color: white;
-      text-decoration: none;
-      transition: transform 0.2s, border-color 0.2s;
+      padding: 30px;
     }
 
-    a.game-card:hover {
-      transform: translateY(-5px);
-      border-color: #a78bfa;
-    }
-
-    a.game-card:focus-visible {
-      outline: 3px solid #20d6c2;
-      outline-offset: 4px;
-    }
-    .game-icon {
-      font-size: 35px;
-      margin-bottom: 17px;
-    }
-
-    .game-card h3 {
-      font-size: 19px;
+    h1 {
+      color: #ffffff;
+      font-size: 30px;
       margin-bottom: 10px;
     }
 
-    .game-card p {
-      color: #b8b5cc;
+    .updated {
+      color: #a78bfa;
       font-size: 13px;
-      line-height: 1.6;
-      margin-bottom: 17px;
+      margin-bottom: 25px;
     }
 
-    .play-label {
-      display: inline-block;
+    .intro {
+      color: #d0cde0;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      color: #a78bfa;
+      font-size: 19px;
+      margin: 27px 0 10px;
+    }
+
+    p {
+      color: #d0cde0;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    ul {
+      padding-left: 23px;
+      color: #d0cde0;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    li {
+      margin-bottom: 7px;
+    }
+
+    a {
       color: #20d6c2;
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 1px;
+      text-decoration: none;
     }
 
-    .purple-card {
-      border-top: 3px solid #a78bfa;
-    }
-    .pink-card {
-      border-top: 3px solid #ff4f87;
+    a:hover {
+      text-decoration: underline;
+      color: #a78bfa;
     }
 
-    .teal-card {
-      border-top: 3px solid #20d6c2;
-    }
-
-    .gold-card {
-      border-top: 3px solid #ffc857;
-    }
-
-    .bottom-message {
-      text-align: center;
-      margin: 40px 0 15px;
-      color: #aaa8bf;
+    .home-link {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 11px 20px;
+      background: #8B5CF6;
+      color: white;
+      border-radius: 9px;
       font-size: 13px;
+      font-weight: bold;
+    }
+
+    .home-link:hover {
+      background: #a78bfa;
+      color: white;
+      text-decoration: none;
     }
 
     footer {
       text-align: center;
-      padding: 25px 15px;
-      border-top: 1px solid #34334d;
+      padding: 25px 10px;
       color: #77758e;
       font-size: 12px;
     }
 
-    .footer-links {
-      margin-top: 12px;
-    }
-
-    .footer-links a {
-      color: #a78bfa;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: #20d6c2;
-      text-decoration: underline;
-    }
-
     @media (max-width: 550px) {
-      header {
-        padding: 19px 5%;
+      .policy-card {
+        padding: 21px 17px;
       }
 
-      main {
-        padding: 30px 5%;
-      }
-
-      .games-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 42px 18px;
-      }
-
-      .section-heading h2 {
-        font-size: 20px;
+      h1 {
+        font-size: 25px;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="logo">WOBBLE.</div>
-    <div class="header-tag">⚡ ARCADE</div>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="hero-label">WELCOME TO WOBBLE</div>
+  <div class="container">
 
-      <h1>Ready to <span>play?</span></h1>
+    <header>
+      <div class="logo">WOBBLE.</div>
+      <div class="tagline">PLAY. CHALLENGE. REPEAT.</div>
+    </header>
+
+    <main class="policy-card">
+
+      <h1>Privacy Policy</h1>
+
+      <div class="updated">
+        Last updated: 19 November 2026
+      </div>
+
+      <p class="intro">
+        Welcome to WOBBLE Arcade! Your privacy matters to us.
+        This Privacy Policy explains what information may be collected
+        when you visit and use our website, how it is used and what
+        choices you have.
+      </p>
+
+      <h2>1. Introduction</h2>
 
       <p>
-        Think fast. Play smart. Challenge yourself.
-        <br>
-        How high can you score?
+        WOBBLE Arcade is an online gaming website offering free casual
+        arcade games and brain challenges. By accessing our website,
+        you acknowledge this Privacy Policy.
       </p>
-    </section>
 
-    <section>
-      <div class="section-heading">
-        <h2>Explore our games</h2>
-        <span>4 GAMES</span>
-      </div>
+      <h2>2. Information We Collect</h2>
 
-      <div class="games-grid">
-        <a href="./memory.html" class="game-card purple-card">
-          <div class="game-icon">🧠</div>
-          <h3>Memory Blitz</h3>
-          <p>Test your memory, match the cards and beat your best score.</p>
-          <span class="play-label">PLAY NOW →</span>
+      <p>
+        WOBBLE does not currently require users to register for accounts
+        or provide personal information to play its games.
+      </p>
+
+      <p>
+        However, certain technical information may be processed by
+        services involved in operating the website, such as hosting
+        providers. This may include IP addresses, browser information
+        and technical access logs, depending on the provider's practices.
+      </p>
+
+      <h2>3. Game Progress and Local Storage</h2>
+
+      <p>
+        Some WOBBLE games use browser local storage to save game progress,
+        scores, coins and preferences directly on your device.
+      </p>
+
+      <p>
+        This information generally remains in your browser unless you
+        clear your browser data or otherwise remove it. Clearing local
+        storage may result in losing saved game progress.
+      </p>
+
+      <h2>4. Cookies and Tracking</h2>
+
+      <p>
+        WOBBLE does not currently intentionally use advertising cookies
+        or third-party analytics tracking scripts.
+      </p>
+
+      <p>
+        Browser local storage used for game functionality is different
+        from traditional cookies. Third-party services involved in
+        hosting or operating the website may have their own technologies
+        and data practices.
+      </p>
+
+      <h2>5. Third-Party Services</h2>
+
+      <p>
+        WOBBLE is currently hosted using GitHub Pages, a hosting service
+        provided by GitHub. When you visit our website, your connection
+        may be processed by GitHub and its infrastructure.
+      </p>
+
+      <p>
+        GitHub has its own privacy practices. You can read its
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement"
+           target="_blank" rel="noopener noreferrer">
+          Privacy Statement
+        </a>.
+      </p>
+
+      <h2>6. Advertising and In-Game Purchases</h2>
+
+      <p>
+        WOBBLE does not currently display advertisements or offer
+        in-game purchases through an integrated payment system.
+      </p>
+
+      <p>
+        In the future, we may introduce advertising services,
+        optional rewarded advertisements and optional purchases
+        such as cosmetic upgrades, themes or additional game features.
+      </p>
+
+      <p>
+        If these services are introduced, this Privacy Policy will be
+        updated to explain the relevant third-party providers,
+        information processing and available choices.
+      </p>
+
+      <h2>7. Children's Privacy</h2>
+
+      <p>
+        WOBBLE is intended as a casual gaming website for a general
+        audience. We do not knowingly request personal information
+        directly from children.
+      </p>
+
+      <p>
+        If we become aware that personal information has been collected
+        from a child in circumstances where it should not have been,
+        we will take appropriate steps to address the situation.
+      </p>
+
+      <h2>8. Changes to This Privacy Policy</h2>
+
+      <p>
+        We may update this Privacy Policy as WOBBLE develops or
+        introduces new features and services.
+      </p>
+
+      <p>
+        Any changes will be published on this page, together with
+        an updated revision date.
+      </p>
+
+      <h2>9. Contact</h2>
+
+      <p>
+        If you have questions, requests or concerns about this Privacy
+        Policy or how information is handled, you can contact WOBBLE
+        using the email address below.
+      </p>
+
+      <p>
+        Email:
+        <a href="mailto:wobblearcade@outlook.com">
+          wobblearcade@outlook.com
         </a>
-        <a href="./quiz.html" class="game-card pink-card">
-          <div class="game-icon">⚡</div>
-          <h3>Quick Quiz</h3>
-          <p>Answer questions, race against time and conquer different challenges.</p>
-          <span class="play-label">PLAY NOW →</span>
-        </a>
-        <a href="./wordrush.html" class="game-card teal-card">
-          <div class="game-icon">🔤</div>
-          <h3>Word Rush</h3>
-          <p>Unscramble words, beat the clock, build streaks and test your vocabulary.</p>
-          <span class="play-label">PLAY NOW →</span>
-        </a>
-        <a href="./hoop.html" class="game-card gold-card">
-          <div class="game-icon">🍩</div>
-          <h3>HOOP</h3>
-          <p>Drag colourful donuts, sort them by colour and conquer new levels!</p>
-          <span class="play-label">PLAY NOW →</span>
-        </a>
+      </p>
 
-      </div>
-    </section>
+      <p>
+        We will use the information you provide when contacting us
+        to respond to your enquiry.
+      </p>
 
-    <div class="bottom-message">
-      More challenges. More levels. More fun. ✨
-    </div>
-  </main>
+      <a href="./index.html" class="home-link">
+        ← Back to WOBBLE
+      </a>
 
-  <footer>
-    WOBBLE © 2026 · Play. Challenge. Repeat.
+    </main>
 
-    <div class="footer-links">
-      <a href="./privacy.html">Privacy Policy</a>
-    </div>
-  </footer>
+    <footer>
+      WOBBLE © 2026 · Play. Challenge. Repeat.
+    </footer>
+
+  </div>
 </body>
 </html>
