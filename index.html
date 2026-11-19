@@ -4,27 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="google-site-verification" content="soGN1aqQh5mqHA8yggzW1lHdHhXOuGFvrC37x3wj4jk" />
-
   <meta name="theme-color" content="#17172b">
-
-  <meta name="description" content="Play free online games at WOBBLE ARCADE! Enjoy fun puzzles, memory challenges, quizzes and word games. Play, challenge yourself and beat your best scores.">
-
-  <link rel="canonical" href="https://masego101-coder.github.io/wobble/">
-
-  <title>WOBBLE ARCADE - Free Online Games, Puzzles & Challenges</title>
-
-  <!-- Social Sharing -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="WOBBLE ARCADE | Play. Challenge. Repeat.">
-  <meta property="og:description" content="Discover fun free online games, brain challenges, puzzles, quizzes and more at WOBBLE ARCADE.">
-  <meta property="og:url" content="https://masego101-coder.github.io/wobble/">
-  <meta property="og:site_name" content="WOBBLE ARCADE">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="WOBBLE ARCADE | Play. Challenge. Repeat.">
-  <meta name="twitter:description" content="Play fun online games and challenge your brain with WOBBLE ARCADE.">
+  <meta name="description" content="Welcome to WOBBLE Arcade. Play, challenge yourself and beat your best scores.">
+  <title>WOBBLE | Play. Challenge. Repeat.</title>
 
   <style>
     * {
@@ -32,27 +14,10 @@
       margin: 0;
       padding: 0;
     }
-
-    :root {
-      --bg: #17172b;
-      --panel: #25243f;
-      --purple: #a78bfa;
-      --pink: #ff4f87;
-      --teal: #20d6c2;
-      --gold: #ffc857;
-      --muted: #aaa8bf;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       font-family: Arial, sans-serif;
-      background:
-        radial-gradient(ellipse at 50% 0%, #30274f 0%, transparent 45%),
-        var(--bg);
-      color: #fff;
+      background: #17172b;
+      color: #ffffff;
       min-height: 100vh;
     }
 
@@ -60,159 +25,65 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 21px 7%;
+      padding: 22px 7%;
       border-bottom: 1px solid #34334d;
-      background: rgba(23, 23, 43, 0.85);
     }
 
     .logo {
-      font-size: 27px;
+      font-size: 28px;
       font-weight: 900;
       letter-spacing: 2px;
-      color: var(--purple);
+      color: #a78bfa;
     }
-
     .header-tag {
-      color: var(--teal);
-      font-size: 11px;
+      color: #20d6c2;
+      font-size: 12px;
       font-weight: bold;
-      letter-spacing: 2px;
-      border: 1px solid #285b5b;
-      border-radius: 30px;
-      padding: 9px 13px;
+      letter-spacing: 1px;
     }
 
     main {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1050px;
       margin: auto;
-      padding: 42px 7% 35px;
+      padding: 45px 7%;
     }
 
     .hero {
-      position: relative;
-      overflow: hidden;
       text-align: center;
-      padding: 68px 25px;
-      border-radius: 25px;
-      background: linear-gradient(135deg, #30274f, #25243f 65%, #30213e);
-      border: 1px solid #51446f;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+      padding: 55px 20px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #292646, #25243f);
+      border: 1px solid #403b61;
     }
-
-    .hero::before,
-    .hero::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero::before {
-      width: 190px;
-      height: 190px;
-      border: 25px solid rgba(167, 139, 250, 0.08);
-      top: -85px;
-      left: -65px;
-    }
-
-    .hero::after {
-      width: 150px;
-      height: 150px;
-      border: 20px solid rgba(32, 214, 194, 0.07);
-      bottom: -80px;
-      right: -45px;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-
     .hero-label {
-      display: inline-block;
-      color: var(--teal);
-      font-size: 11px;
+      display: block;
+      color: #20d6c2;
+      font-size: 12px;
       font-weight: bold;
       letter-spacing: 3px;
-      margin-bottom: 20px;
-      border: 1px solid #285b5b;
-      border-radius: 30px;
-      padding: 9px 15px;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
-      font-size: clamp(43px, 9vw, 72px);
-      font-weight: 900;
-      letter-spacing: -2px;
-      margin-bottom: 17px;
-      line-height: 1.08;
+      font-size: clamp(38px, 8vw, 62px);
+      margin-bottom: 15px;
     }
 
     .hero h1 span {
-      color: var(--purple);
+      color: #a78bfa;
     }
 
     .hero p {
       color: #c5c2d8;
-      line-height: 1.8;
+      line-height: 1.7;
       font-size: 15px;
-      max-width: 470px;
-      margin: 0 auto;
     }
-
-    .hero-button {
-      display: inline-block;
-      margin-top: 29px;
-      padding: 15px 27px;
-      border-radius: 12px;
-      background: var(--purple);
-      color: #17172b;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-decoration: none;
-      box-shadow: 0 7px 22px rgba(167, 139, 250, 0.22);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .hero-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(167, 139, 250, 0.35);
-    }
-
-    .arcade-stats {
-      display: flex;
-      justify-content: center;
-      gap: 35px;
-      margin: 30px 0 43px;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat strong {
-      display: block;
-      color: var(--purple);
-      font-size: 21px;
-      margin-bottom: 5px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      font-weight: bold;
-    }
-
     .section-heading {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 0 0 20px;
-      gap: 12px;
+      margin: 45px 0 20px;
     }
 
     .section-heading h2 {
@@ -220,10 +91,8 @@
     }
 
     .section-heading span {
-      color: var(--teal);
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 1px;
+      color: #aaa8bf;
+      font-size: 12px;
     }
 
     .games-grid {
@@ -231,270 +100,168 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
     }
-
     .game-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      min-height: 225px;
+      display: block;
       padding: 25px;
-      background: linear-gradient(145deg, #2b2948, #22213a);
+      min-height: 205px;
+      background: #25243f;
       border: 1px solid #3b3858;
-      border-radius: 19px;
+      border-radius: 18px;
       color: white;
       text-decoration: none;
-      overflow: hidden;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
-    .game-card:hover {
+    a.game-card:hover {
       transform: translateY(-5px);
-      border-color: var(--card-color);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+      border-color: #a78bfa;
     }
 
-    .game-card:active {
-      transform: scale(0.98);
-    }
-
-    .game-card:focus-visible {
-      outline: 3px solid var(--teal);
+    a.game-card:focus-visible {
+      outline: 3px solid #20d6c2;
       outline-offset: 4px;
     }
-
-    .game-card::after {
-      content: "";
-      position: absolute;
-      width: 125px;
-      height: 125px;
-      right: -45px;
-      top: -45px;
-      border-radius: 50%;
-      background: var(--card-color);
-      opacity: 0.07;
-      pointer-events: none;
-    }
-
     .game-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 57px;
-      height: 57px;
-      border-radius: 16px;
-      background: var(--icon-bg);
-      font-size: 29px;
-      margin-bottom: 19px;
+      font-size: 35px;
+      margin-bottom: 17px;
     }
 
     .game-card h3 {
-      font-size: 20px;
+      font-size: 19px;
       margin-bottom: 10px;
     }
 
     .game-card p {
       color: #b8b5cc;
       font-size: 13px;
-      line-height: 1.7;
-      margin-bottom: 20px;
-      flex-grow: 1;
+      line-height: 1.6;
+      margin-bottom: 17px;
     }
 
     .play-label {
       display: inline-block;
-      color: var(--card-color);
+      color: #20d6c2;
       font-size: 11px;
-      font-weight: 900;
+      font-weight: bold;
       letter-spacing: 1px;
     }
 
     .purple-card {
-      --card-color: #a78bfa;
-      --icon-bg: rgba(167, 139, 250, 0.15);
+      border-top: 3px solid #a78bfa;
     }
-
     .pink-card {
-      --card-color: #ff4f87;
-      --icon-bg: rgba(255, 79, 135, 0.15);
+      border-top: 3px solid #ff4f87;
     }
 
     .teal-card {
-      --card-color: #20d6c2;
-      --icon-bg: rgba(32, 214, 194, 0.15);
+      border-top: 3px solid #20d6c2;
     }
 
     .gold-card {
-      --card-color: #ffc857;
-      --icon-bg: rgba(255, 200, 87, 0.15);
+      border-top: 3px solid #ffc857;
     }
 
     .bottom-message {
       text-align: center;
-      margin: 42px 0 15px;
-      color: var(--muted);
+      margin: 40px 0 15px;
+      color: #aaa8bf;
       font-size: 13px;
-      line-height: 1.8;
-    }
-
-    .bottom-message strong {
-      color: var(--purple);
     }
 
     footer {
       text-align: center;
-      padding: 26px 15px;
+      padding: 25px 15px;
       border-top: 1px solid #34334d;
       color: #77758e;
       font-size: 12px;
     }
 
-    @media (max-width: 600px) {
-      header {
-        padding: 18px 5%;
-      }
+    .footer-links {
+      margin-top: 12px;
+    }
 
-      .logo {
-        font-size: 24px;
+    .footer-links a {
+      color: #a78bfa;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #20d6c2;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 550px) {
+      header {
+        padding: 19px 5%;
       }
 
       main {
-        padding: 27px 5% 30px;
-      }
-
-      .hero {
-        padding: 51px 17px;
-        border-radius: 20px;
-      }
-
-      .hero h1 {
-        font-size: clamp(40px, 11vw, 56px);
-      }
-
-      .hero p {
-        font-size: 14px;
-      }
-
-      .arcade-stats {
-        gap: 22px;
-        margin: 25px 0 37px;
-      }
-
-      .stat strong {
-        font-size: 19px;
+        padding: 30px 5%;
       }
 
       .games-grid {
         grid-template-columns: 1fr;
-        gap: 14px;
       }
 
-      .game-card {
-        min-height: 205px;
-        padding: 23px;
+      .hero {
+        padding: 42px 18px;
       }
 
       .section-heading h2 {
         font-size: 20px;
       }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *, *::before, *::after {
-        transition-duration: 0.01ms !important;
-      }
-    }
   </style>
 </head>
 
 <body>
-
   <header>
     <div class="logo">WOBBLE.</div>
     <div class="header-tag">⚡ ARCADE</div>
   </header>
-
   <main>
-
     <section class="hero">
-      <div class="hero-content">
-        <div class="hero-label">✦ WELCOME TO WOBBLE ✦</div>
+      <div class="hero-label">WELCOME TO WOBBLE</div>
 
-        <h1>Ready to <span>play?</span></h1>
+      <h1>Ready to <span>play?</span></h1>
 
-        <p>
-          Think fast. Play smart. Challenge yourself.
-          Four games, endless fun.
-          How high can you score?
-        </p>
-
-        <a href="#games" class="hero-button">EXPLORE GAMES ↓</a>
-      </div>
+      <p>
+        Think fast. Play smart. Challenge yourself.
+        <br>
+        How high can you score?
+      </p>
     </section>
 
-    <section class="arcade-stats">
-      <div class="stat">
-        <strong>04</strong>
-        <span>GAMES</span>
-      </div>
-
-      <div class="stat">
-        <strong>∞</strong>
-        <span>CHALLENGES</span>
-      </div>
-
-      <div class="stat">
-        <strong>100%</strong>
-        <span>FUN</span>
-      </div>
-    </section>
-
-    <section id="games">
-
+    <section>
       <div class="section-heading">
-        <h2>Choose your game</h2>
-        <span>04 GAMES AVAILABLE</span>
+        <h2>Explore our games</h2>
+        <span>4 GAMES</span>
       </div>
 
       <div class="games-grid">
-
         <a href="./memory.html" class="game-card purple-card">
           <div class="game-icon">🧠</div>
           <h3>Memory Blitz</h3>
-          <p>
-            Flip the cards, find matching pairs and put your memory to the test.
-          </p>
+          <p>Test your memory, match the cards and beat your best score.</p>
           <span class="play-label">PLAY NOW →</span>
         </a>
-
         <a href="./quiz.html" class="game-card pink-card">
           <div class="game-icon">⚡</div>
           <h3>Quick Quiz</h3>
-          <p>
-            Test your knowledge, answer questions and see how far you can go.
-          </p>
+          <p>Answer questions, race against time and conquer different challenges.</p>
           <span class="play-label">PLAY NOW →</span>
         </a>
-
         <a href="./wordrush.html" class="game-card teal-card">
           <div class="game-icon">🔤</div>
           <h3>Word Rush</h3>
-          <p>
-            Unscramble mixed-up letters, discover words and beat the challenge.
-          </p>
+          <p>Unscramble words, beat the clock, build streaks and test your vocabulary.</p>
           <span class="play-label">PLAY NOW →</span>
         </a>
-
         <a href="./hoop.html" class="game-card gold-card">
           <div class="game-icon">🍩</div>
           <h3>HOOP</h3>
-          <p>
-            Sort colourful donuts, plan your moves and unlock new challenges.
-          </p>
+          <p>Drag colourful donuts, sort them by colour and conquer new levels!</p>
           <span class="play-label">PLAY NOW →</span>
         </a>
 
@@ -502,15 +269,16 @@
     </section>
 
     <div class="bottom-message">
-      Made for curious minds and playful moments.<br>
-      <strong>Play. Challenge. Repeat.</strong> ✨
+      More challenges. More levels. More fun. ✨
     </div>
-
   </main>
 
   <footer>
-    WOBBLE © 2026 · All games, all fun.
-  </footer>
+    WOBBLE © 2026 · Play. Challenge. Repeat.
 
+    <div class="footer-links">
+      <a href="./privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
 </body>
 </html>
