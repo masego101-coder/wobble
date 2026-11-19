@@ -18,16 +18,19 @@
   --muted: #aaa7c5;
 }
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   min-height: 100vh;
-  padding: 20px 14px 40px;
+  padding: 20px 12px 40px;
   background: radial-gradient(circle at top, #292044, var(--bg) 60%);
   color: var(--text);
   font-family: Arial, sans-serif;
   text-align: center;
 }
+
 a { color: var(--light); text-decoration: none; }
+
 .back {
   display: block;
   max-width: 520px;
@@ -35,12 +38,15 @@ a { color: var(--light); text-decoration: none; }
   text-align: left;
   font-weight: bold;
 }
+
 header { margin: 10px auto 22px; }
+
 .logo {
   font-size: 25px;
   font-weight: 900;
   letter-spacing: 2px;
 }
+
 .eyebrow {
   color: var(--teal);
   font-size: 12px;
@@ -48,17 +54,21 @@ header { margin: 10px auto 22px; }
   font-weight: bold;
   margin-top: 8px;
 }
+
 h1 {
-  font-size: clamp(32px, 8vw, 48px);
+  font-size: clamp(32px, 8vw, 46px);
   margin: 12px 0 8px;
 }
+
 .subtitle {
   color: var(--muted);
   margin: 0 auto;
   max-width: 420px;
   line-height: 1.5;
 }
+
 .container { max-width: 520px; margin: auto; }
+
 .panel {
   background: rgba(34,34,61,.94);
   border: 1px solid rgba(167,139,250,.22);
@@ -67,142 +77,205 @@ h1 {
   margin: 16px 0;
   box-shadow: 0 12px 30px rgba(0,0,0,.18);
 }
-h2 { margin: 4px 0 14px; font-size: 22px; }
-.modes {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 11px;
+
+h2 { margin: 4px 0 12px; font-size: 23px; }
+
+.menu-icon {
+  font-size: 54px;
+  margin: 12px 0;
 }
-.mode {
-  width: 100%;
-  border: 1px solid #51466f;
-  border-radius: 14px;
-  padding: 15px;
-  background: #2b2948;
-  color: var(--text);
-  text-align: left;
+
+.instructions {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 390px;
+  margin: 12px auto 20px;
+}
+
+.instructions strong { color: var(--light); }
+
+.primary, .secondary, .teal-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
 }
-.mode strong { display: block; font-size: 17px; margin-bottom: 5px; }
-.mode span { color: var(--muted); font-size: 13px; line-height: 1.4; }
-.mode:hover { border-color: var(--teal); }
+
+.primary { background: var(--purple); color: white; }
+.secondary { background: #393454; color: white; }
+.teal-button { background: var(--teal); color: #14202a; }
+
+button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  margin-bottom: 14px;
+  margin-bottom: 15px;
 }
+
 .stat {
   background: #19192e;
   border-radius: 12px;
-  padding: 11px 5px;
+  padding: 11px 4px;
 }
+
 .stat strong {
   display: block;
   color: var(--gold);
   font-size: 22px;
   margin-bottom: 4px;
 }
+
 .stat span {
   color: var(--muted);
   font-size: 10px;
   letter-spacing: 1px;
 }
-.progress-wrap {
-  height: 8px;
-  background: #17172b;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 10px 0 16px;
-}
-.progress {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--purple), var(--teal));
-  transition: width .25s;
-}
+
 .message {
-  min-height: 24px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--light);
   font-weight: bold;
-  margin: 10px 0 14px;
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 8px 0 12px;
 }
+
 .board {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: clamp(4px, 1.4vw, 8px);
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 3px;
   width: 100%;
-  max-width: 440px;
+  max-width: 430px;
   margin: 0 auto;
-  padding: 10px;
-  background: #17172b;
-  border-radius: 17px;
+  padding: 7px;
+  background: #131326;
   border: 1px solid #393454;
+  border-radius: 13px;
   touch-action: manipulation;
 }
-.gem {
+
+.cell {
   aspect-ratio: 1;
-  border: 2px solid rgba(255,255,255,.18);
-  border-radius: 13px;
-  display: grid;
-  place-items: center;
-  font-size: clamp(17px, 5vw, 27px);
+  min-width: 0;
+  border-radius: 3px;
+  background: #302e4b;
+  border: 1px solid rgba(255,255,255,.035);
   cursor: pointer;
-  user-select: none;
-  transition: transform .12s, filter .12s, border-color .12s;
-  box-shadow: inset 0 -4px 0 rgba(0,0,0,.18), 0 3px 7px rgba(0,0,0,.2);
+  padding: 0;
 }
-.gem:active { transform: scale(.91); }
-.gem.selected {
-  border: 3px solid white;
-  transform: scale(.91);
-  filter: brightness(1.25);
-  box-shadow: 0 0 13px white;
+
+.cell.filled {
+  background: var(--cell-color);
+  border: 1px solid rgba(255,255,255,.24);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,.17);
 }
-.gem.empty { visibility: hidden; }
+
+.cell:active { filter: brightness(1.25); }
+
+.piece-heading {
+  margin: 18px 0 10px;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: bold;
+}
+
+.pieces {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.piece-card {
+  min-width: 0;
+  min-height: 88px;
+  padding: 9px 3px;
+  background: #19192e;
+  border: 2px solid #393454;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.piece-card.selected {
+  border-color: var(--teal);
+  background: #25364a;
+  box-shadow: 0 0 12px rgba(32,214,194,.25);
+}
+
+.piece-card.used {
+  opacity: .2;
+  cursor: default;
+}
+
+.piece-grid {
+  display: grid;
+  gap: 2px;
+  justify-content: center;
+}
+
+.mini-cell {
+  width: clamp(7px, 2.5vw, 13px);
+  height: clamp(7px, 2.5vw, 13px);
+  border-radius: 2px;
+}
+
+.piece-label {
+  font-size: 10px;
+  color: var(--muted);
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 9px;
   margin-top: 16px;
 }
-button {
-  border: 0;
-  border-radius: 12px;
-  padding: 12px 18px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.primary { background: var(--purple); color: white; }
-.secondary { background: #393454; color: white; }
-.teal { background: var(--teal); color: #14202a; }
-.hidden { display: none !important; }
+
 .help {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.6;
-  margin: 14px auto 0;
+  margin: 13px auto 0;
   max-width: 390px;
 }
+
 .result-score {
   color: var(--gold);
   font-size: 42px;
   font-weight: 900;
   margin: 12px 0;
 }
+
+.hidden { display: none !important; }
+
 footer {
   color: #77748f;
   font-size: 12px;
   margin: 28px auto 0;
 }
+
 @media (max-width: 360px) {
-  body { padding-left: 8px; padding-right: 8px; }
-  .panel { padding: 12px; }
-  .board { padding: 6px; gap: 3px; }
-  .gem { border-radius: 9px; }
+  body { padding-left: 7px; padding-right: 7px; }
+  .panel { padding: 12px 9px; }
+  .board { gap: 2px; padding: 5px; }
+  .pieces { gap: 5px; }
 }
 </style>
 </head>
@@ -214,424 +287,424 @@ footer {
   <div class="logo">WOBBLE.</div>
   <div class="eyebrow">⚡ ARCADE PRESENTS</div>
   <h1>🎯 MATCH MANIA</h1>
-  <p class="subtitle">Swap gems. Make matches. Clear the board and chase your high score!</p>
+  <p class="subtitle">Fit the blocks. Clear the lines. Beat your best score!</p>
 </header>
 
 <main class="container">
+
   <section id="menu" class="panel">
-    <h2>Choose your game mode</h2>
-    <div class="modes">
-      <button class="mode" onclick="startGame('classic')">
-        <strong>💎 Classic Mode</strong>
-        <span>30 moves. No timer. Reach the target score!</span>
-      </button>
-      <button class="mode" onclick="startGame('time')">
-        <strong>⚡ Time Challenge</strong>
-        <span>60 seconds to make as many matches as you can.</span>
-      </button>
-      <button class="mode" onclick="startGame('level')">
-        <strong>🏆 Level Mode</strong>
-        <span>10 levels with growing score targets. Can you beat them all?</span>
-      </button>
-    </div>
-    <p class="help">Tap one gem, then tap a neighbouring gem to swap them. Match three or more gems of the same colour.</p>
+    <div class="menu-icon">🧩</div>
+    <h2>Ready to puzzle?</h2>
+    <p class="instructions">
+      Place colourful block shapes onto the board. Complete a full
+      <strong>row or column</strong> to clear it and earn points.
+      Keep the board open for as long as you can!
+    </p>
+    <button class="primary" onclick="startGame()">PLAY NOW →</button>
+    <p class="help">No timer. No rush. Just you and the puzzle.</p>
+    <p class="help">🏆 Best score: <strong id="menuBest">0</strong></p>
   </section>
 
   <section id="game" class="panel hidden">
     <div class="stats">
-      <div class="stat"><strong id="score">0</strong><span>SCORE</span></div>
-      <div class="stat"><strong id="moves">30</strong><span id="movesLabel">MOVES LEFT</span></div>
-      <div class="stat"><strong id="target">500</strong><span id="targetLabel">TARGET</span></div>
+      <div class="stat">
+        <strong id="score">0</strong>
+        <span>SCORE</span>
+      </div>
+      <div class="stat">
+        <strong id="lines">0</strong>
+        <span>LINES CLEARED</span>
+      </div>
+      <div class="stat">
+        <strong id="best">0</strong>
+        <span>BEST SCORE</span>
+      </div>
     </div>
-    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
-    <div class="message" id="message">Make your first match!</div>
-    <div class="board" id="board" aria-label="Match Mania game board"></div>
+
+    <div class="message" id="message">Choose a block to get started!</div>
+
+    <div class="board" id="board" aria-label="Block puzzle board"></div>
+
+    <div class="piece-heading">TAP A BLOCK TO SELECT IT</div>
+    <div class="pieces" id="pieces"></div>
+
+    <p class="help">
+      First tap a block shape. Then tap the board where you want its
+      top-left corner to go. Complete full rows or columns to clear them!
+    </p>
+
     <div class="controls">
       <button class="secondary" onclick="restartGame()">↻ Restart</button>
       <button class="secondary" onclick="backToMenu()">← Game Menu</button>
     </div>
-    <p class="help">Only swaps that create a match count. Bigger matches and chain reactions earn extra points!</p>
   </section>
 
   <section id="result" class="panel hidden">
-    <h2 id="resultTitle">Game Over!</h2>
-    <p id="resultMessage">Great effort!</p>
+    <div class="menu-icon">🧩</div>
+    <h2>Game Over!</h2>
+    <p id="resultMessage" class="instructions">
+      There are no more spaces for your blocks.
+    </p>
     <div class="result-score" id="finalScore">0</div>
-    <p id="bestDisplay" class="help"></p>
+    <p class="help" id="finalBest"></p>
     <div class="controls">
-      <button class="primary" onclick="restartGame()">Play Again</button>
-      <button class="secondary" onclick="backToMenu()">Game Menu</button>
+      <button class="primary" onclick="startGame()">PLAY AGAIN</button>
+      <button class="secondary" onclick="backToMenu()">GAME MENU</button>
     </div>
   </section>
+
 </main>
 
 <footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
 
 <script>
-const SIZE = 7;
-const TYPES = [
-  { symbol: "●", color: "#FF4F87" },
-  { symbol: "◆", color: "#8B5CF6" },
-  { symbol: "▲", color: "#20D6C2" },
-  { symbol: "■", color: "#FFC857" },
-  { symbol: "✦", color: "#55A7FF" },
-  { symbol: "⬟", color: "#FF914D" }
+const SIZE = 10;
+
+const COLORS = [
+  "#8B5CF6",
+  "#20D6C2",
+  "#FF4F87",
+  "#FFC857",
+  "#55A7FF",
+  "#FF914D"
 ];
 
-const LEVEL_TARGETS = [400, 600, 800, 1000, 1250, 1500, 1800, 2100, 2500, 3000];
+// Each shape is a collection of squares.
+// Shapes do not rotate in this version.
+const SHAPES = [
+  { name: "Single", cells: [[0,0]] },
+  { name: "Two", cells: [[0,0],[0,1]] },
+  { name: "Three Line", cells: [[0,0],[0,1],[0,2]] },
+  { name: "Four Line", cells: [[0,0],[0,1],[0,2],[0,3]] },
+  { name: "Five Line", cells: [[0,0],[0,1],[0,2],[0,3],[0,4]] },
+
+  { name: "Small Square", cells: [[0,0],[0,1],[1,0],[1,1]] },
+  { name: "Big Square", cells: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]] },
+
+  { name: "L Shape", cells: [[0,0],[1,0],[2,0],[2,1]] },
+  { name: "Reverse L", cells: [[0,1],[1,1],[2,0],[2,1]] },
+  { name: "T Shape", cells: [[0,0],[0,1],[0,2],[1,1]] },
+  { name: "Plus", cells: [[0,1],[1,0],[1,1],[1,2],[2,1]] },
+  { name: "Zigzag", cells: [[0,0],[0,1],[1,1],[1,2]] },
+  { name: "Reverse Zigzag", cells: [[0,1],[0,2],[1,0],[1,1]] },
+  { name: "Corner", cells: [[0,0],[1,0],[1,1]] },
+  { name: "Small Corner", cells: [[0,0],[0,1],[1,0]] },
+  { name: "Step", cells: [[0,0],[1,0],[1,1],[2,1]] }
+];
 
 let board = [];
-let selected = null;
-let mode = "classic";
+let pieces = [];
+let selectedPiece = null;
 let score = 0;
-let moves = 30;
-let level = 1;
-let levelScore = 0;
-let timeLeft = 60;
-let timer = null;
-let ended = false;
-let busy = false;
-let best = Number(localStorage.getItem("wobbleMatchBest") || 0);
+let linesCleared = 0;
+let bestScore = Number(localStorage.getItem("wobbleBlockBest") || 0);
+let gameOver = false;
+let pieceColorCounter = 0;
 
-const $ = id => document.getElementById(id);
-
-function randomGem() {
-  return Math.floor(Math.random() * TYPES.length);
-}
-
-function makeBoard() {
-  board = [];
-  for (let r = 0; r < SIZE; r++) {
-    board[r] = [];
-    for (let c = 0; c < SIZE; c++) {
-      let gem;
-      do {
-        gem = randomGem();
-      } while (
-        (c >= 2 && board[r][c - 1] === gem && board[r][c - 2] === gem) ||
-        (r >= 2 && board[r - 1][c] === gem && board[r - 2][c] === gem)
-      );
-      board[r][c] = gem;
-    }
-  }
-  if (!hasPossibleMove()) makeBoard();
-}
-
-function startGame(selectedMode) {
-  mode = selectedMode;
+function startGame() {
+  board = Array.from({ length: SIZE }, () => Array(SIZE).fill(0));
+  pieces = [];
+  selectedPiece = null;
   score = 0;
-  levelScore = 0;
-  level = 1;
-  moves = mode === "time" ? 0 : mode === "level" ? 25 : 30;
-  timeLeft = 60;
-  ended = false;
-  busy = false;
-  selected = null;
+  linesCleared = 0;
+  gameOver = false;
+  pieceColorCounter = 0;
 
   $("menu").classList.add("hidden");
   $("result").classList.add("hidden");
   $("game").classList.remove("hidden");
 
-  makeBoard();
+  dealPieces();
   updateStats();
   renderBoard();
+  renderPieces();
 
-  $("message").textContent = mode === "time"
-    ? "You have 60 seconds. Go!"
-    : "Find a match of three or more!";
-
-  clearInterval(timer);
-  if (mode === "time") {
-    timer = setInterval(() => {
-      if (ended) return;
-      timeLeft--;
-      updateStats();
-      if (timeLeft <= 0) finishGame(false, "Time's up!");
-    }, 1000);
-  }
+  $("message").textContent = "Choose a block, then choose where to place it!";
 }
 
 function restartGame() {
-  startGame(mode);
+  startGame();
 }
 
 function backToMenu() {
-  clearInterval(timer);
-  ended = true;
+  gameOver = true;
   $("game").classList.add("hidden");
   $("result").classList.add("hidden");
   $("menu").classList.remove("hidden");
+  $("menuBest").textContent = bestScore;
+}
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function dealPieces() {
+  pieces = [];
+
+  for (let i = 0; i < 3; i++) {
+    const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+
+    pieces.push({
+      name: shape.name,
+      cells: shape.cells.map(cell => [...cell]),
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      used: false
+    });
+  }
+
+  selectedPiece = null;
 }
 
 function renderBoard() {
-  const el = $("board");
-  el.innerHTML = "";
+  const boardElement = $("board");
+  boardElement.innerHTML = "";
 
   for (let r = 0; r < SIZE; r++) {
     for (let c = 0; c < SIZE; c++) {
-      const gem = document.createElement("button");
-      gem.className = "gem";
-      gem.type = "button";
-      gem.dataset.row = r;
-      gem.dataset.col = c;
+      const cell = document.createElement("button");
+      cell.type = "button";
+      cell.className = "cell";
+      cell.setAttribute("aria-label", "Row " + (r + 1) + ", column " + (c + 1));
 
-      const type = TYPES[board[r][c]];
-      gem.textContent = type.symbol;
-      gem.style.background = type.color;
-      gem.style.color = "#fff";
-      gem.setAttribute("aria-label", "Gem");
-
-      if (selected && selected.r === r && selected.c === c) {
-        gem.classList.add("selected");
+      if (board[r][c] !== 0) {
+        cell.classList.add("filled");
+        cell.style.setProperty("--cell-color", board[r][c]);
       }
-      gem.addEventListener("click", () => chooseGem(r, c));
-      el.appendChild(gem);
+
+      cell.addEventListener("click", () => placePiece(r, c));
+      boardElement.appendChild(cell);
     }
   }
 }
 
-function chooseGem(r, c) {
-  if (ended || busy) return;
+function renderPieces() {
+  const piecesElement = $("pieces");
+  piecesElement.innerHTML = "";
 
-  if (!selected) {
-    selected = { r, c };
-    renderBoard();
-    return;
-  }
+  pieces.forEach((piece, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "piece-card";
 
-  if (selected.r === r && selected.c === c) {
-    selected = null;
-    renderBoard();
-    return;
-  }
+    if (piece.used) button.classList.add("used");
+    if (selectedPiece === index) button.classList.add("selected");
 
-  const distance = Math.abs(selected.r - r) + Math.abs(selected.c - c);
+    button.disabled = piece.used || gameOver;
 
-  if (distance !== 1) {
-    selected = { r, c };
-    renderBoard();
-    return;
-  }
+    const height = Math.max(...piece.cells.map(cell => cell[0])) + 1;
+    const width = Math.max(...piece.cells.map(cell => cell[1])) + 1;
 
-  const first = selected;
-  selected = null;
-  trySwap(first.r, first.c, r, c);
+    const miniGrid = document.createElement("div");
+    miniGrid.className = "piece-grid";
+    miniGrid.style.gridTemplateColumns = "repeat(" + width + ", auto)";
+
+    for (let r = 0; r < height; r++) {
+      for (let c = 0; c < width; c++) {
+        const miniCell = document.createElement("div");
+        miniCell.className = "mini-cell";
+
+        const occupied = piece.cells.some(cell => cell[0] === r && cell[1] === c);
+
+        if (occupied) {
+          miniCell.style.background = piece.color;
+        }
+
+        miniGrid.appendChild(miniCell);
+      }
+    }
+
+    const label = document.createElement("span");
+    label.className = "piece-label";
+    label.textContent = piece.used ? "USED" : piece.name;
+
+    button.appendChild(miniGrid);
+    button.appendChild(label);
+
+    button.addEventListener("click", () => selectPiece(index));
+    piecesElement.appendChild(button);
+  });
 }
 
-async function trySwap(r1, c1, r2, c2) {
-  if (busy || ended) return;
-  busy = true;
+function selectPiece(index) {
+  if (gameOver || pieces[index].used) return;
 
-  swap(r1, c1, r2, c2);
-  renderBoard();
+  selectedPiece = index;
+  $("message").textContent =
+    pieces[index].name + " selected! Tap the board to place it.";
 
-  const matches = findMatches();
+  renderPieces();
+}
 
-  if (matches.length === 0) {
-    $("message").textContent = "No match! Try another swap.";
-    await wait(220);
-    swap(r1, c1, r2, c2);
-    renderBoard();
-    busy = false;
+function canPlace(piece, row, col) {
+  for (const [r, c] of piece.cells) {
+    const newRow = row + r;
+    const newCol = col + c;
+
+    if (
+      newRow < 0 || newRow >= SIZE ||
+      newCol < 0 || newCol >= SIZE ||
+      board[newRow][newCol] !== 0
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function placePiece(row, col) {
+  if (gameOver) return;
+
+  if (selectedPiece === null) {
+    $("message").textContent = "Choose one of the three block shapes first.";
     return;
   }
 
-  if (mode !== "time") moves--;
-  else moves++;
+  const piece = pieces[selectedPiece];
 
-  await resolveMatches();
-  busy = false;
-
-  if (ended) return;
-
-  if (mode === "classic" && moves <= 0) {
-    finishGame(score >= 500, score >= 500 ? "You reached the target!" : "Out of moves!");
-  } else if (mode === "level" && moves <= 0) {
-    if (levelScore >= LEVEL_TARGETS[level - 1]) {
-      advanceLevel();
-    } else {
-      finishGame(false, "Out of moves! Keep practising.");
-    }
-  } else if (!hasPossibleMove()) {
-    makeBoard();
-    renderBoard();
-    $("message").textContent = "Fresh board! Keep matching.";
+  if (!canPlace(piece, row, col)) {
+    $("message").textContent = "That block doesn't fit there. Try another spot!";
+    return;
   }
 
+  // Place every square belonging to the selected shape.
+  piece.cells.forEach(([r, c]) => {
+    board[row + r][col + c] = piece.color;
+  });
+
+  score += piece.cells.length;
+  piece.used = true;
+  selectedPiece = null;
+
+  const cleared = clearCompletedLines();
+
+  if (cleared > 0) {
+    linesCleared += cleared;
+    score += cleared * 10;
+
+    $("message").textContent = cleared === 1
+      ? "✨ Great! You cleared a line!"
+      : "🔥 Amazing! You cleared " + cleared + " lines!";
+  } else {
+    $("message").textContent = "Nice placement! Choose your next block.";
+  }
+
+  updateBestScore();
   updateStats();
+  renderBoard();
+  renderPieces();
+
+  // When all three pieces are used, deal three new ones.
+  if (pieces.every(piece => piece.used)) {
+    dealPieces();
+    renderPieces();
+    $("message").textContent = "New blocks! Keep the puzzle going.";
+  }
+
+  // Check whether at least one available piece can still fit.
+  if (!hasAvailableMove()) {
+    finishGame();
+  }
 }
 
-function swap(r1, c1, r2, c2) {
-  const temp = board[r1][c1];
-  board[r1][c1] = board[r2][c2];
-  board[r2][c2] = temp;
-}
+function clearCompletedLines() {
+  const fullRows = [];
+  const fullCols = [];
 
-function findMatches() {
-  const found = new Set();
-
-  // Horizontal matches
   for (let r = 0; r < SIZE; r++) {
-    let start = 0;
-    while (start < SIZE) {
-      let end = start + 1;
-      while (end < SIZE && board[r][end] === board[r][start]) end++;
-      if (board[r][start] !== -1 && end - start >= 3) {
-        for (let c = start; c < end; c++) found.add(r + "," + c);
-      }
-      start = end;
+    if (board[r].every(cell => cell !== 0)) {
+      fullRows.push(r);
     }
   }
 
-  // Vertical matches
   for (let c = 0; c < SIZE; c++) {
-    let start = 0;
-    while (start < SIZE) {
-      let end = start + 1;
-      while (end < SIZE && board[end][c] === board[start][c]) end++;
-      if (board[start][c] !== -1 && end - start >= 3) {
-        for (let r = start; r < end; r++) found.add(r + "," + c);
+    let full = true;
+
+    for (let r = 0; r < SIZE; r++) {
+      if (board[r][c] === 0) {
+        full = false;
+        break;
       }
-      start = end;
     }
+
+    if (full) fullCols.push(c);
   }
 
-  return [...found].map(item => item.split(",").map(Number));
+  // Use a set so intersections are only cleared and counted once.
+  const cellsToClear = new Set();
+
+  fullRows.forEach(r => {
+    for (let c = 0; c < SIZE; c++) {
+      cellsToClear.add(r + "," + c);
+    }
+  });
+
+  fullCols.forEach(c => {
+    for (let r = 0; r < SIZE; r++) {
+      cellsToClear.add(r + "," + c);
+    }
+  });
+
+  cellsToClear.forEach(position => {
+    const [r, c] = position.split(",").map(Number);
+    board[r][c] = 0;
+  });
+
+  return fullRows.length + fullCols.length;
 }
 
-async function resolveMatches() {
-  let chain = 0;
+function hasAvailableMove() {
+  for (const piece of pieces) {
+    if (piece.used) continue;
 
-  while (true) {
-    const matches = findMatches();
-    if (matches.length === 0) break;
-
-    chain++;
-    const points = matches.length * 10 * chain;
-    score += points;
-    levelScore += points;
-
-    $("message").textContent = chain > 1
-      ? "🔥 Combo x" + chain + "! +" + points
-      : "✨ Match! +" + points;
-
-    matches.forEach(([r, c]) => {
-      board[r][c] = -1;
-    });
-
-    renderBoard();
-    updateStats();
-    await wait(180);
-
-    // Let gems fall down into empty spaces
-    for (let c = 0; c < SIZE; c++) {
-      let writeRow = SIZE - 1;
-      for (let r = SIZE - 1; r >= 0; r--) {
-        if (board[r][c] !== -1) {
-          board[writeRow][c] = board[r][c];
-          writeRow--;
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        if (canPlace(piece, r, c)) {
+          return true;
         }
       }
-      while (writeRow >= 0) {
-        board[writeRow][c] = randomGem();
-        writeRow--;
-      }
-    }
-
-    renderBoard();
-    await wait(180);
-  }
-
-  updateStats();
-  if (mode === "level" && levelScore >= LEVEL_TARGETS[level - 1]) {
-    advanceLevel();
-  }
-}
-
-function advanceLevel() {
-  if (ended) return;
-
-  if (level >= 10) {
-    finishGame(true, "Incredible! You completed all 10 levels!");
-    return;
-  }
-
-  level++;
-  levelScore = 0;
-  moves = 25;
-  makeBoard();
-  renderBoard();
-  updateStats();
-  $("message").textContent = "Level " + level + "! New target: " + LEVEL_TARGETS[level - 1];
-}
-
-function hasPossibleMove() {
-  for (let r = 0; r < SIZE; r++) {
-    for (let c = 0; c < SIZE; c++) {
-      if (c + 1 < SIZE) {
-        swap(r, c, r, c + 1);
-        const found = findMatches().length > 0;
-        swap(r, c, r, c + 1);
-        if (found) return true;
-      }
-      if (r + 1 < SIZE) {
-        swap(r, c, r + 1, c);
-        const found = findMatches().length > 0;
-        swap(r, c, r + 1, c);
-        if (found) return true;
-      }
     }
   }
+
   return false;
+}
+
+function updateBestScore() {
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem("wobbleBlockBest", bestScore);
+  }
 }
 
 function updateStats() {
   $("score").textContent = score;
-
-  if (mode === "time") {
-    $("moves").textContent = timeLeft + "s";
-    $("movesLabel").textContent = "TIME LEFT";
-    $("target").textContent = moves;
-    $("targetLabel").textContent = "SWAPS";
-    $("progress").style.width = (timeLeft / 60 * 100) + "%";
-  } else if (mode === "level") {
-    $("moves").textContent = moves;
-    $("movesLabel").textContent = "MOVES LEFT";
-    $("target").textContent = LEVEL_TARGETS[level - 1];
-    $("targetLabel").textContent = "LEVEL " + level + "/10";
-    $("progress").style.width = Math.min(100, levelScore / LEVEL_TARGETS[level - 1] * 100) + "%";
-  } else {
-    $("moves").textContent = moves;
-    $("movesLabel").textContent = "MOVES LEFT";
-    $("target").textContent = "500";
-    $("targetLabel").textContent = "TARGET";
-    $("progress").style.width = Math.min(100, score / 500 * 100) + "%";
-  }
+  $("lines").textContent = linesCleared;
+  $("best").textContent = bestScore;
+  $("menuBest").textContent = bestScore;
 }
 
-function finishGame(won, message) {
-  if (ended) return;
-  ended = true;
-  busy = false;
-  clearInterval(timer);
+function finishGame() {
+  if (gameOver) return;
 
-  if (score > best) {
-    best = score;
-    localStorage.setItem("wobbleMatchBest", best);
-  }
+  gameOver = true;
+  updateBestScore();
+  updateStats();
 
   $("game").classList.add("hidden");
   $("result").classList.remove("hidden");
 
-  $("resultTitle").textContent = won ? "🎉 Amazing!" : "💜 Game Over";
-  $("resultMessage").textContent = message;
+  $("resultMessage").textContent =
+    "No more available blocks can fit on the board. Great puzzle session!";
+
   $("finalScore").textContent = score + " points";
-  $("bestDisplay").textContent = "Your best score: " + best + " points";
+  $("finalBest").textContent =
+    "Your best score is " + bestScore + " points. You cleared " +
+    linesCleared + " lines!";
 }
 
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// Show the saved best score when the page opens.
+$("menuBest").textContent = bestScore;
 </script>
+
 </body>
 </html>
