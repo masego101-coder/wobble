@@ -82,15 +82,23 @@
     }
 
     .game-card {
+      display: block;
       padding: 24px 18px;
       border-radius: 17px;
       background: #25243f;
       border: 1px solid #393653;
       transition: transform 0.2s;
+      color: inherit;
+      text-decoration: none;
     }
 
     .game-card:hover {
       transform: translateY(-4px);
+    }
+
+    .game-card:focus-visible {
+      outline: 3px solid #20d6c2;
+      outline-offset: 4px;
     }
 
     .emoji {
@@ -144,12 +152,14 @@
 </head>
 
 <body>
+
   <header>
     <div class="logo">WOBBLE.</div>
     <div class="tag">LET'S PLAY 🎮</div>
   </header>
 
   <main>
+
     <section class="hero">
       <h1>Ready to <span>play?</span></h1>
       <p>Pick a game. Challenge yourself. Beat your best score.</p>
@@ -158,11 +168,12 @@
     <h2 class="section-title">Explore our games</h2>
 
     <section class="games">
-      <article class="game-card purple">
+
+      <a href="memory.html" class="game-card purple">
         <div class="emoji">🧠</div>
         <h3>Memory Blitz</h3>
         <p>Test your memory. How much can you remember?</p>
-      </article>
+      </a>
 
       <article class="game-card pink">
         <div class="emoji">⚡</div>
@@ -181,15 +192,16 @@
         <h3>Match Mania</h3>
         <p>Match colours and patterns to earn points.</p>
       </article>
+
     </section>
 
     <p class="coming">More games are on the way. Stay curious. ✨</p>
+
   </main>
 
   <footer>
     WOBBLE © 2026 · Play. Challenge. Repeat.
   </footer>
+
 </body>
 </html>
-
-      
