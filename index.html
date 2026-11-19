@@ -5,19 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#17172b">
-  <meta name="description" content="WOBBLE Arcade. Play games, challenge yourself and beat your best scores.">
+  <meta name="description" content="Welcome to WOBBLE Arcade. Play, challenge yourself and beat your best scores.">
   <title>WOBBLE | Play. Challenge. Repeat.</title>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
       background: #17172b;
       color: #ffffff;
+      min-height: 100vh;
     }
 
     header {
@@ -25,17 +27,17 @@
       justify-content: space-between;
       align-items: center;
       padding: 22px 7%;
-      border-bottom: 1px solid #303047;
+      border-bottom: 1px solid #34334d;
     }
 
     .logo {
       font-size: 28px;
       font-weight: 900;
-      color: #a78bfa;
       letter-spacing: 2px;
+      color: #a78bfa;
     }
 
-    .tag {
+    .header-tag {
       color: #20d6c2;
       font-size: 12px;
       font-weight: bold;
@@ -43,22 +45,32 @@
     }
 
     main {
+      width: 100%;
       max-width: 1050px;
       margin: auto;
-      padding: 55px 7%;
+      padding: 45px 7%;
     }
 
     .hero {
-      background: #25243f;
-      padding: 45px 25px;
-      border-radius: 20px;
       text-align: center;
-      border: 1px solid #393653;
+      padding: 55px 20px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #292646, #25243f);
+      border: 1px solid #403b61;
+    }
+
+    .hero-label {
+      display: block;
+      color: #20d6c2;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
-      font-size: clamp(32px, 8vw, 52px);
-      margin: 0 0 15px;
+      font-size: clamp(38px, 8vw, 62px);
+      margin-bottom: 15px;
     }
 
     .hero h1 span {
@@ -68,114 +80,136 @@
     .hero p {
       color: #c5c2d8;
       line-height: 1.7;
+      font-size: 15px;
     }
 
-    .section-title {
-      margin-top: 55px;
-      margin-bottom: 22px;
-      font-size: 24px;
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 45px 0 20px;
     }
 
-    .games {
+    .section-heading h2 {
+      font-size: 23px;
+    }
+
+    .section-heading span {
+      color: #aaa8bf;
+      font-size: 12px;
+    }
+
+    .games-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
 
     .game-card {
       display: block;
-      padding: 24px 18px;
-      border-radius: 17px;
+      padding: 25px;
+      min-height: 205px;
       background: #25243f;
-      border: 1px solid #393653;
-      color: inherit;
+      border: 1px solid #3b3858;
+      border-radius: 18px;
+      color: white;
       text-decoration: none;
       transition: transform 0.2s, border-color 0.2s;
     }
 
-    .game-card:hover {
-      transform: translateY(-4px);
+    a.game-card:hover {
+      transform: translateY(-5px);
       border-color: #a78bfa;
     }
 
-    .game-card:focus-visible {
+    a.game-card:focus-visible {
       outline: 3px solid #20d6c2;
       outline-offset: 4px;
     }
 
-    .emoji {
-      font-size: 34px;
+    .game-icon {
+      font-size: 35px;
+      margin-bottom: 17px;
     }
 
     .game-card h3 {
-      margin: 15px 0 7px;
+      font-size: 19px;
+      margin-bottom: 10px;
     }
 
     .game-card p {
-      color: #aaa8bf;
-      font-size: 14px;
-      line-height: 1.5;
+      color: #b8b5cc;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 17px;
     }
 
-    .purple {
-      border-top: 3px solid #a78bfa;
-    }
-
-    .pink {
-      border-top: 3px solid #ff4f87;
-    }
-
-    .teal {
-      border-top: 3px solid #20d6c2;
-    }
-
-    .gold {
-      border-top: 3px solid #ffc857;
-    }
-
-    .game-status {
+    .play-label {
       display: inline-block;
-      margin-top: 8px;
-      padding: 6px 10px;
-      border-radius: 20px;
-      background: #35334f;
       color: #20d6c2;
       font-size: 11px;
       font-weight: bold;
       letter-spacing: 1px;
     }
 
-    .upcoming {
-      opacity: 0.75;
-      cursor: default;
+    .purple-card {
+      border-top: 3px solid #a78bfa;
     }
 
-    .coming {
+    .pink-card {
+      border-top: 3px solid #ff4f87;
+    }
+
+    .teal-card {
+      border-top: 3px solid #20d6c2;
+    }
+
+    .gold-card {
+      border-top: 3px solid #ffc857;
+    }
+
+    .coming-soon {
+      opacity: 0.7;
+    }
+
+    .coming-soon .play-label {
+      color: #ffc857;
+    }
+
+    .bottom-message {
       text-align: center;
-      margin-top: 45px;
+      margin: 40px 0 15px;
       color: #aaa8bf;
       font-size: 13px;
     }
 
     footer {
       text-align: center;
-      padding: 25px;
+      padding: 25px 15px;
+      border-top: 1px solid #34334d;
       color: #77758e;
-      border-top: 1px solid #303047;
       font-size: 12px;
     }
 
-    @media (max-width: 480px) {
-      main {
-        padding: 35px 5%;
+    @media (max-width: 550px) {
+      header {
+        padding: 19px 5%;
       }
 
-      .games {
+      main {
+        padding: 30px 5%;
+      }
+
+      .games-grid {
         grid-template-columns: 1fr;
       }
 
-      header {
-        padding: 18px 5%;
+      .hero {
+        padding: 42px 18px;
+      }
+
+      .section-heading h2 {
+        font-size: 20px;
       }
     }
   </style>
@@ -185,51 +219,65 @@
 
   <header>
     <div class="logo">WOBBLE.</div>
-    <div class="tag">LET'S PLAY 🎮</div>
+    <div class="header-tag">⚡ ARCADE</div>
   </header>
 
   <main>
 
     <section class="hero">
+      <div class="hero-label">WELCOME TO WOBBLE</div>
+
       <h1>Ready to <span>play?</span></h1>
-      <p>Pick a game. Challenge yourself. Beat your best score.</p>
+
+      <p>
+        Think fast. Play smart. Challenge yourself.
+        <br>
+        How high can you score?
+      </p>
     </section>
 
-    <h2 class="section-title">Explore our games</h2>
+    <section>
+      <div class="section-heading">
+        <h2>Explore our games</h2>
+        <span>4 GAMES</span>
+      </div>
 
-    <section class="games">
+      <div class="games-grid">
 
-      <a href="memory.html" class="game-card purple">
-        <div class="emoji">🧠</div>
-        <h3>Memory Blitz</h3>
-        <p>Test your memory. How much can you remember?</p>
-        <span class="game-status">PLAY NOW</span>
-      </a>
+        <a href="./memory.html" class="game-card purple-card">
+          <div class="game-icon">🧠</div>
+          <h3>Memory Blitz</h3>
+          <p>Test your memory, match the cards and beat your best score.</p>
+          <span class="play-label">PLAY NOW →</span>
+        </a>
 
-      <a href="quiz.html" class="game-card pink">
-        <div class="emoji">⚡</div>
-        <h3>Quick Quiz</h3>
-        <p>Think fast, beat the clock and challenge your knowledge.</p>
-        <span class="game-status">PLAY NOW</span>
-      </a>
+        <a href="./quiz.html" class="game-card pink-card">
+          <div class="game-icon">⚡</div>
+          <h3>Quick Quiz</h3>
+          <p>Answer questions, race against time and conquer different challenges.</p>
+          <span class="play-label">PLAY NOW →</span>
+        </a>
 
-      <article class="game-card teal upcoming">
-        <div class="emoji">🔤</div>
-        <h3>Word Rush</h3>
-        <p>Find the right words before the clock runs out.</p>
-        <span class="game-status">COMING SOON</span>
-      </article>
+        <div class="game-card teal-card coming-soon">
+          <div class="game-icon">🔤</div>
+          <h3>Word Rush</h3>
+          <p>Find words, beat the clock and test your vocabulary.</p>
+          <span class="play-label">COMING SOON</span>
+        </div>
 
-      <article class="game-card gold upcoming">
-        <div class="emoji">🎯</div>
-        <h3>Match Mania</h3>
-        <p>Match colours and patterns to earn points.</p>
-        <span class="game-status">COMING SOON</span>
-      </article>
+        <div class="game-card gold-card coming-soon">
+          <div class="game-icon">🎯</div>
+          <h3>Match Mania</h3>
+          <p>Match patterns, complete challenges and earn points.</p>
+          <span class="play-label">COMING SOON</span>
+        </div>
 
+      </div>
     </section>
 
-    <p class="coming">More games are on the way. Stay curious. ✨</p>
+    <div class="bottom-message">
+      More challenges. More levels. More fun. ✨
+    </div>
 
   </main>
 
