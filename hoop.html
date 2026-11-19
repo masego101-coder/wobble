@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOOP | WOBBLE ARCADE</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;
+  font-family:Arial,sans-serif;
+  color:#fff;
+  background:radial-gradient(circle at top,#302454,#17172b 65%);
+  text-align:center;
+}
+header{padding:22px 12px 10px}
+.logo{font-size:30px;font-weight:900;letter-spacing:4px;color:#a78bfa}
+.arcade{font-size:11px;letter-spacing:3px;color:#20d6c2;margin-top:4px}
+h1{font-size:34px;margin:18px 0 6px}
+.subtitle{color:#c9c2df;font-size:14px;margin:0 12px 18px}
+.stats{
+  display:flex;justify-content:center;gap:10px;
+  flex-wrap:wrap;margin:15px auto;max-width:500px;padding:0 10px;
+}
+.stat{
+  background:#292341;border:1px solid #51436f;
+  border-radius:13px;padding:10px 16px;min-width:95px;
+}
+.stat small{display:block;color:#bdb3d8;font-size:11px;margin-bottom:5px}
+.stat strong{font-size:19px}
+.game-area{padding:10px 12px 20px;max-width:650px;margin:auto}
+.message{
+  min-height:44px;color:#20d6c2;font-weight:bold;
+  font-size:14px;padding:10px 5px;
+}
+.board{
+  display:flex;justify-content:center;align-items:flex-end;
+  gap:clamp(8px,3vw,20px);flex-wrap:wrap;
+  min-height:255px;padding:20px 8px 14px;
+  background:rgba(255,255,255,.035);
+  border:1px solid #3d3458;border-radius:20px;
+}
+.rod{
+  position:relative;width:clamp(48px,13vw,65px);
+  height:205px;display:flex;flex-direction:column-reverse;
+  align-items:center;justify-content:flex-start;
+  padding-bottom:9px;cursor:pointer;
+  border-bottom:9px solid #b78b62;
+  border-radius:0 0 9px 9px;
+  transition:transform .15s;
+}
+.rod::before{
+  content:"";position:absolute;bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:8px;height:190px;border-radius:8px;
+  background:linear-gradient(90deg,#9b704e,#e2b987,#8d6245);
+  z-index:0;
+}
+.rod.selected{filter:drop-shadow(0 0 9px #a78bfa);transform:translateY(-8px)}
+.rod.selected::after{
+  content:"SELECTED";position:absolute;top:-22px;
+  font-size:9px;color:#c4a8ff;font-weight:bold;
+}
+.ring{
+  position:relative;z-index:1;
+  width:100%;height:34px;min-height:34px;
+  border-radius:50%;border:4px solid rgba(255,255,255,.32);
+  box-shadow:inset 0 4px 5px rgba(255,255,255,.35),
+             inset 0 -5px 6px rgba(0,0,0,.2),
+             0 2px 4px rgba(0,0,0,.35);
+}
+.ring::after{
+  content:"";position:absolute;left:25%;top:4px;
+  width:50%;height:5px;border-radius:50%;
+  background:rgba(255,255,255,.35);
+}
+.rod-number{position:absolute;bottom:-25px;color:#a99fbe;font-size:11px}
+.red{background:linear-gradient(135deg,#ff8c9c,#f43f5e,#a91f43)}
+.blue{background:linear-gradient(135deg,#8bd7ff,#3196f5,#1452a8)}
+.yellow{background:linear-gradient(135deg,#fff19b,#ffc857,#d18a18)}
+.green{background:linear-gradient(135deg,#9af5c3,#20c997,#087c5b)}
+.purple{background:linear-gradient(135deg,#e2b5ff,#a855f7,#6324a8)}
+.controls{
+  display:flex;justify-content:center;gap:9px;
+  flex-wrap:wrap;margin:28px 0 12px;
+}
+button{
+  border:0;border-radius:12px;padding:12px 17px;
+  font-weight:bold;font-size:13px;cursor:pointer;
+  color:white;background:#8b5cf6;
+}
+button:active{transform:scale(.97)}
+button.secondary{background:#39304f;border:1px solid #62547e}
+button.teal{background:#159e91}
+button.gold{background:#b98220}
+button:disabled{opacity:.45;cursor:not-allowed}
+.instructions{
+  text-align:left;background:#292341;border:1px solid #51436f;
+  border-radius:16px;padding:16px;margin:22px auto;
+  max-width:500px;color:#d7d0e8;font-size:13px;line-height:1.7;
+}
+.instructions h3{color:#a78bfa;margin:0 0 7px}
+.notice{font-size:12px;color:#aaa0c4;margin:12px}
+footer{padding:20px;color:#82799c;font-size:11px}
+.modal{
+  display:none;position:fixed;inset:0;background:rgba(8,6,18,.85);
+  z-index:10;align-items:center;justify-content:center;padding:20px;
+}
+.modal-box{
+  background:#292341;border:1px solid #8065b2;border-radius:20px;
+  padding:25px;max-width:350px;width:100%;
+}
+.modal-box h2{color:#a78bfa;margin-top:0}
+.modal-box p{color:#d7d0e8;line-height:1.5;font-size:14px}
+@media(max-width:380px){
+  .board{gap:7px;padding-left:4px;padding-right:4px}
+  .rod{width:46px}
+  .ring{height:30px;min-height:30px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">WOBBLE.</div>
+  <div class="arcade">⚡ ARCADE</div>
+  <h1>HOOP</h1>
+  <p class="subtitle">Stack the colours. Sort the hoops. Beat the levels!</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><small>LEVEL</small><strong id="level">1</strong></div>
+  <div class="stat"><small>COINS</small><strong id="coins">🪙 0</strong></div>
+  <div class="stat"><small>MOVES</small><strong id="moves">0</strong></div>
+</div>
+
+<main class="game-area">
+  <div class="message" id="message">Choose a stick to pick up a hoop!</div>
+
+  <div class="board" id="board"></div>
+
+  <div class="controls">
+    <button class="secondary" onclick="undoMove()">↶ UNDO</button>
+    <button class="secondary" onclick="restartLevel()">↻ RESTART</button>
+    <button class="gold" id="extraButton" onclick="unlockRod()">🔓 EXTRA STICK</button>
+  </div>
+
+  <div class="notice" id="rodNotice">5 sticks available · Sort every colour!</div>
+
+  <div class="instructions">
+    <h3>HOW TO PLAY</h3>
+    1. Tap a stick to pick up its top hoop.<br>
+    2. Tap another stick to move the hoop.<br>
+    3. You can only move one hoop at a time.<br>
+    4. You cannot put a hoop on a full stick.<br>
+    5. Sort each colour onto its own stick to win!<br><br>
+    <strong>🪙 Earn coins</strong> by completing levels. Save 100 coins to unlock a sixth stick!
+  </div>
+</main>
+
+<div class="modal" id="winModal">
+  <div class="modal-box">
+    <h2>🎉 LEVEL COMPLETE!</h2>
+    <p id="winText">Amazing work!</p>
+    <button class="teal" onclick="nextLevel()">NEXT LEVEL →</button>
+  </div>
+</div>
+
+<div class="modal" id="unlockModal">
+  <div class="modal-box">
+    <h2>🔓 SIXTH STICK</h2>
+    <p>Unlock an extra stick for 100 coins. It will be available in all your future levels.</p>
+    <button class="gold" onclick="confirmUnlock()">UNLOCK FOR 100 🪙</button>
+    <button class="secondary" onclick="closeUnlock()" style="margin-top:9px">CANCEL</button>
+  </div>
+</div>
+
+<footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
+
+<script>
+const COLOURS = ["red","blue","yellow","green","purple"];
+const CAPACITY = 4;
+const PRICE = 100;
+const STORAGE_KEY = "wobbleHoopProgress";
+
+let progress = loadProgress();
+let levelNumber = progress.level || 1;
+let coins = progress.coins || 0;
+let extraRod = !!progress.extraRod;
+let rods = [];
+let selected = null;
+let moves = 0;
+let history = [];
+let finished = false;
+
+function loadProgress(){
+  try{
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+      level:1,coins:0,extraRod:false
+    };
+  }catch(e){
+    return {level:1,coins:0,extraRod:false};
+  }
+}
+
+function saveProgress(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify({
+    level:levelNumber,
+    coins:coins,
+    extraRod:extraRod
+  }));
+}
+
+function colourCount(){
+  if(levelNumber <= 2) return 3;
+  if(levelNumber <= 5) return 4;
+  return 4;
+}
+
+function makePuzzle(){
+  const count = colourCount();
+  const rodCount = extraRod ? 6 : 5;
+  rods = [];
+
+  for(let i=0;i<count;i++){
+    rods.push([COLOURS[i],COLOURS[i],COLOURS[i],COLOURS[i]]);
+  }
+
+  while(rods.length < rodCount) rods.push([]);
+
+  // Scramble a solved puzzle using legal moves.
+  // Every scramble move can be reversed by the player.
+  let previous = null;
+  let scrambleMoves = Math.min(18 + levelNumber * 5,100);
+  let made = 0;
+  let attempts = 0;
+
+  while(made < scrambleMoves && attempts < scrambleMoves * 30){
+    attempts++;
+    const sources = [];
+
+    for(let i=0;i<rods.length;i++){
+      if(rods[i].length > 0) sources.push(i);
+    }
+
+    if(!sources.length) break;
+
+    const from = sources[Math.floor(Math.random()*sources.length)];
+    const ring = rods[from][rods[from].length-1];
+
+    const destinations = [];
+    for(let i=0;i<rods.length;i++){
+      if(i===from || rods[i].length>=CAPACITY) continue;
+      if(rods[i].length>0 && rods[i][rods[i].length-1]===ring) continue;
+      if(previous && previous.from===i && previous.to===from) continue;
+      destinations.push(i);
+    }
+
+    if(!destinations.length) continue;
+
+    const to = destinations[Math.floor(Math.random()*destinations.length)];
+    rods[from].pop();
+    rods[to].push(ring);
+    previous = {from:from,to:to};
+    made++;
+  }
+
+  // Make sure the starting board is not already solved.
+  if(isSolved()) makePuzzleAgain();
+}
+
+function makePuzzleAgain(){
+  // A fresh shuffle if a rare easy scramble occurs.
+  let attempts=0;
+  while(isSolved() && attempts<5){
+    attempts++;
+    const from=0;
+    const to=rods.length-1;
+    if(rods[from].length){
+      rods[to].push(rods[from].pop());
+    }
+  }
+}
+
+function render(){
+  const board=document.getElementById("board");
+  board.innerHTML="";
+
+  rods.forEach((stack,index)=>{
+    const rod=document.createElement("div");
+    rod.className="rod"+(selected===index?" selected":"");
+    rod.setAttribute("role","button");
+    rod.setAttribute("aria-label","Stick "+(index+1));
+    rod.onclick=()=>tapRod(index);
+
+    stack.forEach(colour=>{
+      const ring=document.createElement("div");
+      ring.className="ring "+colour;
+      rod.appendChild(ring);
+    });
+
+    const number=document.createElement("span");
+    number.className="rod-number";
+    number.textContent=index+1;
+    rod.appendChild(number);
+    board.appendChild(rod);
+  });
+
+  document.getElementById("level").textContent=levelNumber;
+  document.getElementById("coins").textContent="🪙 "+coins;
+  document.getElementById("moves").textContent=moves;
+  document.getElementById("extraButton").textContent=
+    extraRod ? "✓ SIXTH STICK UNLOCKED" : "🔓 EXTRA STICK";
+  document.getElementById("extraButton").disabled=extraRod;
+  document.getElementById("rodNotice").textContent=
+    rods.length+" sticks available · Sort every colour!";
+}
+
+function tapRod(index){
+  if(finished) return;
+
+  if(selected===null){
+    if(rods[index].length===0){
+      say("That stick is empty. Choose one with a hoop.");
+      return;
+    }
+    selected=index;
+    say("Now choose where to put your hoop.");
+    render();
+    return;
+  }
+
+  if(selected===index){
+    selected=null;
+    say("Selection cancelled.");
+    render();
+    return;
+  }
+
+  const source=rods[selected];
+  const destination=rods[index];
+
+  if(destination.length>=CAPACITY){
+    say("That stick is full! Choose another.");
+    return;
+  }
+
+  const moving=source[source.length-1];
+  if(destination.length>0 &&
+     destination[destination.length-1]!==moving){
+    say("You can only stack a hoop on the same colour or an empty stick.");
+    return;
+  }
+
+  history.push(JSON.stringify(rods));
+  source.pop();
+  destination.push(moving);
+  moves++;
+  selected=null;
+
+  say("Nice move! Keep sorting.");
+  render();
+
+  if(isSolved()) winLevel();
+}
+
+function isSolved(){
+  return rods.every(stack=>{
+    if(stack.length===0) return true;
+    return stack.length===CAPACITY &&
+      stack.every(colour=>colour===stack[0]);
+  });
+}
+
+function say(message){
+  document.getElementById("message").textContent=message;
+}
+
+function undoMove(){
+  if(finished) return;
+  if(!history.length){
+    say("There are no moves to undo yet.");
+    return;
+  }
+  rods=JSON.parse(history.pop());
+  moves=Math.max(0,moves-1);
+  selected=null;
+  say("Last move undone.");
+  render();
+}
+
+function restartLevel(){
+  if(finished) return;
+  selected=null;
+  history=[];
+  moves=0;
+  makePuzzle();
+  say("New puzzle! Let's sort those hoops.");
+  render();
+}
+
+function winLevel(){
+  finished=true;
+  selected=null;
+  const reward=20+(levelNumber*5);
+  coins+=reward;
+  saveProgress();
+  document.getElementById("winText").textContent=
+    "You sorted all the hoops in "+moves+" moves and earned "+reward+" coins!";
+  document.getElementById("winModal").style.display="flex";
+  render();
+}
+
+function nextLevel(){
+  document.getElementById("winModal").style.display="none";
+  levelNumber++;
+  finished=false;
+  moves=0;
+  history=[];
+  selected=null;
+  saveProgress();
+  makePuzzle();
+  say("Welcome to Level "+levelNumber+"! You've got this.");
+  render();
+}
+
+function unlockRod(){
+  if(extraRod){
+    say("Your sixth stick is already unlocked!");
+    return;
+  }
+  if(coins<PRICE){
+    say("You need "+(PRICE-coins)+" more coins to unlock the sixth stick.");
+    return;
+  }
+  document.getElementById("unlockModal").style.display="flex";
+}
+
+function confirmUnlock(){
+  if(coins<PRICE){
+    closeUnlock();
+    say("You don't have enough coins yet.");
+    return;
+  }
+  coins-=PRICE;
+  extraRod=true;
+  saveProgress();
+  document.getElementById("unlockModal").style.display="none";
+  selected=null;
+  history=[];
+  moves=0;
+  makePuzzle();
+  say("Sixth stick unlocked! More room to sort.");
+  render();
+}
+
+function closeUnlock(){
+  document.getElementById("unlockModal").style.display="none";
+}
+
+makePuzzle();
+render();
+</script>
+</body>
+</html>
