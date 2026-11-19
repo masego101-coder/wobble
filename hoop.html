@@ -3,464 +3,680 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#17172b">
 <title>HOOP | WOBBLE ARCADE</title>
+
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;
-  font-family:Arial,sans-serif;
-  color:#fff;
-  background:radial-gradient(circle at top,#302454,#17172b 65%);
+:root {
+  --bg:#17172b;
+  --purple:#8B5CF6;
+  --pink:#FF4F87;
+  --teal:#20D6C2;
+  --gold:#FFC857;
+  --text:#f8f5ff;
+  --muted:#aaa5c5;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  min-height:100vh;
+  padding:20px 12px 35px;
+  color:var(--text);
+  background:radial-gradient(ellipse at top,#38265a 0%,transparent 55%),var(--bg);
+  font-family:system-ui,-apple-system,sans-serif;
   text-align:center;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
 }
-header{padding:22px 12px 10px}
-.logo{font-size:30px;font-weight:900;letter-spacing:4px;color:#a78bfa}
-.arcade{font-size:11px;letter-spacing:3px;color:#20d6c2;margin-top:4px}
-h1{font-size:34px;margin:18px 0 6px}
-.subtitle{color:#c9c2df;font-size:14px;margin:0 12px 18px}
-.stats{
-  display:flex;justify-content:center;gap:10px;
-  flex-wrap:wrap;margin:15px auto;max-width:500px;padding:0 10px;
+button {font:inherit;cursor:pointer}
+.brand {font-size:20px;font-weight:950;letter-spacing:2px}
+.brand span {color:var(--purple)}
+.arcade {font-size:10px;color:var(--muted);letter-spacing:4px;font-weight:800}
+h1 {font-size:46px;letter-spacing:4px;color:var(--gold);margin:20px 0 3px}
+.subtitle {font-size:13px;color:var(--muted);margin:5px 0 22px}
+.stats {
+  width:min(100%,440px);
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
 }
-.stat{
-  background:#292341;border:1px solid #51436f;
-  border-radius:13px;padding:10px 16px;min-width:95px;
+.stat {
+  background:#252541;
+  border:1px solid #ffffff15;
+  border-radius:14px;
+  padding:11px 4px;
 }
-.stat small{display:block;color:#bdb3d8;font-size:11px;margin-bottom:5px}
-.stat strong{font-size:19px}
-.game-area{padding:10px 12px 20px;max-width:650px;margin:auto}
-.message{
-  min-height:44px;color:#20d6c2;font-weight:bold;
-  font-size:14px;padding:10px 5px;
+.stat small {display:block;color:var(--muted);font-size:9px;font-weight:850;letter-spacing:1px}
+.stat strong {display:block;font-size:20px;margin-top:4px}
+#coins {color:var(--gold)}
+.message {
+  width:min(100%,440px);
+  min-height:40px;
+  margin:15px auto 12px;
+  padding:11px;
+  border-radius:12px;
+  background:#8b5cf61b;
+  border:1px solid #8b5cf633;
+  color:#ded4ff;
+  font-size:12px;
+  font-weight:700;
 }
-.board{
-  display:flex;justify-content:center;align-items:flex-end;
-  gap:clamp(8px,3vw,20px);flex-wrap:wrap;
-  min-height:255px;padding:20px 8px 14px;
-  background:rgba(255,255,255,.035);
-  border:1px solid #3d3458;border-radius:20px;
+.board-wrap {
+  width:min(100%,470px);
+  margin:auto;
+  padding:22px 8px 17px;
+  border-radius:20px;
+  background:linear-gradient(145deg,#292947,#1d1d36);
+  border:1px solid #ffffff16;
+  box-shadow:0 15px 35px #0004;
 }
-.rod{
-  position:relative;width:clamp(48px,13vw,65px);
-  height:205px;display:flex;flex-direction:column-reverse;
-  align-items:center;justify-content:flex-start;
-  padding-bottom:9px;cursor:pointer;
-  border-bottom:9px solid #b78b62;
-  border-radius:0 0 9px 9px;
-  transition:transform .15s;
+.board {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:clamp(5px,2vw,11px);
+  align-items:end;
+  justify-items:center;
+  min-height:220px;
 }
-.rod::before{
-  content:"";position:absolute;bottom:0;left:50%;
+.board.six {grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.stick {
+  width:100%;
+  height:202px;
+  min-width:0;
+  padding:8px 2px 9px;
+  display:flex;
+  flex-direction:column-reverse;
+  align-items:center;
+  justify-content:flex-start;
+  position:relative;
+  border:1px solid #ffffff14;
+  border-radius:13px 13px 10px 10px;
+  background:linear-gradient(90deg,#ffffff08,#ffffff12,#ffffff06);
+  box-shadow:inset 0 0 12px #0003;
+  touch-action:none;
+  transition:background .15s,border-color .15s,transform .15s;
+}
+.stick:before {
+  content:"";
+  position:absolute;
+  top:7px;
+  bottom:8px;
+  left:50%;
+  width:5px;
   transform:translateX(-50%);
-  width:8px;height:190px;border-radius:8px;
-  background:linear-gradient(90deg,#9b704e,#e2b987,#8d6245);
-  z-index:0;
+  border-radius:8px;
+  background:linear-gradient(90deg,#77718c,#d0c9e0 50%,#716b83);
+  box-shadow:0 0 5px #0008;
 }
-.rod.selected{filter:drop-shadow(0 0 9px #a78bfa);transform:translateY(-8px)}
-.rod.selected::after{
-  content:"SELECTED";position:absolute;top:-22px;
-  font-size:9px;color:#c4a8ff;font-weight:bold;
+.stick:after {
+  content:"";
+  position:absolute;
+  bottom:3px;
+  left:50%;
+  width:85%;
+  height:8px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:linear-gradient(#c4badb,#615a79);
 }
-.ring{
-  position:relative;z-index:1;
-  width:100%;height:34px;min-height:34px;
-  border-radius:50%;border:4px solid rgba(255,255,255,.32);
-  box-shadow:inset 0 4px 5px rgba(255,255,255,.35),
-             inset 0 -5px 6px rgba(0,0,0,.2),
-             0 2px 4px rgba(0,0,0,.35);
+.stick.drag-over {
+  border-color:var(--teal);
+  background:#20d6c225;
+  transform:translateY(-4px);
 }
-.ring::after{
-  content:"";position:absolute;left:25%;top:4px;
-  width:50%;height:5px;border-radius:50%;
-  background:rgba(255,255,255,.35);
+.stick.invalid {border-color:var(--pink)}
+.donut {
+  --icing:#ff6b9d;
+  --shadow:#a51e58;
+  width:88%;
+  max-width:55px;
+  height:35px;
+  flex:0 0 35px;
+  margin-top:-3px;
+  position:relative;
+  z-index:2;
+  border-radius:50%;
+  border:2px solid #a75e32;
+  background:
+    radial-gradient(ellipse at center,transparent 0 13%,#713d25 14% 19%,transparent 20%),
+    radial-gradient(ellipse at 30% 18%,#fff9 0 5%,transparent 25%),
+    linear-gradient(160deg,#ffe0a0,#d98d46 65%,#9d5429);
+  box-shadow:inset 0 2px 3px #fff9,inset 0 -4px 5px #68331c99,0 3px 4px #0007;
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
 }
-.rod-number{position:absolute;bottom:-25px;color:#a99fbe;font-size:11px}
-.red{background:linear-gradient(135deg,#ff8c9c,#f43f5e,#a91f43)}
-.blue{background:linear-gradient(135deg,#8bd7ff,#3196f5,#1452a8)}
-.yellow{background:linear-gradient(135deg,#fff19b,#ffc857,#d18a18)}
-.green{background:linear-gradient(135deg,#9af5c3,#20c997,#087c5b)}
-.purple{background:linear-gradient(135deg,#e2b5ff,#a855f7,#6324a8)}
-.controls{
-  display:flex;justify-content:center;gap:9px;
-  flex-wrap:wrap;margin:28px 0 12px;
+.donut:before {
+  content:"";
+  position:absolute;
+  inset:2px 2px 7px;
+  border-radius:50% 50% 44% 44%;
+  background:
+    radial-gradient(ellipse at 50% 100%,transparent 0 15%,#0000 16%),
+    radial-gradient(ellipse at 30% 15%,#fff9,transparent 45%),
+    linear-gradient(180deg,#ffffff25,#00000012),
+    var(--icing);
+  box-shadow:inset 0 2px 2px #ffffff99,inset 0 -3px 4px var(--shadow);
 }
-button{
-  border:0;border-radius:12px;padding:12px 17px;
-  font-weight:bold;font-size:13px;cursor:pointer;
-  color:white;background:#8b5cf6;
+.donut:after {
+  content:"";
+  position:absolute;
+  z-index:4;
+  left:50%;
+  top:11px;
+  width:11px;
+  height:10px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:#21182b;
+  border:2px solid #a96538;
+  box-shadow:inset 0 2px 3px #000b,0 1px 2px #fff5;
 }
-button:active{transform:scale(.97)}
-button.secondary{background:#39304f;border:1px solid #62547e}
-button.teal{background:#159e91}
-button.gold{background:#b98220}
-button:disabled{opacity:.45;cursor:not-allowed}
-.instructions{
-  text-align:left;background:#292341;border:1px solid #51436f;
-  border-radius:16px;padding:16px;margin:22px auto;
-  max-width:500px;color:#d7d0e8;font-size:13px;line-height:1.7;
+.sprinkles {
+  position:absolute;
+  z-index:3;
+  inset:5px;
+  pointer-events:none;
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse 2px 4px at 25% 35%,#fff 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 72% 30%,#ffe36b 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 32% 72%,#ff4f87 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 78% 67%,#fff 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 52% 15%,#20d6c2 98%,transparent);
 }
-.instructions h3{color:#a78bfa;margin:0 0 7px}
-.notice{font-size:12px;color:#aaa0c4;margin:12px}
-footer{padding:20px;color:#82799c;font-size:11px}
-.modal{
-  display:none;position:fixed;inset:0;background:rgba(8,6,18,.85);
-  z-index:10;align-items:center;justify-content:center;padding:20px;
+.pink {--icing:#ff6b9d;--shadow:#a51e58}
+.blue {--icing:#59c8ff;--shadow:#176ba7}
+.yellow {--icing:#ffd45e;--shadow:#a36b12}
+.green {--icing:#55e6a4;--shadow:#138b5a}
+.purple {--icing:#b58aff;--shadow:#6840b4}
+.orange {--icing:#ff9d50;--shadow:#b94e16}
+.dragging-source {opacity:.18}
+.drag-ghost {
+  position:fixed;
+  z-index:9999;
+  pointer-events:none;
+  transform:translate(-50%,-50%) scale(1.2) rotate(-5deg);
+  filter:drop-shadow(0 12px 10px #0009);
 }
-.modal-box{
-  background:#292341;border:1px solid #8065b2;border-radius:20px;
-  padding:25px;max-width:350px;width:100%;
+.controls {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:9px;
+  margin:18px auto;
 }
-.modal-box h2{color:#a78bfa;margin-top:0}
-.modal-box p{color:#d7d0e8;line-height:1.5;font-size:14px}
-@media(max-width:380px){
-  .board{gap:7px;padding-left:4px;padding-right:4px}
-  .rod{width:46px}
-  .ring{height:30px;min-height:30px}
+button {
+  border:0;
+  border-radius:12px;
+  padding:12px 14px;
+  background:#393258;
+  color:white;
+  font-size:12px;
+  font-weight:850;
+  box-shadow:0 4px 0 #211b36;
+}
+button:active {transform:translateY(2px);box-shadow:none}
+button:disabled {opacity:.4}
+.primary {background:var(--purple)}
+.gold {background:#916319}
+.how-to {
+  width:min(100%,440px);
+  margin:25px auto 0;
+  padding:17px;
+  text-align:left;
+  border-radius:17px;
+  background:#22223d;
+  border:1px solid #39365c;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+.how-to h2 {color:white;font-size:15px;margin:0 0 8px}
+.how-to ol {padding-left:20px;margin:0}
+.how-to p {margin-bottom:0}
+.overlay {
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:#090817dc;
+}
+.overlay.show {display:flex}
+.modal {
+  width:min(100%,340px);
+  padding:28px 22px;
+  border-radius:22px;
+  background:#292544;
+  border:1px solid var(--purple);
+  box-shadow:0 20px 60px #0009;
+}
+.modal h2 {font-size:28px;margin:0 0 8px}
+.modal p {color:var(--muted);line-height:1.5}
+footer {margin-top:25px;color:#77718f;font-size:11px}
+@media(max-width:370px) {
+  body {padding-left:7px;padding-right:7px}
+  .board {gap:4px}
+  .stick {height:190px}
+  .donut {height:32px;flex-basis:32px}
 }
 </style>
 </head>
-<body>
 
+<body>
 <header>
-  <div class="logo">WOBBLE.</div>
+  <div class="brand">WOBBLE<span>.</span></div>
   <div class="arcade">⚡ ARCADE</div>
   <h1>HOOP</h1>
-  <p class="subtitle">Stack the colours. Sort the hoops. Beat the levels!</p>
+  <p class="subtitle">Stack the colours. Sort the donuts. Beat the levels!</p>
 </header>
 
-<div class="stats">
+<section class="stats">
   <div class="stat"><small>LEVEL</small><strong id="level">1</strong></div>
-  <div class="stat"><small>COINS</small><strong id="coins">🪙 0</strong></div>
+  <div class="stat"><small>COINS 🪙</small><strong id="coins">0</strong></div>
   <div class="stat"><small>MOVES</small><strong id="moves">0</strong></div>
-</div>
+</section>
 
-<main class="game-area">
-  <div class="message" id="message">Choose a stick to pick up a hoop!</div>
+<div class="message" id="message">Hold a donut, drag it, and release!</div>
 
+<div class="board-wrap">
   <div class="board" id="board"></div>
-
-  <div class="controls">
-    <button class="secondary" onclick="undoMove()">↶ UNDO</button>
-    <button class="secondary" onclick="restartLevel()">↻ RESTART</button>
-    <button class="gold" id="extraButton" onclick="unlockRod()">🔓 EXTRA STICK</button>
-  </div>
-
-  <div class="notice" id="rodNotice">5 sticks available · Sort every colour!</div>
-
-  <div class="instructions">
-    <h3>HOW TO PLAY</h3>
-    1. Tap a stick to pick up its top hoop.<br>
-    2. Tap another stick to move the hoop.<br>
-    3. You can only move one hoop at a time.<br>
-    4. You cannot put a hoop on a full stick.<br>
-    5. Sort each colour onto its own stick to win!<br><br>
-    <strong>🪙 Earn coins</strong> by completing levels. Save 100 coins to unlock a sixth stick!
-  </div>
-</main>
-
-<div class="modal" id="winModal">
-  <div class="modal-box">
-    <h2>🎉 LEVEL COMPLETE!</h2>
-    <p id="winText">Amazing work!</p>
-    <button class="teal" onclick="nextLevel()">NEXT LEVEL →</button>
-  </div>
 </div>
 
-<div class="modal" id="unlockModal">
-  <div class="modal-box">
-    <h2>🔓 SIXTH STICK</h2>
-    <p>Unlock an extra stick for 100 coins. It will be available in all your future levels.</p>
-    <button class="gold" onclick="confirmUnlock()">UNLOCK FOR 100 🪙</button>
-    <button class="secondary" onclick="closeUnlock()" style="margin-top:9px">CANCEL</button>
+<div class="controls">
+  <button id="undoBtn">↶ UNDO</button>
+  <button id="restartBtn">↻ RESTART</button>
+  <button class="gold" id="extraBtn">🔓 EXTRA STICK · 100 🪙</button>
+</div>
+
+<section class="how-to">
+  <h2>🍩 HOW TO PLAY</h2>
+  <ol>
+    <li>Touch and hold the top donut on a stick.</li>
+    <li>Drag it to another stick and release your finger.</li>
+    <li>You can move a donut to an empty stick or onto the same colour.</li>
+    <li>Each stick holds a maximum of four donuts.</li>
+    <li>Sort every colour into its own stick to win!</li>
+  </ol>
+  <p>🪙 Earn coins by completing levels. Save 100 coins to unlock a sixth stick!</p>
+</section>
+
+<div class="overlay" id="winOverlay">
+  <div class="modal">
+    <h2>🍩 Delicious!</h2>
+    <p id="winText">You sorted every donut!</p>
+    <button class="primary" id="nextBtn">NEXT LEVEL →</button>
   </div>
 </div>
 
 <footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
 
 <script>
-const COLOURS = ["red","blue","yellow","green","purple"];
-const CAPACITY = 4;
-const PRICE = 100;
-const STORAGE_KEY = "wobbleHoopProgress";
+(() => {
+  "use strict";
 
-let progress = loadProgress();
-let levelNumber = progress.level || 1;
-let coins = progress.coins || 0;
-let extraRod = !!progress.extraRod;
-let rods = [];
-let selected = null;
-let moves = 0;
-let history = [];
-let finished = false;
+  const STORAGE_KEY = "wobbleHoopProgress";
+  const CAPACITY = 4;
+  const COLOURS = ["pink","blue","yellow","green","purple","orange"];
 
-function loadProgress(){
-  try{
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-      level:1,coins:0,extraRod:false
-    };
-  }catch(e){
-    return {level:1,coins:0,extraRod:false};
-  }
-}
+  const $ = id => document.getElementById(id);
+  const boardEl = $("board");
+  const messageEl = $("message");
+  const overlay = $("winOverlay");
 
-function saveProgress(){
-  localStorage.setItem(STORAGE_KEY,JSON.stringify({
-    level:levelNumber,
-    coins:coins,
-    extraRod:extraRod
-  }));
-}
-
-function colourCount(){
-  if(levelNumber <= 2) return 3;
-  if(levelNumber <= 5) return 4;
-  return 4;
-}
-
-function makePuzzle(){
-  const count = colourCount();
-  const rodCount = extraRod ? 6 : 5;
-  rods = [];
-
-  for(let i=0;i<count;i++){
-    rods.push([COLOURS[i],COLOURS[i],COLOURS[i],COLOURS[i]]);
-  }
-
-  while(rods.length < rodCount) rods.push([]);
-
-  // Scramble a solved puzzle using legal moves.
-  // Every scramble move can be reversed by the player.
-  let previous = null;
-  let scrambleMoves = Math.min(18 + levelNumber * 5,100);
-  let made = 0;
-  let attempts = 0;
-
-  while(made < scrambleMoves && attempts < scrambleMoves * 30){
-    attempts++;
-    const sources = [];
-
-    for(let i=0;i<rods.length;i++){
-      if(rods[i].length > 0) sources.push(i);
-    }
-
-    if(!sources.length) break;
-
-    const from = sources[Math.floor(Math.random()*sources.length)];
-    const ring = rods[from][rods[from].length-1];
-
-    const destinations = [];
-    for(let i=0;i<rods.length;i++){
-      if(i===from || rods[i].length>=CAPACITY) continue;
-      if(rods[i].length>0 && rods[i][rods[i].length-1]===ring) continue;
-      if(previous && previous.from===i && previous.to===from) continue;
-      destinations.push(i);
-    }
-
-    if(!destinations.length) continue;
-
-    const to = destinations[Math.floor(Math.random()*destinations.length)];
-    rods[from].pop();
-    rods[to].push(ring);
-    previous = {from:from,to:to};
-    made++;
-  }
-
-  // Make sure the starting board is not already solved.
-  if(isSolved()) makePuzzleAgain();
-}
-
-function makePuzzleAgain(){
-  // A fresh shuffle if a rare easy scramble occurs.
-  let attempts=0;
-  while(isSolved() && attempts<5){
-    attempts++;
-    const from=0;
-    const to=rods.length-1;
-    if(rods[from].length){
-      rods[to].push(rods[from].pop());
+  function loadProgress() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      return {
+        level:Math.max(1,Number(saved.level)||1),
+        coins:Math.max(0,Number(saved.coins)||0),
+        extraStick:Boolean(saved.extraStick || saved.extraTube || saved.unlocked)
+      };
+    } catch {
+      return {level:1,coins:0,extraStick:false};
     }
   }
-}
 
-function render(){
-  const board=document.getElementById("board");
-  board.innerHTML="";
+  let progress = loadProgress();
+  let tubes = [];
+  let startingPuzzle = [];
+  let moves = 0;
+  let history = [];
+  let completed = false;
+  let drag = null;
+  let ghost = null;
 
-  rods.forEach((stack,index)=>{
-    const rod=document.createElement("div");
-    rod.className="rod"+(selected===index?" selected":"");
-    rod.setAttribute("role","button");
-    rod.setAttribute("aria-label","Stick "+(index+1));
-    rod.onclick=()=>tapRod(index);
+  function saveProgress() {
+    try {
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
+    } catch(e) {
+      console.warn("Could not save progress",e);
+    }
+  }
 
-    stack.forEach(colour=>{
-      const ring=document.createElement("div");
-      ring.className="ring "+colour;
-      rod.appendChild(ring);
+  function cloneTubes(value) {
+    return value.map(tube => [...tube]);
+  }
+
+  function colourCount() {
+    return Math.min(6,2 + Math.floor((progress.level-1)/2));
+  }
+
+  function stickCount() {
+    return progress.extraStick ? 6 : 5;
+  }
+
+  function makePuzzle() {
+    const count = colourCount();
+    const puzzle = COLOURS.slice(0,count).map(c => Array(4).fill(c));
+
+    while(puzzle.length < stickCount()) puzzle.push([]);
+
+    // Shuffle by making legal moves from a solved board.
+    let lastMove = null;
+    const shuffleSteps = 45 + progress.level * 15;
+
+    for(let i=0;i<shuffleSteps;i++) {
+      const choices = [];
+
+      for(let from=0;from<puzzle.length;from++) {
+        if(!puzzle[from].length) continue;
+
+        for(let to=0;to<puzzle.length;to++) {
+          if(from===to || puzzle[to].length>=CAPACITY) continue;
+
+          const moving = puzzle[from][puzzle[from].length-1];
+          if(puzzle[to].length &&
+             puzzle[to][puzzle[to].length-1]!==moving) continue;
+
+          if(lastMove && lastMove.from===to && lastMove.to===from) continue;
+
+          choices.push({from,to});
+        }
+      }
+
+      if(!choices.length) break;
+
+      const chosen = choices[Math.floor(Math.random()*choices.length)];
+      puzzle[chosen.to].push(puzzle[chosen.from].pop());
+      lastMove = chosen;
+    }
+
+    return puzzle;
+  }
+
+  function updateStats() {
+    $("level").textContent = progress.level;
+    $("coins").textContent = progress.coins;
+    $("moves").textContent = moves;
+    $("undoBtn").disabled = !history.length || completed;
+    $("extraBtn").disabled = progress.extraStick || progress.coins<100;
+    $("extraBtn").textContent = progress.extraStick
+      ? "✓ SIXTH STICK UNLOCKED"
+      : "🔓 EXTRA STICK · 100 🪙";
+  }
+
+  function createDonut(colour) {
+    const donut = document.createElement("div");
+    donut.className = "donut " + colour;
+    donut.setAttribute("aria-label",colour+" donut");
+
+    const sprinkles = document.createElement("span");
+    sprinkles.className = "sprinkles";
+    donut.appendChild(sprinkles);
+    return donut;
+  }
+
+  function render() {
+    boardEl.innerHTML = "";
+    boardEl.classList.toggle("six",tubes.length===6);
+
+    tubes.forEach((tube,index) => {
+      const stick = document.createElement("div");
+      stick.className = "stick";
+      stick.dataset.index = index;
+
+      tube.forEach((colour,donutIndex) => {
+        const donut = createDonut(colour);
+
+        if(donutIndex===tube.length-1 && !completed) {
+          donut.addEventListener("pointerdown",startDrag);
+        } else {
+          donut.style.cursor = "default";
+        }
+
+        stick.appendChild(donut);
+      });
+
+      boardEl.appendChild(stick);
     });
 
-    const number=document.createElement("span");
-    number.className="rod-number";
-    number.textContent=index+1;
-    rod.appendChild(number);
-    board.appendChild(rod);
+    updateStats();
+  }
+
+  function say(message,colour) {
+    messageEl.textContent = message;
+    messageEl.style.color = colour || "var(--teal)";
+  }
+
+  function canMove(from,to) {
+    if(from===to || !tubes[from] || !tubes[to]) return false;
+    if(!tubes[from].length || tubes[to].length>=CAPACITY) return false;
+
+    const destination = tubes[to];
+    if(!destination.length) return true;
+
+    return destination[destination.length-1] ===
+      tubes[from][tubes[from].length-1];
+  }
+
+  function startDrag(event) {
+    if(completed || drag || event.button!==0) return;
+
+    const donut = event.currentTarget;
+    const stick = donut.closest(".stick");
+    const from = Number(stick.dataset.index);
+    const colour = tubes[from][tubes[from].length-1];
+
+    if(!colour) return;
+
+    event.preventDefault();
+
+    const rect = donut.getBoundingClientRect();
+    ghost = donut.cloneNode(true);
+    ghost.classList.add("drag-ghost");
+    ghost.style.left = event.clientX+"px";
+    ghost.style.top = event.clientY+"px";
+    document.body.appendChild(ghost);
+
+    donut.classList.add("dragging-source");
+
+    drag = {
+      from,
+      colour,
+      pointerId:event.pointerId,
+      source:donut
+    };
+
+    say("Release over a stick to drop your donut!");
+
+    window.addEventListener("pointermove",moveDrag,{passive:false});
+    window.addEventListener("pointerup",endDrag);
+    window.addEventListener("pointercancel",cancelDrag);
+  }
+
+  function moveDrag(event) {
+    if(!drag || event.pointerId!==drag.pointerId) return;
+
+    event.preventDefault();
+    ghost.style.left = event.clientX+"px";
+    ghost.style.top = event.clientY+"px";
+
+    document.querySelectorAll(".stick").forEach(stick => {
+      stick.classList.remove("drag-over","invalid");
+    });
+
+    const target = document.elementFromPoint(event.clientX,event.clientY);
+    const stick = target && target.closest(".stick");
+
+    if(stick) {
+      const to = Number(stick.dataset.index);
+      if(to!==drag.from) {
+        stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
+      }
+    }
+  }
+
+  function cleanDrag() {
+    if(ghost) ghost.remove();
+    ghost = null;
+
+    if(drag && drag.source) {
+      drag.source.classList.remove("dragging-source");
+    }
+
+    document.querySelectorAll(".stick").forEach(stick => {
+      stick.classList.remove("drag-over","invalid");
+    });
+
+    window.removeEventListener("pointermove",moveDrag);
+    window.removeEventListener("pointerup",endDrag);
+    window.removeEventListener("pointercancel",cancelDrag);
+  }
+
+  function endDrag(event) {
+    if(!drag || event.pointerId!==drag.pointerId) return;
+
+    const target = document.elementFromPoint(event.clientX,event.clientY);
+    const stick = target && target.closest(".stick");
+    const from = drag.from;
+    const to = stick ? Number(stick.dataset.index) : -1;
+
+    cleanDrag();
+    drag = null;
+
+    if(to>=0 && canMove(from,to)) {
+      makeMove(from,to);
+    } else {
+      render();
+      say("Try an empty stick or a matching colour.","var(--pink)");
+    }
+  }
+
+  function cancelDrag() {
+    if(!drag) return;
+    cleanDrag();
+    drag = null;
+    render();
+    say("Drag cancelled. Try again!");
+  }
+
+  function makeMove(from,to) {
+    if(!canMove(from,to) || completed) return;
+
+    history.push({
+      tubes:cloneTubes(tubes),
+      moves
+    });
+
+    tubes[to].push(tubes[from].pop());
+    moves++;
+    render();
+
+    if(isSolved()) {
+      finishLevel();
+    } else {
+      say("Nice move! Keep sorting.");
+    }
+  }
+
+  function isSolved() {
+    return tubes.every(tube =>
+      tube.length===0 ||
+      (tube.length===CAPACITY && tube.every(c=>c===tube[0]))
+    );
+  }
+
+  function finishLevel() {
+    completed = true;
+    const reward = 10 + progress.level*2;
+    progress.coins += reward;
+    saveProgress();
+    render();
+
+    $("winText").textContent =
+      "You completed level "+progress.level+
+      " and earned "+reward+" coins! 🪙";
+
+    overlay.classList.add("show");
+    say("All colours sorted! Amazing work!","var(--gold)");
+  }
+
+  function startLevel() {
+    tubes = makePuzzle();
+    startingPuzzle = cloneTubes(tubes);
+    history = [];
+    moves = 0;
+    completed = false;
+    render();
+    say("Hold a donut, drag it, and release!");
+  }
+
+  function nextLevel() {
+    progress.level++;
+    saveProgress();
+    overlay.classList.remove("show");
+    startLevel();
+  }
+
+  $("undoBtn").addEventListener("click",() => {
+    if(!history.length || completed) return;
+
+    const previous = history.pop();
+    tubes = cloneTubes(previous.tubes);
+    moves = previous.moves;
+    render();
+    say("Last move undone.");
   });
 
-  document.getElementById("level").textContent=levelNumber;
-  document.getElementById("coins").textContent="🪙 "+coins;
-  document.getElementById("moves").textContent=moves;
-  document.getElementById("extraButton").textContent=
-    extraRod ? "✓ SIXTH STICK UNLOCKED" : "🔓 EXTRA STICK";
-  document.getElementById("extraButton").disabled=extraRod;
-  document.getElementById("rodNotice").textContent=
-    rods.length+" sticks available · Sort every colour!";
-}
+  $("restartBtn").addEventListener("click",() => {
+    if(completed) return;
 
-function tapRod(index){
-  if(finished) return;
+    tubes = cloneTubes(startingPuzzle);
+    history = [];
+    moves = 0;
+    render();
+    say("Level restarted. You can do this!");
+  });
 
-  if(selected===null){
-    if(rods[index].length===0){
-      say("That stick is empty. Choose one with a hoop.");
+  $("extraBtn").addEventListener("click",() => {
+    if(progress.extraStick) {
+      say("Your sixth stick is already unlocked!");
       return;
     }
-    selected=index;
-    say("Now choose where to put your hoop.");
-    render();
-    return;
-  }
 
-  if(selected===index){
-    selected=null;
-    say("Selection cancelled.");
-    render();
-    return;
-  }
+    if(progress.coins<100) {
+      say("You need 100 coins to unlock another stick.","var(--gold)");
+      return;
+    }
 
-  const source=rods[selected];
-  const destination=rods[index];
-
-  if(destination.length>=CAPACITY){
-    say("That stick is full! Choose another.");
-    return;
-  }
-
-  const moving=source[source.length-1];
-  if(destination.length>0 &&
-     destination[destination.length-1]!==moving){
-    say("You can only stack a hoop on the same colour or an empty stick.");
-    return;
-  }
-
-  history.push(JSON.stringify(rods));
-  source.pop();
-  destination.push(moving);
-  moves++;
-  selected=null;
-
-  say("Nice move! Keep sorting.");
-  render();
-
-  if(isSolved()) winLevel();
-}
-
-function isSolved(){
-  return rods.every(stack=>{
-    if(stack.length===0) return true;
-    return stack.length===CAPACITY &&
-      stack.every(colour=>colour===stack[0]);
+    progress.coins -= 100;
+    progress.extraStick = true;
+    saveProgress();
+    startLevel();
+    say("Sixth stick unlocked! More room to sort!","var(--gold)");
   });
-}
 
-function say(message){
-  document.getElementById("message").textContent=message;
-}
+  $("nextBtn").addEventListener("click",nextLevel);
 
-function undoMove(){
-  if(finished) return;
-  if(!history.length){
-    say("There are no moves to undo yet.");
-    return;
-  }
-  rods=JSON.parse(history.pop());
-  moves=Math.max(0,moves-1);
-  selected=null;
-  say("Last move undone.");
-  render();
-}
-
-function restartLevel(){
-  if(finished) return;
-  selected=null;
-  history=[];
-  moves=0;
-  makePuzzle();
-  say("New puzzle! Let's sort those hoops.");
-  render();
-}
-
-function winLevel(){
-  finished=true;
-  selected=null;
-  const reward=20+(levelNumber*5);
-  coins+=reward;
-  saveProgress();
-  document.getElementById("winText").textContent=
-    "You sorted all the hoops in "+moves+" moves and earned "+reward+" coins!";
-  document.getElementById("winModal").style.display="flex";
-  render();
-}
-
-function nextLevel(){
-  document.getElementById("winModal").style.display="none";
-  levelNumber++;
-  finished=false;
-  moves=0;
-  history=[];
-  selected=null;
-  saveProgress();
-  makePuzzle();
-  say("Welcome to Level "+levelNumber+"! You've got this.");
-  render();
-}
-
-function unlockRod(){
-  if(extraRod){
-    say("Your sixth stick is already unlocked!");
-    return;
-  }
-  if(coins<PRICE){
-    say("You need "+(PRICE-coins)+" more coins to unlock the sixth stick.");
-    return;
-  }
-  document.getElementById("unlockModal").style.display="flex";
-}
-
-function confirmUnlock(){
-  if(coins<PRICE){
-    closeUnlock();
-    say("You don't have enough coins yet.");
-    return;
-  }
-  coins-=PRICE;
-  extraRod=true;
-  saveProgress();
-  document.getElementById("unlockModal").style.display="none";
-  selected=null;
-  history=[];
-  moves=0;
-  makePuzzle();
-  say("Sixth stick unlocked! More room to sort.");
-  render();
-}
-
-function closeUnlock(){
-  document.getElementById("unlockModal").style.display="none";
-}
-
-makePuzzle();
-render();
+  startLevel();
+})();
 </script>
 </body>
 </html>
