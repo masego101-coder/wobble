@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Blitz | Wobble</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 16px;
+  min-height: 100vh;
+  background: #17172b;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto 35px;
+}
+
+.logo {
+  color: #a78bfa;
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.back {
+  color: #20d6c2;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #b8b8ca;
+  margin-bottom: 28px;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.stat {
+  background: #24243e;
+  padding: 13px 20px;
+  border-radius: 12px;
+  min-width: 90px;
+}
+
+.stat span {
+  display: block;
+  color: #a78bfa;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.stat strong {
+  font-size: 21px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.restart {
+  background: #8b5cf6;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 28px;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 420px;
+  margin: auto;
+}
+
+.card {
+  aspect-ratio: 1;
+  border: 2px solid #353553;
+  border-radius: 13px;
+  background: #292943;
+  color: transparent;
+  font-size: clamp(25px, 8vw, 40px);
+  transition: 0.2s;
+}
+
+.card:hover {
+  border-color: #8b5cf6;
+}
+
+.card.flipped,
+.card.matched {
+  background: #39305e;
+  border-color: #a78bfa;
+  color: white;
+}
+
+.card.matched {
+  background: #17463f;
+  border-color: #20d6c2;
+}
+
+.message {
+  margin: 25px auto;
+  color: #20d6c2;
+  font-size: 17px;
+  font-weight: bold;
+  min-height: 25px;
+}
+
+footer {
+  margin-top: 45px;
+  color: #77778f;
+  font-size: 12px;
+}
+
+@media (max-width: 360px) {
+  .stats {
+    gap: 6px;
+  }
+
+  .stat {
+    padding: 12px;
+    min-width: 75px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">WOBBLE.</div>
+  <a class="back" href="index.html">← Back home</a>
+</header>
+
+<h1>🧠 Memory Blitz</h1>
+<p class="subtitle">Find all the matching pairs. Test your memory!</p>
+
+<div class="stats">
+  <div class="stat">
+    <span>MOVES</span>
+    <strong id="moves">0</strong>
+  </div>
+  <div class="stat">
+    <span>TIME</span>
+    <strong id="timer">0:00</strong>
+  </div>
+  <div class="stat">
+    <span>PAIRS</span>
+    <strong id="pairs">0/8</strong>
+  </div>
+</div>
+
+<button class="restart" onclick="startGame()">↻ Restart game</button>
+
+<div class="game" id="game"></div>
+
+<div class="message" id="message">
+  Find your first matching pair!
+</div>
+
+<footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
+
+<script>
+const emojis = [
+  "🎮", "🚀", "⭐", "🍉",
+  "🎧", "🔥", "💎", "🦋"
+];
+
+let firstCard = null;
+let secondCard = null;
+let locked = false;
+let moves = 0;
+let matches = 0;
+let seconds = 0;
+let timerInterval = null;
+let started = false;
+
+function startGame() {
+  clearInterval(timerInterval);
+
+  firstCard = null;
+  secondCard = null;
+  locked = false;
+  moves = 0;
+  matches = 0;
+  seconds = 0;
+  started = false;
+
+  document.getElementById("moves").textContent = "0";
+  document.getElementById("pairs").textContent = "0/8";
+  document.getElementById("timer").textContent = "0:00";
+  document.getElementById("message").textContent =
+    "Find your first matching pair!";
+
+  const cards = [...emojis, ...emojis]
+    .sort(() => Math.random() - 0.5);
+
+  const game = document.getElementById("game");
+  game.innerHTML = "";
+
+  cards.forEach((emoji) => {
+    const card = document.createElement("button");
+    card.className = "card";
+    card.textContent = "?";
+    card.dataset.emoji = emoji;
+    card.setAttribute("aria-label", "Hidden card");
+    card.onclick = () => flipCard(card);
+    game.appendChild(card);
+  });
+}
+
+function startTimer() {
+  if (started) return;
+  started = true;
+
+  timerInterval = setInterval(() => {
+    seconds++;
+
+    const minutes = Math.floor(seconds / 60);
+    const remaining = seconds % 60;
+
+    document.getElementById("timer").textContent =
+      minutes + ":" + String(remaining).padStart(2, "0");
+  }, 1000);
+}
+
+function flipCard(card) {
+  if (
+    locked ||
+    card.classList.contains("flipped") ||
+    card.classList.contains("matched")
+  ) return;
+
+  startTimer();
+
+  card.classList.add("flipped");
+  card.textContent = card.dataset.emoji;
+  card.setAttribute("aria-label", card.dataset.emoji);
+
+  if (!firstCard) {
+    firstCard = card;
+    return;
+  }
+
+  secondCard = card;
+  moves++;
+
+  document.getElementById("moves").textContent = moves;
+
+  if (firstCard.dataset.emoji === secondCard.dataset.emoji) {
+    firstCard.classList.add("matched");
+    secondCard.classList.add("matched");
+
+    matches++;
+    document.getElementById("pairs").textContent = matches + "/8";
+
+    firstCard = null;
+    secondCard = null;
+
+    if (matches === 8) {
+      clearInterval(timerInterval);
+      document.getElementById("message").textContent =
+        "🎉 You won! Amazing memory!";
+    }
+  } else {
+    locked = true;
+
+    setTimeout(() => {
+      firstCard.classList.remove("flipped");
+      secondCard.classList.remove("flipped");
+
+      firstCard.textContent = "?";
+      secondCard.textContent = "?";
+
+      firstCard.setAttribute("aria-label", "Hidden card");
+      secondCard.setAttribute("aria-label", "Hidden card");
+
+      firstCard = null;
+      secondCard = null;
+      locked = false;
+    }, 850);
+  }
+}
+
+startGame();
+</script>
+
+</body>
+</html>
