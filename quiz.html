@@ -5,585 +5,328 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quick Quiz | WOBBLE</title>
-
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    background: #17172b;
-    color: white;
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    padding: 24px 16px;
-}
-
-.container {
-    max-width: 520px;
-    margin: auto;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 35px;
-}
-
-.logo {
-    color: #a78bfa;
-    font-size: 23px;
-    font-weight: 900;
-    letter-spacing: 2px;
-}
-
-.back {
-    color: #a78bfa;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.intro {
-    text-align: center;
-    margin-bottom: 28px;
-}
-
-.lightning {
-    font-size: 42px;
-    margin-bottom: 12px;
-}
-
-h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-.intro p {
-    color: #aaaac5;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.panel {
-    background: #22223d;
-    border: 1px solid #39395a;
-    border-radius: 20px;
-    padding: 22px 18px;
-}
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 22px;
-}
-
-.stat {
-    background: #17172b;
-    padding: 13px 5px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-.stat-label {
-    color: #aaaac5;
-    font-size: 11px;
-    margin-bottom: 7px;
-}
-
-.stat-value {
-    font-size: 21px;
-    font-weight: bold;
-}
-
-.purple { color: #a78bfa; }
-.pink { color: #FF4F87; }
-.gold { color: #FFC857; }
-
-.progress-track {
-    height: 7px;
-    background: #39395a;
-    border-radius: 10px;
-    margin-bottom: 24px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #8B5CF6, #FF4F87);
-    transition: width 0.3s;
-}
-
-.question-number {
-    color: #a78bfa;
-    font-size: 13px;
-    margin-bottom: 13px;
-}
-
-.question {
-    font-size: 21px;
-    line-height: 1.4;
-    margin-bottom: 22px;
-}
-
-.answers {
-    display: grid;
-    gap: 12px;
-}
-
-.answer {
-    width: 100%;
-    padding: 15px;
-    background: #30304d;
-    border: 1px solid #454568;
-    border-radius: 12px;
-    color: white;
-    text-align: left;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.answer:not(:disabled):hover {
-    border-color: #a78bfa;
-    background: #393454;
-}
-
-.answer:disabled {
-    cursor: default;
-    opacity: 1;
-}
-
-.answer.correct {
-    background: #17483f;
-    border-color: #20D6C2;
-}
-
-.answer.wrong {
-    background: #54243b;
-    border-color: #FF4F87;
-}
-
-.feedback {
-    min-height: 25px;
-    margin-top: 17px;
-    font-size: 14px;
-    text-align: center;
-    line-height: 1.5;
-}
-
-.feedback.good { color: #20D6C2; }
-.feedback.bad { color: #FF4F87; }
-
-.main-button {
-    width: 100%;
-    padding: 16px;
-    margin-top: 22px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #8B5CF6, #a78bfa);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.main-button:active {
-    transform: scale(0.98);
-}
-
-.hidden {
-    display: none !important;
-}
-
-.result {
-    text-align: center;
-    padding: 20px 5px;
-}
-
-.result-icon {
-    font-size: 55px;
-    margin-bottom: 15px;
-}
-
-.result h2 {
-    font-size: 27px;
-    margin-bottom: 12px;
-}
-
-.result p {
-    color: #aaaac5;
-    line-height: 1.7;
-}
-
-.final-score {
-    color: #FFC857;
-    font-size: 42px;
-    font-weight: bold;
-    margin: 22px 0;
-}
-
-footer {
-    text-align: center;
-    color: #77778f;
-    font-size: 12px;
-    margin-top: 30px;
-}
-
-@media (max-width: 380px) {
-    h1 { font-size: 28px; }
-    .question { font-size: 19px; }
-    .panel { padding: 18px 13px; }
-}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#17172b;color:#fff;font-family:Arial,sans-serif;padding:22px 15px}
+header{max-width:700px;margin:0 auto 28px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px;color:#a78bfa}
+a{color:#a78bfa;text-decoration:none}
+main{max-width:650px;margin:auto}
+h1{font-size:34px;margin:10px 0;color:#fff}
+h2{font-size:24px;margin:10px 0}
+p{color:#c8c6dc;line-height:1.6}
+.eyebrow{color:#20d6c2;font-weight:bold;letter-spacing:2px;font-size:12px}
+.panel{background:#22223d;border:1px solid #393957;border-radius:20px;padding:25px;margin:18px 0}
+.modes{display:grid;grid-template-columns:1fr;gap:12px;margin-top:22px}
+.mode{background:#292949;border:1px solid #48486c;border-radius:15px;padding:17px;text-align:left;color:white;cursor:pointer}
+.mode:hover{border-color:#a78bfa;background:#333354}
+.mode strong{display:block;font-size:18px;margin-bottom:6px}
+.mode span{color:#c8c6dc;font-size:13px;line-height:1.5}
+button{font-family:inherit}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.stat{background:#292949;border-radius:12px;padding:13px;text-align:center}
+.stat small{display:block;color:#aaa8c7;font-size:10px;letter-spacing:1px;margin-bottom:7px}
+.stat strong{font-size:21px}
+.bar{height:8px;background:#393957;border-radius:10px;overflow:hidden;margin:16px 0}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#8B5CF6,#20D6C2);transition:width .3s}
+.question{font-size:22px;line-height:1.4;margin:22px 0}
+.answers{display:grid;gap:11px}
+.answer{width:100%;padding:15px;text-align:left;border:1px solid #49496d;border-radius:12px;background:#292949;color:white;font-size:15px;cursor:pointer}
+.answer:hover:not(:disabled){border-color:#a78bfa;background:#353556}
+.answer.correct{background:#155746;border-color:#20d6c2}
+.answer.wrong{background:#642b46;border-color:#FF4F87}
+.answer:disabled{cursor:default}
+.feedback{padding:13px;border-radius:12px;margin-top:14px;line-height:1.5}
+.good{background:#155746;color:#b9ffeb}
+.bad{background:#642b46;color:#ffd2df}
+.primary{border:0;background:#8B5CF6;color:white;padding:15px 22px;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;width:100%;margin-top:17px}
+.primary:hover{background:#7545df}
+.secondary{border:1px solid #555579;background:transparent;color:white;padding:13px 18px;border-radius:12px;cursor:pointer;margin-top:10px;width:100%}
+.hidden{display:none!important}
+.bigscore{font-size:54px;font-weight:900;color:#20d6c2;margin:12px 0}
+footer{text-align:center;color:#777694;font-size:12px;margin:40px 0 15px}
+@media(min-width:550px){.modes{grid-template-columns:1fr 1fr}.mode:last-child{grid-column:1/-1}}
 </style>
 </head>
-
 <body>
-
-<div class="container">
-
 <header>
-    <div class="logo">WOBBLE.</div>
-    <a href="index.html" class="back">← Back home</a>
+<div class="logo">WOBBLE.</div>
+<a href="index.html">← Back home</a>
 </header>
 
-<div class="intro">
-    <div class="lightning">⚡</div>
-    <h1>QUICK QUIZ</h1>
-    <p>Think fast. Choose wisely.<br>
-    How many questions can you get right?</p>
+<main>
+<section id="home">
+<div class="panel">
+<div class="eyebrow">⚡ WOBBLE ARCADE</div>
+<h1>QUICK QUIZ</h1>
+<p>Think fast. Choose wisely. How far can you go?</p>
+<div class="stats">
+<div class="stat"><small>QUESTIONS</small><strong>50</strong></div>
+<div class="stat"><small>GAME MODES</small><strong>3</strong></div>
+<div class="stat"><small>YOUR BEST</small><strong id="bestHome">0</strong></div>
 </div>
-
-<div class="panel" id="game">
-
-    <div class="stats">
-        <div class="stat">
-            <div class="stat-label">TIME LEFT</div>
-            <div class="stat-value pink" id="timer">60</div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-label">SCORE</div>
-            <div class="stat-value gold" id="score">0</div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-label">QUESTION</div>
-            <div class="stat-value purple" id="number">1/10</div>
-        </div>
-    </div>
-
-    <div class="progress-track">
-        <div class="progress-fill" id="progress"></div>
-    </div>
-
-    <div class="question-number" id="questionLabel">
-        QUESTION 01
-    </div>
-
-    <h2 class="question" id="question">
-        Loading question...
-    </h2>
-
-    <div class="answers" id="answers"></div>
-
-    <div class="feedback" id="feedback" aria-live="polite"></div>
-
-    <button class="main-button hidden" id="nextButton">
-        NEXT QUESTION →
-    </button>
-
+<h2>Choose your challenge</h2>
+<div class="modes">
+<button class="mode" onclick="startGame('endless')">
+<strong>♾️ Endless Mode</strong>
+<span>Keep going until you get an answer wrong. How high can you score?</span>
+</button>
+<button class="mode" onclick="startGame('challenge')">
+<strong>🏆 50-Question Challenge</strong>
+<span>Answer all 50 questions. Your final score is out of 50.</span>
+</button>
+<button class="mode" onclick="startGame('levels')">
+<strong>🚀 Level Mode</strong>
+<span>Beat 10 levels, with 5 questions in each. The difficulty increases as you advance.</span>
+</button>
 </div>
-
-<div class="panel result hidden" id="result">
-    <div class="result-icon" id="resultIcon">🏆</div>
-    <h2 id="resultTitle">Quiz complete!</h2>
-    <p id="resultMessage"></p>
-
-    <div class="final-score" id="finalScore">0/10</div>
-
-    <p id="resultTime"></p>
-
-    <button class="main-button" onclick="startGame()">
-        PLAY AGAIN ↻
-    </button>
-
-    <button class="main-button" onclick="location.href='index.html'"
-    style="background:#30304d; margin-top:12px;">
-        BACK HOME
-    </button>
 </div>
+</section>
 
-<footer>
-    WOBBLE © 2026 · Play. Challenge. Repeat.
-</footer>
-
+<section id="game" class="hidden">
+<div class="panel">
+<div class="eyebrow" id="modeName">ENDLESS MODE</div>
+<div class="stats">
+<div class="stat"><small>SCORE</small><strong id="score">0</strong></div>
+<div class="stat"><small>TIME LEFT</small><strong id="timer">15</strong></div>
+<div class="stat"><small>QUESTION</small><strong id="number">1</strong></div>
 </div>
+<div class="bar"><div class="fill" id="progress"></div></div>
+<p id="levelLabel">Keep going!</p>
+<div class="question" id="question">Loading question...</div>
+<div class="answers" id="answers"></div>
+<div id="feedback" class="hidden"></div>
+<button id="next" class="primary hidden" onclick="nextQuestion()">NEXT QUESTION →</button>
+</div>
+</section>
+
+<section id="results" class="hidden">
+<div class="panel" style="text-align:center">
+<div class="eyebrow">WOBBLE RESULTS</div>
+<h1 id="resultTitle">AMAZING WORK!</h1>
+<div class="bigscore" id="finalScore">0</div>
+<p id="resultText"></p>
+<div class="stats">
+<div class="stat"><small>BEST SCORE</small><strong id="bestResult">0</strong></div>
+<div class="stat"><small>ACCURACY</small><strong id="accuracy">0%</strong></div>
+<div class="stat"><small>PLAYED</small><strong id="played">0</strong></div>
+</div>
+<button class="primary" onclick="showHome()">PLAY AGAIN ↻</button>
+<button class="secondary" onclick="location.href='index.html'">BACK HOME</button>
+</div>
+</section>
+</main>
+
+<footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
 
 <script>
-
-const questions = [
-    {
-        question: "Which planet is known as the Red Planet?",
-        options: ["Venus", "Mars", "Jupiter", "Mercury"],
-        answer: 1
-    },
-    {
-        question: "How many sides does a hexagon have?",
-        options: ["Five", "Seven", "Six", "Eight"],
-        answer: 2
-    },
-    {
-        question: "What is the largest ocean on Earth?",
-        options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
-        answer: 3
-    },
-    {
-        question: "Which animal is known as the King of the Jungle?",
-        options: ["Tiger", "Lion", "Elephant", "Leopard"],
-        answer: 1
-    },
-    {
-        question: "What is the capital city of Japan?",
-        options: ["Seoul", "Beijing", "Tokyo", "Bangkok"],
-        answer: 2
-    },
-    {
-        question: "How many minutes are there in two hours?",
-        options: ["100", "120", "140", "160"],
-        answer: 1
-    },
-    {
-        question: "Which gas do plants absorb from the atmosphere?",
-        options: ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"],
-        answer: 2
-    },
-    {
-        question: "What is the smallest prime number?",
-        options: ["0", "1", "2", "3"],
-        answer: 2
-    },
-    {
-        question: "Which continent is the Sahara Desert located in?",
-        options: ["Asia", "Africa", "Australia", "Europe"],
-        answer: 1
-    },
-    {
-        question: "What is the main ingredient in guacamole?",
-        options: ["Cucumber", "Avocado", "Spinach", "Broccoli"],
-        answer: 1
-    }
+const bank = [
+{q:"Which planet is known as the Red Planet?",o:["Venus","Mars","Jupiter","Mercury"],a:1,d:1},
+{q:"How many sides does a hexagon have?",o:["Five","Seven","Six","Eight"],a:2,d:1},
+{q:"What is the largest ocean on Earth?",o:["Atlantic","Indian","Arctic","Pacific"],a:3,d:1},
+{q:"What is the capital of Japan?",o:["Seoul","Tokyo","Beijing","Bangkok"],a:1,d:1},
+{q:"Which gas do plants absorb from the atmosphere?",o:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],a:2,d:1},
+{q:"What is the smallest prime number?",o:["0","1","2","3"],a:2,d:1},
+{q:"Which continent is the Sahara Desert in?",o:["Asia","Africa","Australia","Europe"],a:1,d:1},
+{q:"What is the main ingredient in guacamole?",o:["Cucumber","Avocado","Peas","Spinach"],a:1,d:1},
+{q:"How many minutes are in two hours?",o:["90","100","120","150"],a:2,d:1},
+{q:"Which animal is known as the king of the jungle?",o:["Tiger","Elephant","Lion","Leopard"],a:2,d:1},
+{q:"What is the chemical symbol for gold?",o:["Ag","Au","Go","Gd"],a:1,d:2},
+{q:"Which country is famous for the pyramids of Giza?",o:["Greece","Egypt","Mexico","India"],a:1,d:2},
+{q:"How many bones are in the adult human body?",o:["186","206","226","246"],a:1,d:2},
+{q:"What is the hardest natural substance?",o:["Iron","Quartz","Diamond","Granite"],a:2,d:2},
+{q:"Which instrument has black and white keys?",o:["Violin","Piano","Flute","Drum"],a:1,d:2},
+{q:"What is the largest mammal in the world?",o:["Elephant","Giraffe","Blue whale","Shark"],a:2,d:2},
+{q:"Which language is primarily spoken in Brazil?",o:["Spanish","Portuguese","French","Italian"],a:1,d:2},
+{q:"What is the square root of 144?",o:["10","11","12","14"],a:2,d:2},
+{q:"Which organ pumps blood around the body?",o:["Lungs","Brain","Heart","Liver"],a:2,d:2},
+{q:"How many colours are traditionally in a rainbow?",o:["Five","Six","Seven","Eight"],a:2,d:2},
+{q:"Which planet has the most prominent ring system?",o:["Mars","Saturn","Earth","Venus"],a:1,d:3},
+{q:"Who wrote Romeo and Juliet?",o:["Charles Dickens","William Shakespeare","Jane Austen","Mark Twain"],a:1,d:3},
+{q:"What is the currency of Japan?",o:["Won","Yuan","Yen","Ringgit"],a:2,d:3},
+{q:"Which blood cells help fight infection?",o:["Red blood cells","White blood cells","Platelets","Plasma"],a:1,d:3},
+{q:"What is the longest river in Africa?",o:["Congo","Niger","Nile","Zambezi"],a:2,d:3},
+{q:"Which element has the chemical symbol Na?",o:["Nitrogen","Sodium","Neon","Nickel"],a:1,d:3},
+{q:"In which year did the first Moon landing take place?",o:["1959","1965","1969","1972"],a:2,d:3},
+{q:"What is the capital city of Canada?",o:["Toronto","Vancouver","Ottawa","Montreal"],a:2,d:3},
+{q:"Which part of a plant usually absorbs water?",o:["Leaves","Flowers","Roots","Stem"],a:2,d:3},
+{q:"How many degrees are in a right angle?",o:["45","90","180","360"],a:1,d:3},
+{q:"Which scientist developed the theory of relativity?",o:["Isaac Newton","Albert Einstein","Galileo Galilei","Nikola Tesla"],a:1,d:4},
+{q:"What is the largest organ of the human body?",o:["Liver","Brain","Skin","Lungs"],a:2,d:4},
+{q:"Which layer of Earth lies directly beneath the crust?",o:["Inner core","Outer core","Mantle","Atmosphere"],a:2,d:4},
+{q:"What is the value of pi rounded to two decimal places?",o:["3.12","3.14","3.16","3.41"],a:1,d:4},
+{q:"Which country gifted the Statue of Liberty to the United States?",o:["Britain","France","Italy","Spain"],a:1,d:4},
+{q:"What is the process by which liquid changes into gas?",o:["Condensation","Freezing","Evaporation","Melting"],a:2,d:4},
+{q:"Which is the smallest continent by land area?",o:["Europe","Antarctica","Australia","South America"],a:2,d:4},
+{q:"What is the name of the force that pulls objects toward Earth?",o:["Friction","Magnetism","Gravity","Inertia"],a:2,d:4},
+{q:"Which ocean lies between Africa and Australia?",o:["Atlantic","Pacific","Indian","Arctic"],a:2,d:4},
+{q:"What is the main gas in Earth's atmosphere?",o:["Oxygen","Nitrogen","Carbon dioxide","Argon"],a:1,d:4},
+{q:"Which number is represented by the Roman numeral XL?",o:["30","40","50","60"],a:1,d:5},
+{q:"What is the name of the nearest star to Earth?",o:["Sirius","The Sun","Proxima Centauri","Polaris"],a:1,d:5},
+{q:"Which scientist is associated with the laws of motion?",o:["Darwin","Newton","Pasteur","Curie"],a:1,d:5},
+{q:"What is the capital of New Zealand?",o:["Auckland","Wellington","Christchurch","Hamilton"],a:1,d:5},
+{q:"Which metal is liquid at room temperature?",o:["Mercury","Copper","Aluminium","Zinc"],a:0,d:5},
+{q:"What is the largest internal organ in the human body?",o:["Heart","Liver","Kidney","Stomach"],a:1,d:5},
+{q:"Which mathematical constant is the ratio of a circle's circumference to its diameter?",o:["Phi","Pi","Euler's number","Tau squared"],a:1,d:5},
+{q:"What is the study of fungi called?",o:["Botany","Zoology","Mycology","Ecology"],a:2,d:5},
+{q:"Which African country was formerly known as Abyssinia?",o:["Ethiopia","Ghana","Kenya","Sudan"],a:0,d:5},
+{q:"What is the SI unit of electrical resistance?",o:["Volt","Watt","Ohm","Ampere"],a:2,d:5}
 ];
 
-let currentQuestion = 0;
-let score = 0;
-let timeLeft = 60;
-let timerInterval = null;
-let answered = false;
-let gameActive = false;
+let mode="endless", deck=[],index=0,score=0,correct=0,played=0,time=15,clock=null,locked=false,level=1;
+let best=Number(localStorage.getItem("wobbleQuizBest")||0);
 
-const timerDisplay = document.getElementById("timer");
-const scoreDisplay = document.getElementById("score");
-const numberDisplay = document.getElementById("number");
-const questionDisplay = document.getElementById("question");
-const answersDisplay = document.getElementById("answers");
-const feedbackDisplay = document.getElementById("feedback");
-const nextButton = document.getElementById("nextButton");
-const progressDisplay = document.getElementById("progress");
-
-function startGame() {
-
-    clearInterval(timerInterval);
-
-    currentQuestion = 0;
-    score = 0;
-    timeLeft = 60;
-    answered = false;
-    gameActive = true;
-
-    document.getElementById("game").classList.remove("hidden");
-    document.getElementById("result").classList.add("hidden");
-
-    scoreDisplay.textContent = score;
-    timerDisplay.textContent = timeLeft;
-
-    showQuestion();
-
-    timerInterval = setInterval(function() {
-
-        if (!gameActive) return;
-
-        timeLeft--;
-        timerDisplay.textContent = timeLeft;
-
-        if (timeLeft <= 10) {
-            timerDisplay.style.color = "#FF4F87";
-        }
-
-        if (timeLeft <= 0) {
-            finishGame();
-        }
-
-    }, 1000);
+function updateBest(){
+document.getElementById("bestHome").textContent=best;
 }
-
-function showQuestion() {
-
-    if (!gameActive) return;
-
-    answered = false;
-
-    const q = questions[currentQuestion];
-
-    questionDisplay.textContent = q.question;
-
-    document.getElementById("questionLabel").textContent =
-        "QUESTION " + String(currentQuestion + 1).padStart(2, "0");
-
-    numberDisplay.textContent =
-        (currentQuestion + 1) + "/10";
-
-    progressDisplay.style.width =
-        (currentQuestion / questions.length * 100) + "%";
-
-    feedbackDisplay.textContent = "";
-    feedbackDisplay.className = "feedback";
-
-    nextButton.classList.add("hidden");
-
-    answersDisplay.innerHTML = "";
-
-    q.options.forEach(function(option, index) {
-
-        const button = document.createElement("button");
-
-        button.className = "answer";
-        button.textContent =
-            String.fromCharCode(65 + index) + ". " + option;
-
-        button.onclick = function() {
-            checkAnswer(index, button);
-        };
-
-        answersDisplay.appendChild(button);
-
-    });
+function shuffle(list){
+let arr=[...list];
+for(let i=arr.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[arr[i],arr[j]]=[arr[j],arr[i]];
 }
-
-function checkAnswer(selected, selectedButton) {
-
-    if (answered || !gameActive) return;
-
-    answered = true;
-
-    const q = questions[currentQuestion];
-    const buttons = answersDisplay.querySelectorAll(".answer");
-
-    buttons.forEach(function(button) {
-        button.disabled = true;
-    });
-
-    if (selected === q.answer) {
-
-        score++;
-        scoreDisplay.textContent = score;
-
-        selectedButton.classList.add("correct");
-
-        feedbackDisplay.textContent = "✓ Correct! Great job!";
-        feedbackDisplay.classList.add("good");
-
-    } else {
-
-        selectedButton.classList.add("wrong");
-        buttons[q.answer].classList.add("correct");
-
-        feedbackDisplay.textContent =
-            "✗ Not quite! The correct answer is " +
-            q.options[q.answer] + ".";
-
-        feedbackDisplay.classList.add("bad");
-    }
-
-    if (currentQuestion === questions.length - 1) {
-        nextButton.textContent = "SEE MY RESULTS 🏆";
-    } else {
-        nextButton.textContent = "NEXT QUESTION →";
-    }
-
-    nextButton.classList.remove("hidden");
+return arr;
 }
-
-nextButton.addEventListener("click", function() {
-
-    if (!gameActive || !answered) return;
-
-    currentQuestion++;
-
-    if (currentQuestion >= questions.length) {
-        finishGame();
-    } else {
-        showQuestion();
-    }
+function showSection(id){
+["home","game","results"].forEach(x=>document.getElementById(x).classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+}
+function showHome(){
+clearInterval(clock);
+updateBest();
+showSection("home");
+}
+function startGame(selected){
+clearInterval(clock);
+mode=selected;index=0;score=0;correct=0;played=0;level=1;
+if(mode==="levels"){
+deck=[];
+for(let d=1;d<=5;d++){
+let group=shuffle(bank.filter(q=>q.d===d));
+deck.push(...group);
+}
+}else{
+deck=shuffle(bank);
+}
+document.getElementById("modeName").textContent=
+mode==="endless"?"♾️ ENDLESS MODE":mode==="challenge"?"🏆 50-QUESTION CHALLENGE":"🚀 LEVEL MODE";
+showSection("game");
+loadQuestion();
+}
+function loadQuestion(){
+if(mode==="endless"&&index>=deck.length)deck=shuffle(bank);
+if(mode!=="endless"&&index>=deck.length){finishGame(true);return;}
+locked=false;time=15;
+document.getElementById("timer").textContent=time;
+document.getElementById("score").textContent=score;
+document.getElementById("number").textContent=mode==="levels"?`${Math.floor(index/5)+1}/10`:mode==="challenge"?`${index+1}/50`:index+1;
+document.getElementById("progress").style.width=
+mode==="endless"?"0%":`${(index/deck.length)*100}%`;
+if(mode==="levels"){
+level=Math.floor(index/5)+1;
+document.getElementById("levelLabel").textContent=`LEVEL ${level} · ${["Beginner","Easy","Intermediate","Advanced","Expert"][Math.ceil(level/2)-1]}`;
+}else{
+document.getElementById("levelLabel").textContent=mode==="endless"?"No limits. One wrong answer ends your run!":"Complete all 50 questions!";
+}
+let item=deck[index];
+document.getElementById("question").textContent=item.q;
+document.getElementById("feedback").className="hidden";
+document.getElementById("next").classList.add("hidden");
+let box=document.getElementById("answers");
+box.innerHTML="";
+item.o.forEach((option,i)=>{
+let b=document.createElement("button");
+b.className="answer";
+b.textContent=String.fromCharCode(65+i)+". "+option;
+b.onclick=()=>chooseAnswer(i);
+box.appendChild(b);
 });
-
-function finishGame() {
-
-    if (!gameActive) return;
-
-    gameActive = false;
-
-    clearInterval(timerInterval);
-
-    document.getElementById("game").classList.add("hidden");
-    document.getElementById("result").classList.remove("hidden");
-
-    progressDisplay.style.width = "100%";
-
-    document.getElementById("finalScore").textContent =
-        score + "/10";
-
-    document.getElementById("resultTime").textContent =
-        "Time remaining: " + timeLeft + " seconds";
-
-    let icon;
-    let title;
-    let message;
-
-    if (score === 10) {
-        icon = "👑";
-        title = "PERFECT SCORE!";
-        message = "Incredible! You absolutely crushed it!";
-    } else if (score >= 7) {
-        icon = "🏆";
-        title = "AMAZING WORK!";
-        message = "Your knowledge is impressive. Keep it up!";
-    } else if (score >= 4) {
-        icon = "🔥";
-        title = "NICE TRY!";
-        message = "You're getting there. Can you beat your score?";
-    } else {
-        icon = "💜";
-        title = "KEEP PRACTISING!";
-        message = "Every challenge makes you better. Try again!";
-    }
-
-    if (timeLeft <= 0) {
-        message += " Time ran out, but you can always try again!";
-    }
-
-    document.getElementById("resultIcon").textContent = icon;
-    document.getElementById("resultTitle").textContent = title;
-    document.getElementById("resultMessage").textContent = message;
+clock=setInterval(()=>{
+time--;
+document.getElementById("timer").textContent=time;
+if(time<=0){
+clearInterval(clock);
+chooseAnswer(-1);
 }
-
-startGame();
-
+},1000);
+}
+function chooseAnswer(choice){
+if(locked)return;
+locked=true;clearInterval(clock);
+played++;
+let item=deck[index];
+let buttons=document.querySelectorAll(".answer");
+buttons.forEach((b,i)=>{
+b.disabled=true;
+if(i===item.a)b.classList.add("correct");
+if(i===choice&&choice!==item.a)b.classList.add("wrong");
+});
+let fb=document.getElementById("feedback");
+fb.classList.remove("hidden");
+if(choice===item.a){
+correct++;score+=10+time;
+fb.className="feedback good";
+fb.textContent="✓ Correct! +" +(10+time)+" points. Great work!";
+}else{
+fb.className="feedback bad";
+fb.textContent=choice===-1?"⌛ Time's up! The correct answer was "+item.o[item.a]+".":"✕ Not quite! The correct answer was "+item.o[item.a]+".";
+}
+document.getElementById("score").textContent=score;
+document.getElementById("next").classList.remove("hidden");
+document.getElementById("next").textContent=
+mode==="endless"&&choice!==item.a?"SEE RESULTS →":
+mode==="levels"&&(index+1)%5===0?"LEVEL COMPLETE →":
+mode==="challenge"&&index===49?"SEE RESULTS →":"NEXT QUESTION →";
+document.getElementById("next").dataset.wrong=choice===item.a?"no":"yes";
+}
+function nextQuestion(){
+let wrong=document.getElementById("next").dataset.wrong==="yes";
+if(mode==="endless"&&wrong){finishGame(false);return;}
+index++;
+if(mode==="levels"&&index%5===0&&index<deck.length){
+clearInterval(clock);
+document.getElementById("question").textContent=`LEVEL ${index/5} COMPLETE! 🎉`;
+document.getElementById("answers").innerHTML="";
+document.getElementById("feedback").className="hidden";
+document.getElementById("next").textContent="START NEXT LEVEL →";
+document.getElementById("next").onclick=()=>{
+document.getElementById("next").onclick=nextQuestion;
+loadQuestion();
+};
+return;
+}
+document.getElementById("next").onclick=nextQuestion;
+loadQuestion();
+}
+function finishGame(completed){
+clearInterval(clock);
+if(score>best){
+best=score;
+localStorage.setItem("wobbleQuizBest",best);
+}
+document.getElementById("finalScore").textContent=score;
+document.getElementById("bestResult").textContent=best;
+document.getElementById("accuracy").textContent=played?Math.round(correct/played*100)+"%":"0%";
+document.getElementById("played").textContent=played;
+let title="GREAT TRY!";
+let message=`You answered ${correct} questions correctly. Keep practising and beat your best score!`;
+if(mode==="endless")message=`You answered ${correct} questions correctly before your run ended. Can you beat ${score} points?`;
+if(mode==="challenge"){
+title=completed?"CHALLENGE COMPLETE!":"ROUND FINISHED";
+message=completed?`You completed all 50 questions! You got ${correct} correct out of 50.`:`Your round ended with ${correct} correct answers out of ${played}. Try the full 50-question challenge again!`;
+}
+if(mode==="levels"){
+title=completed?"ALL LEVELS CLEARED!":"LEVEL RUN COMPLETE";
+message=completed?"Amazing! You conquered all 10 levels.":"You reached Level "+level+". Keep practising and try to go further!";
+}
+if(mode==="endless"&&correct>=10)title="AMAZING WORK!";
+if(mode==="levels"&&completed)title="QUIZ CHAMPION!";
+document.getElementById("resultTitle").textContent=title;
+document.getElementById("resultText").textContent=message;
+showSection("results");
+updateBest();
+}
+updateBest();
 </script>
-
 </body>
 </html>
-
