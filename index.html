@@ -4,59 +4,192 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wobble - Play. Challenge. Repeat.</title>
+  <meta name="theme-color" content="#17172b">
+  <title>Wobble | Play. Challenge. Repeat.</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #17142b;
-      color: white;
+      background: #17172b;
+      color: #ffffff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 7%;
+      border-bottom: 1px solid #303047;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      color: #a78bfa;
+      letter-spacing: 2px;
+    }
+
+    .tag {
+      color: #20d6c2;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: auto;
+      padding: 55px 7%;
+    }
+
+    .hero {
+      background: #25243f;
+      padding: 45px 25px;
+      border-radius: 20px;
       text-align: center;
-      padding: 40px 20px;
+      border: 1px solid #393653;
     }
 
-    h1 {
-      font-size: 55px;
-      color: #ffcf5c;
-      margin-bottom: 10px;
+    .hero h1 {
+      font-size: clamp(32px, 8vw, 52px);
+      margin: 0 0 15px;
     }
 
-    .tagline {
-      font-size: 20px;
-      color: #e5dfff;
+    .hero h1 span {
+      color: #a78bfa;
     }
 
-    .welcome {
-      margin: 60px auto;
-      max-width: 500px;
-      padding: 30px 20px;
-      background: #292345;
-      border-radius: 24px;
+    .hero p {
+      color: #c5c2d8;
+      line-height: 1.7;
+    }
+
+    .section-title {
+      margin-top: 55px;
+      margin-bottom: 22px;
+      font-size: 24px;
     }
 
     .games {
-      font-size: 40px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
     }
 
-    p {
-      line-height: 1.6;
+    .game-card {
+      padding: 24px 18px;
+      border-radius: 17px;
+      background: #25243f;
+      border: 1px solid #393653;
+      transition: transform 0.2s;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .emoji {
+      font-size: 34px;
+    }
+
+    .game-card h3 {
+      margin: 15px 0 7px;
+    }
+
+    .game-card p {
+      color: #aaa8bf;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .purple { border-top: 3px solid #a78bfa; }
+    .pink { border-top: 3px solid #ff4f87; }
+    .teal { border-top: 3px solid #20d6c2; }
+    .gold { border-top: 3px solid #ffc857; }
+
+    .coming {
+      text-align: center;
+      margin-top: 45px;
+      color: #aaa8bf;
+      font-size: 13px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #77758e;
+      border-top: 1px solid #303047;
+      font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 35px 5%;
+      }
+
+      .games {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 18px 5%;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h1>WOBBLE 🎮</h1>
-  <p class="tagline">Play. Challenge. Repeat.</p>
+  <header>
+    <div class="logo">WOBBLE.</div>
+    <div class="tag">LET'S PLAY 🎮</div>
+  </header>
 
-  <div class="welcome">
-    <div class="games">🧩 🎯 🧠</div>
-    <h2>Ready to play?</h2>
-    <p>
-      Welcome to Wobble!
-      Your next favourite mini-game
-      adventure starts here.
-    </p>
-    <p>Our games are coming soon!</p>
-  </div>
+  <main>
+    <section class="hero">
+      <h1>Ready to <span>play?</span></h1>
+      <p>Pick a game. Challenge yourself. Beat your best score.</p>
+    </section>
+
+    <h2 class="section-title">Explore our games</h2>
+
+    <section class="games">
+      <article class="game-card purple">
+        <div class="emoji">🧠</div>
+        <h3>Memory Blitz</h3>
+        <p>Test your memory. How much can you remember?</p>
+      </article>
+
+      <article class="game-card pink">
+        <div class="emoji">⚡</div>
+        <h3>Quick Quiz</h3>
+        <p>Think fast and answer before time runs out.</p>
+      </article>
+
+      <article class="game-card teal">
+        <div class="emoji">🔤</div>
+        <h3>Word Rush</h3>
+        <p>Find the right words before the clock runs out.</p>
+      </article>
+
+      <article class="game-card gold">
+        <div class="emoji">🎯</div>
+        <h3>Match Mania</h3>
+        <p>Match colours and patterns to earn points.</p>
+      </article>
+    </section>
+
+    <p class="coming">More games are on the way. Stay curious. ✨</p>
+  </main>
+
+  <footer>
+    WOBBLE © 2026 · Play. Challenge. Repeat.
+  </footer>
 </body>
 </html>
+
+      
