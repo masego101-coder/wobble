@@ -19,6 +19,7 @@
   --text:#f8f5ff;
   --muted:#aaa5c5;
 }
+
 * {box-sizing:border-box}
 
 body {
@@ -26,16 +27,31 @@ body {
   min-height:100vh;
   padding:20px 9px 35px;
   color:var(--text);
-  background:radial-gradient(ellipse at 50% 0%,#49306d 0%,transparent 55%),var(--bg);
+  background:
+    radial-gradient(ellipse at 50% 0%,#49306d 0%,transparent 55%),
+    var(--bg);
   font-family:system-ui,-apple-system,sans-serif;
   text-align:center;
   -webkit-tap-highlight-color:transparent;
   overflow-x:hidden;
 }
+
 button {font:inherit;cursor:pointer}
-.brand {font-size:20px;font-weight:950;letter-spacing:2px}
+
+.brand {
+  font-size:20px;
+  font-weight:950;
+  letter-spacing:2px;
+}
 .brand span {color:var(--purple)}
-.arcade {font-size:10px;color:var(--muted);letter-spacing:4px;font-weight:800}
+
+.arcade {
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:4px;
+  font-weight:800;
+}
+
 h1 {
   font-size:46px;
   letter-spacing:4px;
@@ -43,15 +59,21 @@ h1 {
   margin:20px 0 3px;
   text-shadow:0 4px 18px #ffc85755;
 }
-.subtitle {font-size:13px;color:var(--muted);margin:5px 0 22px}
+
+.subtitle {
+  font-size:13px;
+  color:var(--muted);
+  margin:5px 0 22px;
+}
 
 .stats {
-  width:min(100%,440px);
+  width:min(100%,470px);
   margin:auto;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
 }
+
 .stat {
   background:linear-gradient(145deg,#302c50,#211f39);
   border:1px solid #ffffff18;
@@ -59,6 +81,7 @@ h1 {
   padding:11px 4px;
   box-shadow:0 5px 12px #0003;
 }
+
 .stat small {
   display:block;
   color:var(--muted);
@@ -66,11 +89,17 @@ h1 {
   font-weight:850;
   letter-spacing:1px;
 }
-.stat strong {display:block;font-size:20px;margin-top:4px}
+
+.stat strong {
+  display:block;
+  font-size:20px;
+  margin-top:4px;
+}
+
 #coins {color:var(--gold)}
 
 .message {
-  width:min(100%,440px);
+  width:min(100%,470px);
   min-height:42px;
   margin:15px auto 12px;
   padding:11px;
@@ -82,113 +111,148 @@ h1 {
   font-weight:750;
 }
 
+/* SCROLLABLE WIDE PUZZLE BOARD */
+
 .board-wrap {
-  width:min(100%,470px);
+  width:min(100%,560px);
   margin:auto;
-  padding:20px 6px;
+  padding:16px 10px;
   border-radius:22px;
-  background:radial-gradient(ellipse at 50% 0%,#ffffff0c,transparent 65%),linear-gradient(145deg,#302e4e,#1b1a31);
+  background:
+    radial-gradient(ellipse at 50% 0%,#ffffff0c,transparent 65%),
+    linear-gradient(145deg,#302e4e,#1b1a31);
   border:1px solid #ffffff1c;
-  box-shadow:0 18px 40px #0006,inset 0 1px 0 #ffffff12;
+  box-shadow:
+    0 18px 40px #0006,
+    inset 0 1px 0 #ffffff12;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:#8b5cf6 #211f39;
 }
+
 .board {
   display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:clamp(3px,1.5vw,8px);
+  grid-template-columns:repeat(5,82px);
+  gap:9px;
   align-items:end;
-  justify-items:center;
-  min-height:270px;
+  justify-content:center;
+  width:max-content;
+  min-height:370px;
+  margin:auto;
 }
+
 .board.six {
-  grid-template-columns:repeat(6,minmax(0,1fr));
-  gap:3px;
+  grid-template-columns:repeat(6,78px);
+  gap:7px;
 }
+
+/* WIDER, TALLER STICKS */
 
 .stick {
   width:100%;
-  height:250px;
-  min-width:0;
-  padding:9px 1px 10px;
+  height:360px;
+  padding:5px 3px 12px;
   display:flex;
   flex-direction:column-reverse;
   align-items:center;
   justify-content:flex-start;
   position:relative;
-  border:1px solid #ffffff18;
-  border-radius:14px 14px 11px 11px;
-  background:linear-gradient(90deg,#ffffff05,#ffffff0c 45%,#ffffff04),#151426;
-  box-shadow:inset 0 0 12px #0007,0 5px 10px #0003;
+  border:1px solid #ffffff20;
+  border-radius:16px 16px 12px 12px;
+  background:
+    linear-gradient(90deg,#ffffff04,#ffffff0b 45%,#ffffff03),
+    #151426;
+  box-shadow:
+    inset 0 0 15px #0008,
+    0 6px 12px #0004;
   touch-action:none;
   transition:background .15s,border-color .15s,transform .15s;
 }
+
 .stick:before {
   content:"";
   position:absolute;
-  top:7px;
-  bottom:8px;
+  top:5px;
+  bottom:9px;
   left:50%;
-  width:5px;
+  width:6px;
   transform:translateX(-50%);
   border-radius:8px;
-  background:linear-gradient(90deg,#72513b,#d5b18a 35%,#f0d3a8 50%,#94704e 80%,#63432f);
+  background:
+    linear-gradient(
+      90deg,
+      #72513b,
+      #d5b18a 30%,
+      #f0d3a8 50%,
+      #94704e 80%,
+      #63432f
+    );
   box-shadow:1px 0 4px #0009,inset 0 0 2px #fff8;
 }
+
 .stick:after {
   content:"";
   position:absolute;
   bottom:3px;
   left:50%;
-  width:88%;
-  height:9px;
+  width:92%;
+  height:10px;
   transform:translateX(-50%);
   border-radius:50%;
-  background:linear-gradient(#d6b58c,#715035);
+  background:linear-gradient(#e0c09a,#715035);
   box-shadow:0 3px 5px #0009;
 }
+
 .stick.drag-over {
   border-color:var(--teal);
   background:#20d6c225;
   transform:translateY(-4px);
 }
+
 .stick.invalid {border-color:var(--pink)}
 
-/* BIGGER, ROUND DONUTS */
+/* ROUND ANIMATED DONUTS */
+
 .donut {
   --icing:#ff6b9d;
   --shade:#a51e58;
 
   position:relative;
   z-index:2;
-  width:94%;
-  max-width:62px;
-  min-width:0;
-  aspect-ratio:1 / 1;
-  height:auto;
-  flex:0 0 auto;
-  margin-top:-5px;
+  width:72px;
+  height:72px;
+  flex:0 0 72px;
+  margin-top:-8px;
   border-radius:50%;
 
   background:
-    radial-gradient(circle at 50% 50%,
-      #201019 0 13%,
-      #70401f 14% 18%,
-      #e4ae79 19% 23%,
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 17%,
+      #bd7943 18% 23%,
       transparent 24%
     ),
-    radial-gradient(circle at 30% 22%,#ffe9c4 0 3%,transparent 40%),
-    linear-gradient(145deg,#ffe7b8 0%,#e7aa69 48%,#a75c30 100%);
+    radial-gradient(
+      circle at 32% 22%,
+      #fff1ce 0 3%,
+      transparent 38%
+    ),
+    linear-gradient(145deg,#ffe8bd 0%,#e9b277 50%,#a75c30 100%);
 
-  border:2px solid #9d572f;
+  border:2px solid #a76338;
 
   box-shadow:
-    inset 0 5px 6px #fff9,
-    inset 0 -7px 9px #693519bb,
-    0 7px 7px #000a,
+    inset 0 5px 7px #fff9,
+    inset 0 -8px 10px #693519bb,
+    0 8px 8px #000b,
     0 3px 4px #0008;
+
   cursor:grab;
   touch-action:none;
   user-select:none;
   -webkit-user-select:none;
+  transition:filter .15s;
 }
 
 .donut:before {
@@ -196,25 +260,30 @@ h1 {
   position:absolute;
   inset:3px;
   border-radius:50%;
+
   background:
-    radial-gradient(circle at center,
-      transparent 0 18%,
-      var(--shade) 19% 22%,
-      transparent 23% 100%
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 17%,
+      var(--shade) 18% 23%,
+      transparent 24%
     ),
-    radial-gradient(circle at 29% 18%,
-      #ffffffee 0 3%,
-      #ffffff66 10%,
-      transparent 39%
+    radial-gradient(
+      ellipse at 28% 20%,
+      #ffffffee 0 2%,
+      #ffffff70 12%,
+      transparent 40%
     ),
-    radial-gradient(circle at 72% 80%,
+    radial-gradient(
+      ellipse at 75% 80%,
       #00000055,
       transparent 44%
     ),
     var(--icing);
+
   box-shadow:
-    inset 0 4px 5px #ffffffbb,
-    inset 0 -6px 7px var(--shade),
+    inset 0 5px 6px #ffffffbb,
+    inset 0 -7px 9px var(--shade),
     0 3px 4px #0006;
 }
 
@@ -224,13 +293,25 @@ h1 {
   z-index:4;
   left:50%;
   top:50%;
-  width:25%;
-  height:25%;
+  width:27%;
+  height:27%;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  background:radial-gradient(circle at 40% 35%,#100a10 0 55%,#392318 75%,#a96a3c 100%);
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #100a10 0 48%,
+      #392318 70%,
+      #a96a3c 100%
+    );
+
   border:2px solid #bd7c49;
-  box-shadow:inset 0 3px 4px #000e,0 1px 2px #fff7,0 2px 4px #0009;
+
+  box-shadow:
+    inset 0 3px 4px #000e,
+    0 1px 2px #fff7,
+    0 2px 4px #0009;
 }
 
 .sprinkles {
@@ -239,6 +320,7 @@ h1 {
   inset:5px;
   pointer-events:none;
   border-radius:50%;
+
   background:
     radial-gradient(ellipse 2px 4px at 25% 35%,#fff 98%,transparent),
     radial-gradient(ellipse 2px 4px at 72% 30%,#ffe36b 98%,transparent),
@@ -256,11 +338,12 @@ h1 {
 .orange {--icing:#ff9d50;--shade:#b94e16}
 
 .dragging-source {opacity:.18}
+
 .drag-ghost {
   position:fixed;
   z-index:9999;
   pointer-events:none;
-  transform:translate(-50%,-50%) scale(1.3) rotate(-5deg);
+  transform:translate(-50%,-50%) scale(1.25) rotate(-5deg);
   filter:drop-shadow(0 15px 12px #000c);
 }
 
@@ -271,6 +354,7 @@ h1 {
   gap:9px;
   margin:18px auto;
 }
+
 button {
   border:0;
   border-radius:12px;
@@ -281,13 +365,18 @@ button {
   font-weight:850;
   box-shadow:0 4px 0 #211b36;
 }
-button:active {transform:translateY(2px);box-shadow:none}
+
+button:active {
+  transform:translateY(2px);
+  box-shadow:none;
+}
+
 button:disabled {opacity:.4}
 .primary {background:var(--purple)}
 .gold {background:#916319}
 
 .how-to {
-  width:min(100%,440px);
+  width:min(100%,470px);
   margin:25px auto 0;
   padding:17px;
   text-align:left;
@@ -298,8 +387,18 @@ button:disabled {opacity:.4}
   font-size:13px;
   line-height:1.7;
 }
-.how-to h2 {color:white;font-size:15px;margin:0 0 8px}
-.how-to ol {padding-left:20px;margin:0}
+
+.how-to h2 {
+  color:white;
+  font-size:15px;
+  margin:0 0 8px;
+}
+
+.how-to ol {
+  padding-left:20px;
+  margin:0;
+}
+
 .how-to p {margin-bottom:0}
 
 .overlay {
@@ -312,7 +411,9 @@ button:disabled {opacity:.4}
   padding:20px;
   background:#090817dc;
 }
+
 .overlay.show {display:flex}
+
 .modal {
   width:min(100%,340px);
   padding:28px 22px;
@@ -321,20 +422,37 @@ button:disabled {opacity:.4}
   border:1px solid var(--purple);
   box-shadow:0 20px 60px #0009;
 }
+
 .modal h2 {font-size:28px;margin:0 0 8px}
 .modal p {color:var(--muted);line-height:1.5}
-footer {margin-top:25px;color:#77718f;font-size:11px}
 
-@media(max-width:370px) {
-  body {padding-left:5px;padding-right:5px}
-  .board {gap:2px}
-  .stick {height:238px}
-  .donut {width:96%}
+footer {
+  margin-top:25px;
+  color:#77718f;
+  font-size:11px;
+}
+
+@media(max-width:390px) {
+  .board-wrap {padding:12px 5px}
+  .board {gap:6px}
+  .stick {height:360px}
+}
+
+@media(prefers-reduced-motion:no-preference) {
+  .donut:not(.drag-ghost) {
+    animation:donutShine 4s ease-in-out infinite;
+  }
+
+  @keyframes donutShine {
+    0%,100% {filter:brightness(1)}
+    50% {filter:brightness(1.07)}
+  }
 }
 </style>
 </head>
 
 <body>
+
 <header>
   <div class="brand">WOBBLE<span>.</span></div>
   <div class="arcade">⚡ ARCADE</div>
@@ -343,12 +461,23 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 </header>
 
 <section class="stats">
-  <div class="stat"><small>LEVEL</small><strong id="level">1</strong></div>
-  <div class="stat"><small>COINS 🪙</small><strong id="coins">0</strong></div>
-  <div class="stat"><small>MOVES</small><strong id="moves">0</strong></div>
+  <div class="stat">
+    <small>LEVEL</small>
+    <strong id="level">1</strong>
+  </div>
+  <div class="stat">
+    <small>COINS 🪙</small>
+    <strong id="coins">0</strong>
+  </div>
+  <div class="stat">
+    <small>MOVES</small>
+    <strong id="moves">0</strong>
+  </div>
 </section>
 
-<div class="message" id="message">Hold a donut, drag it, and release!</div>
+<div class="message" id="message">
+  Hold a donut, drag it, and release!
+</div>
 
 <div class="board-wrap">
   <div class="board" id="board"></div>
@@ -366,7 +495,7 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
     <li>Touch and hold the top donut on a stick.</li>
     <li>Drag it to another stick and release your finger.</li>
     <li>Move a donut to an empty stick or onto the same colour.</li>
-    <li>Each stick holds a maximum of four donuts.</li>
+    <li>Each stick holds a maximum of five donuts.</li>
     <li>Sort every colour into its own stick to win!</li>
   </ol>
   <p>🪙 Earn coins by completing levels. Save 100 coins to unlock a sixth stick!</p>
@@ -387,8 +516,12 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 "use strict";
 
 const STORAGE_KEY="wobbleHoopProgress";
-const CAPACITY=4;
-const COLOURS=["pink","blue","yellow","green","purple","orange"];
+const CAPACITY=5;
+
+const COLOURS=[
+  "pink","blue","yellow","green","purple","orange"
+];
+
 const $=id=>document.getElementById(id);
 const boardEl=$("board");
 const messageEl=$("message");
@@ -397,10 +530,13 @@ const overlay=$("winOverlay");
 function loadProgress() {
   try {
     const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+
     return {
       level:Math.max(1,Number(saved.level)||1),
       coins:Math.max(0,Number(saved.coins)||0),
-      extraStick:Boolean(saved.extraStick||saved.extraTube||saved.unlocked)
+      extraStick:Boolean(
+        saved.extraStick||saved.extraTube||saved.unlocked
+      )
     };
   } catch {
     return {level:1,coins:0,extraStick:false};
@@ -416,28 +552,16 @@ let completed=false;
 let drag=null;
 let ghost=null;
 
-function saveProgress() {
-  try {
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
-  } catch(error) {
-    console.warn("Could not save progress",error);
-  }
-}
-
-function cloneTubes(value) {
-  return value.map(tube=>[...tube]);
-}
-
 function stickCount() {
   return progress.extraStick?6:5;
 }
 
 function colourCount() {
-  return Math.min(
-    stickCount()-1,
-    2+Math.floor((progress.level-1)/2),
-    COLOURS.length
-  );
+  return progress.extraStick?5:4;
+}
+
+function cloneTubes(value) {
+  return value.map(tube=>[...tube]);
 }
 
 function shuffle(array) {
@@ -449,9 +573,9 @@ function shuffle(array) {
 }
 
 /*
-  Build a solved board, then scramble it using only
-  legal moves. This guarantees a solution exists:
-  the scrambling moves can be reversed.
+  Each puzzle begins with a valid solved board.
+  Legal moves are then used to scramble it.
+  The puzzle therefore always has a solution.
 */
 function makePuzzle() {
   const count=colourCount();
@@ -464,8 +588,8 @@ function makePuzzle() {
     candidate.push([]);
 
     const scrambleMoves=Math.min(
-      110,
-      18+progress.level*7
+      180,
+      35+progress.level*10
     );
 
     let previous=null;
@@ -479,19 +603,25 @@ function makePuzzle() {
         for(let to=0;to<candidate.length;to++) {
           if(from===to||candidate[to].length>=CAPACITY) continue;
 
-          const colour=candidate[from][candidate[from].length-1];
+          const colour=
+            candidate[from][candidate[from].length-1];
 
-          if(candidate[to].length&&
-             candidate[to][candidate[to].length-1]!==colour) {
+          if(
+            candidate[to].length&&
+            candidate[to][candidate[to].length-1]!==colour
+          ) {
             continue;
           }
 
-          // Avoid immediately reversing the previous move.
-          if(previous&&from===previous.to&&to===previous.from) {
+          if(
+            previous&&
+            from===previous.to&&
+            to===previous.from
+          ) {
             continue;
           }
 
-          choices.push({from,to,colour});
+          choices.push({from,to});
         }
       }
 
@@ -504,36 +634,29 @@ function makePuzzle() {
       previous={from:move.from,to:move.to};
     }
 
-    const nonEmpty=candidate.filter(tube=>tube.length>0);
+    const mixed=candidate
+      .filter(tube=>tube.length>0)
+      .every(tube=>new Set(tube).size>=2);
 
-    const mixed=nonEmpty.every(tube=>
-      new Set(tube).size>=2
-    );
-
-    const enoughMixing=nonEmpty.every(tube=>
-      new Set(tube).size>=Math.min(2,count)
-    );
-
-    if(mixed&&enoughMixing) {
-      return candidate;
-    }
+    if(mixed) return candidate;
   }
 
-  /*
-    Fallback: random distribution, still containing
-    all donuts and an empty stick.
-  */
+  // Safe fallback if a heavily scrambled arrangement is not found.
   const all=[];
+
   COLOURS.slice(0,count).forEach(colour=>{
     for(let i=0;i<CAPACITY;i++) all.push(colour);
   });
 
   for(let attempt=0;attempt<10000;attempt++) {
     shuffle(all);
+
     const candidate=[];
 
     for(let i=0;i<count;i++) {
-      candidate.push(all.slice(i*CAPACITY,(i+1)*CAPACITY));
+      candidate.push(
+        all.slice(i*CAPACITY,(i+1)*CAPACITY)
+      );
     }
 
     if(candidate.every(tube=>new Set(tube).size>=2)) {
@@ -543,21 +666,35 @@ function makePuzzle() {
   }
 
   return [
-    ["pink","blue","pink","blue"],
-    ["blue","pink","blue","pink"],
-    ...COLOURS.slice(2,count).map(colour=>[
-      colour,COLOURS[0],colour,COLOURS[0]
-    ]),
+    ["pink","blue","pink","blue","pink"],
+    ["blue","pink","blue","pink","blue"],
+    ["yellow","green","yellow","green","yellow"],
+    ["green","yellow","green","yellow","green"],
     []
-  ].slice(0,stickCount());
+  ];
+}
+
+function saveProgress() {
+  try {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(progress)
+    );
+  } catch(error) {
+    console.warn("Could not save progress",error);
+  }
 }
 
 function updateStats() {
   $("level").textContent=progress.level;
   $("coins").textContent=progress.coins;
   $("moves").textContent=moves;
+
   $("undoBtn").disabled=!history.length||completed;
-  $("extraBtn").disabled=progress.extraStick||progress.coins<100;
+
+  $("extraBtn").disabled=
+    progress.extraStick||progress.coins<100;
+
   $("extraBtn").textContent=progress.extraStick
     ?"✓ SIXTH STICK UNLOCKED"
     :"🔓 EXTRA STICK · 100 🪙";
@@ -570,6 +707,7 @@ function createDonut(colour) {
 
   const sprinkles=document.createElement("span");
   sprinkles.className="sprinkles";
+
   donut.appendChild(sprinkles);
 
   return donut;
@@ -609,7 +747,10 @@ function say(message,colour) {
 
 function canMove(from,to) {
   if(from===to||!tubes[from]||!tubes[to]) return false;
-  if(!tubes[from].length||tubes[to].length>=CAPACITY) return false;
+
+  if(!tubes[from].length) return false;
+  if(tubes[to].length>=CAPACITY) return false;
+
   if(!tubes[to].length) return true;
 
   return tubes[to][tubes[to].length-1]===
@@ -622,9 +763,8 @@ function startDrag(event) {
   const donut=event.currentTarget;
   const stick=donut.closest(".stick");
   const from=Number(stick.dataset.index);
-  const colour=tubes[from][tubes[from].length-1];
 
-  if(!colour) return;
+  if(!tubes[from]||!tubes[from].length) return;
 
   event.preventDefault();
 
@@ -632,8 +772,8 @@ function startDrag(event) {
   ghost.classList.add("drag-ghost");
   ghost.style.left=event.clientX+"px";
   ghost.style.top=event.clientY+"px";
-  document.body.appendChild(ghost);
 
+  document.body.appendChild(ghost);
   donut.classList.add("dragging-source");
 
   drag={
@@ -651,6 +791,7 @@ function startDrag(event) {
 
 function moveDrag(event) {
   if(!drag||event.pointerId!==drag.pointerId) return;
+
   event.preventDefault();
 
   if(ghost) {
@@ -662,13 +803,19 @@ function moveDrag(event) {
     stick.classList.remove("drag-over","invalid");
   });
 
-  const target=document.elementFromPoint(event.clientX,event.clientY);
+  const target=document.elementFromPoint(
+    event.clientX,event.clientY
+  );
+
   const stick=target&&target.closest(".stick");
 
   if(stick) {
     const to=Number(stick.dataset.index);
+
     if(to!==drag.from) {
-      stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
+      stick.classList.add(
+        canMove(drag.from,to)?"drag-over":"invalid"
+      );
     }
   }
 }
@@ -693,7 +840,10 @@ function cleanDrag() {
 function endDrag(event) {
   if(!drag||event.pointerId!==drag.pointerId) return;
 
-  const target=document.elementFromPoint(event.clientX,event.clientY);
+  const target=document.elementFromPoint(
+    event.clientX,event.clientY
+  );
+
   const stick=target&&target.closest(".stick");
   const from=drag.from;
   const to=stick?Number(stick.dataset.index):-1;
@@ -711,9 +861,11 @@ function endDrag(event) {
 
 function cancelDrag() {
   if(!drag) return;
+
   cleanDrag();
   drag=null;
   render();
+
   say("Drag cancelled. Try again!");
 }
 
@@ -727,10 +879,14 @@ function makeMove(from,to) {
 
   tubes[to].push(tubes[from].pop());
   moves++;
+
   render();
 
-  if(isSolved()) finishLevel();
-  else say("Nice move! Keep sorting.");
+  if(isSolved()) {
+    finishLevel();
+  } else {
+    say("Nice move! Keep sorting.");
+  }
 }
 
 function isSolved() {
@@ -745,7 +901,9 @@ function isSolved() {
 
 function finishLevel() {
   completed=true;
+
   const reward=10+progress.level*2;
+
   progress.coins+=reward;
   saveProgress();
   render();
@@ -755,23 +913,29 @@ function finishLevel() {
     " and earned "+reward+" coins! 🪙";
 
   overlay.classList.add("show");
+
   say("All colours sorted! Amazing work!","var(--gold)");
 }
 
 function startLevel() {
   tubes=makePuzzle();
   startingPuzzle=cloneTubes(tubes);
+
   history=[];
   moves=0;
   completed=false;
+
   render();
+
   say("A new puzzle awaits! Sort every colour.");
 }
 
 function nextLevel() {
   progress.level++;
   saveProgress();
+
   overlay.classList.remove("show");
+
   startLevel();
 }
 
@@ -779,8 +943,10 @@ $("undoBtn").addEventListener("click",()=>{
   if(!history.length||completed) return;
 
   const previous=history.pop();
+
   tubes=cloneTubes(previous.tubes);
   moves=previous.moves;
+
   render();
   say("Last move undone.");
 });
@@ -791,6 +957,7 @@ $("restartBtn").addEventListener("click",()=>{
   tubes=cloneTubes(startingPuzzle);
   history=[];
   moves=0;
+
   render();
   say("Level restarted. You can do this!");
 });
@@ -808,8 +975,10 @@ $("extraBtn").addEventListener("click",()=>{
 
   progress.coins-=100;
   progress.extraStick=true;
+
   saveProgress();
   startLevel();
+
   say("Sixth stick unlocked! More room to sort!","var(--gold)");
 });
 
@@ -819,5 +988,6 @@ startLevel();
 
 })();
 </script>
+
 </body>
 </html>
