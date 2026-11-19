@@ -6,545 +6,632 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Match Mania | WOBBLE</title>
 <style>
-:root{
---bg:#17172b;--panel:#22223d;--panel2:#302f50;
---purple:#8B5CF6;--light:#a78bfa;--pink:#FF4F87;
---teal:#20D6C2;--gold:#FFC857;--white:#f8f7ff;
---muted:#aaa8c5;--red:#ff657a
+:root {
+  --bg: #17172b;
+  --panel: #22223d;
+  --purple: #8B5CF6;
+  --light: #a78bfa;
+  --pink: #FF4F87;
+  --teal: #20D6C2;
+  --gold: #FFC857;
+  --text: #f7f5ff;
+  --muted: #aaa7c5;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-min-height:100vh;padding:20px 14px;color:var(--white);
-background:radial-gradient(circle at top left,#332052,transparent 38%),
-radial-gradient(circle at bottom right,#17364a,transparent 38%),var(--bg);
-font-family:Arial,Helvetica,sans-serif
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 14px 40px;
+  background: radial-gradient(circle at top, #292044, var(--bg) 60%);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  text-align: center;
 }
-button{font:inherit;cursor:pointer}
-.container{max-width:720px;margin:auto}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-.logo{font-size:25px;font-weight:900;letter-spacing:2px}
-.logo span{color:var(--purple)}
-.back{color:var(--muted);text-decoration:none;font-size:14px}
-.screen{display:none;animation:appear .3s ease}
-.screen.active{display:block}
-@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.hero{text-align:center;margin:35px 0}
-.eyebrow{color:var(--teal);font-size:12px;font-weight:bold;letter-spacing:3px;margin-bottom:12px}
-h1{font-size:clamp(38px,9vw,65px);font-weight:900;letter-spacing:-2px}
-h1 span{color:var(--pink)}
-.subtitle{color:var(--muted);line-height:1.6;margin-top:12px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:25px 0}
-.stat{background:var(--panel);border:1px solid #393858;border-radius:14px;text-align:center;padding:16px 5px}
-.stat strong{display:block;font-size:25px;color:var(--gold);margin-bottom:5px}
-.stat small{font-size:10px;color:var(--muted);letter-spacing:1px}
-.section-title{font-size:19px;margin:30px 0 14px}
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.mode-card{background:var(--panel);border:1px solid #414060;border-radius:17px;padding:18px 12px;text-align:left;color:var(--white);transition:.2s}
-.mode-card:hover{border-color:var(--purple);transform:translateY(-3px)}
-.mode-icon{font-size:28px;margin-bottom:12px}
-.mode-card h3{font-size:16px;margin-bottom:9px}
-.mode-card p{font-size:12px;color:var(--muted);line-height:1.5;min-height:75px}
-.mode-card small{display:block;color:var(--teal);font-size:10px;font-weight:bold;margin-top:13px}
-.instructions{background:var(--panel);border-radius:15px;padding:18px;margin-top:24px}
-.instructions p{color:var(--muted);font-size:13px;line-height:1.9}
-.instructions b{color:var(--white)}
-.panel{background:var(--panel);border:1px solid #393858;border-radius:19px;padding:18px;margin-bottom:16px}
-.game-top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:17px}
-.pill{background:var(--panel2);border-radius:30px;padding:8px 12px;font-size:12px;color:var(--muted)}
-.pill b{color:var(--white)}
-.btn{border:0;border-radius:11px;padding:12px 16px;font-weight:bold;color:white;background:var(--purple)}
-.btn:hover{filter:brightness(1.12)}
-.btn.dark{background:var(--panel2);border:1px solid #484665}
-.btn.teal{background:#168f85}
-.btn.gold{background:#a77b16}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
-.actions .btn{flex:1}
-.progress{height:7px;background:#3b3958;border-radius:20px;overflow:hidden;margin:12px 0 18px}
-.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .3s}
-.timer-wrap{margin:12px 0 18px}
-.timer-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px}
-.timer-track{height:9px;background:#393752;border-radius:20px;overflow:hidden}
-.timer-fill{height:100%;width:100%;background:var(--teal);transition:width .3s linear}
-.timer-fill.warning{background:var(--red)}
-.board-info{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px;margin:10px 0 15px}
-.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;max-width:520px;margin:0 auto}
-.memory-card{
-aspect-ratio:1/1;border:1px solid #514c79;border-radius:13px;
-background:linear-gradient(145deg,#3c3269,#292746);
-color:white;display:grid;place-items:center;
-font-size:clamp(24px,7vw,40px);
-box-shadow:0 4px 0 #19182e;transition:.2s;user-select:none
+a { color: var(--light); text-decoration: none; }
+.back {
+  display: block;
+  max-width: 520px;
+  margin: 0 auto 22px;
+  text-align: left;
+  font-weight: bold;
 }
-.memory-card .face{display:none}
-.memory-card .question{display:block;color:var(--light);font-size:clamp(22px,6vw,32px);font-weight:900}
-.memory-card.flipped{background:#42376d;border-color:var(--light)}
-.memory-card.flipped .face,.memory-card.matched .face{display:block}
-.memory-card.flipped .question,.memory-card.matched .question{display:none}
-.memory-card.matched{background:#174d4a;border-color:var(--teal);box-shadow:0 4px 0 #103532;cursor:default}
-.memory-card:disabled{cursor:default}
-.feedback{text-align:center;min-height:25px;margin:14px 0 4px;font-size:14px;font-weight:bold;color:var(--teal)}
-.game-message{text-align:center;color:var(--muted);font-size:12px;margin:15px 0 5px}
-.result{text-align:center;padding:30px 15px}
-.result-icon{font-size:58px;margin-bottom:15px}
-.result h2{font-size:32px;margin-bottom:10px}
-.result p{color:var(--muted);line-height:1.6}
-.result-score{font-size:52px;font-weight:900;color:var(--gold);margin:20px 0}
-.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:22px 0}
-.result-stat{background:var(--panel2);padding:16px;border-radius:12px}
-.result-stat strong{display:block;font-size:23px;margin-bottom:5px}
-.result-stat small{color:var(--muted);font-size:11px}
-footer{text-align:center;color:#77758f;font-size:12px;margin:35px 0 12px}
-@media(max-width:600px){
-.modes{grid-template-columns:1fr}
-.mode-card{display:grid;grid-template-columns:40px 1fr;column-gap:10px}
-.mode-icon{grid-row:span 3}
-.mode-card p{min-height:0}
-.stats{gap:7px}.stat strong{font-size:21px}
-.panel{padding:14px}.board{gap:7px}
-.memory-card{border-radius:10px}
+header { margin: 10px auto 22px; }
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.eyebrow {
+  color: var(--teal);
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+h1 {
+  font-size: clamp(32px, 8vw, 48px);
+  margin: 12px 0 8px;
+}
+.subtitle {
+  color: var(--muted);
+  margin: 0 auto;
+  max-width: 420px;
+  line-height: 1.5;
+}
+.container { max-width: 520px; margin: auto; }
+.panel {
+  background: rgba(34,34,61,.94);
+  border: 1px solid rgba(167,139,250,.22);
+  border-radius: 20px;
+  padding: 18px;
+  margin: 16px 0;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+}
+h2 { margin: 4px 0 14px; font-size: 22px; }
+.modes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 11px;
+}
+.mode {
+  width: 100%;
+  border: 1px solid #51466f;
+  border-radius: 14px;
+  padding: 15px;
+  background: #2b2948;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.mode strong { display: block; font-size: 17px; margin-bottom: 5px; }
+.mode span { color: var(--muted); font-size: 13px; line-height: 1.4; }
+.mode:hover { border-color: var(--teal); }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.stat {
+  background: #19192e;
+  border-radius: 12px;
+  padding: 11px 5px;
+}
+.stat strong {
+  display: block;
+  color: var(--gold);
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.stat span {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.progress-wrap {
+  height: 8px;
+  background: #17172b;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 10px 0 16px;
+}
+.progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--purple), var(--teal));
+  transition: width .25s;
+}
+.message {
+  min-height: 24px;
+  color: var(--light);
+  font-weight: bold;
+  margin: 10px 0 14px;
+  font-size: 14px;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(4px, 1.4vw, 8px);
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 10px;
+  background: #17172b;
+  border-radius: 17px;
+  border: 1px solid #393454;
+  touch-action: manipulation;
+}
+.gem {
+  aspect-ratio: 1;
+  border: 2px solid rgba(255,255,255,.18);
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  font-size: clamp(17px, 5vw, 27px);
+  cursor: pointer;
+  user-select: none;
+  transition: transform .12s, filter .12s, border-color .12s;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,.18), 0 3px 7px rgba(0,0,0,.2);
+}
+.gem:active { transform: scale(.91); }
+.gem.selected {
+  border: 3px solid white;
+  transform: scale(.91);
+  filter: brightness(1.25);
+  box-shadow: 0 0 13px white;
+}
+.gem.empty { visibility: hidden; }
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.primary { background: var(--purple); color: white; }
+.secondary { background: #393454; color: white; }
+.teal { background: var(--teal); color: #14202a; }
+.hidden { display: none !important; }
+.help {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 14px auto 0;
+  max-width: 390px;
+}
+.result-score {
+  color: var(--gold);
+  font-size: 42px;
+  font-weight: 900;
+  margin: 12px 0;
+}
+footer {
+  color: #77748f;
+  font-size: 12px;
+  margin: 28px auto 0;
+}
+@media (max-width: 360px) {
+  body { padding-left: 8px; padding-right: 8px; }
+  .panel { padding: 12px; }
+  .board { padding: 6px; gap: 3px; }
+  .gem { border-radius: 9px; }
 }
 </style>
 </head>
 <body>
-<div class="container">
-<header>
-<div class="logo">WOBBLE<span>.</span></div>
+
 <a class="back" href="./index.html">← Back Home</a>
+
+<header>
+  <div class="logo">WOBBLE.</div>
+  <div class="eyebrow">⚡ ARCADE PRESENTS</div>
+  <h1>🎯 MATCH MANIA</h1>
+  <p class="subtitle">Swap gems. Make matches. Clear the board and chase your high score!</p>
 </header>
 
-<section id="home" class="screen active">
-<div class="hero">
-<div class="eyebrow">WOBBLE ARCADE PRESENTS</div>
-<h1>MATCH <span>MANIA</span></h1>
-<p class="subtitle">Flip. Match. Remember.<br>How good is your memory?</p>
-</div>
-<div class="stats">
-<div class="stat"><strong id="bestHome">0</strong><small>BEST SCORE</small></div>
-<div class="stat"><strong>3</strong><small>GAME MODES</small></div>
-<div class="stat"><strong>10</strong><small>LEVELS</small></div>
-</div>
-<h2 class="section-title">Choose your game mode</h2>
-<div class="modes">
-<button class="mode-card" onclick="startGame('classic')">
-<div class="mode-icon">🧠</div>
-<h3>Classic Mode</h3>
-<p>Find all matching pairs. Take your time and test your memory.</p>
-<small>NO TIME LIMIT →</small>
-</button>
-<button class="mode-card" onclick="startGame('time')">
-<div class="mode-icon">⏱️</div>
-<h3>Time Challenge</h3>
-<p>You have 60 seconds. Match as many pairs as possible!</p>
-<small>60 SECOND CHALLENGE →</small>
-</button>
-<button class="mode-card" onclick="startGame('level')">
-<div class="mode-icon">🏆</div>
-<h3>Level Mode</h3>
-<p>Complete 10 levels. Each level brings more cards to remember.</p>
-<small>10 LEVEL CHALLENGE →</small>
-</button>
-</div>
-<div class="instructions">
-<h3 style="margin-bottom:9px">🎮 How to play</h3>
-<p>
-<b>1.</b> Tap a card to reveal its symbol.<br>
-<b>2.</b> Tap another card to find its matching pair.<br>
-<b>3.</b> Match all pairs to complete the board.<br>
-<b>4.</b> Fewer moves earn you a better score.<br>
-<b>5.</b> Build matching streaks for bonus points!
-</p>
-</div>
-</section>
+<main class="container">
+  <section id="menu" class="panel">
+    <h2>Choose your game mode</h2>
+    <div class="modes">
+      <button class="mode" onclick="startGame('classic')">
+        <strong>💎 Classic Mode</strong>
+        <span>30 moves. No timer. Reach the target score!</span>
+      </button>
+      <button class="mode" onclick="startGame('time')">
+        <strong>⚡ Time Challenge</strong>
+        <span>60 seconds to make as many matches as you can.</span>
+      </button>
+      <button class="mode" onclick="startGame('level')">
+        <strong>🏆 Level Mode</strong>
+        <span>10 levels with growing score targets. Can you beat them all?</span>
+      </button>
+    </div>
+    <p class="help">Tap one gem, then tap a neighbouring gem to swap them. Match three or more gems of the same colour.</p>
+  </section>
 
-<section id="game" class="screen">
-<div class="game-top">
-<span class="pill" id="modeLabel">CLASSIC MODE</span>
-<button class="btn dark" onclick="goHome()">✕ Quit</button>
-</div>
-<div class="stats">
-<div class="stat"><strong id="score">0</strong><small>SCORE</small></div>
-<div class="stat"><strong id="moves">0</strong><small>MOVES</small></div>
-<div class="stat"><strong id="pairs">0/8</strong><small>PAIRS</small></div>
-</div>
-<div class="panel">
-<div class="game-top">
-<span class="pill" id="levelLabel">CLASSIC BOARD</span>
-<span class="pill">🔥 Streak: <b id="streak">0</b></span>
-</div>
-<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
-<div id="timerWrap" class="timer-wrap" style="display:none">
-<div class="timer-label"><span>TIME LEFT</span><b id="timerText">60s</b></div>
-<div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
-</div>
-<div class="board-info">
-<span id="boardSize">4 × 4 BOARD</span>
-<span id="remaining">8 PAIRS LEFT</span>
-</div>
-<div id="board" class="board"></div>
-<div class="feedback" id="feedback"></div>
-<div class="game-message" id="gameMessage">Find the matching pairs!</div>
-<div class="actions">
-<button class="btn gold" id="hintBtn" onclick="useHint()">💡 Hint (-10)</button>
-<button class="btn dark" onclick="restartBoard()">↻ Restart board</button>
-</div>
-</div>
-</section>
+  <section id="game" class="panel hidden">
+    <div class="stats">
+      <div class="stat"><strong id="score">0</strong><span>SCORE</span></div>
+      <div class="stat"><strong id="moves">30</strong><span id="movesLabel">MOVES LEFT</span></div>
+      <div class="stat"><strong id="target">500</strong><span id="targetLabel">TARGET</span></div>
+    </div>
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+    <div class="message" id="message">Make your first match!</div>
+    <div class="board" id="board" aria-label="Match Mania game board"></div>
+    <div class="controls">
+      <button class="secondary" onclick="restartGame()">↻ Restart</button>
+      <button class="secondary" onclick="backToMenu()">← Game Menu</button>
+    </div>
+    <p class="help">Only swaps that create a match count. Bigger matches and chain reactions earn extra points!</p>
+  </section>
 
-<section id="result" class="screen">
-<div class="panel result">
-<div class="result-icon" id="resultIcon">🏆</div>
-<h2 id="resultTitle">Well played!</h2>
-<p id="resultMessage">Here's how you did.</p>
-<div class="result-score" id="finalScore">0</div>
-<p>FINAL SCORE</p>
-<div class="result-grid">
-<div class="result-stat"><strong id="finalPairs">0</strong><small>PAIRS MATCHED</small></div>
-<div class="result-stat"><strong id="finalMoves">0</strong><small>MOVES</small></div>
-<div class="result-stat"><strong id="finalBest">0</strong><small>PERSONAL BEST</small></div>
-<div class="result-stat"><strong id="finalAccuracy">0%</strong><small>MATCH ACCURACY</small></div>
-</div>
-<div class="actions">
-<button class="btn" onclick="replay()">↻ Play Again</button>
-<button class="btn dark" onclick="goHome()">⌂ Game Menu</button>
-</div>
-</div>
-</section>
+  <section id="result" class="panel hidden">
+    <h2 id="resultTitle">Game Over!</h2>
+    <p id="resultMessage">Great effort!</p>
+    <div class="result-score" id="finalScore">0</div>
+    <p id="bestDisplay" class="help"></p>
+    <div class="controls">
+      <button class="primary" onclick="restartGame()">Play Again</button>
+      <button class="secondary" onclick="backToMenu()">Game Menu</button>
+    </div>
+  </section>
+</main>
 
-<footer>WOBBLE — Play. Challenge. Repeat. 💜</footer>
-</div>
+<footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
 
 <script>
-const symbols=[
-"🍎","🚀","🐱","🌈","⚽","🎸","🍕","🌻",
-"🦋","💎","🎧","🐬","🌙","🔥","🍉","🦁",
-"🎁","🚲","🍩","⭐","🐼","🌺","🎮","🧸",
-"🍓","🌍","🛸","🎨","🐸","🍿","🏀","🦄",
-"🌵","🎂","🐢","💜","🧁","🚗","🌊","🎯"
+const SIZE = 7;
+const TYPES = [
+  { symbol: "●", color: "#FF4F87" },
+  { symbol: "◆", color: "#8B5CF6" },
+  { symbol: "▲", color: "#20D6C2" },
+  { symbol: "■", color: "#FFC857" },
+  { symbol: "✦", color: "#55A7FF" },
+  { symbol: "⬟", color: "#FF914D" }
 ];
 
-let mode="classic";
-let cards=[];
-let first=null;
-let second=null;
-let lock=false;
-let moves=0;
-let matches=0;
-let score=0;
-let streak=0;
-let hints=0;
-let timeLeft=60;
-let timer=null;
-let started=false;
-let level=1;
-let totalPairs=8;
-let totalLevelsCompleted=0;
-let runId=0;
+const LEVEL_TARGETS = [400, 600, 800, 1000, 1250, 1500, 1800, 2100, 2500, 3000];
 
-const $=id=>document.getElementById(id);
+let board = [];
+let selected = null;
+let mode = "classic";
+let score = 0;
+let moves = 30;
+let level = 1;
+let levelScore = 0;
+let timeLeft = 60;
+let timer = null;
+let ended = false;
+let busy = false;
+let best = Number(localStorage.getItem("wobbleMatchBest") || 0);
 
-function getBest(){
-return Number(localStorage.getItem("wobble_matchmania_best")||0);
-}
-function updateBest(){
-$("bestHome").textContent=getBest();
-}
-updateBest();
+const $ = id => document.getElementById(id);
 
-function showScreen(id){
-document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-$(id).classList.add("active");
+function randomGem() {
+  return Math.floor(Math.random() * TYPES.length);
 }
 
-function shuffle(array){
-let a=[...array];
-for(let i=a.length-1;i>0;i--){
-let j=Math.floor(Math.random()*(i+1));
-[a[i],a[j]]=[a[j],a[i]];
-}
-return a;
-}
-
-function startGame(selected){
-clearInterval(timer);
-runId++;
-mode=selected;
-level=1;
-totalLevelsCompleted=0;
-score=0;
-moves=0;
-matches=0;
-streak=0;
-hints=0;
-timeLeft=60;
-started=true;
-$("timerWrap").style.display=mode==="time"?"block":"none";
-$("modeLabel").textContent={
-classic:"CLASSIC MODE",time:"TIME CHALLENGE",level:"LEVEL MODE"
-}[mode];
-showScreen("game");
-setupBoard();
-
-if(mode==="time"){
-startTimer(runId);
-}
+function makeBoard() {
+  board = [];
+  for (let r = 0; r < SIZE; r++) {
+    board[r] = [];
+    for (let c = 0; c < SIZE; c++) {
+      let gem;
+      do {
+        gem = randomGem();
+      } while (
+        (c >= 2 && board[r][c - 1] === gem && board[r][c - 2] === gem) ||
+        (r >= 2 && board[r - 1][c] === gem && board[r - 2][c] === gem)
+      );
+      board[r][c] = gem;
+    }
+  }
+  if (!hasPossibleMove()) makeBoard();
 }
 
-function pairsForLevel(){
-if(mode==="level")return Math.min(8+Math.floor((level-1)*1.2),20);
-return 8;
+function startGame(selectedMode) {
+  mode = selectedMode;
+  score = 0;
+  levelScore = 0;
+  level = 1;
+  moves = mode === "time" ? 0 : mode === "level" ? 25 : 30;
+  timeLeft = 60;
+  ended = false;
+  busy = false;
+  selected = null;
+
+  $("menu").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("game").classList.remove("hidden");
+
+  makeBoard();
+  updateStats();
+  renderBoard();
+
+  $("message").textContent = mode === "time"
+    ? "You have 60 seconds. Go!"
+    : "Find a match of three or more!";
+
+  clearInterval(timer);
+  if (mode === "time") {
+    timer = setInterval(() => {
+      if (ended) return;
+      timeLeft--;
+      updateStats();
+      if (timeLeft <= 0) finishGame(false, "Time's up!");
+    }, 1000);
+  }
 }
 
-function setupBoard(){
-clearTimeout(first?.timeout);
-first=null;
-second=null;
-lock=false;
-moves=0;
-matches=0;
-streak=0;
-hints=0;
-totalPairs=pairsForLevel();
-
-const chosen=shuffle(symbols).slice(0,totalPairs);
-cards=shuffle([...chosen,...chosen].map((symbol,index)=>({
-id:index,symbol,matched:false
-})));
-
-$("moves").textContent="0";
-$("pairs").textContent="0/"+totalPairs;
-$("streak").textContent="0";
-$("score").textContent=score;
-$("progressFill").style.width="0%";
-$("boardSize").textContent=(totalPairs*2)+" CARDS";
-$("remaining").textContent=totalPairs+" PAIRS LEFT";
-$("feedback").textContent="";
-$("gameMessage").textContent=mode==="level"?
-"Level "+level+" — Find "+totalPairs+" pairs!":"Find all the matching pairs!";
-$("levelLabel").textContent=mode==="level"?
-"LEVEL "+level+" OF 10":"CLASSIC BOARD";
-$("hintBtn").disabled=false;
-
-const board=$("board");
-board.innerHTML="";
-board.style.gridTemplateColumns=totalPairs>12?
-"repeat(5,minmax(0,1fr))":"repeat(4,minmax(0,1fr))";
-
-cards.forEach(card=>{
-const button=document.createElement("button");
-button.className="memory-card";
-button.setAttribute("aria-label","Hidden card");
-button.innerHTML='<span class="question">?</span><span class="face"></span>';
-button.querySelector(".face").textContent=card.symbol;
-button.addEventListener("click",()=>flipCard(card.id,button));
-board.appendChild(button);
-});
+function restartGame() {
+  startGame(mode);
 }
 
-function flipCard(id,button){
-if(lock || !started)return;
-const card=cards.find(c=>c.id===id);
-if(!card || card.matched || button.classList.contains("flipped"))return;
-
-button.classList.add("flipped");
-button.setAttribute("aria-label",card.symbol);
-
-if(!first){
-first={card,button};
-return;
+function backToMenu() {
+  clearInterval(timer);
+  ended = true;
+  $("game").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("menu").classList.remove("hidden");
 }
 
-second={card,button};
-moves++;
-$("moves").textContent=moves;
-lock=true;
+function renderBoard() {
+  const el = $("board");
+  el.innerHTML = "";
 
-if(first.card.symbol===second.card.symbol){
-handleMatch();
-}else{
-$("feedback").textContent="Not a match! Try again.";
-$("feedback").style.color="var(--red)";
-const currentRun=runId;
-setTimeout(()=>{
-if(currentRun!==runId)return;
-first.button.classList.remove("flipped");
-second.button.classList.remove("flipped");
-first.button.setAttribute("aria-label","Hidden card");
-second.button.setAttribute("aria-label","Hidden card");
-first=null;
-second=null;
-lock=false;
-$("feedback").textContent="";
-},850);
-}
-}
+  for (let r = 0; r < SIZE; r++) {
+    for (let c = 0; c < SIZE; c++) {
+      const gem = document.createElement("button");
+      gem.className = "gem";
+      gem.type = "button";
+      gem.dataset.row = r;
+      gem.dataset.col = c;
 
-function handleMatch(){
-first.card.matched=true;
-second.card.matched=true;
-first.button.classList.add("matched");
-second.button.classList.add("matched");
-first.button.disabled=true;
-second.button.disabled=true;
+      const type = TYPES[board[r][c]];
+      gem.textContent = type.symbol;
+      gem.style.background = type.color;
+      gem.style.color = "#fff";
+      gem.setAttribute("aria-label", "Gem");
 
-matches++;
-streak++;
-const points=20+Math.min(streak*5,25);
-score+=points;
-
-$("score").textContent=score;
-$("pairs").textContent=matches+"/"+totalPairs;
-$("streak").textContent=streak;
-$("progressFill").style.width=(matches/totalPairs*100)+"%";
-$("remaining").textContent=(totalPairs-matches)+" PAIRS LEFT";
-$("feedback").style.color="var(--teal)";
-$("feedback").textContent="✓ MATCH! +"+points+" points"+(streak>=3?" 🔥":"");
-
-first=null;
-second=null;
-lock=false;
-
-if(matches===totalPairs){
-setTimeout(completeBoard,650);
-}
+      if (selected && selected.r === r && selected.c === c) {
+        gem.classList.add("selected");
+      }
+      gem.addEventListener("click", () => chooseGem(r, c));
+      el.appendChild(gem);
+    }
+  }
 }
 
-function useHint(){
-if(lock || !started)return;
-const available=cards.filter(c=>!c.matched);
-if(available.length<2)return;
+function chooseGem(r, c) {
+  if (ended || busy) return;
 
-const symbol=available[0].symbol;
-const pair=available.filter(c=>c.symbol===symbol);
-if(pair.length!==2)return;
+  if (!selected) {
+    selected = { r, c };
+    renderBoard();
+    return;
+  }
 
-score=Math.max(0,score-10);
-hints++;
-$("score").textContent=score;
-$("hintBtn").disabled=true;
-$("feedback").textContent="💡 Look for these two matching symbols!";
-$("feedback").style.color="var(--gold)";
+  if (selected.r === r && selected.c === c) {
+    selected = null;
+    renderBoard();
+    return;
+  }
 
-const buttons=[...$("board").children];
-pair.forEach(card=>buttons[card.id].classList.add("flipped"));
+  const distance = Math.abs(selected.r - r) + Math.abs(selected.c - c);
 
-const currentRun=runId;
-setTimeout(()=>{
-if(currentRun!==runId)return;
-pair.forEach(card=>{
-if(!card.matched)buttons[card.id].classList.remove("flipped");
-});
-$("feedback").textContent="";
-$("hintBtn").disabled=false;
-},1100);
+  if (distance !== 1) {
+    selected = { r, c };
+    renderBoard();
+    return;
+  }
+
+  const first = selected;
+  selected = null;
+  trySwap(first.r, first.c, r, c);
 }
 
-function completeBoard(){
-if(!started)return;
+async function trySwap(r1, c1, r2, c2) {
+  if (busy || ended) return;
+  busy = true;
 
-if(mode==="level"){
-totalLevelsCompleted++;
-if(level>=10){
-endGame("complete");
-return;
-}
-level++;
-$("feedback").textContent="🏆 LEVEL COMPLETED!";
-$("feedback").style.color="var(--gold)";
-lock=true;
-setTimeout(()=>{
-if(!started)return;
-setupBoard();
-},1000);
-}else if(mode==="time"){
-$("feedback").textContent="Board completed! Keep going!";
-$("feedback").style.color="var(--teal)";
-setTimeout(()=>{
-if(!started)return;
-setupBoard();
-},700);
-}else{
-endGame("complete");
-}
-}
+  swap(r1, c1, r2, c2);
+  renderBoard();
 
-function startTimer(run){
-clearInterval(timer);
-updateTimer();
-timer=setInterval(()=>{
-if(run!==runId){
-clearInterval(timer);
-return;
-}
-timeLeft--;
-updateTimer();
-if(timeLeft<=0){
-clearInterval(timer);
-endGame("time");
-}
-},1000);
+  const matches = findMatches();
+
+  if (matches.length === 0) {
+    $("message").textContent = "No match! Try another swap.";
+    await wait(220);
+    swap(r1, c1, r2, c2);
+    renderBoard();
+    busy = false;
+    return;
+  }
+
+  if (mode !== "time") moves--;
+  else moves++;
+
+  await resolveMatches();
+  busy = false;
+
+  if (ended) return;
+
+  if (mode === "classic" && moves <= 0) {
+    finishGame(score >= 500, score >= 500 ? "You reached the target!" : "Out of moves!");
+  } else if (mode === "level" && moves <= 0) {
+    if (levelScore >= LEVEL_TARGETS[level - 1]) {
+      advanceLevel();
+    } else {
+      finishGame(false, "Out of moves! Keep practising.");
+    }
+  } else if (!hasPossibleMove()) {
+    makeBoard();
+    renderBoard();
+    $("message").textContent = "Fresh board! Keep matching.";
+  }
+
+  updateStats();
 }
 
-function updateTimer(){
-$("timerText").textContent=timeLeft+"s";
-$("timerFill").style.width=Math.max(0,timeLeft/60*100)+"%";
-$("timerFill").classList.toggle("warning",timeLeft<=15);
+function swap(r1, c1, r2, c2) {
+  const temp = board[r1][c1];
+  board[r1][c1] = board[r2][c2];
+  board[r2][c2] = temp;
 }
 
-function restartBoard(){
-if(!started)return;
-if(mode==="level"){
-level=1;
-}
-startGame(mode);
-}
+function findMatches() {
+  const found = new Set();
 
-function endGame(reason){
-clearInterval(timer);
-started=false;
-runId++;
+  // Horizontal matches
+  for (let r = 0; r < SIZE; r++) {
+    let start = 0;
+    while (start < SIZE) {
+      let end = start + 1;
+      while (end < SIZE && board[r][end] === board[r][start]) end++;
+      if (board[r][start] !== -1 && end - start >= 3) {
+        for (let c = start; c < end; c++) found.add(r + "," + c);
+      }
+      start = end;
+    }
+  }
 
-const best=Math.max(score,getBest());
-localStorage.setItem("wobble_matchmania_best",best);
-updateBest();
+  // Vertical matches
+  for (let c = 0; c < SIZE; c++) {
+    let start = 0;
+    while (start < SIZE) {
+      let end = start + 1;
+      while (end < SIZE && board[end][c] === board[start][c]) end++;
+      if (board[start][c] !== -1 && end - start >= 3) {
+        for (let r = start; r < end; r++) found.add(r + "," + c);
+      }
+      start = end;
+    }
+  }
 
-$("finalScore").textContent=score;
-$("finalPairs").textContent=mode==="level"?
-totalLevelsCompleted+" levels":matches;
-$("finalMoves").textContent=moves;
-$("finalBest").textContent=best;
-
-const possible=Math.max(1,moves);
-$("finalAccuracy").textContent=Math.round(matches/possible*100)+"%";
-
-if(mode==="level"&&reason==="complete"){
-$("resultIcon").textContent="🏆";
-$("resultTitle").textContent="ALL LEVELS COMPLETED!";
-$("resultMessage").textContent="You conquered all 10 levels. Amazing memory!";
-}else if(mode==="time"){
-$("resultIcon").textContent="⏱️";
-$("resultTitle").textContent="TIME'S UP!";
-$("resultMessage").textContent="The clock has stopped. Here's your result!";
-}else{
-$("resultIcon").textContent="🎉";
-$("resultTitle").textContent="BOARD COMPLETED!";
-$("resultMessage").textContent="You found every matching pair. Well done!";
-}
-showScreen("result");
+  return [...found].map(item => item.split(",").map(Number));
 }
 
-function replay(){
-startGame(mode);
+async function resolveMatches() {
+  let chain = 0;
+
+  while (true) {
+    const matches = findMatches();
+    if (matches.length === 0) break;
+
+    chain++;
+    const points = matches.length * 10 * chain;
+    score += points;
+    levelScore += points;
+
+    $("message").textContent = chain > 1
+      ? "🔥 Combo x" + chain + "! +" + points
+      : "✨ Match! +" + points;
+
+    matches.forEach(([r, c]) => {
+      board[r][c] = -1;
+    });
+
+    renderBoard();
+    updateStats();
+    await wait(180);
+
+    // Let gems fall down into empty spaces
+    for (let c = 0; c < SIZE; c++) {
+      let writeRow = SIZE - 1;
+      for (let r = SIZE - 1; r >= 0; r--) {
+        if (board[r][c] !== -1) {
+          board[writeRow][c] = board[r][c];
+          writeRow--;
+        }
+      }
+      while (writeRow >= 0) {
+        board[writeRow][c] = randomGem();
+        writeRow--;
+      }
+    }
+
+    renderBoard();
+    await wait(180);
+  }
+
+  updateStats();
+  if (mode === "level" && levelScore >= LEVEL_TARGETS[level - 1]) {
+    advanceLevel();
+  }
 }
 
-function goHome(){
-clearInterval(timer);
-started=false;
-runId++;
-updateBest();
-showScreen("home");
+function advanceLevel() {
+  if (ended) return;
+
+  if (level >= 10) {
+    finishGame(true, "Incredible! You completed all 10 levels!");
+    return;
+  }
+
+  level++;
+  levelScore = 0;
+  moves = 25;
+  makeBoard();
+  renderBoard();
+  updateStats();
+  $("message").textContent = "Level " + level + "! New target: " + LEVEL_TARGETS[level - 1];
+}
+
+function hasPossibleMove() {
+  for (let r = 0; r < SIZE; r++) {
+    for (let c = 0; c < SIZE; c++) {
+      if (c + 1 < SIZE) {
+        swap(r, c, r, c + 1);
+        const found = findMatches().length > 0;
+        swap(r, c, r, c + 1);
+        if (found) return true;
+      }
+      if (r + 1 < SIZE) {
+        swap(r, c, r + 1, c);
+        const found = findMatches().length > 0;
+        swap(r, c, r + 1, c);
+        if (found) return true;
+      }
+    }
+  }
+  return false;
+}
+
+function updateStats() {
+  $("score").textContent = score;
+
+  if (mode === "time") {
+    $("moves").textContent = timeLeft + "s";
+    $("movesLabel").textContent = "TIME LEFT";
+    $("target").textContent = moves;
+    $("targetLabel").textContent = "SWAPS";
+    $("progress").style.width = (timeLeft / 60 * 100) + "%";
+  } else if (mode === "level") {
+    $("moves").textContent = moves;
+    $("movesLabel").textContent = "MOVES LEFT";
+    $("target").textContent = LEVEL_TARGETS[level - 1];
+    $("targetLabel").textContent = "LEVEL " + level + "/10";
+    $("progress").style.width = Math.min(100, levelScore / LEVEL_TARGETS[level - 1] * 100) + "%";
+  } else {
+    $("moves").textContent = moves;
+    $("movesLabel").textContent = "MOVES LEFT";
+    $("target").textContent = "500";
+    $("targetLabel").textContent = "TARGET";
+    $("progress").style.width = Math.min(100, score / 500 * 100) + "%";
+  }
+}
+
+function finishGame(won, message) {
+  if (ended) return;
+  ended = true;
+  busy = false;
+  clearInterval(timer);
+
+  if (score > best) {
+    best = score;
+    localStorage.setItem("wobbleMatchBest", best);
+  }
+
+  $("game").classList.add("hidden");
+  $("result").classList.remove("hidden");
+
+  $("resultTitle").textContent = won ? "🎉 Amazing!" : "💜 Game Over";
+  $("resultMessage").textContent = message;
+  $("finalScore").textContent = score + " points";
+  $("bestDisplay").textContent = "Your best score: " + best + " points";
+}
+
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 </script>
 </body>
 </html>
-
