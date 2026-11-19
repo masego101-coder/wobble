@@ -1,1 +1,673 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Rush | WOBBLE</title>
+<style>
+:root {
+  --bg:#17172b; --panel:#22223d; --panel2:#2d2c4c;
+  --purple:#8B5CF6; --light:#a78bfa; --pink:#FF4F87;
+  --teal:#20D6C2; --gold:#FFC857; --white:#f8f7ff;
+  --muted:#aaa8c5; --red:#ff657a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;padding:20px 14px;color:var(--white);
+  background:radial-gradient(circle at top left,#332052,transparent 38%),
+  radial-gradient(circle at bottom right,#17364a,transparent 38%),var(--bg);
+  font-family:Arial,Helvetica,sans-serif
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.container{max-width:760px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px}
+.logo span{color:var(--purple)}
+.back{color:var(--muted);text-decoration:none;font-size:14px}
+.screen{display:none;animation:appear .3s ease}
+.screen.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.hero{text-align:center;margin:35px 0}
+.eyebrow{color:var(--teal);font-size:12px;font-weight:bold;letter-spacing:3px;margin-bottom:12px}
+h1{font-size:clamp(40px,9vw,66px);font-weight:900;letter-spacing:-2px}
+h1 span{color:var(--pink)}
+.subtitle{color:var(--muted);line-height:1.6;margin-top:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:25px 0}
+.stat{background:var(--panel);border:1px solid #393858;border-radius:14px;text-align:center;padding:16px 5px}
+.stat strong{display:block;font-size:25px;color:var(--gold);margin-bottom:5px}
+.stat small{font-size:10px;color:var(--muted);letter-spacing:1px}
+.section-title{font-size:19px;margin:30px 0 14px}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.mode-card{background:var(--panel);border:1px solid #414060;border-radius:17px;padding:18px 12px;text-align:left}
+.mode-card:hover{border-color:var(--purple);transform:translateY(-3px)}
+.mode-icon{font-size:28px;margin-bottom:12px}
+.mode-card h3{font-size:16px;margin-bottom:9px}
+.mode-card p{font-size:12px;color:var(--muted);line-height:1.5;min-height:75px}
+.mode-card small{display:block;color:var(--teal);font-size:10px;font-weight:bold;margin-top:13px}
+.instructions{background:var(--panel);border-radius:15px;padding:18px;margin-top:24px}
+.instructions p{color:var(--muted);font-size:13px;line-height:1.8}
+.instructions b{color:var(--white)}
+.panel{background:var(--panel);border:1px solid #393858;border-radius:19px;padding:20px;margin-bottom:16px}
+.game-top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:18px}
+.pill{background:var(--panel2);border-radius:30px;padding:8px 12px;font-size:12px;color:var(--muted)}
+.pill b{color:var(--white)}
+.progress{height:7px;background:#3b3958;border-radius:20px;overflow:hidden;margin:12px 0 20px}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .3s}
+.timer-wrap{margin:15px 0}
+.timer-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px}
+.timer-track{height:9px;background:#393752;border-radius:20px;overflow:hidden}
+.timer-fill{height:100%;width:100%;background:var(--teal);transition:width .2s linear}
+.timer-fill.warning{background:var(--red)}
+.category{color:var(--teal);font-size:11px;font-weight:bold;letter-spacing:2px;text-align:center;margin:18px 0 8px}
+.question{text-align:center;font-size:17px;color:var(--muted);margin-bottom:18px}
+.scrambled{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:22px 0}
+.letter{width:43px;height:48px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(145deg,#7650d6,#4d358e);border:1px solid #a78bfa;font-size:23px;font-weight:900;box-shadow:0 4px 0 #34245f}
+.answer-area{display:flex;gap:9px;margin:18px 0}
+.answer-area input{min-width:0;flex:1;background:#17172b;border:1px solid #555174;border-radius:11px;padding:14px;color:white;outline:none;text-transform:uppercase;letter-spacing:2px;font-size:17px}
+.answer-area input:focus{border-color:var(--purple)}
+.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:bold;color:white;background:var(--purple)}
+.btn:hover{filter:brightness(1.13)}
+.btn.teal{background:#168f85}
+.btn.pink{background:#b83b68}
+.btn.dark{background:var(--panel2);border:1px solid #484665}
+.btn.gold{background:#a77b16;color:white}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.actions .btn{flex:1}
+.feedback{text-align:center;min-height:27px;font-weight:bold;font-size:14px;margin:12px 0}
+.feedback.good{color:var(--teal)}
+.feedback.bad{color:var(--red)}
+.hint-box{background:#30294b;border-left:3px solid var(--gold);padding:12px;border-radius:8px;color:#e4d8ff;font-size:13px;line-height:1.5;margin-top:12px;display:none}
+.hint-box.show{display:block}
+.game-bottom{text-align:center;color:var(--muted);font-size:12px;margin:16px 0}
+.result{text-align:center;padding:30px 15px}
+.result-icon{font-size:58px;margin-bottom:15px}
+.result h2{font-size:32px;margin-bottom:10px}
+.result p{color:var(--muted);line-height:1.6}
+.result-score{font-size:52px;font-weight:900;color:var(--gold);margin:20px 0}
+.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:22px 0}
+.result-stat{background:var(--panel2);padding:16px;border-radius:12px}
+.result-stat strong{display:block;font-size:23px;margin-bottom:5px}
+.result-stat small{color:var(--muted);font-size:11px}
+footer{text-align:center;color:#77758f;font-size:12px;margin:35px 0 12px}
+@media(max-width:600px){
+ .modes{grid-template-columns:1fr}
+ .mode-card{display:grid;grid-template-columns:40px 1fr;column-gap:10px}
+ .mode-icon{grid-row:span 3}
+ .mode-card p{min-height:0}
+ .stats{gap:7px}
+ .stat strong{font-size:21px}
+ .panel{padding:15px}
+ .letter{width:37px;height:43px;font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="logo">WOBBLE<span>.</span></div>
+  <a class="back" href="./index.html">← Back Home</a>
+</header>
+
+<section id="home" class="screen active">
+  <div class="hero">
+    <div class="eyebrow">WOBBLE ARCADE PRESENTS</div>
+    <h1>WORD <span>RUSH</span></h1>
+    <p class="subtitle">Unscramble. Think fast. Find the word.<br>How good is your vocabulary?</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong id="bestHome">0</strong><small>BEST SCORE</small></div>
+    <div class="stat"><strong>120+</strong><small>WORD BANK</small></div>
+    <div class="stat"><strong>10</strong><small>LEVELS</small></div>
+  </div>
+
+  <h2 class="section-title">Choose your game mode</h2>
+  <div class="modes">
+    <button class="mode-card" onclick="startGame('classic')">
+      <div class="mode-icon">♾️</div>
+      <h3>Classic Mode</h3>
+      <p>Keep solving words. One mistake ends your run. Build your score and protect your streak.</p>
+      <small>NO QUESTION LIMIT →</small>
+    </button>
+    <button class="mode-card" onclick="startGame('time')">
+      <div class="mode-icon">⏱️</div>
+      <h3>Time Attack</h3>
+      <p>You have 60 seconds. Solve as many words as you can before the clock reaches zero.</p>
+      <small>60 SECOND CHALLENGE →</small>
+    </button>
+    <button class="mode-card" onclick="startGame('level')">
+      <div class="mode-icon">🏆</div>
+      <h3>Level Mode</h3>
+      <p>Climb through 10 levels. Five words per level. Each new level brings tougher words.</p>
+      <small>50 WORD CHALLENGE →</small>
+    </button>
+  </div>
+
+  <div class="instructions">
+    <h3 style="margin-bottom:9px">🎮 How to play</h3>
+    <p>
+      <b>1.</b> Look at the scrambled letters.<br>
+      <b>2.</b> Rearrange them to make a real word.<br>
+      <b>3.</b> Type your answer and submit.<br>
+      <b>4.</b> Use hints if you get stuck, but they cost points!<br>
+      <b>5.</b> Build streaks to earn bonus points.
+    </p>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="game-top">
+    <span class="pill" id="modeLabel">CLASSIC MODE</span>
+    <button class="btn dark" onclick="goHome()">✕ Quit</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong id="score">0</strong><small>SCORE</small></div>
+    <div class="stat"><strong id="streak">0</strong><small>STREAK 🔥</small></div>
+    <div class="stat"><strong id="progressText">1</strong><small id="progressLabel">WORD</small></div>
+  </div>
+
+  <div class="panel">
+    <div class="game-top">
+      <span class="pill" id="difficulty">EASY</span>
+      <span class="pill">Points: <b id="wordPoints">10</b></span>
+    </div>
+    <div class="progress"><div id="progressFill" class="progress-fill"></div></div>
+
+    <div class="timer-wrap" id="timerWrap">
+      <div class="timer-label"><span>TIME LEFT</span><b id="timerText">15s</b></div>
+      <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
+    </div>
+
+    <div class="category" id="category">GENERAL KNOWLEDGE</div>
+    <div class="question" id="question">Unscramble this word!</div>
+    <div class="scrambled" id="scrambled"></div>
+
+    <div class="answer-area">
+      <input id="answer" type="text" placeholder="Type your answer..." autocomplete="off" autocapitalize="characters">
+      <button class="btn" id="submitBtn" onclick="submitAnswer()">GO!</button>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+    <div class="hint-box" id="hintBox"></div>
+
+    <div class="actions">
+      <button class="btn gold" id="hintBtn" onclick="showHint()">💡 Hint (-5)</button>
+      <button class="btn dark" onclick="skipWord()">Skip word</button>
+    </div>
+  </div>
+  <div class="game-bottom" id="gameMessage">Think carefully. You've got this!</div>
+</section>
+
+<section id="result" class="screen">
+  <div class="panel result">
+    <div class="result-icon" id="resultIcon">🏆</div>
+    <h2 id="resultTitle">Well played!</h2>
+    <p id="resultMessage">Here's how you did.</p>
+    <div class="result-score" id="finalScore">0</div>
+    <p>FINAL SCORE</p>
+    <div class="result-grid">
+      <div class="result-stat"><strong id="correctCount">0</strong><small>WORDS SOLVED</small></div>
+      <div class="result-stat"><strong id="wrongCount">0</strong><small>MISSED / SKIPPED</small></div>
+      <div class="result-stat"><strong id="bestResult">0</strong><small>PERSONAL BEST</small></div>
+      <div class="result-stat"><strong id="accuracy">0%</strong><small>ACCURACY</small></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="replay()">↻ Play Again</button>
+      <button class="btn dark" onclick="goHome()">⌂ Game Menu</button>
+    </div>
+  </div>
+</section>
+
+<footer>WOBBLE — Play. Challenge. Repeat. 💜</footer>
+</div>
+
+<script>
+const words = [
+{w:"APPLE",c:"FOOD",h:"A fruit that can be red or green.",d:1},
+{w:"TIGER",c:"ANIMALS",h:"A large striped wild cat.",d:1},
+{w:"OCEAN",c:"NATURE",h:"A huge body of salt water.",d:1},
+{w:"MUSIC",c:"ENTERTAINMENT",h:"Something you listen to.",d:1},
+{w:"CLOUD",c:"WEATHER",h:"A white or grey shape in the sky.",d:1},
+{w:"BREAD",c:"FOOD",h:"A staple food made from flour.",d:1},
+{w:"CHAIR",c:"EVERYDAY LIFE",h:"Something you sit on.",d:1},
+{w:"PLANT",c:"NATURE",h:"A living thing that grows in soil.",d:1},
+{w:"SMILE",c:"EMOTIONS",h:"A happy expression on your face.",d:1},
+{w:"DREAM",c:"MIND",h:"Something you may experience while sleeping.",d:1},
+{w:"TRAIN",c:"TRANSPORT",h:"A vehicle that travels on tracks.",d:1},
+{w:"RIVER",c:"NATURE",h:"A flowing body of water.",d:1},
+{w:"LEMON",c:"FOOD",h:"A sour yellow citrus fruit.",d:1},
+{w:"HOUSE",c:"EVERYDAY LIFE",h:"A place where people live.",d:1},
+{w:"GREEN",c:"COLOURS",h:"The colour of fresh grass.",d:1},
+{w:"LIGHT",c:"SCIENCE",h:"The opposite of darkness.",d:1},
+{w:"BRAIN",c:"HUMAN BODY",h:"The organ that controls your body.",d:1},
+{w:"SUGAR",c:"FOOD",h:"A sweet ingredient often added to tea.",d:1},
+{w:"BEACH",c:"NATURE",h:"A sandy place beside the sea.",d:1},
+{w:"HEART",c:"HUMAN BODY",h:"The organ that pumps blood.",d:1},
+
+{w:"PLANET",c:"SCIENCE",h:"Earth is one of these.",d:2},
+{w:"GUITAR",c:"MUSIC",h:"A musical instrument with strings.",d:2},
+{w:"CASTLE",c:"HISTORY",h:"A large fortified building.",d:2},
+{w:"JUNGLE",c:"NATURE",h:"A dense tropical forest.",d:2},
+{w:"CAMERA",c:"TECHNOLOGY",h:"A device used to take pictures.",d:2},
+{w:"MARKET",c:"EVERYDAY LIFE",h:"A place where people buy and sell goods.",d:2},
+{w:"DOCTOR",c:"JOBS",h:"A person who treats sick people.",d:2},
+{w:"SCHOOL",c:"EDUCATION",h:"A place where students learn.",d:2},
+{w:"PURPLE",c:"COLOURS",h:"A colour between red and blue.",d:2},
+{w:"BANANA",c:"FOOD",h:"A long yellow fruit.",d:2},
+{w:"POCKET",c:"CLOTHING",h:"A small pouch sewn into clothing.",d:2},
+{w:"BOTTLE",c:"EVERYDAY LIFE",h:"A container for liquids.",d:2},
+{w:"WINDOW",c:"EVERYDAY LIFE",h:"An opening in a wall with glass.",d:2},
+{w:"TRAVEL",c:"LIFESTYLE",h:"To go from one place to another.",d:2},
+{w:"SILVER",c:"MATERIALS",h:"A precious shiny grey metal.",d:2},
+{w:"GARDEN",c:"NATURE",h:"A place where flowers and vegetables grow.",d:2},
+{w:"BRIDGE",c:"STRUCTURES",h:"A structure built over a river or road.",d:2},
+{w:"PLANET",c:"SPACE",h:"A celestial body orbiting a star.",d:2},
+{w:"TICKET",c:"TRAVEL",h:"A pass that allows you to enter or travel.",d:2},
+{w:"CANDLE",c:"EVERYDAY LIFE",h:"An object that produces light when burned.",d:2},
+
+{w:"LIBRARY",c:"EDUCATION",h:"A place filled with books.",d:3},
+{w:"DIAMOND",c:"MATERIALS",h:"A very hard precious gemstone.",d:3},
+{w:"RAINBOW",c:"NATURE",h:"A colourful arc seen after rain.",d:3},
+{w:"AIRPORT",c:"TRAVEL",h:"A place where planes take off.",d:3},
+{w:"KITCHEN",c:"EVERYDAY LIFE",h:"A room where food is prepared.",d:3},
+{w:"DOLPHIN",c:"ANIMALS",h:"An intelligent sea mammal.",d:3},
+{w:"MYSTERY",c:"STORIES",h:"Something difficult to explain or understand.",d:3},
+{w:"JOURNEY",c:"TRAVEL",h:"An act of travelling from one place to another.",d:3},
+{w:"COMPASS",c:"NAVIGATION",h:"A tool that helps you find direction.",d:3},
+{w:"CAPTAIN",c:"JOBS",h:"A person in charge of a ship or team.",d:3},
+{w:"HARMONY",c:"MUSIC",h:"A pleasing combination of sounds.",d:3},
+{w:"PICTURE",c:"ART",h:"An image or photograph.",d:3},
+{w:"VOLCANO",c:"NATURE",h:"A mountain that can erupt lava.",d:3},
+{w:"HOSPITAL",c:"HEALTH",h:"A place where patients receive medical care.",d:3},
+{w:"BICYCLE",c:"TRANSPORT",h:"A two-wheeled vehicle powered by pedals.",d:3},
+{w:"FORTUNE",c:"LIFESTYLE",h:"A large amount of wealth or good luck.",d:3},
+{w:"WHISPER",c:"COMMUNICATION",h:"To speak very quietly.",d:3},
+{w:"ANCIENT",c:"HISTORY",h:"Something belonging to the distant past.",d:3},
+{w:"DYNAMIC",c:"SCIENCE",h:"Characterised by constant change or activity.",d:3},
+{w:"CULTURE",c:"SOCIETY",h:"The customs and traditions of a group.",d:3},
+
+{w:"ELEPHANT",c:"ANIMALS",h:"A very large mammal with a trunk.",d:4},
+{w:"NOTEBOOK",c:"EDUCATION",h:"A book used for writing notes.",d:4},
+{w:"TREASURE",c:"ADVENTURE",h:"Something valuable that may be hidden.",d:4},
+{w:"SUNSHINE",c:"NATURE",h:"Light and warmth from the sun.",d:4},
+{w:"LANGUAGE",c:"COMMUNICATION",h:"A system of words used to communicate.",d:4},
+{w:"KEYBOARD",c:"TECHNOLOGY",h:"An input device with keys.",d:4},
+{w:"SANDWICH",c:"FOOD",h:"Food placed between slices of bread.",d:4},
+{w:"CHAMPION",c:"SPORTS",h:"A person who wins a competition.",d:4},
+{w:"DIRECTION",c:"NAVIGATION",h:"A course or path to follow.",d:4},
+{w:"MOUNTAIN",c:"NATURE",h:"A very high natural elevation of land.",d:4},
+{w:"FESTIVAL",c:"CULTURE",h:"A celebration or special event.",d:4},
+{w:"UMBRELLA",c:"EVERYDAY LIFE",h:"An object used to protect you from rain.",d:4},
+{w:"CHEMICAL",c:"SCIENCE",h:"A substance with a particular composition.",d:4},
+{w:"BUILDING",c:"STRUCTURES",h:"A structure with walls and a roof.",d:4},
+{w:"SWIMMING",c:"SPORTS",h:"Moving through water using your body.",d:4},
+{w:"ADVENTURE",c:"LIFESTYLE",h:"An exciting or unusual experience.",d:4},
+{w:"NOTEWORTHY",c:"VOCABULARY",h:"Worth paying attention to.",d:4},
+{w:"BACKPACK",c:"TRAVEL",h:"A bag carried on your back.",d:4},
+{w:"CHOCOLATE",c:"FOOD",h:"A sweet treat made from cocoa.",d:4},
+{w:"STARLIGHT",c:"SPACE",h:"Light that comes from stars.",d:4},
+
+{w:"ASTRONAUT",c:"SPACE",h:"A person trained to travel into space.",d:5},
+{w:"KNOWLEDGE",c:"EDUCATION",h:"Information and understanding gained through learning.",d:5},
+{w:"IMPORTANT",c:"VOCABULARY",h:"Something of great significance.",d:5},
+{w:"DISCOVERY",c:"SCIENCE",h:"Finding something that was previously unknown.",d:5},
+{w:"WILDERNESS",c:"NATURE",h:"An area of land largely untouched by humans.",d:5},
+{w:"EDUCATION",c:"LEARNING",h:"The process of gaining knowledge and skills.",d:5},
+{w:"CHALLENGE",c:"VOCABULARY",h:"A difficult task that tests your ability.",d:5},
+{w:"EXCELLENT",c:"VOCABULARY",h:"Extremely good or outstanding.",d:5},
+{w:"BUTTERFLY",c:"ANIMALS",h:"An insect with colourful wings.",d:5},
+{w:"TELEPHONE",c:"TECHNOLOGY",h:"A device used to communicate over distances.",d:5},
+{w:"CELEBRATE",c:"LIFESTYLE",h:"To mark a special occasion with joy.",d:5},
+{w:"ADVENTURE",c:"STORIES",h:"An exciting experience or journey.",d:5},
+{w:"EXERCISE",c:"HEALTH",h:"Physical activity that improves fitness.",d:5},
+{w:"COMMUNITY",c:"SOCIETY",h:"A group of people living or working together.",d:5},
+{w:"CREATIVITY",c:"ART",h:"The ability to produce original ideas.",d:5},
+{w:"HISTORICAL",c:"HISTORY",h:"Connected with events of the past.",d:5},
+{w:"FRIENDSHIP",c:"RELATIONSHIPS",h:"A close and caring relationship between people.",d:5},
+{w:"LANDSCAPE",c:"NATURE",h:"The visible features of an area of land.",d:5},
+{w:"WONDERFUL",c:"VOCABULARY",h:"Inspiring delight or admiration.",d:5},
+{w:"DELICIOUS",c:"FOOD",h:"Very pleasant to taste.",d:5},
+
+{w:"INTELLIGENCE",c:"VOCABULARY",h:"The ability to learn, understand and solve problems.",d:6},
+{w:"PHOTOGRAPH",c:"ART",h:"An image made using a camera.",d:6},
+{w:"EXPLORATION",c:"ADVENTURE",h:"The act of investigating unfamiliar places.",d:6},
+{w:"ENVIRONMENT",c:"NATURE",h:"The surroundings in which living things exist.",d:6},
+{w:"INSPIRATION",c:"CREATIVITY",h:"Something that gives you an idea or motivation.",d:6},
+{w:"TECHNOLOGY",c:"SCIENCE",h:"The application of scientific knowledge.",d:6},
+{w:"OPPORTUNITY",c:"LIFESTYLE",h:"A favourable chance to do something.",d:6},
+{w:"EXPERIENCE",c:"LIFESTYLE",h:"Knowledge gained through doing or observing things.",d:6},
+{w:"IMAGINATION",c:"MIND",h:"The ability to create ideas in your mind.",d:6},
+{w:"REVOLUTION",c:"HISTORY",h:"A major change in society or government.",d:6},
+{w:"PERSONALITY",c:"PSYCHOLOGY",h:"The combination of traits that makes someone unique.",d:6},
+{w:"ARCHITECTURE",c:"ART",h:"The design and construction of buildings.",d:6},
+{w:"CONNECTION",c:"COMMUNICATION",h:"A relationship or link between things.",d:6},
+{w:"DETERMINED",c:"VOCABULARY",h:"Having a firm decision to achieve something.",d:6},
+{w:"ACHIEVEMENT",c:"LIFESTYLE",h:"Something successfully completed through effort.",d:6},
+{w:"ASTRONOMY",c:"SPACE",h:"The scientific study of stars and planets.",d:6},
+{w:"MOTIVATION",c:"PSYCHOLOGY",h:"The reason or desire to take action.",d:6},
+{w:"CONFIDENCE",c:"EMOTIONS",h:"Belief in your own ability.",d:6},
+{w:"PERSPECTIVE",c:"THINKING",h:"A particular way of looking at something.",d:6},
+{w:"SIGNIFICANT",c:"VOCABULARY",h:"Important enough to be noticed.",d:6}
+];
+
+let mode="classic";
+let deck=[];
+let current=null;
+let score=0,streak=0,correct=0,missed=0,usedHints=0;
+let index=0,seconds=15,timer=null,locked=false;
+let timeLeft=60;
+let hintUsed=false;
+let runNumber=0;
+
+const $=id=>document.getElementById(id);
+const shuffle=array=>{
+  const copy=[...array];
+  for(let i=copy.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [copy[i],copy[j]]=[copy[j],copy[i]];
+  }
+  return copy;
+};
+
+function getBest(){
+  return Number(localStorage.getItem("wobble_wordrush_best")||0);
+}
+function updateBestHome(){
+  $("bestHome").textContent=getBest();
+}
+updateBestHome();
+
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  $(id).classList.add("active");
+}
+
+function startGame(selected){
+  clearInterval(timer);
+  mode=selected;
+  score=0;streak=0;correct=0;missed=0;usedHints=0;index=0;
+  timeLeft=60;locked=false;runNumber++;
+  const run=runNumber;
+
+  if(mode==="level"){
+    deck=shuffle(words.filter(w=>w.d>=1));
+    deck.sort((a,b)=>a.d-b.d);
+    deck=deck.slice(0,50);
+    $("modeLabel").textContent="LEVEL MODE";
+    $("progressLabel").textContent="LEVEL";
+    $("gameMessage").textContent="Five words per level. Keep climbing!";
+  }else{
+    deck=shuffle(words);
+    $("modeLabel").textContent=mode==="time"?"TIME ATTACK":"CLASSIC MODE";
+    $("progressLabel").textContent=mode==="time"?"SOLVED":"WORD";
+    $("gameMessage").textContent=mode==="time"?"60 seconds. Make every second count!":"One wrong answer ends your run!";
+  }
+
+  showScreen("game");
+  nextWord();
+  if(mode==="time"){
+    timeLeft=60;
+    $("timerWrap").style.display="block";
+    startTimeAttack(run);
+  }
+}
+
+function getDifficulty(d){
+  return ["","EASY","MEDIUM","TRICKY","HARD","VERY HARD","EXPERT"][d]||"EXPERT";
+}
+
+function nextWord(){
+  clearInterval(timer);
+  locked=false;
+  hintUsed=false;
+  $("hintBox").classList.remove("show");
+  $("hintBox").textContent="";
+  $("hintBtn").disabled=false;
+  $("submitBtn").disabled=false;
+  $("answer").disabled=false;
+  $("answer").value="";
+  $("feedback").textContent="";
+  $("feedback").className="feedback";
+
+  if(mode==="classic" && index>=deck.length){
+    deck=shuffle(words);
+    index=0;
+  }
+  if(index>=deck.length){
+    endGame("complete");
+    return;
+  }
+
+  current=deck[index];
+  if(mode==="level"){
+    const level=Math.floor(index/5)+1;
+    $("progressText").textContent=level+"/10";
+    $("progressFill").style.width=(index/50*100)+"%";
+    $("gameMessage").textContent="Level "+level+" — Word "+((index%5)+1)+" of 5";
+  }else if(mode==="time"){
+    $("progressText").textContent=correct;
+    $("progressFill").style.width=(index/deck.length*100)+"%";
+  }else{
+    $("progressText").textContent=index+1;
+    $("progressFill").style.width=((index%deck.length)/deck.length*100)+"%";
+  }
+
+  $("score").textContent=score;
+  $("streak").textContent=streak;
+  $("category").textContent=current.c;
+  $("difficulty").textContent=getDifficulty(current.d);
+  $("wordPoints").textContent=current.d*10;
+  $("question").textContent="Unscramble the letters to reveal the word!";
+  renderLetters();
+  $("answer").focus();
+
+  if(mode==="classic" || mode==="level"){
+    seconds=15;
+    $("timerWrap").style.display="block";
+    updateTimerDisplay(seconds,15);
+    startWordTimer();
+  }else{
+    $("timerWrap").style.display="none";
+  }
+}
+
+function renderLetters(){
+  const letters=shuffle(current.w.split(""));
+  $("scrambled").innerHTML="";
+  letters.forEach(letter=>{
+    const span=document.createElement("div");
+    span.className="letter";
+    span.textContent=letter;
+    $("scrambled").appendChild(span);
+  });
+}
+
+function startWordTimer(){
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    seconds--;
+    updateTimerDisplay(seconds,15);
+    if(seconds<=0){
+      clearInterval(timer);
+      if(mode==="classic"){
+        locked=true;
+        missed++;
+        streak=0;
+        $("feedback").textContent="⏰ Time's up! The word was "+current.w;
+        $("feedback").className="feedback bad";
+        disableInputs();
+        setTimeout(()=>endGame("failed"),1600);
+      }else{
+        missed++;
+        streak=0;
+        $("feedback").textContent="⏰ Time's up! The word was "+current.w;
+        $("feedback").className="feedback bad";
+        disableInputs();
+        setTimeout(()=>{
+          index++;
+          nextWord();
+        },1300);
+      }
+    }
+  },1000);
+}
+
+function startTimeAttack(run){
+  clearInterval(timer);
+  updateTimerDisplay(timeLeft,60);
+  timer=setInterval(()=>{
+    if(run!==runNumber)return;
+    timeLeft--;
+    updateTimerDisplay(timeLeft,60);
+    if(timeLeft<=0){
+      clearInterval(timer);
+      endGame("complete");
+    }
+  },1000);
+}
+
+function updateTimerDisplay(value,total){
+  $("timerText").textContent=value+"s";
+  $("timerFill").style.width=Math.max(0,value/total*100)+"%";
+  $("timerFill").classList.toggle("warning",value<=5 || (total===60 && value<=15));
+}
+
+function disableInputs(){
+  $("answer").disabled=true;
+  $("submitBtn").disabled=true;
+  $("hintBtn").disabled=true;
+}
+
+function submitAnswer(){
+  if(locked || !$("answer").value.trim())return;
+  const answer=$("answer").value.trim().toUpperCase().replace(/[^A-Z]/g,"");
+  if(answer===current.w){
+    clearInterval(timer);
+    locked=true;
+    correct++;
+    streak++;
+    const base=current.d*10;
+    const bonus=Math.min(streak*2,20);
+    const speedBonus=mode==="time"?0:Math.max(0,seconds);
+    const points=base+bonus+speedBonus;
+    score+=points;
+    if(mode==="time")timeLeft=Math.min(60,timeLeft+2);
+    $("score").textContent=score;
+    $("streak").textContent=streak;
+    $("feedback").textContent="✓ Correct! +"+points+" points"+(streak>=3?" 🔥 Streak bonus!":"");
+    $("feedback").className="feedback good";
+    $("gameMessage").textContent="Excellent! Keep that momentum going.";
+    disableInputs();
+    setTimeout(()=>{
+      index++;
+      nextWord();
+    },1000);
+  }else{
+    $("feedback").textContent="Not quite! Try again.";
+    $("feedback").className="feedback bad";
+    $("answer").select();
+    if(mode==="classic"){
+      clearInterval(timer);
+      locked=true;
+      missed++;
+      streak=0;
+      $("feedback").textContent="✕ Incorrect! The word was "+current.w;
+      disableInputs();
+      setTimeout(()=>endGame("failed"),1600);
+    }else{
+      if(mode==="time"){
+        timeLeft=Math.max(0,timeLeft-5);
+        updateTimerDisplay(timeLeft,60);
+        if(timeLeft<=0)endGame("complete");
+      }
+    }
+  }
+}
+
+function showHint(){
+  if(locked || hintUsed)return;
+  hintUsed=true;
+  usedHints++;
+  score=Math.max(0,score-5);
+  $("score").textContent=score;
+  $("hintBox").textContent="💡 Hint: "+current.h;
+  $("hintBox").classList.add("show");
+  $("hintBtn").disabled=true;
+}
+
+function skipWord(){
+  if(locked)return;
+  clearInterval(timer);
+  missed++;
+  streak=0;
+  locked=true;
+  $("feedback").textContent="Skipped! The word was "+current.w;
+  $("feedback").className="feedback bad";
+  disableInputs();
+  if(mode==="classic"){
+    setTimeout(()=>endGame("failed"),1200);
+  }else{
+    setTimeout(()=>{
+      index++;
+      nextWord();
+    },1200);
+  }
+}
+
+function endGame(reason){
+  clearInterval(timer);
+  runNumber++;
+  locked=true;
+  const best=Math.max(score,getBest());
+  localStorage.setItem("wobble_wordrush_best",best);
+  updateBestHome();
+
+  $("finalScore").textContent=score;
+  $("correctCount").textContent=correct;
+  $("wrongCount").textContent=missed;
+  $("bestResult").textContent=best;
+  const total=correct+missed;
+  $("accuracy").textContent=total?Math.round(correct/total*100)+"%":"0%";
+
+  if(mode==="level" && reason==="complete"){
+    $("resultIcon").textContent="🏆";
+    $("resultTitle").textContent="LEVELS COMPLETED!";
+    $("resultMessage").textContent="You conquered all 10 levels. Incredible work!";
+  }else if(mode==="time"){
+    $("resultIcon").textContent="⏱️";
+    $("resultTitle").textContent="TIME'S UP!";
+    $("resultMessage").textContent="The clock has stopped. Here's your result!";
+  }else if(reason==="failed"){
+    $("resultIcon").textContent="💥";
+    $("resultTitle").textContent="RUN OVER!";
+    $("resultMessage").textContent="One mistake ended your classic run. Can you beat your score?";
+  }else{
+    $("resultIcon").textContent="🎉";
+    $("resultTitle").textContent="WELL PLAYED!";
+    $("resultMessage").textContent="You've completed the challenge!";
+  }
+  showScreen("result");
+}
+
+function replay(){
+  startGame(mode);
+}
+
+function goHome(){
+  clearInterval(timer);
+  runNumber++;
+  updateBestHome();
+  showScreen("home");
+}
+
+$("answer").addEventListener("keydown",event=>{
+  if(event.key==="Enter")submitAnswer();
+});
+</script>
+</body>
+</html>
