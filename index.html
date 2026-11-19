@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#17172b">
-  <title>Wobble | Play. Challenge. Repeat.</title>
+  <meta name="description" content="WOBBLE Arcade. Play games, challenge yourself and beat your best scores.">
+  <title>WOBBLE | Play. Challenge. Repeat.</title>
 
   <style>
     * {
@@ -87,13 +88,14 @@
       border-radius: 17px;
       background: #25243f;
       border: 1px solid #393653;
-      transition: transform 0.2s;
       color: inherit;
       text-decoration: none;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
     .game-card:hover {
       transform: translateY(-4px);
+      border-color: #a78bfa;
     }
 
     .game-card:focus-visible {
@@ -115,10 +117,38 @@
       line-height: 1.5;
     }
 
-    .purple { border-top: 3px solid #a78bfa; }
-    .pink { border-top: 3px solid #ff4f87; }
-    .teal { border-top: 3px solid #20d6c2; }
-    .gold { border-top: 3px solid #ffc857; }
+    .purple {
+      border-top: 3px solid #a78bfa;
+    }
+
+    .pink {
+      border-top: 3px solid #ff4f87;
+    }
+
+    .teal {
+      border-top: 3px solid #20d6c2;
+    }
+
+    .gold {
+      border-top: 3px solid #ffc857;
+    }
+
+    .game-status {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #35334f;
+      color: #20d6c2;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .upcoming {
+      opacity: 0.75;
+      cursor: default;
+    }
 
     .coming {
       text-align: center;
@@ -173,24 +203,28 @@
         <div class="emoji">🧠</div>
         <h3>Memory Blitz</h3>
         <p>Test your memory. How much can you remember?</p>
+        <span class="game-status">PLAY NOW</span>
       </a>
 
-      <article class="game-card pink">
+      <a href="quiz.html" class="game-card pink">
         <div class="emoji">⚡</div>
         <h3>Quick Quiz</h3>
-        <p>Think fast and answer before time runs out.</p>
-      </article>
+        <p>Think fast, beat the clock and challenge your knowledge.</p>
+        <span class="game-status">PLAY NOW</span>
+      </a>
 
-      <article class="game-card teal">
+      <article class="game-card teal upcoming">
         <div class="emoji">🔤</div>
         <h3>Word Rush</h3>
         <p>Find the right words before the clock runs out.</p>
+        <span class="game-status">COMING SOON</span>
       </article>
 
-      <article class="game-card gold">
+      <article class="game-card gold upcoming">
         <div class="emoji">🎯</div>
         <h3>Match Mania</h3>
         <p>Match colours and patterns to earn points.</p>
+        <span class="game-status">COMING SOON</span>
       </article>
 
     </section>
