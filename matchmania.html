@@ -3,708 +3,722 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Match Mania | WOBBLE</title>
 <style>
 :root {
-  --bg: #17172b;
-  --panel: #22223d;
-  --purple: #8B5CF6;
-  --light: #a78bfa;
-  --pink: #FF4F87;
-  --teal: #20D6C2;
-  --gold: #FFC857;
-  --text: #f7f5ff;
-  --muted: #aaa7c5;
+  --bg:#17172b;
+  --panel:#252541;
+  --purple:#8b5cf6;
+  --pink:#ff4f87;
+  --teal:#20d6c2;
+  --gold:#ffc857;
 }
-* { box-sizing: border-box; }
-
+* { box-sizing:border-box; }
 body {
-  margin: 0;
-  min-height: 100vh;
-  padding: 20px 12px 40px;
-  background: radial-gradient(circle at top, #292044, var(--bg) 60%);
-  color: var(--text);
-  font-family: Arial, sans-serif;
-  text-align: center;
+  margin:0;
+  min-height:100vh;
+  padding:16px 10px 30px;
+  background:radial-gradient(circle at top,#30234f,var(--bg) 60%);
+  color:white;
+  font-family:Arial,sans-serif;
+  text-align:center;
 }
-
-a { color: var(--light); text-decoration: none; }
-
-.back {
-  display: block;
-  max-width: 520px;
-  margin: 0 auto 22px;
-  text-align: left;
-  font-weight: bold;
-}
-
-header { margin: 10px auto 22px; }
-
-.logo {
-  font-size: 25px;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.eyebrow {
-  color: var(--teal);
-  font-size: 12px;
-  letter-spacing: 3px;
-  font-weight: bold;
-  margin-top: 8px;
-}
-
-h1 {
-  font-size: clamp(32px, 8vw, 46px);
-  margin: 12px 0 8px;
-}
-
-.subtitle {
-  color: var(--muted);
-  margin: 0 auto;
-  max-width: 420px;
-  line-height: 1.5;
-}
-
-.container { max-width: 520px; margin: auto; }
-
+.container { max-width:520px; margin:auto; }
+.logo { font-size:25px; font-weight:900; letter-spacing:3px; margin:8px; }
+.logo span { color:var(--purple); }
+.back { display:inline-block; color:#c9b8ff; text-decoration:none; margin:8px; font-size:14px; }
+h1 { font-size:28px; margin:12px 0 5px; }
+.subtitle { font-size:13px; color:#b9b9d0; }
 .panel {
-  background: rgba(34,34,61,.94);
-  border: 1px solid rgba(167,139,250,.22);
-  border-radius: 20px;
-  padding: 18px;
-  margin: 16px 0;
-  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  background:var(--panel);
+  border:1px solid #444467;
+  border-radius:17px;
+  padding:14px;
+  margin:14px 0;
+  box-shadow:0 8px 25px #0003;
 }
-
-h2 { margin: 4px 0 12px; font-size: 23px; }
-
-.menu-icon {
-  font-size: 54px;
-  margin: 12px 0;
+button { font:inherit; cursor:pointer; }
+.main-btn {
+  border:0; border-radius:12px; padding:14px 25px;
+  color:white; font-weight:bold;
+  background:linear-gradient(135deg,#a477ff,#7542e8);
+  box-shadow:0 5px 15px #8b5cf655;
 }
-
-.instructions {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.7;
-  max-width: 390px;
-  margin: 12px auto 20px;
+.secondary-btn {
+  border:1px solid #65658d; background:#333351;
+  color:white; border-radius:10px; padding:10px 15px; margin:4px;
 }
-
-.instructions strong { color: var(--light); }
-
-.primary, .secondary, .teal-button {
-  border: 0;
-  border-radius: 12px;
-  padding: 13px 20px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.primary { background: var(--purple); color: white; }
-.secondary { background: #393454; color: white; }
-.teal-button { background: var(--teal); color: #14202a; }
-
-button:focus-visible {
-  outline: 3px solid white;
-  outline-offset: 3px;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-.stat {
-  background: #19192e;
-  border-radius: 12px;
-  padding: 11px 4px;
-}
-
-.stat strong {
-  display: block;
-  color: var(--gold);
-  font-size: 22px;
-  margin-bottom: 4px;
-}
-
-.stat span {
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 1px;
-}
-
-.message {
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--light);
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 1.4;
-  margin: 8px 0 12px;
-}
-
+.screen { display:none; }
+#homeScreen { display:block; }
+.hero { font-size:65px; margin:8px; }
+.description { font-size:14px; line-height:1.7; color:#c7c7df; }
+.stats { display:flex; justify-content:space-around; gap:5px; }
+.stat strong { display:block; color:var(--gold); font-size:22px; }
+.stat small { font-size:10px; color:#aaaac5; letter-spacing:1px; }
+.level-label { font-size:13px; color:#c9b8ff; font-weight:bold; }
+.progress-wrap { height:8px; background:#15152a; border-radius:10px; overflow:hidden; margin:10px 0; }
+.progress { height:100%; width:0; background:linear-gradient(90deg,var(--purple),var(--pink)); transition:width .2s; }
+.goal { font-size:13px; color:#e6e3ff; margin:7px; }
+.board-wrap { padding:7px; }
 .board {
-  display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-  gap: 3px;
-  width: 100%;
-  max-width: 430px;
-  margin: 0 auto;
-  padding: 7px;
-  background: #131326;
-  border: 1px solid #393454;
-  border-radius: 13px;
-  touch-action: manipulation;
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:4px;
+  width:100%;
+  aspect-ratio:1;
+  background:#141427;
+  padding:7px;
+  border:2px solid #454568;
+  border-radius:13px;
+  touch-action:manipulation;
 }
-
 .cell {
-  aspect-ratio: 1;
-  min-width: 0;
-  border-radius: 3px;
-  background: #302e4b;
-  border: 1px solid rgba(255,255,255,.035);
-  cursor: pointer;
-  padding: 0;
+  border:0;
+  border-radius:6px;
+  background:#292944;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+  min-height:0;
+  padding:0;
+  position:relative;
 }
-
-.cell.filled {
-  background: var(--cell-color);
-  border: 1px solid rgba(255,255,255,.24);
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,.17);
+.gem {
+  width:72%;
+  height:72%;
+  border-radius:5px;
+  transform:rotate(45deg);
+  background:var(--gem);
+  border:2px solid #ffffff88;
+  box-shadow:inset 2px 2px 4px #ffffff77,inset -3px -3px 5px #0005,0 2px 5px #0005;
+  position:relative;
 }
-
-.cell:active { filter: brightness(1.25); }
-
-.piece-heading {
-  margin: 18px 0 10px;
-  font-size: 14px;
-  color: var(--muted);
-  font-weight: bold;
+.gem:after {
+  content:"";
+  position:absolute;
+  left:13%;
+  top:12%;
+  width:34%;
+  height:20%;
+  background:#ffffffaa;
+  border-radius:50%;
 }
-
-.pieces {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+.colour-0 { --gem:#ff477e; }
+.colour-1 { --gem:#22d6c2; }
+.colour-2 { --gem:#9b6bff; }
+.colour-3 { --gem:#ffc857; }
+.colour-4 { --gem:#48a7ff; }
+.colour-5 { --gem:#ff914d; }
+.colour-6 { --gem:#e879f9; }
+.cell.selected { outline:3px solid var(--gold); outline-offset:-3px; background:#50436b; }
+.cell.special-bomb .gem:before,
+.cell.special-rainbow .gem:before {
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:17px;
+  text-shadow:0 1px 4px #222;
+  transform:rotate(-45deg);
+  z-index:2;
 }
-
-.piece-card {
-  min-width: 0;
-  min-height: 88px;
-  padding: 9px 3px;
-  background: #19192e;
-  border: 2px solid #393454;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 7px;
+.cell.special-bomb .gem:before { content:"✦"; }
+.cell.special-rainbow .gem:before { content:"★"; }
+.game-message { min-height:22px; color:var(--teal); font-size:13px; margin:8px; }
+.hint { font-size:12px; color:#aaaac5; line-height:1.6; }
+.result-score { font-size:40px; color:var(--gold); font-weight:bold; margin:10px; }
+.big { font-size:55px; }
+.level-map { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:15px; }
+.level-dot {
+  border:1px solid #555577; border-radius:10px; padding:12px 3px;
+  background:#1b1b32; color:white; font-weight:bold;
 }
-
-.piece-card.selected {
-  border-color: var(--teal);
-  background: #25364a;
-  box-shadow: 0 0 12px rgba(32,214,194,.25);
-}
-
-.piece-card.used {
-  opacity: .2;
-  cursor: default;
-}
-
-.piece-grid {
-  display: grid;
-  gap: 2px;
-  justify-content: center;
-}
-
-.mini-cell {
-  width: clamp(7px, 2.5vw, 13px);
-  height: clamp(7px, 2.5vw, 13px);
-  border-radius: 2px;
-}
-
-.piece-label {
-  font-size: 10px;
-  color: var(--muted);
-}
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 9px;
-  margin-top: 16px;
-}
-
-.help {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.6;
-  margin: 13px auto 0;
-  max-width: 390px;
-}
-
-.result-score {
-  color: var(--gold);
-  font-size: 42px;
-  font-weight: 900;
-  margin: 12px 0;
-}
-
-.hidden { display: none !important; }
-
-footer {
-  color: #77748f;
-  font-size: 12px;
-  margin: 28px auto 0;
-}
-
-@media (max-width: 360px) {
-  body { padding-left: 7px; padding-right: 7px; }
-  .panel { padding: 12px 9px; }
-  .board { gap: 2px; padding: 5px; }
-  .pieces { gap: 5px; }
+.level-dot.done { background:#3a3159; border-color:var(--purple); color:#d8c9ff; }
+.level-dot.current { background:var(--purple); border-color:#c6aaff; }
+.level-dot.locked { opacity:.35; }
+footer { color:#777794; font-size:11px; margin-top:25px; }
+@media(max-width:360px) {
+  .board { gap:3px; padding:5px; }
+  .cell { border-radius:5px; }
 }
 </style>
 </head>
 <body>
+<div class="container">
 
+<div class="logo">WOBBLE<span>.</span></div>
 <a class="back" href="./index.html">← Back Home</a>
+<h1>💎 MATCH MANIA</h1>
+<div class="subtitle">Swap. Match. Crush!</div>
 
-<header>
-  <div class="logo">WOBBLE.</div>
-  <div class="eyebrow">⚡ ARCADE PRESENTS</div>
-  <h1>🎯 MATCH MANIA</h1>
-  <p class="subtitle">Fit the blocks. Clear the lines. Beat your best score!</p>
-</header>
-
-<main class="container">
-
-  <section id="menu" class="panel">
-    <div class="menu-icon">🧩</div>
-    <h2>Ready to puzzle?</h2>
-    <p class="instructions">
-      Place colourful block shapes onto the board. Complete a full
-      <strong>row or column</strong> to clear it and earn points.
-      Keep the board open for as long as you can!
+<section id="homeScreen" class="screen">
+  <div class="panel">
+    <div class="hero">💎</div>
+    <h2>Your jewel adventure starts here!</h2>
+    <p class="description">
+      Match three or more gems of the same colour.
+      Reach the target score before your moves run out.
+      Complete levels to unlock even bigger challenges!
     </p>
-    <button class="primary" onclick="startGame()">PLAY NOW →</button>
-    <p class="help">No timer. No rush. Just you and the puzzle.</p>
-    <p class="help">🏆 Best score: <strong id="menuBest">0</strong></p>
-  </section>
-
-  <section id="game" class="panel hidden">
     <div class="stats">
-      <div class="stat">
-        <strong id="score">0</strong>
-        <span>SCORE</span>
-      </div>
-      <div class="stat">
-        <strong id="lines">0</strong>
-        <span>LINES CLEARED</span>
-      </div>
-      <div class="stat">
-        <strong id="best">0</strong>
-        <span>BEST SCORE</span>
-      </div>
+      <div class="stat"><strong id="homeLevel">1</strong><small>NEXT LEVEL</small></div>
+      <div class="stat"><strong id="homeDone">0</strong><small>COMPLETED</small></div>
+      <div class="stat"><strong>∞</strong><small>LEVELS</small></div>
     </div>
+    <br>
+    <button class="main-btn" onclick="startLevel()">PLAY NOW →</button>
+    <br><br>
+    <button class="secondary-btn" onclick="showLevels()">🗺️ Level Map</button>
+  </div>
+</section>
 
-    <div class="message" id="message">Choose a block to get started!</div>
-
-    <div class="board" id="board" aria-label="Block puzzle board"></div>
-
-    <div class="piece-heading">TAP A BLOCK TO SELECT IT</div>
-    <div class="pieces" id="pieces"></div>
-
-    <p class="help">
-      First tap a block shape. Then tap the board where you want its
-      top-left corner to go. Complete full rows or columns to clear them!
-    </p>
-
-    <div class="controls">
-      <button class="secondary" onclick="restartGame()">↻ Restart</button>
-      <button class="secondary" onclick="backToMenu()">← Game Menu</button>
+<section id="gameScreen" class="screen">
+  <div class="panel">
+    <div class="level-label" id="levelTitle">LEVEL 1</div>
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+    <div class="goal" id="goalText">Target: 450 points</div>
+    <div class="stats">
+      <div class="stat"><strong id="score">0</strong><small>SCORE</small></div>
+      <div class="stat"><strong id="moves">25</strong><small>MOVES LEFT</small></div>
+      <div class="stat"><strong id="target">450</strong><small>TARGET</small></div>
     </div>
-  </section>
+  </div>
 
-  <section id="result" class="panel hidden">
-    <div class="menu-icon">🧩</div>
-    <h2>Game Over!</h2>
-    <p id="resultMessage" class="instructions">
-      There are no more spaces for your blocks.
-    </p>
-    <div class="result-score" id="finalScore">0</div>
-    <p class="help" id="finalBest"></p>
-    <div class="controls">
-      <button class="primary" onclick="startGame()">PLAY AGAIN</button>
-      <button class="secondary" onclick="backToMenu()">GAME MENU</button>
-    </div>
-  </section>
+  <div class="panel board-wrap">
+    <div class="board" id="board"></div>
+  </div>
 
-</main>
+  <div class="game-message" id="gameMessage">Swap two neighbouring gems!</div>
+  <p class="hint">
+    Tap a gem, then tap a neighbouring gem to swap them.
+    Match 3 or more of the same colour.
+    Four or five matches create special gems!
+  </p>
+
+  <button class="secondary-btn" onclick="startLevel()">↻ Restart Level</button>
+  <button class="secondary-btn" onclick="goHome()">⌂ Menu</button>
+</section>
+
+<section id="resultScreen" class="screen">
+  <div class="panel">
+    <div class="big" id="resultIcon">🏆</div>
+    <h2 id="resultTitle">Level Complete!</h2>
+    <p class="description" id="resultDescription">Amazing work!</p>
+    <div class="result-score" id="resultScore">0</div>
+    <p class="description" id="resultExtra"></p>
+    <button class="main-btn" id="resultButton" onclick="nextLevel()">NEXT LEVEL →</button>
+    <br><br>
+    <button class="secondary-btn" onclick="goHome()">Level Map</button>
+  </div>
+</section>
+
+<section id="mapScreen" class="screen">
+  <div class="panel">
+    <h2>🗺️ Your Level Map</h2>
+    <p class="description">Your jewel journey, one level at a time.</p>
+    <div class="level-map" id="levelMap"></div>
+    <br>
+    <button class="main-btn" onclick="goHome()">BACK TO GAME</button>
+  </div>
+</section>
 
 <footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
+</div>
 
 <script>
-const SIZE = 10;
+const SIZE = 8;
+const COLOURS = 7;
+const KEY = "wobbleMatchManiaProgress";
 
-const COLORS = [
-  "#8B5CF6",
-  "#20D6C2",
-  "#FF4F87",
-  "#FFC857",
-  "#55A7FF",
-  "#FF914D"
-];
+let saved = {};
+try {
+  saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+} catch(e) {}
 
-// Each shape is a collection of squares.
-// Shapes do not rotate in this version.
-const SHAPES = [
-  { name: "Single", cells: [[0,0]] },
-  { name: "Two", cells: [[0,0],[0,1]] },
-  { name: "Three Line", cells: [[0,0],[0,1],[0,2]] },
-  { name: "Four Line", cells: [[0,0],[0,1],[0,2],[0,3]] },
-  { name: "Five Line", cells: [[0,0],[0,1],[0,2],[0,3],[0,4]] },
-
-  { name: "Small Square", cells: [[0,0],[0,1],[1,0],[1,1]] },
-  { name: "Big Square", cells: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]] },
-
-  { name: "L Shape", cells: [[0,0],[1,0],[2,0],[2,1]] },
-  { name: "Reverse L", cells: [[0,1],[1,1],[2,0],[2,1]] },
-  { name: "T Shape", cells: [[0,0],[0,1],[0,2],[1,1]] },
-  { name: "Plus", cells: [[0,1],[1,0],[1,1],[1,2],[2,1]] },
-  { name: "Zigzag", cells: [[0,0],[0,1],[1,1],[1,2]] },
-  { name: "Reverse Zigzag", cells: [[0,1],[0,2],[1,0],[1,1]] },
-  { name: "Corner", cells: [[0,0],[1,0],[1,1]] },
-  { name: "Small Corner", cells: [[0,0],[0,1],[1,0]] },
-  { name: "Step", cells: [[0,0],[1,0],[1,1],[2,1]] }
-];
-
-let board = [];
-let pieces = [];
-let selectedPiece = null;
+let unlocked = Math.max(1, Number(saved.unlocked || 1));
+let completed = Math.max(0, Number(saved.completed || 0));
+let level = 1;
 let score = 0;
-let linesCleared = 0;
-let bestScore = Number(localStorage.getItem("wobbleBlockBest") || 0);
+let moves = 0;
+let target = 450;
+let board = [];
+let selected = null;
+let busy = false;
 let gameOver = false;
-let pieceColorCounter = 0;
 
-function startGame() {
-  board = Array.from({ length: SIZE }, () => Array(SIZE).fill(0));
-  pieces = [];
-  selectedPiece = null;
-  score = 0;
-  linesCleared = 0;
-  gameOver = false;
-  pieceColorCounter = 0;
+const boardEl = document.getElementById("board");
 
-  $("menu").classList.add("hidden");
-  $("result").classList.add("hidden");
-  $("game").classList.remove("hidden");
-
-  dealPieces();
-  updateStats();
-  renderBoard();
-  renderPieces();
-
-  $("message").textContent = "Choose a block, then choose where to place it!";
+function saveProgress() {
+  localStorage.setItem(KEY, JSON.stringify({unlocked, completed}));
 }
 
-function restartGame() {
-  startGame();
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.style.display = "none");
+  document.getElementById(id).style.display = "block";
 }
 
-function backToMenu() {
+function settingsForLevel(n) {
+  return {
+    target: 450 + (n - 1) * 115 + Math.floor((n - 1) / 5) * 100,
+    moves: Math.max(18, 25 - Math.floor((n - 1) / 8))
+  };
+}
+
+function updateHome() {
+  document.getElementById("homeLevel").textContent = unlocked;
+  document.getElementById("homeDone").textContent = completed;
+}
+
+function goHome() {
+  busy = false;
   gameOver = true;
-  $("game").classList.add("hidden");
-  $("result").classList.add("hidden");
-  $("menu").classList.remove("hidden");
-  $("menuBest").textContent = bestScore;
+  selected = null;
+  updateHome();
+  showScreen("homeScreen");
 }
 
-function $(id) {
-  return document.getElementById(id);
+function startLevel() {
+  level = unlocked;
+  const settings = settingsForLevel(level);
+  target = settings.target;
+  moves = settings.moves;
+  score = 0;
+  selected = null;
+  busy = false;
+  gameOver = false;
+
+  board = makeBoard();
+
+  showScreen("gameScreen");
+  document.getElementById("levelTitle").textContent = "LEVEL " + level;
+  document.getElementById("target").textContent = target;
+  document.getElementById("goalText").textContent =
+    "Reach " + target + " points before your moves run out!";
+
+  message("Swap two neighbouring gems!");
+  updateStats();
+  render();
 }
 
-function dealPieces() {
-  pieces = [];
-
-  for (let i = 0; i < 3; i++) {
-    const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-
-    pieces.push({
-      name: shape.name,
-      cells: shape.cells.map(cell => [...cell]),
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      used: false
-    });
-  }
-
-  selectedPiece = null;
+function randomGem() {
+  return {
+    color: Math.floor(Math.random() * COLOURS),
+    special: null
+  };
 }
 
-function renderBoard() {
-  const boardElement = $("board");
-  boardElement.innerHTML = "";
+function makeBoard() {
+  let b;
+  let attempts = 0;
+
+  do {
+    b = Array.from({length:SIZE}, () => Array(SIZE).fill(null));
+
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        let gem;
+        let tries = 0;
+
+        do {
+          gem = randomGem();
+          tries++;
+        } while (
+          tries < 30 &&
+          (
+            (c >= 2 &&
+              b[r][c-1].color === gem.color &&
+              b[r][c-2].color === gem.color) ||
+            (r >= 2 &&
+              b[r-1][c].color === gem.color &&
+              b[r-2][c].color === gem.color)
+          )
+        );
+
+        b[r][c] = gem;
+      }
+    }
+    attempts++;
+  } while (attempts < 30 && !hasPossibleMove(b));
+
+  return b;
+}
+
+function render() {
+  boardEl.innerHTML = "";
 
   for (let r = 0; r < SIZE; r++) {
     for (let c = 0; c < SIZE; c++) {
       const cell = document.createElement("button");
-      cell.type = "button";
       cell.className = "cell";
-      cell.setAttribute("aria-label", "Row " + (r + 1) + ", column " + (c + 1));
+      const gem = board[r][c];
 
-      if (board[r][c] !== 0) {
-        cell.classList.add("filled");
-        cell.style.setProperty("--cell-color", board[r][c]);
+      if (gem) {
+        const jewel = document.createElement("div");
+        jewel.className = "gem colour-" + gem.color;
+        if (gem.special === "bomb") cell.classList.add("special-bomb");
+        if (gem.special === "rainbow") cell.classList.add("special-rainbow");
+        cell.appendChild(jewel);
       }
 
-      cell.addEventListener("click", () => placePiece(r, c));
-      boardElement.appendChild(cell);
+      if (selected && selected.r === r && selected.c === c) {
+        cell.classList.add("selected");
+      }
+
+      cell.setAttribute("aria-label", "Row " + (r+1) + ", column " + (c+1));
+      cell.onclick = () => tapCell(r,c);
+      boardEl.appendChild(cell);
     }
   }
 }
 
-function renderPieces() {
-  const piecesElement = $("pieces");
-  piecesElement.innerHTML = "";
-
-  pieces.forEach((piece, index) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "piece-card";
-
-    if (piece.used) button.classList.add("used");
-    if (selectedPiece === index) button.classList.add("selected");
-
-    button.disabled = piece.used || gameOver;
-
-    const height = Math.max(...piece.cells.map(cell => cell[0])) + 1;
-    const width = Math.max(...piece.cells.map(cell => cell[1])) + 1;
-
-    const miniGrid = document.createElement("div");
-    miniGrid.className = "piece-grid";
-    miniGrid.style.gridTemplateColumns = "repeat(" + width + ", auto)";
-
-    for (let r = 0; r < height; r++) {
-      for (let c = 0; c < width; c++) {
-        const miniCell = document.createElement("div");
-        miniCell.className = "mini-cell";
-
-        const occupied = piece.cells.some(cell => cell[0] === r && cell[1] === c);
-
-        if (occupied) {
-          miniCell.style.background = piece.color;
-        }
-
-        miniGrid.appendChild(miniCell);
-      }
-    }
-
-    const label = document.createElement("span");
-    label.className = "piece-label";
-    label.textContent = piece.used ? "USED" : piece.name;
-
-    button.appendChild(miniGrid);
-    button.appendChild(label);
-
-    button.addEventListener("click", () => selectPiece(index));
-    piecesElement.appendChild(button);
-  });
+function adjacent(a,b) {
+  return Math.abs(a.r-b.r) + Math.abs(a.c-b.c) === 1;
 }
 
-function selectPiece(index) {
-  if (gameOver || pieces[index].used) return;
-
-  selectedPiece = index;
-  $("message").textContent =
-    pieces[index].name + " selected! Tap the board to place it.";
-
-  renderPieces();
+function swapCells(a,b) {
+  const temp = board[a.r][a.c];
+  board[a.r][a.c] = board[b.r][b.c];
+  board[b.r][b.c] = temp;
 }
 
-function canPlace(piece, row, col) {
-  for (const [r, c] of piece.cells) {
-    const newRow = row + r;
-    const newCol = col + c;
+function tapCell(r,c) {
+  if (busy || gameOver) return;
 
-    if (
-      newRow < 0 || newRow >= SIZE ||
-      newCol < 0 || newCol >= SIZE ||
-      board[newRow][newCol] !== 0
-    ) {
-      return false;
-    }
-  }
+  const pos = {r,c};
 
-  return true;
-}
-
-function placePiece(row, col) {
-  if (gameOver) return;
-
-  if (selectedPiece === null) {
-    $("message").textContent = "Choose one of the three block shapes first.";
+  if (!selected) {
+    selected = pos;
+    render();
     return;
   }
 
-  const piece = pieces[selectedPiece];
-
-  if (!canPlace(piece, row, col)) {
-    $("message").textContent = "That block doesn't fit there. Try another spot!";
+  if (selected.r === r && selected.c === c) {
+    selected = null;
+    render();
     return;
   }
 
-  // Place every square belonging to the selected shape.
-  piece.cells.forEach(([r, c]) => {
-    board[row + r][col + c] = piece.color;
+  if (!adjacent(selected,pos)) {
+    selected = pos;
+    render();
+    return;
+  }
+
+  const first = selected;
+  selected = null;
+  swapCells(first,pos);
+
+  const firstGem = board[first.r][first.c];
+  const secondGem = board[pos.r][pos.c];
+  const matches = findMatches(board);
+
+  if (
+    matches.cells.size === 0 &&
+    firstGem.special !== "rainbow" &&
+    secondGem.special !== "rainbow"
+  ) {
+    swapCells(first,pos);
+    render();
+    message("That swap doesn't make a match. Try another!");
+    return;
+  }
+
+  busy = true;
+  moves--;
+  render();
+  resolveBoard().then(() => {
+    busy = false;
+    updateStats();
+
+    if (score >= target) {
+      finishLevel(true);
+      return;
+    }
+
+    if (moves <= 0) {
+      finishLevel(false);
+      return;
+    }
+
+    if (!hasPossibleMove(board)) {
+      board = makeBoard();
+      message("Fresh board! Keep matching!");
+      render();
+    }
   });
-
-  score += piece.cells.length;
-  piece.used = true;
-  selectedPiece = null;
-
-  const cleared = clearCompletedLines();
-
-  if (cleared > 0) {
-    linesCleared += cleared;
-    score += cleared * 10;
-
-    $("message").textContent = cleared === 1
-      ? "✨ Great! You cleared a line!"
-      : "🔥 Amazing! You cleared " + cleared + " lines!";
-  } else {
-    $("message").textContent = "Nice placement! Choose your next block.";
-  }
-
-  updateBestScore();
-  updateStats();
-  renderBoard();
-  renderPieces();
-
-  // When all three pieces are used, deal three new ones.
-  if (pieces.every(piece => piece.used)) {
-    dealPieces();
-    renderPieces();
-    $("message").textContent = "New blocks! Keep the puzzle going.";
-  }
-
-  // Check whether at least one available piece can still fit.
-  if (!hasAvailableMove()) {
-    finishGame();
-  }
 }
 
-function clearCompletedLines() {
-  const fullRows = [];
-  const fullCols = [];
+function findMatches(b) {
+  const cells = new Set();
+  const groups = [];
 
   for (let r = 0; r < SIZE; r++) {
-    if (board[r].every(cell => cell !== 0)) {
-      fullRows.push(r);
+    let c = 0;
+    while (c < SIZE) {
+      let end = c + 1;
+      while (end < SIZE && b[r][end].color === b[r][c].color) end++;
+
+      if (end - c >= 3) {
+        const group = [];
+        for (let x = c; x < end; x++) {
+          group.push({r,c:x});
+          cells.add(r + "," + x);
+        }
+        groups.push(group);
+      }
+      c = end;
     }
   }
 
   for (let c = 0; c < SIZE; c++) {
-    let full = true;
+    let r = 0;
+    while (r < SIZE) {
+      let end = r + 1;
+      while (end < SIZE && b[end][c].color === b[r][c].color) end++;
 
-    for (let r = 0; r < SIZE; r++) {
-      if (board[r][c] === 0) {
-        full = false;
-        break;
+      if (end - r >= 3) {
+        const group = [];
+        for (let x = r; x < end; x++) {
+          group.push({r:x,c});
+          cells.add(x + "," + c);
+        }
+        groups.push(group);
       }
+      r = end;
     }
-
-    if (full) fullCols.push(c);
   }
 
-  // Use a set so intersections are only cleared and counted once.
-  const cellsToClear = new Set();
-
-  fullRows.forEach(r => {
-    for (let c = 0; c < SIZE; c++) {
-      cellsToClear.add(r + "," + c);
-    }
-  });
-
-  fullCols.forEach(c => {
-    for (let r = 0; r < SIZE; r++) {
-      cellsToClear.add(r + "," + c);
-    }
-  });
-
-  cellsToClear.forEach(position => {
-    const [r, c] = position.split(",").map(Number);
-    board[r][c] = 0;
-  });
-
-  return fullRows.length + fullCols.length;
+  return {cells,groups};
 }
 
-function hasAvailableMove() {
-  for (const piece of pieces) {
-    if (piece.used) continue;
+function activateSpecial(r,c,cleared) {
+  const gem = board[r][c];
+  if (!gem || !gem.special) return;
 
-    for (let r = 0; r < SIZE; r++) {
-      for (let c = 0; c < SIZE; c++) {
-        if (canPlace(piece, r, c)) {
-          return true;
+  if (gem.special === "bomb") {
+    for (let rr = Math.max(0,r-1); rr <= Math.min(SIZE-1,r+1); rr++) {
+      for (let cc = Math.max(0,c-1); cc <= Math.min(SIZE-1,c+1); cc++) {
+        cleared.add(rr + "," + cc);
+      }
+    }
+  }
+
+  if (gem.special === "rainbow") {
+    for (let rr = 0; rr < SIZE; rr++) {
+      for (let cc = 0; cc < SIZE; cc++) {
+        if (board[rr][cc] && board[rr][cc].color === gem.color) {
+          cleared.add(rr + "," + cc);
         }
       }
     }
   }
-
-  return false;
 }
 
-function updateBestScore() {
-  if (score > bestScore) {
-    bestScore = score;
-    localStorage.setItem("wobbleBlockBest", bestScore);
+function expandSpecials(cleared) {
+  const queue = [...cleared];
+
+  while (queue.length) {
+    const key = queue.pop();
+    const [r,c] = key.split(",").map(Number);
+    const before = cleared.size;
+
+    activateSpecial(r,c,cleared);
+
+    if (cleared.size > before) {
+      cleared.forEach(item => {
+        if (!queue.includes(item)) queue.push(item);
+      });
+    }
   }
 }
 
+function gravity() {
+  for (let c = 0; c < SIZE; c++) {
+    const remaining = [];
+
+    for (let r = SIZE-1; r >= 0; r--) {
+      if (board[r][c]) remaining.push(board[r][c]);
+    }
+
+    for (let r = SIZE-1; r >= 0; r--) {
+      board[r][c] = remaining[SIZE-1-r] || null;
+    }
+
+    for (let r = 0; r < SIZE; r++) {
+      if (!board[r][c]) board[r][c] = randomGem();
+    }
+  }
+}
+
+async function resolveBoard() {
+  let rounds = 0;
+
+  while (rounds < 20) {
+    let match = findMatches(board);
+    if (match.cells.size === 0) break;
+
+    const cleared = new Set(match.cells);
+    const specials = [];
+
+    match.groups.forEach(group => {
+      if (group.length >= 5) {
+        specials.push({pos:group[2],type:"rainbow"});
+      } else if (group.length >= 4) {
+        specials.push({pos:group[1],type:"bomb"});
+      }
+    });
+
+    expandSpecials(cleared);
+
+    cleared.forEach(key => {
+      const [r,c] = key.split(",").map(Number);
+      board[r][c] = null;
+    });
+
+    specials.forEach(s => {
+      const key = s.pos.r + "," + s.pos.c;
+      if (cleared.has(key)) {
+        board[s.pos.r][s.pos.c] = {
+          color: Math.floor(Math.random() * COLOURS),
+          special: s.type
+        };
+      }
+    });
+
+    score += cleared.size * 10;
+    if (cleared.size >= 4) score += 30;
+    if (cleared.size >= 5) score += 50;
+
+    updateStats();
+    render();
+    await pause(160);
+
+    gravity();
+    render();
+    await pause(160);
+
+    rounds++;
+  }
+}
+
+function pause(ms) {
+  return new Promise(resolve => setTimeout(resolve,ms));
+}
+
+function hasPossibleMove(b) {
+  for (let r = 0; r < SIZE; r++) {
+    for (let c = 0; c < SIZE; c++) {
+      if (c < SIZE-1) {
+        swapOnBoard(b,r,c,r,c+1);
+        const found = findMatches(b).cells.size > 0;
+        swapOnBoard(b,r,c,r,c+1);
+        if (found) return true;
+      }
+
+      if (r < SIZE-1) {
+        swapOnBoard(b,r,c,r+1,c);
+        const found = findMatches(b).cells.size > 0;
+        swapOnBoard(b,r,c,r+1,c);
+        if (found) return true;
+      }
+    }
+  }
+  return false;
+}
+
+function swapOnBoard(b,r1,c1,r2,c2) {
+  const temp = b[r1][c1];
+  b[r1][c1] = b[r2][c2];
+  b[r2][c2] = temp;
+}
+
 function updateStats() {
-  $("score").textContent = score;
-  $("lines").textContent = linesCleared;
-  $("best").textContent = bestScore;
-  $("menuBest").textContent = bestScore;
+  document.getElementById("score").textContent = score;
+  document.getElementById("moves").textContent = moves;
+  document.getElementById("progress").style.width =
+    Math.min(100,score / target * 100) + "%";
 }
 
-function finishGame() {
-  if (gameOver) return;
+function message(text) {
+  document.getElementById("gameMessage").textContent = text;
+}
 
+function finishLevel(won) {
   gameOver = true;
-  updateBestScore();
-  updateStats();
+  selected = null;
 
-  $("game").classList.add("hidden");
-  $("result").classList.remove("hidden");
+  if (won) {
+    completed = Math.max(completed,level);
+    unlocked = Math.max(unlocked,level+1);
+    saveProgress();
 
-  $("resultMessage").textContent =
-    "No more available blocks can fit on the board. Great puzzle session!";
+    document.getElementById("resultIcon").textContent = "🏆";
+    document.getElementById("resultTitle").textContent = "Level Complete!";
+    document.getElementById("resultDescription").textContent =
+      "Fantastic! You conquered Level " + level + "!";
+    document.getElementById("resultExtra").textContent =
+      "Level " + (level+1) + " is now unlocked!";
+    document.getElementById("resultButton").textContent = "NEXT LEVEL →";
+    document.getElementById("resultButton").style.display = "inline-block";
+  } else {
+    document.getElementById("resultIcon").textContent = "💎";
+    document.getElementById("resultTitle").textContent = "Good Try!";
+    document.getElementById("resultDescription").textContent =
+      "You ran out of moves. Give this level another try!";
+    document.getElementById("resultExtra").textContent =
+      "You needed " + Math.max(0,target-score) + " more points.";
+    document.getElementById("resultButton").textContent = "TRY AGAIN →";
+    document.getElementById("resultButton").style.display = "inline-block";
+  }
 
-  $("finalScore").textContent = score + " points";
-  $("finalBest").textContent =
-    "Your best score is " + bestScore + " points. You cleared " +
-    linesCleared + " lines!";
+  document.getElementById("resultScore").textContent = score;
+  showScreen("resultScreen");
 }
 
-// Show the saved best score when the page opens.
-$("menuBest").textContent = bestScore;
-</script>
+function nextLevel() {
+  if (gameOver && score >= target) {
+    startLevel();
+  } else {
+    startLevel();
+  }
+}
 
+function showLevels() {
+  const map = document.getElementById("levelMap");
+  map.innerHTML = "";
+
+  const first = Math.max(1,unlocked-10);
+  const last = unlocked+14;
+
+  for (let n = first; n <= last; n++) {
+    const item = document.createElement("button");
+    item.className = "level-dot";
+
+    if (n <= completed) item.classList.add("done");
+    if (n === unlocked) item.classList.add("current");
+    if (n > unlocked) item.classList.add("locked");
+
+    item.textContent = n <= completed ? "✓ " + n : n;
+
+    if (n <= unlocked) {
+      item.onclick = () => {
+        unlocked = n;
+        startLevel();
+      };
+    } else {
+      item.disabled = true;
+    }
+
+    map.appendChild(item);
+  }
+
+  showScreen("mapScreen");
+}
+
+updateHome();
+</script>
 </body>
 </html>
