@@ -4,29 +4,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#17172b">
-  <meta name="description" content="Discover WOBBLE Arcade — play free casual games, challenge yourself and have fun.">
-  <meta property="og:title" content="About WOBBLE Arcade">
-  <meta property="og:description" content="Play. Challenge. Repeat. Discover the world of WOBBLE Arcade.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://masego101-coder.github.io/wobble/about.html">
+  <title>About Us | WOBBLE Arcade</title>
+  <meta name="description" content="Learn more about WOBBLE Arcade, our free online games and our mission to make playing fun.">
   <link rel="canonical" href="https://masego101-coder.github.io/wobble/about.html">
 
-  <title>About Us | WOBBLE Arcade</title>
+  <meta property="og:title" content="About Us | WOBBLE Arcade">
+  <meta property="og:description" content="Get to know WOBBLE Arcade and discover our games.">
+  <meta property="og:url" content="https://masego101-coder.github.io/wobble/about.html">
+  <meta property="og:type" content="website">
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 25px 16px;
       background: #17172b;
       color: #ffffff;
+      font-family: Arial, sans-serif;
       line-height: 1.7;
-      padding: 25px 16px;
     }
 
     .container {
@@ -37,69 +35,52 @@
     header {
       text-align: center;
       padding: 30px 15px;
-      margin-bottom: 25px;
-      border-bottom: 1px solid #34334d;
     }
 
     .logo {
       color: #a78bfa;
-      font-size: 34px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      margin-bottom: 8px;
+      font-size: 38px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      margin: 0;
     }
 
     .tagline {
       color: #20d6c2;
-      font-size: 12px;
-      letter-spacing: 2px;
+      margin-top: 5px;
     }
 
-    .about-card {
+    .card {
       background: #25243f;
       border: 1px solid #403b61;
       border-radius: 18px;
-      padding: 30px;
+      padding: 28px;
+      margin-bottom: 22px;
     }
 
-    .hero {
-      text-align: center;
-      padding: 20px 5px 30px;
-    }
-
-    .hero h1 {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-
-    .hero h1 span {
+    h1, h2 {
       color: #a78bfa;
     }
 
-    .hero p {
-      color: #20d6c2;
-      font-size: 14px;
-      letter-spacing: 1px;
-      font-weight: bold;
+    h1 {
+      font-size: 30px;
+      text-align: center;
     }
 
     h2 {
-      color: #a78bfa;
-      font-size: 20px;
-      margin: 28px 0 10px;
+      font-size: 22px;
+      margin-top: 0;
     }
 
     p {
-      color: #d0cde0;
-      font-size: 14px;
-      margin-bottom: 14px;
+      color: #e2e0ef;
     }
 
     .games {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin: 20px 0;
+      gap: 15px;
+      margin-top: 20px;
     }
 
     .game {
@@ -107,31 +88,17 @@
       border: 1px solid #403b61;
       border-radius: 12px;
       padding: 17px;
-      text-align: center;
     }
 
     .game h3 {
       color: #20d6c2;
-      font-size: 16px;
-      margin-bottom: 5px;
+      margin-top: 0;
+      margin-bottom: 8px;
     }
 
     .game p {
-      font-size: 12px;
-      margin: 0;
-    }
-
-    .closing {
-      text-align: center;
-      margin-top: 30px;
-      padding: 22px 12px;
-      background: #17172b;
-      border-radius: 12px;
-      border: 1px solid #403b61;
-    }
-
-    .closing h2 {
-      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 14px;
     }
 
     a {
@@ -140,49 +107,50 @@
     }
 
     a:hover {
-      color: #a78bfa;
       text-decoration: underline;
     }
 
-    .home-link {
+    .play-button {
       display: inline-block;
-      margin-top: 25px;
-      padding: 11px 20px;
       background: #8B5CF6;
       color: white;
-      border-radius: 9px;
-      font-size: 13px;
+      padding: 12px 25px;
+      border-radius: 25px;
       font-weight: bold;
+      margin-top: 10px;
     }
 
-    .home-link:hover {
-      background: #a78bfa;
-      color: white;
+    .play-button:hover {
+      background: #7042d8;
       text-decoration: none;
+    }
+
+    .center {
+      text-align: center;
     }
 
     footer {
       text-align: center;
+      color: #aaa6c3;
+      font-size: 13px;
       padding: 25px 10px;
-      color: #77758e;
-      font-size: 12px;
     }
 
     footer a {
-      margin: 0 7px;
+      margin: 0 8px;
     }
 
     @media (max-width: 550px) {
-      .about-card {
-        padding: 21px 17px;
-      }
-
-      .hero h1 {
-        font-size: 26px;
-      }
-
       .games {
         grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 21px;
+      }
+
+      .logo {
+        font-size: 32px;
       }
     }
   </style>
@@ -192,107 +160,108 @@
   <div class="container">
 
     <header>
-      <div class="logo">WOBBLE.</div>
-      <div class="tagline">PLAY. CHALLENGE. REPEAT.</div>
+      <p class="logo">WOBBLE</p>
+      <p class="tagline">Play. Challenge. Repeat.</p>
     </header>
 
-    <main class="about-card">
+    <section class="card">
+      <h1>Welcome to WOBBLE!</h1>
+      <p>
+        Welcome to WOBBLE Arcade, an independent online gaming project
+        created for players who enjoy fun, casual games and exciting
+        little challenges.
+      </p>
+      <p>
+        Whether you want to test your memory, challenge your knowledge,
+        improve your vocabulary or solve puzzles, there's something
+        here for you.
+      </p>
+    </section>
 
-      <section class="hero">
-        <h1>Welcome to <span>WOBBLE</span>!</h1>
-        <p>YOUR NEXT GAMING BREAK STARTS HERE.</p>
-      </section>
-
+    <section class="card">
       <h2>Who We Are</h2>
-
       <p>
-        WOBBLE Arcade is an independent online gaming project
-        built around one simple idea: fun should be easy to access.
+        WOBBLE Arcade is a growing gaming platform built around one
+        simple idea: making online play enjoyable and accessible.
       </p>
-
       <p>
-        We bring together casual arcade games, brain challenges
-        and playful experiences in one place. Whether you have
-        a few minutes to spare or want to challenge yourself
-        for longer, there's something to enjoy.
+        We want to create a place where players can take a break,
+        challenge themselves and have fun at their own pace.
       </p>
+    </section>
 
+    <section class="card">
       <h2>What You Can Play</h2>
-
       <p>
-        WOBBLE features different games designed to test your
-        memory, knowledge, vocabulary and problem-solving skills.
+        Explore our collection of games, each offering a different
+        kind of challenge.
       </p>
 
       <div class="games">
-
         <div class="game">
           <h3>Memory Blitz</h3>
-          <p>Test your memory and matching skills.</p>
+          <p>Test your memory by finding matching cards and completing the board.</p>
         </div>
 
         <div class="game">
           <h3>Quick Quiz</h3>
-          <p>Challenge your knowledge with quiz questions.</p>
+          <p>Put your knowledge to the test with questions across different topics.</p>
         </div>
 
         <div class="game">
           <h3>Word Rush</h3>
-          <p>Put your vocabulary and speed to the test.</p>
+          <p>Challenge your vocabulary and speed as you race against the clock.</p>
         </div>
 
         <div class="game">
           <h3>HOOP</h3>
-          <p>Sort colours and challenge your strategy.</p>
+          <p>Sort colourful donuts, plan your moves and challenge your problem-solving skills.</p>
         </div>
-
       </div>
+    </section>
 
+    <section class="card">
       <h2>Our Goal</h2>
-
       <p>
-        Our goal is to keep growing WOBBLE into an enjoyable
-        destination for casual gaming. We want to introduce
-        new challenges, improve the player experience and
-        continue exploring creative ways to make gaming fun.
+        Our goal is to keep growing WOBBLE Arcade by introducing
+        new games, challenges and improvements while making the
+        experience enjoyable for our players.
       </p>
+      <p>
+        This is a project that will continue to evolve, and we're
+        excited about what's ahead.
+      </p>
+    </section>
 
+    <section class="card">
       <h2>Made for Players</h2>
-
       <p>
-        WOBBLE is designed to be accessible on mobile devices
-        and desktop screens. We believe that a good gaming
-        experience should be simple to start and enjoyable
-        to return to.
+        WOBBLE Arcade is designed to be accessible on both mobile
+        phones and desktop devices, so you can enjoy playing
+        wherever you are.
       </p>
+    </section>
 
-      <section class="closing">
-        <h2>Ready to Play?</h2>
-
-        <p>
-          Explore our games, challenge yourself and see
-          how far you can go.
-        </p>
-
-        <p>
-          <strong>Play. Challenge. Repeat.</strong>
-        </p>
-      </section>
-
-      <a href="./index.html" class="home-link">
-        ← Back to WOBBLE
-      </a>
-
-    </main>
+    <section class="card center">
+      <h2>Ready to Play?</h2>
+      <p>
+        Your next challenge is waiting. Explore WOBBLE Arcade
+        and find your favourite game!
+      </p>
+      <a class="play-button" href="index.html">Explore Games</a>
+    </section>
 
     <footer>
-      WOBBLE © 2026 · Play. Challenge. Repeat.
-      <br><br>
-      <a href="./privacy.html">Privacy Policy</a>
-      <a href="mailto:wobblearcade@outlook.com">Contact</a>
+      <p>WOBBLE Arcade © 2026</p>
+      <p>Play. Challenge. Repeat.</p>
+      <p>
+        <a href="privacy.html">Privacy Policy</a>
+        |
+        <a href="mailto:wobblearcade@outlook.com">Contact Us</a>
+      </p>
+      <p><a href="index.html">Back to Home</a></p>
     </footer>
 
   </div>
 </body>
 </html>
-
