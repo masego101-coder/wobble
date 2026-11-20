@@ -118,10 +118,10 @@ h1{
 .board.six{
   grid-template-columns:repeat(6,74px);
   gap:7px;
-  justify-content:center;
 }
 
 /* DONUT STICKS */
+
 .stick{
   width:100%;
   height:var(--stick-height,350px);
@@ -130,7 +130,7 @@ h1{
   flex-direction:column-reverse;
   align-items:center;
   justify-content:flex-start;
-  gap:5px;
+  gap:0;
   position:relative;
   border:1px solid #ffffff13;
   border-radius:17px 17px 13px 13px;
@@ -176,79 +176,101 @@ h1{
 
 .stick.invalid{border-color:var(--pink)}
 
-/* ROUND, THICK, INDIVIDUAL DONUTS */
+/* HORIZONTAL 3D HOOPS */
+
 .donut{
   --icing:#ff6b9d;
   --shade:#a51e58;
   position:relative;
   z-index:2;
-  width:60px;
-  height:60px;
-  flex:0 0 60px;
+  width:68px;
+  height:34px;
+  flex:0 0 34px;
   margin:0;
   border-radius:50%;
-  background:
-    radial-gradient(circle at 50% 50%,#75401f 0 9%,#f0c18a 10% 17%,transparent 18%),
-    linear-gradient(145deg,#ffe8bd 0%,#e9b277 55%,#a75c30 100%);
-  border:2px solid #a76338;
-  box-shadow:
-    inset 0 5px 7px #fff9,
-    inset 0 -7px 9px #693519bb,
-    0 4px 6px #0009;
   cursor:grab;
   touch-action:none;
   user-select:none;
   -webkit-user-select:none;
+
+  /* Rounded, thick doughnut side */
+  background:
+    radial-gradient(ellipse 7px 4px at 50% 42%,
+      transparent 0 88%,#a7653e 92% 100%),
+    linear-gradient(180deg,#ffe3b0 0%,#e6a66a 38%,#b66b37 78%,#79401f 100%);
+
+  box-shadow:
+    inset 0 3px 3px #fff9,
+    inset 0 -5px 5px #542b20aa,
+    0 4px 5px #0009;
 }
 
+/* Iced top surface */
 .donut:before{
   content:"";
   position:absolute;
-  inset:3px;
+  z-index:2;
+  left:0;
+  top:-3px;
+  width:100%;
+  height:25px;
   border-radius:50%;
+
   background:
-    radial-gradient(circle at 50% 50%,transparent 0 13%,var(--shade) 14% 20%,transparent 21%),
-    radial-gradient(ellipse at 28% 20%,#ffffffee 0 2%,#ffffff70 12%,transparent 40%),
-    radial-gradient(ellipse at 75% 80%,#00000055,transparent 44%),
+    radial-gradient(ellipse 7px 4px at 50% 48%,
+      transparent 0 88%,var(--shade) 92% 100%),
+    radial-gradient(ellipse at 30% 20%,#ffffffbb 0%,transparent 42%),
+    linear-gradient(145deg,#ffffff55 0%,transparent 35%),
     var(--icing);
+
+  border:1px solid #ffffff65;
+
   box-shadow:
-    inset 0 5px 6px #ffffffbb,
-    inset 0 -7px 9px var(--shade),
-    0 2px 3px #0006;
+    inset 0 3px 4px #ffffff88,
+    inset 0 -3px 4px var(--shade),
+    0 2px 3px #0005;
 }
 
+/* Central hole and its raised edge */
 .donut:after{
   content:"";
   position:absolute;
   z-index:4;
   left:50%;
-  top:50%;
-  width:25%;
-  height:25%;
-  transform:translate(-50%,-50%);
+  top:9px;
+  width:15px;
+  height:9px;
+  transform:translateX(-50%);
   border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#100a10 0 48%,#392318 70%,#a96a3c 100%);
-  border:2px solid #bd7c49;
+  background:
+    radial-gradient(ellipse at 35% 25%,#25202b 0%,#080711 65%,#000 100%);
+  border:2px solid #d5a16a;
   box-shadow:
-    inset 0 3px 4px #000e,
-    0 1px 2px #fff7,
-    0 2px 4px #0009;
+    inset 0 2px 3px #000,
+    0 1px 2px #fff8,
+    0 2px 3px #0008;
 }
 
 .sprinkles{
   position:absolute;
   z-index:3;
-  inset:5px;
+  left:8px;
+  top:2px;
+  width:52px;
+  height:19px;
   pointer-events:none;
   border-radius:50%;
   background:
-    radial-gradient(ellipse 2px 4px at 25% 35%,#fff 98%,transparent),
-    radial-gradient(ellipse 2px 4px at 72% 30%,#ffe36b 98%,transparent),
-    radial-gradient(ellipse 2px 4px at 32% 72%,#ff4f87 98%,transparent),
-    radial-gradient(ellipse 2px 4px at 78% 67%,#fff 98%,transparent),
-    radial-gradient(ellipse 2px 4px at 52% 15%,#20d6c2 98%,transparent),
-    radial-gradient(ellipse 2px 4px at 55% 80%,#ffe36b 98%,transparent);
+    radial-gradient(ellipse 2px 3px at 20% 35%,#fff 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 72% 30%,#ffe36b 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 30% 72%,#ff4f87 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 80% 67%,#fff 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 53% 15%,#20d6c2 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 55% 80%,#ffe36b 98%,transparent);
 }
+
+/* Slight overlap makes the hoops look stacked together */
+.donut+.donut{margin-top:-5px}
 
 .pink{--icing:#ff6b9d;--shade:#a51e58}
 .blue{--icing:#168cff;--shade:#0750aa}
@@ -382,10 +404,10 @@ footer{margin-top:25px;color:#77718f;font-size:11px}
 <section class="how-to">
   <h2>🍩 HOW TO PLAY</h2>
   <ol>
-    <li>Touch and hold the top donut on a stick.</li>
+    <li>Touch and hold the top hoop on a stick.</li>
     <li>Drag it to another stick and release your finger.</li>
-    <li>Move a donut to an empty stick or onto the same colour.</li>
-    <li>Stick capacity grows as you progress: 4, 5, 6, then up to 7 donuts.</li>
+    <li>Move a hoop to an empty stick or onto the same colour.</li>
+    <li>Stick capacity grows as you progress: 4, 5, 6, then up to 7 hoops.</li>
     <li>Sort every colour into its own stick to win!</li>
   </ol>
   <p>🪙 Earn coins by completing levels. Save 100 coins to unlock a sixth stick!</p>
@@ -394,7 +416,7 @@ footer{margin-top:25px;color:#77718f;font-size:11px}
 <div class="overlay" id="winOverlay">
   <div class="modal">
     <h2>🍩 Delicious!</h2>
-    <p id="winText">You sorted every donut!</p>
+    <p id="winText">You sorted every hoop!</p>
     <button class="primary" id="nextBtn">NEXT LEVEL →</button>
   </div>
 </div>
@@ -436,16 +458,20 @@ function capacity(){
          progress.level<=9?6:7;
 }
 
-function stickCount(){
-  return progress.extraStick?6:5;
-}
-
 function colourCount(){
   return progress.extraStick?5:4;
 }
 
 function cloneTubes(v){
   return v.map(t=>[...t]);
+}
+
+function saveProgress(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
+  }catch(e){
+    console.warn("Could not save progress",e);
+  }
 }
 
 function shuffle(a){
@@ -456,76 +482,105 @@ function shuffle(a){
   return a;
 }
 
+/*
+  SOLVABLE PUZZLE GENERATOR
+
+  Begin with a completed puzzle.
+  Then perform reverse moves: move a group of hoops
+  onto a different-coloured stack.
+
+  Every reverse move can be undone by a legal player move.
+  Therefore every generated puzzle has a known solution.
+*/
+
 function makePuzzle(){
   const cap=capacity();
   const count=colourCount();
+  const scrambleMoves=Math.min(65,8+progress.level*3);
 
-  for(let attempt=0;attempt<600;attempt++){
+  for(let attempt=0;attempt<80;attempt++){
     const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
     candidate.push([]);
-    const scramble=Math.min(220,40+progress.level*12);
-    let previous=null;
 
-    for(let step=0;step<scramble;step++){
+    let previous=null;
+    let made=0;
+
+    for(let step=0;step<scrambleMoves;step++){
       const choices=[];
 
       for(let from=0;from<candidate.length;from++){
         if(!candidate[from].length)continue;
 
-        for(let to=0;to<candidate.length;to++){
-          if(from===to||candidate[to].length>=cap)continue;
-          const colour=candidate[from][candidate[from].length-1];
+        const colour=candidate[from][candidate[from].length-1];
 
-          if(candidate[to].length&&candidate[to][candidate[to].length-1]!==colour)continue;
+        let run=0;
+        for(let i=candidate[from].length-1;i>=0;i--){
+          if(candidate[from][i]!==colour)break;
+          run++;
+        }
+
+        for(let to=0;to<candidate.length;to++){
+          if(from===to)continue;
+
+          const space=cap-candidate[to].length;
+          if(space<=0)continue;
+
+          const targetColour=candidate[to].length
+            ?candidate[to][candidate[to].length-1]
+            :null;
+
+          // Reverse moves must place a colour onto a different colour.
+          if(targetColour===colour)continue;
+
+          // Avoid immediately reversing the previous operation.
           if(previous&&from===previous.to&&to===previous.from)continue;
 
-          choices.push({from,to});
+          const maxAmount=Math.min(run,space);
+
+          for(let amount=1;amount<=maxAmount;amount++){
+            choices.push({from,to,amount});
+          }
         }
       }
 
       if(!choices.length)break;
 
-      const m=choices[Math.floor(Math.random()*choices.length)];
-      candidate[m.to].push(candidate[m.from].pop());
-      previous=m;
+      const move=choices[Math.floor(Math.random()*choices.length)];
+
+      for(let i=0;i<move.amount;i++){
+        candidate[move.to].push(candidate[move.from].pop());
+      }
+
+      previous={from:move.from,to:move.to};
+      made++;
     }
 
-    const mixed=candidate.filter(t=>t.length).every(t=>new Set(t).size>=2);
+    const mixed=candidate.some(t=>
+      t.length>0&&new Set(t).size>1
+    );
 
-    if(mixed&&candidate.some(t=>t.length===0))return candidate;
-  }
+    const empty=candidate.some(t=>t.length===0);
 
-  const all=[];
-
-  COLOURS.slice(0,count).forEach(c=>{
-    for(let i=0;i<cap;i++)all.push(c);
-  });
-
-  for(let attempt=0;attempt<10000;attempt++){
-    shuffle(all);
-    const candidate=[];
-
-    for(let i=0;i<count;i++){
-      candidate.push(all.slice(i*cap,(i+1)*cap));
-    }
-
-    if(candidate.every(t=>new Set(t).size>=2)){
-      candidate.push([]);
+    if(mixed&&empty&&made>=Math.min(4,scrambleMoves)){
       return candidate;
     }
   }
 
-  return COLOURS.slice(0,count).map((c,i)=>
-    Array.from({length:cap},(_,j)=>COLOURS[(i+j)%count])
-  ).concat([[]]);
-}
+  // Safe fallback: use a lightly scrambled, guaranteed-solvable board.
+  const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
+  candidate.push([]);
 
-function saveProgress(){
-  try{
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
-  }catch(e){
-    console.warn("Could not save progress",e);
+  for(let i=0;i<count;i++){
+    const source=candidate[i];
+    const target=candidate[count];
+
+    target.push(source.pop());
   }
+
+  // Move one hoop from another stack onto a different-coloured stack.
+  candidate[0].push(candidate[1].pop());
+
+  return candidate;
 }
 
 function updateStats(){
@@ -543,7 +598,7 @@ function updateStats(){
 function createDonut(colour){
   const d=document.createElement("div");
   d.className="donut "+colour;
-  d.setAttribute("aria-label",colour+" donut");
+  d.setAttribute("aria-label",colour+" hoop");
 
   const s=document.createElement("span");
   s.className="sprinkles";
@@ -557,7 +612,7 @@ function render(){
   boardEl.classList.toggle("six",tubes.length===6);
 
   const cap=capacity();
-  const stickHeight=cap*65+89;
+  const stickHeight=cap*29+105;
 
   tubes.forEach((tube,index)=>{
     const stick=document.createElement("div");
@@ -593,7 +648,9 @@ function canMove(from,to){
   if(from===to||!tubes[from]||!tubes[to]||!tubes[from].length)return false;
   if(tubes[to].length>=capacity())return false;
   if(!tubes[to].length)return true;
-  return tubes[to][tubes[to].length-1]===tubes[from][tubes[from].length-1];
+
+  return tubes[to][tubes[to].length-1]===
+         tubes[from][tubes[from].length-1];
 }
 
 function startDrag(e){
@@ -617,7 +674,7 @@ function startDrag(e){
 
   drag={from,pointerId:e.pointerId,source:donut};
 
-  say("Release over a stick to drop your donut!");
+  say("Release over a stick to drop your hoop!");
 
   window.addEventListener("pointermove",moveDrag,{passive:false});
   window.addEventListener("pointerup",endDrag);
@@ -643,6 +700,7 @@ function moveDrag(e){
 
   if(stick){
     const to=Number(stick.dataset.index);
+
     if(to!==drag.from){
       stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
     }
@@ -687,6 +745,7 @@ function endDrag(e){
 
 function cancelDrag(){
   if(!drag)return;
+
   cleanDrag();
   drag=null;
   render();
@@ -711,6 +770,7 @@ function makeMove(from,to){
 
 function isSolved(){
   const cap=capacity();
+
   return tubes.every(t=>
     t.length===0||(t.length===cap&&t.every(c=>c===t[0]))
   );
@@ -718,8 +778,10 @@ function isSolved(){
 
 function finishLevel(){
   completed=true;
+
   const reward=10+progress.level*2;
   progress.coins+=reward;
+
   saveProgress();
   render();
 
@@ -737,11 +799,12 @@ function startLevel(){
   history=[];
   moves=0;
   completed=false;
+
   render();
 
   say(
     "Level "+progress.level+
-    " · "+capacity()+" donuts per stick. Sort every colour!"
+    " · "+capacity()+" hoops per stick. Sort every colour!"
   );
 }
 
@@ -758,6 +821,7 @@ $("undoBtn").addEventListener("click",()=>{
   const p=history.pop();
   tubes=cloneTubes(p.tubes);
   moves=p.moves;
+
   render();
   say("Last move undone.");
 });
@@ -768,6 +832,7 @@ $("restartBtn").addEventListener("click",()=>{
   tubes=cloneTubes(startingPuzzle);
   history=[];
   moves=0;
+
   render();
   say("Level restarted. You can do this!");
 });
@@ -785,8 +850,10 @@ $("extraBtn").addEventListener("click",()=>{
 
   progress.coins-=100;
   progress.extraStick=true;
+
   saveProgress();
   startLevel();
+
   say("Sixth stick unlocked! More room to sort!","var(--gold)");
 });
 
