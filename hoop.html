@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#ffffff">
 <title>HOOP | WOBBLE ARCADE</title>
+
 <style>
 :root{--ink:#29243d;--muted:#77738b}
 *{box-sizing:border-box}
@@ -51,6 +52,7 @@ select{background:#fff;color:var(--ink);border:1px solid #ded8eb;border-radius:1
 .action small{display:block;font-size:10px;color:#a07823;margin-top:3px}
 .action.primary{color:#fff;background:linear-gradient(180deg,#ff79b5,#e33e89);border-color:#ffb0d2;box-shadow:0 4px 0 #bd3471}
 .action:disabled{opacity:.42;filter:grayscale(.5);cursor:not-allowed}
+.action.danger{grid-column:1/-1;background:linear-gradient(180deg,#fff,#fff0f0);border-color:#f0caca;color:#a43c52;box-shadow:0 4px 0 #ead5d9}
 .hint{text-align:center;color:#9992a9;font-size:11px;line-height:1.5;margin:14px 5px 0}
 .overlay{position:fixed;inset:0;background:#29243d88;z-index:20;display:none;align-items:center;justify-content:center;padding:20px}
 .overlay.show{display:flex}
@@ -63,10 +65,24 @@ select{background:#fff;color:var(--ink);border:1px solid #ded8eb;border-radius:1
 .welcome-hoop{width:39px;height:17px;border-radius:50%;margin-top:-2px}
 .welcome-hoop.p{background:linear-gradient(#ffb5d3,#f84d91,#a81757)}
 .welcome-hoop.b{background:linear-gradient(#9ce0ff,#1689ef,#064d9f)}
-@media(max-width:380px){body{padding:9px 7px 22px}.board{padding:15px 7px 19px;border-radius:20px}.sticks{column-gap:4px;row-gap:18px}.stick{min-height:178px}.rod{height:137px;width:8px}.hoop{height:32px;flex-basis:32px;width:min(100%,70px)}.action{font-size:11px;padding:8px 4px}}
-@media(min-width:520px){.sticks{column-gap:13px;row-gap:25px}.stick{min-height:205px}.hoop{height:35px;flex-basis:35px;width:min(100%,88px)}.rod{height:158px}}
+@media(max-width:380px){
+body{padding:9px 7px 22px}
+.board{padding:15px 7px 19px;border-radius:20px}
+.sticks{column-gap:4px;row-gap:18px}
+.stick{min-height:178px}
+.rod{height:137px;width:8px}
+.hoop{height:32px;flex-basis:32px;width:min(100%,70px)}
+.action{font-size:11px;padding:8px 4px}
+}
+@media(min-width:520px){
+.sticks{column-gap:13px;row-gap:25px}
+.stick{min-height:205px}
+.hoop{height:35px;flex-basis:35px;width:min(100%,88px)}
+.rod{height:158px}
+}
 </style>
 </head>
+
 <body>
 <div class="page">
 <header>
@@ -94,6 +110,7 @@ select{background:#fff;color:var(--ink);border:1px solid #ded8eb;border-radius:1
   <button class="action" id="restartBtn">⟳ Restart <small>Free</small></button>
   <button class="action" id="switchBtn">⇄ Switch Hoops <small>150 coins</small></button>
   <button class="action" id="extraBtn">＋ Add Stick <small>150 coins</small></button>
+  <button class="action danger" id="resetGameBtn">↻ Restart Entire Game <small>Return to Level 1</small></button>
 </div>
 
 <div class="hint">Move a top hoop onto an empty stick or a stick with the same top colour. Complete each colour stack to win!</div>
@@ -137,21 +154,29 @@ function readProgress(){
       level:Math.max(1,Number(old.level)||1),
       unlockedLevel:Math.max(1,Number(old.unlockedLevel)||Number(old.level)||1),
       coins:Math.max(0,Number(old.coins)||0),
-      completedLevels:Array.isArray(old.completedLevels)?old.completedLevels:[],
-      best:Math.max(1,Number(old.best)||Number(old.unlockedLevel)||1)
+      completedLevels:Array.isArray(old.completedLevels)?
+        [...new Set(old.completedLevels.map(Number).filter(n=>Number.isInteger(n)&&n>0))]:[],
+      best:Math.max(1,Number(old.best)||Number(old.unlockedLevel)||1),
+      undoUses:old.undoUses&&typeof old.undoUses==="object"?old.undoUses:{}
     };
   }catch(e){
-    return {level:1,unlockedLevel:1,coins:0,completedLevels:[],best:1};
+    return {level:1,unlockedLevel:1,coins:0,completedLevels:[],best:1,undoUses:{}};
   }
 }
+
 let progress=readProgress();
 let board=[],startingBoard=[],history=[];
 let freeUndos=3,extraStickActive=false,switchMode=false;
 let switchFirst=null,selectedStick=null,levelWon=false;
 
 function saveProgress(){
-  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));}catch(e){}
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
+  }catch(e){
+    $("message").textContent="Unable to save progress. Check your browser storage.";
+  }
 }
+
 function capacity(){
   if(progress.level===1)return 3;
   if(progress.level<=3)return 4;
@@ -159,6 +184,7 @@ function capacity(){
   if(progress.level<=9)return 6;
   return 7;
 }
+
 function colourCount(){
   if(progress.level===1)return 2;
   if(progress.level<=3)return 3;
@@ -166,14 +192,21 @@ function colourCount(){
   if(progress.level<=9)return 5;
   return 6;
 }
-function stickCount(){return colourCount()+1;}
-function reward(){return Math.min(200,60+Math.floor((progress.level-1)/3)*15);}
 
+function stickCount(){return colourCount()+1;}
+
+function reward(){
+  return Math.min(200,60+Math.floor((progress.level-1)/3)*15);
+}
+
+/*
+  Puzzles are created by making legal moves from a solved board.
+  Only monochromatic source stacks are moved.
+  This keeps a legal reverse path available for solving the puzzle.
+*/
 function makePuzzle(){
   const count=colourCount(),cap=capacity();
 
-  // Level 1: exactly 3 pink, 3 blue and one empty stick.
-  // The top hoops are mixed, so the player must sort them.
   if(progress.level===1){
     return [
       [0,0,1],
@@ -185,25 +218,39 @@ function makePuzzle(){
   const total=stickCount();
   let puzzle=Array.from({length:total},(_,i)=>i<count?Array(cap).fill(i):[]);
   let lastFrom=-1,lastTo=-1;
-  const steps=Math.max(25,progress.level*9);
+  const steps=Math.max(30,progress.level*12);
 
   for(let step=0;step<steps;step++){
     const options=[];
+
     for(let from=0;from<puzzle.length;from++){
-      if(puzzle[from].length<=1)continue;
-      const colour=puzzle[from][puzzle[from].length-1];
+      if(!puzzle[from].length)continue;
+
+      const colour=puzzle[from][0];
+
+      // A source must contain only one colour.
+      if(!puzzle[from].every(c=>c===colour))continue;
+
       for(let to=0;to<puzzle.length;to++){
         if(to===from||puzzle[to].length>=cap)continue;
-        if(puzzle[to].length&&puzzle[to][puzzle[to].length-1]===colour)continue;
+
+        if(puzzle[to].length&&
+           puzzle[to][puzzle[to].length-1]===colour)continue;
+
         if(from===lastTo&&to===lastFrom)continue;
+
         options.push([from,to]);
       }
     }
+
     if(!options.length)break;
+
     const [from,to]=options[Math.floor(Math.random()*options.length)];
     puzzle[to].push(puzzle[from].pop());
-    lastFrom=from;lastTo=to;
+    lastFrom=from;
+    lastTo=to;
   }
+
   return puzzle;
 }
 
@@ -211,15 +258,21 @@ function setupLevel(){
   board=makePuzzle();
   startingBoard=clone(board);
   history=[];
-  freeUndos=3;
+
+  const used=Math.max(0,Number(progress.undoUses[progress.level])||0);
+  freeUndos=Math.max(0,3-used);
+
   extraStickActive=false;
   switchMode=false;
   switchFirst=null;
   selectedStick=null;
   levelWon=false;
+
   $("overlay").classList.remove("show");
   $("message").textContent=progress.level===1?
-    "Level 1: Sort the pink and blue hoops!":"Sort the hoops by colour!";
+    "Level 1: Sort the pink and blue hoops!":
+    "Sort the hoops by colour!";
+
   render();
 }
 
@@ -230,58 +283,80 @@ function isCompleteStack(stack){
 function render(){
   const root=$("sticks");
   root.innerHTML="";
+
   board.forEach((stack,index)=>{
     const stick=document.createElement("button");
     stick.type="button";
     stick.className="stick";
     stick.setAttribute("aria-label","Stick "+(index+1)+", "+stack.length+" hoops");
+
     if(selectedStick===index)stick.classList.add("selected");
     if(switchFirst===index)stick.classList.add("target");
 
-    const rod=document.createElement("span");rod.className="rod";
-    const base=document.createElement("span");base.className="base";
-    const stackEl=document.createElement("span");stackEl.className="hoop-stack";
+    const rod=document.createElement("span");
+    rod.className="rod";
+
+    const base=document.createElement("span");
+    base.className="base";
+
+    const stackEl=document.createElement("span");
+    stackEl.className="hoop-stack";
 
     stack.forEach(colourIndex=>{
       const hoop=document.createElement("span");
       hoop.className="hoop "+COLOURS[colourIndex];
       stackEl.appendChild(hoop);
     });
+
     stick.append(rod,stackEl,base);
 
     if(!stack.length){
       const empty=document.createElement("span");
-      empty.className="empty-label";empty.textContent="EMPTY";
+      empty.className="empty-label";
+      empty.textContent="EMPTY";
       stick.appendChild(empty);
     }
+
     const number=document.createElement("span");
-    number.className="stick-number";number.textContent=index+1;
+    number.className="stick-number";
+    number.textContent=index+1;
     stick.appendChild(number);
+
     stick.addEventListener("click",()=>handleStick(index));
     root.appendChild(stick);
   });
 
   $("coins").textContent=progress.coins;
   $("best").textContent=progress.best;
+
   $("progressFill").style.width=
     (board.filter(isCompleteStack).length/colourCount()*100)+"%";
-  $("undoInfo").textContent=freeUndos>0?freeUndos+" free left":"75 coins";
+
+  $("undoInfo").textContent=freeUndos>0?
+    freeUndos+" free left":"75 coins";
+
   $("undoBtn").disabled=history.length===0;
+
   $("switchBtn").innerHTML=switchMode?
     "Cancel Switch <small>Choose two top hoops</small>":
     "⇄ Switch Hoops <small>150 coins</small>";
+
   $("extraBtn").disabled=extraStickActive;
+
   $("extraBtn").innerHTML=extraStickActive?
     "＋ Stick Added <small>This level only</small>":
     "＋ Add Stick <small>150 coins</small>";
 
   const select=$("levelSelect");
   select.innerHTML="";
+
   for(let i=1;i<=progress.unlockedLevel;i++){
     const option=document.createElement("option");
-    option.value=i;option.textContent="Level "+i;
+    option.value=i;
+    option.textContent="Level "+i;
     select.appendChild(option);
   }
+
   select.value=String(progress.level);
 }
 
@@ -289,13 +364,14 @@ function canMove(from,to){
   if(from===to||!board[from]||!board[from].length)return false;
   if(board[to].length>=capacity())return false;
   if(!board[to].length)return true;
-  return board[to][board[to].length-1]===board[from][board[from].length-1];
+
+  return board[to][board[to].length-1]===
+    board[from][board[from].length-1];
 }
 
 function remember(){
   history.push({
     board:clone(board),
-    freeUndos,
     extraStickActive,
     startingBoard:clone(startingBoard)
   });
@@ -303,7 +379,11 @@ function remember(){
 
 function handleStick(index){
   if(levelWon)return;
-  if(switchMode){handleSwitch(index);return;}
+
+  if(switchMode){
+    handleSwitch(index);
+    return;
+  }
 
   if(selectedStick===null){
     if(board[index].length){
@@ -313,6 +393,7 @@ function handleStick(index){
     }
     return;
   }
+
   if(selectedStick===index){
     selectedStick=null;
     $("message").textContent="Choose a hoop to move.";
@@ -322,9 +403,11 @@ function handleStick(index){
 
   const from=selectedStick;
   selectedStick=null;
+
   if(canMove(from,index)){
     remember();
     board[index].push(board[from].pop());
+
     $("message").textContent="Nice move!";
     render();
     checkWin();
@@ -345,115 +428,203 @@ function handleSwitch(index){
       $("message").textContent="Choose a stick with a hoop on top.";
       return;
     }
+
     switchFirst=index;
     $("message").textContent="Now choose a second stick with a top hoop.";
     render();
     return;
   }
+
   if(index===switchFirst){
     switchFirst=null;
     $("message").textContent="Choose the first hoop again.";
     render();
     return;
   }
+
   if(!board[index].length){
     $("message").textContent="Choose a second stick with a top hoop.";
     return;
   }
+
+  // Charge only when a valid two-hoop swap is completed.
+  if(progress.coins<150){
+    switchMode=false;
+    switchFirst=null;
+    $("message").textContent="You need 150 coins to switch hoops.";
+    render();
+    return;
+  }
+
   remember();
-  const a=board[switchFirst].length-1,b=board[index].length-1;
+
+  const a=board[switchFirst].length-1;
+  const b=board[index].length-1;
+
   [board[switchFirst][a],board[index][b]]=
     [board[index][b],board[switchFirst][a]];
-  switchMode=false;switchFirst=null;
+
+  progress.coins-=150;
+  saveProgress();
+
+  switchMode=false;
+  switchFirst=null;
+
   $("message").textContent="Hoops switched!";
-  render();checkWin();
+  render();
+  checkWin();
 }
 
 function undo(){
   if(!history.length)return;
+
   if(freeUndos<=0&&progress.coins<75){
     $("message").textContent="You need 75 coins for another Undo.";
     return;
   }
-  if(freeUndos<=0)progress.coins-=75;
+
+  // A free Undo is consumed permanently for this level.
+  // Paid Undos deduct coins.
+  if(freeUndos>0){
+    freeUndos--;
+    progress.undoUses[progress.level]=
+      3-freeUndos;
+  }else{
+    progress.coins-=75;
+  }
+
   const previous=history.pop();
+
   board=clone(previous.board);
-  freeUndos=previous.freeUndos;
   extraStickActive=previous.extraStickActive;
   startingBoard=clone(previous.startingBoard);
-  switchMode=false;switchFirst=null;selectedStick=null;levelWon=false;
+
+  switchMode=false;
+  switchFirst=null;
+  selectedStick=null;
+  levelWon=false;
+
   saveProgress();
+
   $("message").textContent="Last move undone.";
   render();
 }
 
 function restart(){
   board=clone(startingBoard);
-  history=[];freeUndos=3;
-  switchMode=false;switchFirst=null;selectedStick=null;levelWon=false;
+  history=[];
+
+  // Do not restore free Undos here.
+  // Restarting does not replenish free uses.
+
+  switchMode=false;
+  switchFirst=null;
+  selectedStick=null;
+  levelWon=false;
+
   $("overlay").classList.remove("show");
   $("message").textContent="Level restarted. Try a new approach!";
+
   render();
 }
 
 function buyExtraStick(){
   if(extraStickActive||levelWon)return;
+
   if(progress.coins<150){
     $("message").textContent="You need 150 coins to add a stick.";
     return;
   }
+
   remember();
+
   progress.coins-=150;
   board.push([]);
   startingBoard.push([]);
   extraStickActive=true;
+
   saveProgress();
+
   $("message").textContent="An extra empty stick has been added!";
   render();
 }
 
 function toggleSwitch(){
   if(levelWon)return;
+
   if(switchMode){
-    switchMode=false;switchFirst=null;
+    switchMode=false;
+    switchFirst=null;
+
     $("message").textContent="Switch cancelled.";
-    render();return;
+    render();
+    return;
   }
+
   if(progress.coins<150){
     $("message").textContent="You need 150 coins to switch hoops.";
     return;
   }
-  progress.coins-=150;saveProgress();
-  switchMode=true;switchFirst=null;selectedStick=null;
+
+  // No coins are deducted until the swap is completed.
+  switchMode=true;
+  switchFirst=null;
+  selectedStick=null;
+
   $("message").textContent="Choose the first top hoop to switch.";
   render();
 }
 
 function checkWin(){
-  const allSorted=board.every(stack=>!stack.length||isCompleteStack(stack));
+  const allSorted=board.every(stack=>
+    !stack.length||isCompleteStack(stack)
+  );
+
   const completeCount=board.filter(isCompleteStack).length;
-  $("progressFill").style.width=(completeCount/colourCount()*100)+"%";
-  if(allSorted&&completeCount===colourCount())finishLevel();
+
+  $("progressFill").style.width=
+    (completeCount/colourCount()*100)+"%";
+
+  if(allSorted&&completeCount===colourCount()){
+    finishLevel();
+  }
 }
 
 function finishLevel(){
   if(levelWon)return;
+
   levelWon=true;
+
   const prize=reward();
-  const firstCompletion=!progress.completedLevels.includes(progress.level);
+  const firstCompletion=
+    !progress.completedLevels.includes(progress.level);
+
   if(firstCompletion){
     progress.coins+=prize;
     progress.completedLevels.push(progress.level);
   }
-  progress.unlockedLevel=Math.max(progress.unlockedLevel,progress.level+1);
-  progress.best=Math.max(progress.best,progress.unlockedLevel);
+
+  progress.unlockedLevel=Math.max(
+    progress.unlockedLevel,
+    progress.level+1
+  );
+
+  progress.best=Math.max(
+    progress.best,
+    progress.unlockedLevel
+  );
+
   saveProgress();
+
   $("coins").textContent=progress.coins;
   $("best").textContent=progress.best;
+
   $("modalTitle").textContent="🎉 Level complete!";
+
   $("modalText").textContent=firstCompletion?
     "Beautifully sorted! You earned "+prize+" coins!":
     "Beautifully sorted! You have already collected this level's reward.";
+
   $("nextBtn").style.display="block";
   $("overlay").classList.add("show");
 }
@@ -463,15 +634,66 @@ function nextLevel(){
   saveProgress();
   setupLevel();
 }
-function replayLevel(){setupLevel();}
+
+function replayLevel(){
+  setupLevel();
+}
+
 function changeLevel(){
   const chosen=Number($("levelSelect").value);
+
   if(chosen>=1&&chosen<=progress.unlockedLevel){
-    progress.level=chosen;saveProgress();setupLevel();
+    progress.level=chosen;
+    saveProgress();
+    setupLevel();
   }
 }
 
-$("playBtn").addEventListener("click",()=>$("welcomeOverlay").classList.remove("show"));
+function restartEntireGame(){
+  const confirmed=window.confirm(
+    "Restart your entire game?\n\n"+
+    "Your level progression will return to Level 1.\n"+
+    "Your coins and previously collected rewards will be preserved.\n\n"+
+    "This cannot be undone."
+  );
+
+  if(!confirmed)return;
+
+  // Preserve the wallet and reward history.
+  const savedCoins=progress.coins;
+  const savedRewards=[...progress.completedLevels];
+
+  progress.level=1;
+  progress.unlockedLevel=1;
+  progress.best=1;
+  progress.coins=savedCoins;
+  progress.completedLevels=savedRewards;
+
+  // Start a fresh set of level-based free Undo allowances.
+  progress.undoUses={};
+
+  saveProgress();
+
+  history=[];
+  freeUndos=3;
+  extraStickActive=false;
+  switchMode=false;
+  switchFirst=null;
+  selectedStick=null;
+  levelWon=false;
+
+  $("overlay").classList.remove("show");
+
+  setupLevel();
+
+  $("message").textContent=
+    "Welcome back! Your new game starts at Level 1.";
+}
+
+$("playBtn").addEventListener("click",()=>
+  $("welcomeOverlay").classList.remove("show")
+);
+
 $("undoBtn").addEventListener("click",undo);
 $("restartBtn").addEventListener("click",restart);
 $("switchBtn").addEventListener("click",toggleSwitch);
@@ -479,6 +701,7 @@ $("extraBtn").addEventListener("click",buyExtraStick);
 $("levelSelect").addEventListener("change",changeLevel);
 $("nextBtn").addEventListener("click",nextLevel);
 $("replayBtn").addEventListener("click",replayLevel);
+$("resetGameBtn").addEventListener("click",restartEntireGame);
 
 setupLevel();
 })();
