@@ -4,49 +4,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#17172b">
-<meta name="description" content="Play HOOP, the colourful sorting puzzle at WOBBLE ARCADE.">
+<meta name="theme-color" content="#101027">
+<meta name="description" content="Play HOOP at WOBBLE ARCADE.">
 <title>HOOP - WOBBLE ARCADE</title>
 
 <style>
 :root{
-  --bg:#17172b;
-  --purple:#8B5CF6;
-  --pink:#FF4F87;
-  --teal:#20D6C2;
-  --gold:#FFC857;
-  --text:#f8f5ff;
-  --muted:#aaa5c5;
+  --bg:#101027;
+  --purple:#9564ff;
+  --pink:#ff4f91;
+  --teal:#20dccb;
+  --gold:#ffc857;
+  --text:#fffaff;
+  --muted:#aaa6c8;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
   min-height:100vh;
-  padding:20px 9px 35px;
+  padding:20px 6px 35px;
   color:var(--text);
-  background:radial-gradient(ellipse at 50% 0%,#49306d 0%,transparent 55%),var(--bg);
   font-family:system-ui,-apple-system,sans-serif;
   text-align:center;
   -webkit-tap-highlight-color:transparent;
   overflow-x:hidden;
+  background:
+    radial-gradient(ellipse at 10% 15%,#6738a955 0%,transparent 32%),
+    radial-gradient(ellipse at 90% 25%,#135c9b44 0%,transparent 32%),
+    radial-gradient(ellipse at 50% 70%,#722b9c25 0%,transparent 45%),
+    linear-gradient(160deg,#11102c 0%,#191632 48%,#10172e 100%);
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.22;
+  background-image:
+    radial-gradient(circle at 15% 20%,#ffffff 1px,transparent 2px),
+    radial-gradient(circle at 80% 35%,#ffffff 1px,transparent 2px),
+    radial-gradient(circle at 45% 80%,#ffffff 1px,transparent 2px),
+    radial-gradient(circle at 90% 90%,#ffffff 1px,transparent 2px);
+  background-size:115px 130px,160px 170px,190px 190px,140px 160px;
 }
 button{font:inherit;cursor:pointer}
-.brand{font-size:20px;font-weight:950;letter-spacing:2px}
+.brand{font-size:21px;font-weight:950;letter-spacing:2px}
 .brand span{color:var(--purple)}
 .arcade{font-size:10px;color:var(--muted);letter-spacing:4px;font-weight:800}
 h1{
-  font-size:46px;letter-spacing:4px;color:var(--gold);
-  margin:20px 0 3px;text-shadow:0 4px 18px #ffc85755;
+  font-size:43px;letter-spacing:4px;color:var(--gold);
+  margin:17px 0 3px;text-shadow:0 4px 25px #ffc85766;
 }
-.subtitle{font-size:13px;color:var(--muted);margin:5px 0 22px}
+.subtitle{font-size:13px;color:var(--muted);margin:5px 0 20px}
 .stats{
   width:min(100%,470px);margin:auto;
   display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
 }
 .stat{
-  background:linear-gradient(145deg,#302c50,#211f39);
-  border:1px solid #ffffff18;border-radius:14px;
-  padding:11px 4px;box-shadow:0 5px 12px #0003;
+  background:linear-gradient(145deg,#302d53dd,#201e3ddd);
+  border:1px solid #ffffff20;border-radius:14px;
+  padding:11px 4px;box-shadow:0 7px 18px #0004;
+  backdrop-filter:blur(8px);
 }
 .stat small{
   display:block;color:var(--muted);font-size:9px;
@@ -55,54 +74,75 @@ h1{
 .stat strong{display:block;font-size:20px;margin-top:4px}
 #coins{color:var(--gold)}
 .message{
-  width:min(100%,470px);min-height:42px;margin:15px auto 12px;
-  padding:11px;border-radius:12px;background:#8b5cf61b;
-  border:1px solid #8b5cf633;color:#ded4ff;
+  width:min(100%,470px);min-height:42px;margin:14px auto 12px;
+  padding:11px;border-radius:12px;
+  background:linear-gradient(110deg,#8b5cf629,#3a8bba20);
+  border:1px solid #a98aff30;color:#e8ddff;
   font-size:12px;font-weight:750;
 }
 .board-wrap{
-  width:min(100%,560px);margin:auto;padding:16px 10px;
-  border-radius:22px;
-  background:radial-gradient(ellipse at 50% 0%,#ffffff0c,transparent 65%),linear-gradient(145deg,#302e4e,#1b1a31);
-  border:1px solid #ffffff1c;box-shadow:0 18px 40px #0006,inset 0 1px 0 #ffffff12;
-  overflow-x:auto;overflow-y:hidden;
-  scrollbar-width:thin;scrollbar-color:#8b5cf6 #211f39;
+  width:min(100%,760px);margin:auto;padding:17px 8px;
+  border-radius:23px;
+  background:
+    radial-gradient(ellipse at 50% 0%,#9873ff20,transparent 65%),
+    linear-gradient(145deg,#292747ed,#17172fee);
+  border:1px solid #ffffff25;
+  box-shadow:0 20px 45px #0008,inset 0 1px 0 #ffffff15;
+  backdrop-filter:blur(12px);
 }
 .board{
-  display:grid;grid-template-columns:repeat(5,78px);
-  gap:9px;align-items:end;justify-content:center;
-  width:max-content;min-height:250px;margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,68px);
+  gap:14px 4px;
+  align-items:end;
+  justify-content:center;
+  width:max-content;
+  margin:auto;
 }
 .stick{
-  width:100%;height:var(--stick-height,350px);
-  padding:0 4px 14px;display:flex;flex-direction:column-reverse;
-  align-items:center;justify-content:flex-start;gap:0;
-  position:relative;border:1px solid #ffffff13;
+  width:68px;height:var(--stick-height,350px);
+  padding:0 0 14px;
+  display:flex;flex-direction:column-reverse;
+  align-items:center;justify-content:flex-start;
+  gap:0;position:relative;
+  border:1px solid #ffffff17;
   border-radius:17px 17px 13px 13px;
-  background:linear-gradient(90deg,#ffffff04,#ffffff0a 45%,#ffffff03),#151426;
-  box-shadow:inset 0 0 15px #0008,0 6px 12px #0004;
-  touch-action:none;transition:background .15s,border-color .15s,transform .15s;
+  background:
+    linear-gradient(90deg,#ffffff04,#ffffff0b 45%,#ffffff03),
+    linear-gradient(180deg,#171629,#10101f);
+  box-shadow:inset 0 0 15px #0009,0 7px 13px #0005;
+  touch-action:none;
+  transition:background .15s,border-color .15s,transform .15s;
 }
 .stick:before{
   content:"";position:absolute;z-index:0;bottom:12px;left:50%;
   height:calc(100% - 30px);width:7px;transform:translateX(-50%);
-  border-radius:9px;background:linear-gradient(90deg,#aeb4c7,#fff 35%,#e5e9f5 65%,#929bb2);
+  border-radius:9px;
+  background:linear-gradient(90deg,#aeb4c7,#fff 35%,#e5e9f5 65%,#929bb2);
   box-shadow:1px 0 5px #0009,inset 0 0 2px #fff;
 }
 .stick:after{
   content:"";position:absolute;z-index:1;bottom:3px;left:50%;
   width:94%;height:13px;transform:translateX(-50%);
-  border-radius:50%;background:linear-gradient(#fff,#d6d9e5 55%,#777f98);
+  border-radius:50%;
+  background:linear-gradient(#fff,#d6d9e5 55%,#777f98);
   box-shadow:0 3px 5px #0009;
 }
-.stick.drag-over{border-color:var(--teal);background:#20d6c225;transform:translateY(-4px)}
+.stick.drag-over{
+  border-color:var(--teal);background:#20d6c225;
+  transform:translateY(-4px)
+}
 .stick.invalid{border-color:var(--pink)}
-.stick.selected-stick{border:2px solid var(--gold);background:#ffc85720}
+.stick.selected-stick{
+  border:2px solid var(--gold);background:#ffc85720;
+}
 .donut{
   --icing:#ff6b9d;--shade:#a51e58;
-  position:relative;z-index:2;width:68px;height:34px;
-  flex:0 0 34px;margin:0;border-radius:50%;
-  cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
+  position:relative;z-index:2;
+  width:68px;height:34px;flex:0 0 34px;
+  margin:0;border-radius:50%;
+  cursor:grab;touch-action:none;
+  user-select:none;-webkit-user-select:none;
   background:
     radial-gradient(ellipse 7px 4px at 50% 42%,transparent 0 88%,#a7653e 92% 100%),
     linear-gradient(180deg,#ffe3b0 0%,#e6a66a 38%,#b66b37 78%,#79401f 100%);
@@ -152,23 +192,26 @@ h1{
 }
 .controls{
   display:flex;flex-wrap:wrap;justify-content:center;
-  gap:9px;margin:18px auto;width:min(100%,560px);
+  gap:9px;margin:18px auto;width:min(100%,600px);
 }
 button{
-  border:0;border-radius:12px;padding:12px 14px;
-  background:#393258;color:white;font-size:11px;
-  font-weight:850;box-shadow:0 4px 0 #211b36;
+  border:1px solid #ffffff18;border-radius:12px;padding:12px 13px;
+  background:linear-gradient(145deg,#484064,#302b4c);
+  color:white;font-size:11px;font-weight:850;
+  box-shadow:0 4px 0 #171329,0 7px 13px #0004;
 }
 button:active{transform:translateY(2px);box-shadow:none}
 button:disabled{opacity:.4;cursor:not-allowed}
-.primary{background:var(--purple)}
-.gold{background:#916319}
+.primary{background:linear-gradient(145deg,#a17aff,#7146cf)}
+.gold{background:linear-gradient(145deg,#aa7a2a,#76501d)}
 .switching{outline:2px solid var(--gold);background:#75531e}
 .how-to{
   width:min(100%,470px);margin:25px auto 0;padding:17px;
-  text-align:left;border-radius:17px;background:#22223d;
-  border:1px solid #39365c;color:var(--muted);
+  text-align:left;border-radius:17px;
+  background:linear-gradient(145deg,#292644ee,#1b1b35ee);
+  border:1px solid #ffffff20;color:var(--muted);
   font-size:13px;line-height:1.7;
+  box-shadow:0 10px 25px #0003;
 }
 .how-to h2{color:white;font-size:15px;margin:0 0 8px}
 .how-to ol{padding-left:20px;margin:0}
@@ -181,20 +224,37 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .overlay.show{display:flex}
 .modal{
   width:min(100%,340px);padding:28px 22px;border-radius:22px;
-  background:#292544;border:1px solid var(--purple);
-  box-shadow:0 20px 60px #0009;
+  background:linear-gradient(145deg,#35305b,#201d3b);
+  border:1px solid var(--purple);box-shadow:0 20px 60px #0009;
 }
 .modal h2{font-size:28px;margin:0 0 8px}
 .modal p{color:var(--muted);line-height:1.5}
-footer{margin-top:25px;color:#77718f;font-size:11px}
-@media(max-width:390px){
-  .board-wrap{padding:12px 5px}
-  .board{gap:6px}
-  button{padding:11px 10px;font-size:10px}
+footer{margin-top:25px;color:#8983a7;font-size:11px}
+
+/* Portrait phone: four full-size sticks per row */
+@media(max-width:380px){
+  body{padding-left:5px;padding-right:5px}
+  .board-wrap{padding:14px 5px}
+  .board{grid-template-columns:repeat(4,68px);gap:12px 3px}
+  .stick{width:68px}
+  .controls{gap:7px}
+  button{padding:11px 9px;font-size:10px}
+}
+
+/* Larger screens get more columns without shrinking the hoops */
+@media(min-width:600px){
+  .board{grid-template-columns:repeat(6,78px);gap:14px 9px}
+  .stick{width:78px}
+}
+@media(min-width:900px){
+  .board{grid-template-columns:repeat(8,78px)}
 }
 @media(prefers-reduced-motion:no-preference){
   .donut:not(.drag-ghost){animation:donutShine 4s ease-in-out infinite}
-  @keyframes donutShine{0%,100%{filter:brightness(1)}50%{filter:brightness(1.07)}}
+  @keyframes donutShine{
+    0%,100%{filter:brightness(1)}
+    50%{filter:brightness(1.08)}
+  }
 }
 </style>
 </head>
@@ -291,24 +351,17 @@ function capacity(){
          progress.level<=6?5:
          progress.level<=9?6:7;
 }
-
 function colourCount(){
   if(progress.level<=3)return 3;
   if(progress.level<=6)return 4;
   if(progress.level<=9)return 5;
   return 6;
 }
-
-function cloneTubes(v){
-  return v.map(t=>[...t]);
-}
+function cloneTubes(v){return v.map(t=>[...t])}
 
 function saveProgress(){
-  try{
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
-  }catch(e){
-    console.warn("Could not save progress",e);
-  }
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress))}
+  catch(e){console.warn("Could not save progress",e)}
 }
 
 function rewardAmount(){
@@ -316,8 +369,6 @@ function rewardAmount(){
   return Math.min(200,60+progress.level*8);
 }
 
-/* Generate a board by reversing legal moves from a solved board.
-   This gives every generated board a known route back to a solution. */
 function makePuzzle(){
   const cap=capacity();
   const count=colourCount();
@@ -325,7 +376,6 @@ function makePuzzle(){
   for(let attempt=0;attempt<100;attempt++){
     const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
     candidate.push([]);
-
     let previous=null;
     const scrambleMoves=Math.min(90,12+progress.level*4);
     let made=0;
@@ -335,25 +385,19 @@ function makePuzzle(){
 
       for(let from=0;from<candidate.length;from++){
         if(!candidate[from].length)continue;
-
         const colour=candidate[from][candidate[from].length-1];
 
         for(let to=0;to<candidate.length;to++){
-          if(from===to)continue;
-          if(candidate[to].length>=cap)continue;
-
+          if(from===to||candidate[to].length>=cap)continue;
           const targetColour=candidate[to].length
             ?candidate[to][candidate[to].length-1]:null;
-
           if(targetColour===colour)continue;
           if(previous&&from===previous.to&&to===previous.from)continue;
-
           choices.push({from,to});
         }
       }
 
       if(!choices.length)break;
-
       const move=choices[Math.floor(Math.random()*choices.length)];
       candidate[move.to].push(candidate[move.from].pop());
       previous=move;
@@ -362,11 +406,9 @@ function makePuzzle(){
 
     const mixed=candidate.some(t=>t.length>0&&new Set(t).size>1);
     const empty=candidate.some(t=>t.length===0);
-
     if(mixed&&empty&&made>=5)return candidate;
   }
 
-  /* Guaranteed-solvable fallback */
   const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
   candidate.push([]);
   candidate[count].push(candidate[0].pop());
@@ -384,10 +426,9 @@ function updateStats(){
   $("coins").textContent=progress.coins;
   $("moves").textContent=moves;
 
-  const undoCost=freeUndoUsed<3?0:75;
   $("undoBtn").textContent=freeUndoUsed<3
     ?"↶ UNDO ("+(3-freeUndoUsed)+" FREE)"
-    :"↶ UNDO · "+undoCost+" 🪙";
+    :"↶ UNDO · 75 🪙";
 
   $("undoBtn").disabled=!history.length||completed||
     (freeUndoUsed>=3&&progress.coins<75);
@@ -416,14 +457,12 @@ function createDonut(colour,index){
   d.addEventListener("click",()=>{
     if(switchMode)selectSwitchHoop(index);
   });
-
   return d;
 }
 
 function render(){
   boardEl.innerHTML="";
-  const cap=capacity();
-  const stickHeight=cap*29+105;
+  const stickHeight=capacity()*29+105;
 
   tubes.forEach((tube,index)=>{
     const stick=document.createElement("div");
@@ -441,14 +480,10 @@ function render(){
       }else{
         donut.style.cursor="default";
       }
-
       stick.appendChild(donut);
     });
-
     boardEl.appendChild(stick);
   });
-
-  boardEl.style.minHeight=(stickHeight+8)+"px";
   updateStats();
 }
 
@@ -456,22 +491,16 @@ function canMove(from,to){
   if(from===to||!tubes[from]||!tubes[to]||!tubes[from].length)return false;
   if(tubes[to].length>=capacity())return false;
   if(!tubes[to].length)return true;
-
-  return tubes[to][tubes[to].length-1]===
-         tubes[from][tubes[from].length-1];
+  return tubes[to][tubes[to].length-1]===tubes[from][tubes[from].length-1];
 }
 
 function startDrag(e){
   if(completed||drag||switchMode||e.button!==0)return;
-
   const donut=e.currentTarget;
-  const stick=donut.closest(".stick");
-  const from=Number(stick.dataset.index);
-
+  const from=Number(donut.closest(".stick").dataset.index);
   if(!tubes[from]||!tubes[from].length)return;
 
   e.preventDefault();
-
   ghost=donut.cloneNode(true);
   ghost.classList.add("drag-ghost");
   ghost.style.left=e.clientX+"px";
@@ -480,7 +509,6 @@ function startDrag(e){
 
   donut.classList.add("dragging-source");
   drag={from,pointerId:e.pointerId,source:donut};
-
   say("Release over a stick to drop your hoop!");
 
   window.addEventListener("pointermove",moveDrag,{passive:false});
@@ -491,7 +519,6 @@ function startDrag(e){
 function moveDrag(e){
   if(!drag||e.pointerId!==drag.pointerId)return;
   e.preventDefault();
-
   if(ghost){
     ghost.style.left=e.clientX+"px";
     ghost.style.top=e.clientY+"px";
@@ -506,22 +533,18 @@ function moveDrag(e){
 
   if(stick){
     const to=Number(stick.dataset.index);
-    if(to!==drag.from){
-      stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
-    }
+    if(to!==drag.from)stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
   }
 }
 
 function cleanDrag(){
   if(ghost)ghost.remove();
   ghost=null;
-
   if(drag&&drag.source)drag.source.classList.remove("dragging-source");
 
   document.querySelectorAll(".stick").forEach(s=>
     s.classList.remove("drag-over","invalid")
   );
-
   window.removeEventListener("pointermove",moveDrag);
   window.removeEventListener("pointerup",endDrag);
   window.removeEventListener("pointercancel",cancelDrag);
@@ -529,7 +552,6 @@ function cleanDrag(){
 
 function endDrag(e){
   if(!drag||e.pointerId!==drag.pointerId)return;
-
   const target=document.elementFromPoint(e.clientX,e.clientY);
   const stick=target&&target.closest(".stick");
   const from=drag.from;
@@ -538,9 +560,8 @@ function endDrag(e){
   cleanDrag();
   drag=null;
 
-  if(to>=0&&canMove(from,to)){
-    makeMove(from,to);
-  }else{
+  if(to>=0&&canMove(from,to))makeMove(from,to);
+  else{
     render();
     say("Try an empty stick or a matching colour.","var(--pink)");
   }
@@ -555,31 +576,22 @@ function cancelDrag(){
 }
 
 function saveHistory(){
-  history.push({
-    tubes:cloneTubes(tubes),
-    moves:moves
-  });
+  history.push({tubes:cloneTubes(tubes),moves:moves});
 }
 
 function makeMove(from,to){
   if(!canMove(from,to)||completed)return;
-
   saveHistory();
   tubes[to].push(tubes[from].pop());
   moves++;
-
   render();
 
-  if(isSolved()){
-    finishLevel();
-  }else{
-    say("Nice move! Keep sorting.");
-  }
+  if(isSolved())finishLevel();
+  else say("Nice move! Keep sorting.");
 }
 
 function isSolved(){
   const cap=capacity();
-
   return tubes.every(t=>
     t.length===0||(t.length===cap&&t.every(c=>c===t[0]))
   );
@@ -589,11 +601,9 @@ function finishLevel(){
   completed=true;
   switchMode=false;
   switchFirst=null;
-
   const reward=rewardAmount();
   progress.coins+=reward;
   saveProgress();
-
   render();
 
   $("winText").textContent=
@@ -614,9 +624,7 @@ function startLevel(){
   switchMode=false;
   switchFirst=null;
   completed=false;
-
   render();
-
   say("Level "+progress.level+" · "+capacity()+
       " hoops per stick. Sort every colour!");
 }
@@ -628,7 +636,6 @@ function nextLevel(){
   startLevel();
 }
 
-/* UNDO: 3 free uses, then 75 coins per use */
 $("undoBtn").addEventListener("click",()=>{
   if(!history.length||completed)return;
 
@@ -641,35 +648,27 @@ $("undoBtn").addEventListener("click",()=>{
   }
 
   freeUndoUsed++;
-
   const previous=history.pop();
   tubes=cloneTubes(previous.tubes);
   moves=previous.moves;
-
   saveProgress();
   render();
-  say(freeUndoUsed<=3&&freeUndoUsed>0
-    ?"Last move undone.":"Last move undone.");
+  say("Last move undone.");
 });
 
-/* RESTART: free, returns to the original level board */
 $("restartBtn").addEventListener("click",()=>{
   if(completed)return;
-
   tubes=cloneTubes(startingPuzzle);
   history=[];
   moves=0;
   switchMode=false;
   switchFirst=null;
-
   render();
   say("Level restarted. You can do this!");
 });
 
-/* SWITCH HOOPS: select two exposed top hoops */
 $("switchBtn").addEventListener("click",()=>{
   if(completed)return;
-
   if(switchMode){
     switchMode=false;
     switchFirst=null;
@@ -677,12 +676,10 @@ $("switchBtn").addEventListener("click",()=>{
     say("Switch cancelled.");
     return;
   }
-
   if(progress.coins<150){
     say("You need 150 coins to Switch Hoops.","var(--gold)");
     return;
   }
-
   switchMode=true;
   switchFirst=null;
   render();
@@ -691,26 +688,22 @@ $("switchBtn").addEventListener("click",()=>{
 
 function selectSwitchHoop(index){
   if(!switchMode||completed)return;
-
   if(!tubes[index]||!tubes[index].length){
     say("Choose a stick with a hoop on top.","var(--pink)");
     return;
   }
-
   if(switchFirst===null){
     switchFirst=index;
     render();
     say("Now choose the second top hoop.");
     return;
   }
-
   if(switchFirst===index){
     switchFirst=null;
     render();
     say("Choose a different stick.");
     return;
   }
-
   if(progress.coins<150){
     switchMode=false;
     switchFirst=null;
@@ -720,13 +713,10 @@ function selectSwitchHoop(index){
   }
 
   saveHistory();
-
   const first=tubes[switchFirst];
   const second=tubes[index];
-
   const firstTop=first.pop();
   const secondTop=second.pop();
-
   first.push(secondTop);
   second.push(firstTop);
 
@@ -734,30 +724,22 @@ function selectSwitchHoop(index){
   switchMode=false;
   switchFirst=null;
   moves++;
-
   saveProgress();
   render();
 
-  if(isSolved()){
-    finishLevel();
-  }else{
-    say("Hoops switched! Keep sorting.");
-  }
+  if(isSolved())finishLevel();
+  else say("Hoops switched! Keep sorting.");
 }
 
-/* ADD STICK: temporary, one extra empty stick for this level */
 $("extraBtn").addEventListener("click",()=>{
   if(completed||extraStickActive)return;
-
   if(progress.coins<150){
     say("You need 150 coins to add a stick.","var(--gold)");
     return;
   }
-
   progress.coins-=150;
   extraStickActive=true;
   tubes.push([]);
-
   saveProgress();
   render();
   say("Extra stick added for this level!","var(--gold)");
@@ -766,7 +748,6 @@ $("extraBtn").addEventListener("click",()=>{
 $("nextBtn").addEventListener("click",nextLevel);
 
 startLevel();
-
 })();
 </script>
 </body>
