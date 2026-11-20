@@ -1,54 +1,59 @@
 
 function makePuzzle(){
-  const count=colourCount(),cap=capacity();
+  const count=colourCount();
+  const cap=capacity();
 
-  // Level 1 stays exactly as it is.
+  // Preserve the beginner levels.
   if(progress.level===1){
-    return [
-      [0,0,1],
-      [1,1,0],
-      []
-    ];
+    return [[0,0,1],[1,1,0],[]];
   }
 
-  // Keep Levels 2 and 3 at their existing difficulty.
   if(progress.level<=3){
     const puzzle=Array.from(
       {length:count+1},
       (_,i)=>i<count?Array(cap).fill(i):[]
     );
-    let lastFrom=-1,lastTo=-1;
-    const steps=Math.max(25,progress.level*9);
 
-    for(let step=0;step<steps;step++){
+    let lastFrom=-1,lastTo=-1;
+
+    for(let step=0;step<progress.level*9+25;step++){
       const options=[];
+
       for(let from=0;from<puzzle.length;from++){
-        if(puzzle[from].length<=1)continue;
+        if(!puzzle[from].length)continue;
         const colour=puzzle[from][puzzle[from].length-1];
+
+        if(!puzzle[from].every(c=>c===colour))continue;
 
         for(let to=0;to<puzzle.length;to++){
           if(to===from||puzzle[to].length>=cap)continue;
-          if(puzzle[to].length&&
-             puzzle[to][puzzle[to].length-1]===colour)continue;
           if(from===lastTo&&to===lastFrom)continue;
           options.push([from,to]);
         }
       }
 
       if(!options.length)break;
+
       const [from,to]=options[
         Math.floor(Math.random()*options.length)
       ];
+
       puzzle[to].push(puzzle[from].pop());
       lastFrom=from;
       lastTo=to;
     }
+
     return puzzle;
   }
 
-  // Higher levels: deeper, more strategic puzzles.
-  function scorePuzzle(puzzle){
+  // Increasing scramble depth from Level 4.
+  const level=progress.level;
+  const steps=Math.min(500,95+(level-4)*24);
+
+  function puzzleScore(puzzle){
     let score=0;
+    let mixedStacks=0;
+    let transitions=0;
 
     for(const stack of puzzle){
       if(!stack.length)continue;
@@ -57,37 +62,48 @@ function makePuzzle(){
       const diversity=colours.size;
 
       if(diversity>1){
-        score+=35+(diversity*20)+(stack.length*5);
+        mixedStacks++;
+        score+=45+(diversity*30)+(stack.length*12);
       }
 
       for(let i=1;i<stack.length;i++){
-        if(stack[i]!==stack[i-1])score+=9;
+        if(stack[i]!==stack[i-1]){
+          transitions++;
+          score+=15;
+        }
       }
 
       if(stack.length===cap&&diversity===1){
-        score-=45;
+        score-=35;
       }
 
       if(stack.length>=3&&diversity>=3){
-        score+=20;
+        score+=35;
+      }
+
+      if(stack.length===2&&diversity===2){
+        score+=15;
       }
     }
+
+    score+=mixedStacks*25;
+    score+=transitions*12;
 
     return score;
   }
 
-  const steps=Math.min(360,75+(progress.level-4)*18);
   let bestPuzzle=null;
   let bestScore=-Infinity;
 
-  // Try several puzzles and keep the most mixed-up one.
-  for(let attempt=0;attempt<40;attempt++){
+  // Generate many candidates and select the most complex.
+  for(let attempt=0;attempt<100;attempt++){
     const puzzle=Array.from(
       {length:count+1},
       (_,i)=>i<count?Array(cap).fill(i):[]
     );
 
-    let lastFrom=-1,lastTo=-1;
+    let lastFrom=-1;
+    let lastTo=-1;
 
     for(let step=0;step<steps;step++){
       const options=[];
@@ -97,14 +113,11 @@ function makePuzzle(){
 
         const colour=puzzle[from][puzzle[from].length-1];
 
-        // Only take from a single-colour stack.
-        // This preserves a valid reverse solution path.
+        // Preserve a legal reverse solution.
         if(!puzzle[from].every(c=>c===colour))continue;
 
         for(let to=0;to<puzzle.length;to++){
           if(to===from||puzzle[to].length>=cap)continue;
-
-          // Avoid immediately undoing the previous scramble move.
           if(from===lastTo&&to===lastFrom)continue;
 
           options.push([from,to]);
@@ -117,19 +130,17 @@ function makePuzzle(){
         Math.floor(Math.random()*options.length)
       ];
 
-      // This is a reverse scramble move. Its opposite is
-      // legal during normal gameplay.
       puzzle[to].push(puzzle[from].pop());
 
       lastFrom=from;
       lastTo=to;
     }
 
-    const score=scorePuzzle(puzzle);
+    const score=puzzleScore(puzzle);
 
     if(score>bestScore){
       bestScore=score;
-      bestPuzzle=puzzle;
+      bestPuzzle=puzzle.map(stack=>stack.slice());
     }
   }
 
