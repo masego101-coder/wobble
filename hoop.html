@@ -5,12 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#17172b">
-<meta name="description" content="Play HOOP, the colourful donut sorting puzzle at WOBBLE ARCADE.">
-<link rel="canonical" href="https://masego101-coder.github.io/wobble/hoop.html">
+<meta name="description" content="Play HOOP, the colourful sorting puzzle at WOBBLE ARCADE.">
 <title>HOOP - WOBBLE ARCADE</title>
 
 <style>
-:root {
+:root{
   --bg:#17172b;
   --purple:#8B5CF6;
   --pink:#FF4F87;
@@ -19,8 +18,8 @@
   --text:#f8f5ff;
   --muted:#aaa5c5;
 }
-* {box-sizing:border-box}
-body {
+*{box-sizing:border-box}
+body{
   margin:0;
   min-height:100vh;
   padding:20px 9px 35px;
@@ -31,242 +30,176 @@ body {
   -webkit-tap-highlight-color:transparent;
   overflow-x:hidden;
 }
-button {font:inherit;cursor:pointer}
-.brand {font-size:20px;font-weight:950;letter-spacing:2px}
-.brand span {color:var(--purple)}
-.arcade {font-size:10px;color:var(--muted);letter-spacing:4px;font-weight:800}
-h1 {
-  font-size:46px;
-  letter-spacing:4px;
-  color:var(--gold);
-  margin:20px 0 3px;
-  text-shadow:0 4px 18px #ffc85755;
+button{font:inherit;cursor:pointer}
+.brand{font-size:20px;font-weight:950;letter-spacing:2px}
+.brand span{color:var(--purple)}
+.arcade{font-size:10px;color:var(--muted);letter-spacing:4px;font-weight:800}
+h1{
+  font-size:46px;letter-spacing:4px;color:var(--gold);
+  margin:20px 0 3px;text-shadow:0 4px 18px #ffc85755;
 }
-.subtitle {font-size:13px;color:var(--muted);margin:5px 0 22px}
-.stats {
-  width:min(100%,470px);
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
+.subtitle{font-size:13px;color:var(--muted);margin:5px 0 22px}
+.stats{
+  width:min(100%,470px);margin:auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
 }
-.stat {
+.stat{
   background:linear-gradient(145deg,#302c50,#211f39);
-  border:1px solid #ffffff18;
-  border-radius:14px;
-  padding:11px 4px;
-  box-shadow:0 5px 12px #0003;
+  border:1px solid #ffffff18;border-radius:14px;
+  padding:11px 4px;box-shadow:0 5px 12px #0003;
 }
-.stat small {
-  display:block;
-  color:var(--muted);
-  font-size:9px;
-  font-weight:850;
-  letter-spacing:1px;
+.stat small{
+  display:block;color:var(--muted);font-size:9px;
+  font-weight:850;letter-spacing:1px;
 }
-.stat strong {display:block;font-size:20px;margin-top:4px}
-#coins {color:var(--gold)}
-.message {
-  width:min(100%,470px);
-  min-height:42px;
-  margin:15px auto 12px;
-  padding:11px;
-  border-radius:12px;
-  background:#8b5cf61b;
-  border:1px solid #8b5cf633;
-  color:#ded4ff;
-  font-size:12px;
-  font-weight:750;
+.stat strong{display:block;font-size:20px;margin-top:4px}
+#coins{color:var(--gold)}
+.message{
+  width:min(100%,470px);min-height:42px;margin:15px auto 12px;
+  padding:11px;border-radius:12px;background:#8b5cf61b;
+  border:1px solid #8b5cf633;color:#ded4ff;
+  font-size:12px;font-weight:750;
 }
-.board-wrap {
-  width:min(100%,650px);
-  margin:auto;
-  padding:16px 10px;
+.board-wrap{
+  width:min(100%,560px);margin:auto;padding:16px 10px;
   border-radius:22px;
   background:radial-gradient(ellipse at 50% 0%,#ffffff0c,transparent 65%),linear-gradient(145deg,#302e4e,#1b1a31);
-  border:1px solid #ffffff1c;
-  box-shadow:0 18px 40px #0006,inset 0 1px 0 #ffffff12;
-  overflow-x:auto;
-  overflow-y:hidden;
-  scrollbar-width:thin;
-  scrollbar-color:#8b5cf6 #211f39;
+  border:1px solid #ffffff1c;box-shadow:0 18px 40px #0006,inset 0 1px 0 #ffffff12;
+  overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:thin;scrollbar-color:#8b5cf6 #211f39;
 }
-.board {
-  display:grid;
-  grid-template-columns:repeat(5,76px);
-  gap:9px;
-  align-items:end;
-  justify-content:center;
-  width:max-content;
-  min-height:250px;
-  margin:auto;
+.board{
+  display:grid;grid-template-columns:repeat(5,78px);
+  gap:9px;align-items:end;justify-content:center;
+  width:max-content;min-height:250px;margin:auto;
 }
-.stick {
-  width:76px;
-  height:var(--stick-height,350px);
-  padding:0 3px 14px;
-  display:flex;
-  flex-direction:column-reverse;
-  align-items:center;
-  justify-content:flex-start;
-  position:relative;
-  border:1px solid #ffffff13;
+.stick{
+  width:100%;height:var(--stick-height,350px);
+  padding:0 4px 14px;display:flex;flex-direction:column-reverse;
+  align-items:center;justify-content:flex-start;gap:0;
+  position:relative;border:1px solid #ffffff13;
   border-radius:17px 17px 13px 13px;
   background:linear-gradient(90deg,#ffffff04,#ffffff0a 45%,#ffffff03),#151426;
   box-shadow:inset 0 0 15px #0008,0 6px 12px #0004;
-  transition:background .15s,border-color .15s,transform .15s;
-  touch-action:pan-x;
+  touch-action:none;transition:background .15s,border-color .15s,transform .15s;
 }
-.stick:before {
-  content:"";
-  position:absolute;
-  z-index:0;
-  bottom:12px;
-  left:50%;
-  height:calc(100% - 30px);
-  width:7px;
-  transform:translateX(-50%);
-  border-radius:9px;
-  background:linear-gradient(90deg,#aeb4c7,#fff 35%,#e5e9f5 65%,#929bb2);
+.stick:before{
+  content:"";position:absolute;z-index:0;bottom:12px;left:50%;
+  height:calc(100% - 30px);width:7px;transform:translateX(-50%);
+  border-radius:9px;background:linear-gradient(90deg,#aeb4c7,#fff 35%,#e5e9f5 65%,#929bb2);
   box-shadow:1px 0 5px #0009,inset 0 0 2px #fff;
 }
-.stick:after {
-  content:"";
-  position:absolute;
-  z-index:4;
-  bottom:3px;
-  left:50%;
-  width:94%;
-  height:13px;
-  transform:translateX(-50%);
-  border-radius:50%;
-  background:linear-gradient(#fff,#d6d9e5 55%,#777f98);
+.stick:after{
+  content:"";position:absolute;z-index:1;bottom:3px;left:50%;
+  width:94%;height:13px;transform:translateX(-50%);
+  border-radius:50%;background:linear-gradient(#fff,#d6d9e5 55%,#777f98);
   box-shadow:0 3px 5px #0009;
 }
-.stick.drag-over {
-  border-color:var(--teal);
-  background:#20d6c225;
-  transform:translateY(-4px);
+.stick.drag-over{border-color:var(--teal);background:#20d6c225;transform:translateY(-4px)}
+.stick.invalid{border-color:var(--pink)}
+.stick.selected-stick{border:2px solid var(--gold);background:#ffc85720}
+.donut{
+  --icing:#ff6b9d;--shade:#a51e58;
+  position:relative;z-index:2;width:68px;height:34px;
+  flex:0 0 34px;margin:0;border-radius:50%;
+  cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
+  background:
+    radial-gradient(ellipse 7px 4px at 50% 42%,transparent 0 88%,#a7653e 92% 100%),
+    linear-gradient(180deg,#ffe3b0 0%,#e6a66a 38%,#b66b37 78%,#79401f 100%);
+  box-shadow:inset 0 3px 3px #fff9,inset 0 -5px 5px #542b20aa,0 4px 5px #0009;
 }
-.stick.invalid {border-color:var(--pink)}
-.stick.selected {
-  border-color:var(--gold);
-  background:#ffc85718;
-  transform:translateY(-5px);
+.donut:before{
+  content:"";position:absolute;z-index:2;left:0;top:-3px;
+  width:100%;height:25px;border-radius:50%;
+  background:
+    radial-gradient(ellipse 7px 4px at 50% 48%,transparent 0 88%,var(--shade) 92% 100%),
+    radial-gradient(ellipse at 30% 20%,#ffffffbb 0%,transparent 42%),
+    linear-gradient(145deg,#ffffff55 0%,transparent 35%),var(--icing);
+  border:1px solid #ffffff65;
+  box-shadow:inset 0 3px 4px #ffffff88,inset 0 -3px 4px var(--shade),0 2px 3px #0005;
 }
-.donut {
-  position:relative;
-  z-index:2;
-  width:72px;
-  height:37px;
-  flex:0 0 37px;
-  margin:0;
-  cursor:grab;
-  touch-action:none;
-  user-select:none;
-  -webkit-user-select:none;
-  filter:drop-shadow(0 3px 3px #0008);
-  transition:filter .15s,transform .15s;
+.donut:after{
+  content:"";position:absolute;z-index:4;left:50%;top:9px;
+  width:15px;height:9px;transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(ellipse at 35% 25%,#25202b 0%,#080711 65%,#000 100%);
+  border:2px solid #d5a16a;
+  box-shadow:inset 0 2px 3px #000,0 1px 2px #fff8,0 2px 3px #0008;
 }
-.donut svg {width:100%;height:100%;display:block;overflow:visible}
-.donut+.donut {margin-top:-5px}
-.donut.dragging-source {opacity:.18}
-.donut.top-hoop:active {filter:brightness(1.2)}
-.pink {--icing:#ff6b9d;--shade:#a51e58}
-.blue {--icing:#168cff;--shade:#0750aa}
-.yellow {--icing:#ffd45e;--shade:#a36b12}
-.green {--icing:#55e64b;--shade:#138b32}
-.purple {--icing:#a52be8;--shade:#5d168f}
-.orange {--icing:#ff9d50;--shade:#b94e16}
-.drag-ghost {
-  position:fixed;
-  z-index:9999;
-  pointer-events:none;
+.sprinkles{
+  position:absolute;z-index:3;left:8px;top:2px;
+  width:52px;height:19px;pointer-events:none;border-radius:50%;
+  background:
+    radial-gradient(ellipse 2px 3px at 20% 35%,#fff 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 72% 30%,#ffe36b 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 30% 72%,#ff4f87 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 80% 67%,#fff 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 53% 15%,#20d6c2 98%,transparent),
+    radial-gradient(ellipse 2px 3px at 55% 80%,#ffe36b 98%,transparent);
+}
+.donut+.donut{margin-top:-5px}
+.pink{--icing:#ff6b9d;--shade:#a51e58}
+.blue{--icing:#168cff;--shade:#0750aa}
+.yellow{--icing:#ffd45e;--shade:#a36b12}
+.green{--icing:#55e64b;--shade:#138b32}
+.purple{--icing:#a52be8;--shade:#5d168f}
+.orange{--icing:#ff9d50;--shade:#b94e16}
+.dragging-source{opacity:.18}
+.drag-ghost{
+  position:fixed;z-index:9999;pointer-events:none;
   transform:translate(-50%,-50%) scale(1.2) rotate(-5deg);
   filter:drop-shadow(0 15px 12px #000c);
 }
-.controls {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:9px;
-  margin:18px auto;
-  width:min(100%,520px);
+.controls{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:9px;margin:18px auto;width:min(100%,560px);
 }
-button {
-  border:0;
-  border-radius:12px;
-  padding:12px 14px;
-  background:#393258;
-  color:white;
-  font-size:11px;
-  font-weight:850;
-  box-shadow:0 4px 0 #211b36;
+button{
+  border:0;border-radius:12px;padding:12px 14px;
+  background:#393258;color:white;font-size:11px;
+  font-weight:850;box-shadow:0 4px 0 #211b36;
 }
-button:active {transform:translateY(2px);box-shadow:none}
-button:disabled {opacity:.4;cursor:not-allowed}
-.primary {background:var(--purple)}
-.gold {background:#916319}
-.teal {background:#087d79}
-.how-to {
-  width:min(100%,470px);
-  margin:25px auto 0;
-  padding:17px;
-  text-align:left;
-  border-radius:17px;
-  background:#22223d;
-  border:1px solid #39365c;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.7;
+button:active{transform:translateY(2px);box-shadow:none}
+button:disabled{opacity:.4;cursor:not-allowed}
+.primary{background:var(--purple)}
+.gold{background:#916319}
+.switching{outline:2px solid var(--gold);background:#75531e}
+.how-to{
+  width:min(100%,470px);margin:25px auto 0;padding:17px;
+  text-align:left;border-radius:17px;background:#22223d;
+  border:1px solid #39365c;color:var(--muted);
+  font-size:13px;line-height:1.7;
 }
-.how-to h2 {color:white;font-size:15px;margin:0 0 8px}
-.how-to ol {padding-left:20px;margin:0}
-.how-to p {margin-bottom:0}
-.overlay {
-  position:fixed;
-  inset:0;
-  z-index:10000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+.how-to h2{color:white;font-size:15px;margin:0 0 8px}
+.how-to ol{padding-left:20px;margin:0}
+.how-to p{margin-bottom:0}
+.overlay{
+  position:fixed;inset:0;z-index:10000;display:none;
+  align-items:center;justify-content:center;padding:20px;
   background:#090817dc;
 }
-.overlay.show {display:flex}
-.modal {
-  width:min(100%,350px);
-  padding:28px 22px;
-  border-radius:22px;
-  background:#292544;
-  border:1px solid var(--purple);
+.overlay.show{display:flex}
+.modal{
+  width:min(100%,340px);padding:28px 22px;border-radius:22px;
+  background:#292544;border:1px solid var(--purple);
   box-shadow:0 20px 60px #0009;
 }
-.modal h2 {font-size:28px;margin:0 0 8px}
-.modal p {color:var(--muted);line-height:1.5}
-.modal .reward {font-size:28px;color:var(--gold);font-weight:950}
-footer {margin-top:25px;color:#77718f;font-size:11px}
-@media(max-width:430px) {
-  .board-wrap {padding:12px 5px}
-  .board {gap:5px;grid-template-columns:repeat(5,70px)}
-  .stick {width:70px}
-  .donut {width:66px}
-  button {padding:11px 10px;font-size:10px}
+.modal h2{font-size:28px;margin:0 0 8px}
+.modal p{color:var(--muted);line-height:1.5}
+footer{margin-top:25px;color:#77718f;font-size:11px}
+@media(max-width:390px){
+  .board-wrap{padding:12px 5px}
+  .board{gap:6px}
+  button{padding:11px 10px;font-size:10px}
 }
-@media(prefers-reduced-motion:no-preference) {
-  .donut:not(.drag-ghost) {
-    animation:donutShine 4s ease-in-out infinite;
-  }
-  @keyframes donutShine {
-    0%,100% {filter:brightness(1)}
-    50% {filter:brightness(1.07)}
-  }
+@media(prefers-reduced-motion:no-preference){
+  .donut:not(.drag-ghost){animation:donutShine 4s ease-in-out infinite}
+  @keyframes donutShine{0%,100%{filter:brightness(1)}50%{filter:brightness(1.07)}}
 }
 </style>
 </head>
 
 <body>
-
 <header>
   <div class="brand">WOBBLE<span>.</span></div>
   <div class="arcade">⚡ ARCADE</div>
@@ -280,7 +213,7 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
   <div class="stat"><small>MOVES</small><strong id="moves">0</strong></div>
 </section>
 
-<div class="message" id="message">Tap a hoop or drag it to another stick!</div>
+<div class="message" id="message">Drag a top hoop onto an empty stick or matching colour.</div>
 
 <div class="board-wrap">
   <div class="board" id="board"></div>
@@ -289,29 +222,28 @@ footer {margin-top:25px;color:#77718f;font-size:11px}
 <div class="controls">
   <button id="undoBtn">↶ UNDO (3 FREE)</button>
   <button id="restartBtn">↻ RESTART</button>
+  <button class="gold" id="switchBtn">🔀 SWITCH HOOPS · 150 🪙</button>
   <button class="gold" id="extraBtn">➕ ADD STICK · 150 🪙</button>
-  <button class="teal" id="switchBtn">⇄ SWITCH · 150 🪙</button>
 </div>
 
 <section class="how-to">
   <h2>🍩 HOW TO PLAY</h2>
   <ol>
-    <li>Tap a top hoop to select it, then tap a destination stick.</li>
-    <li>You can also drag a top hoop between sticks.</li>
-    <li>Move onto an empty stick or a stick with a matching top colour.</li>
-    <li>Each stick has a maximum capacity. This grows as you progress.</li>
-    <li>Sort every colour into a complete matching stack to win!</li>
+    <li>Drag the top hoop from one stick to another.</li>
+    <li>You can move a hoop onto an empty stick or a matching colour.</li>
+    <li>Use Switch Hoops to swap two exposed top hoops, even different colours.</li>
+    <li>Add Stick gives you one extra empty stick for the current level.</li>
+    <li>You get 3 free Undo uses per level. Further Undo uses cost 75 coins.</li>
+    <li>Stick capacity grows as you progress: 4, 5, 6, then up to 7 hoops.</li>
+    <li>Sort every colour into its own full stick to win!</li>
   </ol>
-  <p>🪙 Complete levels to earn coins. Use coins for extra Undo, Switch Hoops and an extra empty stick.</p>
-  <p>↶ You get 3 free Undo uses per level. Additional uses cost 75 coins.</p>
+  <p>🪙 Earn coins by completing levels. Power-ups cost coins; there are no real-money purchases.</p>
 </section>
 
 <div class="overlay" id="winOverlay">
   <div class="modal">
     <h2>🍩 Delicious!</h2>
     <p id="winText">You sorted every hoop!</p>
-    <div class="reward" id="rewardText">+60 🪙</div>
-    <p>Ready for another delicious challenge?</p>
     <button class="primary" id="nextBtn">NEXT LEVEL →</button>
   </div>
 </div>
@@ -329,14 +261,12 @@ const boardEl=$("board");
 const messageEl=$("message");
 const overlay=$("winOverlay");
 
-const SVG_NS="http://www.w3.org/2000/svg";
-
 function loadProgress(){
   try{
     const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
     return {
-      level:Math.max(1,Math.floor(Number(s.level)||1)),
-      coins:Math.max(0,Math.floor(Number(s.coins)||0))
+      level:Math.max(1,Number(s.level)||1),
+      coins:Math.max(0,Number(s.coins)||0)
     };
   }catch{
     return {level:1,coins:0};
@@ -349,19 +279,17 @@ let startingPuzzle=[];
 let moves=0;
 let history=[];
 let completed=false;
-let extraStickActive=false;
-let undoUsed=0;
-let selectedSource=null;
-let switchMode=false;
-let switchSelection=[];
-let pointer=null;
+let drag=null;
 let ghost=null;
+let freeUndoUsed=0;
+let extraStickActive=false;
+let switchMode=false;
+let switchFirst=null;
 
 function capacity(){
-  if(progress.level<=3)return 4;
-  if(progress.level<=6)return 5;
-  if(progress.level<=9)return 6;
-  return 7;
+  return progress.level<=3?4:
+         progress.level<=6?5:
+         progress.level<=9?6:7;
 }
 
 function colourCount(){
@@ -371,140 +299,79 @@ function colourCount(){
   return 6;
 }
 
-function difficultyName(){
-  const l=progress.level;
-  if(l<=3)return "EASY";
-  if(l<=6)return "SLIGHTLY HARDER";
-  if(l<=9)return "MEDIUM";
-  if(l<=15)return "MIXED";
-  if(l<=25)return "HARD";
-  return "ADVANCED";
-}
-
 function cloneTubes(v){
   return v.map(t=>[...t]);
 }
 
 function saveProgress(){
   try{
-    localStorage.setItem(STORAGE_KEY,JSON.stringify({
-      level:progress.level,
-      coins:progress.coins,
-      extraStick:false
-    }));
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
   }catch(e){
     console.warn("Could not save progress",e);
   }
 }
 
-/*
-  GUARANTEED-SOLUTION PUZZLE GENERATOR
+function rewardAmount(){
+  if(progress.level===1)return 60;
+  return Math.min(200,60+progress.level*8);
+}
 
-  The generator starts with completed colour stacks and
-  performs legal reverse moves, one hoop at a time.
-
-  Each reverse move takes a top hoop and puts it onto
-  a different-coloured stack or an empty stick.
-
-  Reversing the generated sequence gives a legal solution.
-  This means the generator always retains a known solution.
-*/
-
+/* Generate a board by reversing legal moves from a solved board.
+   This gives every generated board a known route back to a solution. */
 function makePuzzle(){
   const cap=capacity();
   const count=colourCount();
-  const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
 
-  candidate.push([]);
-  candidate.push([]);
+  for(let attempt=0;attempt<100;attempt++){
+    const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
+    candidate.push([]);
 
-  const l=progress.level;
+    let previous=null;
+    const scrambleMoves=Math.min(90,12+progress.level*4);
+    let made=0;
 
-  let target=12+l*2;
+    for(let step=0;step<scrambleMoves;step++){
+      const choices=[];
 
-  if(l>=4)target+=8;
-  if(l>=7)target+=12;
-  if(l>=10)target+=Math.min(24,l-9);
-  if(l>=16)target+=12;
-  if(l>=26)target+=16;
+      for(let from=0;from<candidate.length;from++){
+        if(!candidate[from].length)continue;
 
-  // Alternate some easier and harder variations.
-  if(l%5===0)target=Math.max(12,target-10);
-  if(l%7===0)target+=12;
+        const colour=candidate[from][candidate[from].length-1];
 
-  target=Math.min(target,120);
+        for(let to=0;to<candidate.length;to++){
+          if(from===to)continue;
+          if(candidate[to].length>=cap)continue;
 
-  let previous=null;
-  let made=0;
+          const targetColour=candidate[to].length
+            ?candidate[to][candidate[to].length-1]:null;
 
-  for(let step=0;step<target;step++){
-    const choices=[];
+          if(targetColour===colour)continue;
+          if(previous&&from===previous.to&&to===previous.from)continue;
 
-    for(let from=0;from<candidate.length;from++){
-      if(!candidate[from].length)continue;
-
-      const colour=candidate[from][candidate[from].length-1];
-
-      for(let to=0;to<candidate.length;to++){
-        if(from===to)continue;
-        if(candidate[to].length>=cap)continue;
-
-        const targetColour=candidate[to].length
-          ?candidate[to][candidate[to].length-1]
-          :null;
-
-        if(targetColour===colour)continue;
-
-        // Avoid an immediate reversal of the previous transfer.
-        if(previous&&from===previous.to&&to===previous.from)continue;
-
-        choices.push({from,to});
+          choices.push({from,to});
+        }
       }
+
+      if(!choices.length)break;
+
+      const move=choices[Math.floor(Math.random()*choices.length)];
+      candidate[move.to].push(candidate[move.from].pop());
+      previous=move;
+      made++;
     }
 
-    if(!choices.length)break;
+    const mixed=candidate.some(t=>t.length>0&&new Set(t).size>1);
+    const empty=candidate.some(t=>t.length===0);
 
-    const move=choices[Math.floor(Math.random()*choices.length)];
-
-    candidate[move.to].push(candidate[move.from].pop());
-
-    previous={from:move.from,to:move.to};
-    made++;
+    if(mixed&&empty&&made>=5)return candidate;
   }
 
-  const mixed=candidate.some(t=>
-    t.length>0&&new Set(t).size>1
-  );
-
-  if(!mixed||made===0){
-    // A guaranteed-solvable fallback.
-    const fallback=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
-    fallback.push([]);
-    fallback.push([]);
-
-    fallback[count].push(fallback[0].pop());
-    fallback[0].push(fallback[1].pop());
-
-    return fallback;
-  }
-
+  /* Guaranteed-solvable fallback */
+  const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
+  candidate.push([]);
+  candidate[count].push(candidate[0].pop());
+  candidate[1].push(candidate[0].pop());
   return candidate;
-}
-
-function rewardForLevel(){
-  const l=progress.level;
-
-  const progression=Math.min(100,(l-1)*4);
-
-  let difficultyBonus=0;
-  if(l>=4&&l<=6)difficultyBonus=8;
-  else if(l>=7&&l<=9)difficultyBonus=16;
-  else if(l>=10&&l<=15)difficultyBonus=24;
-  else if(l>=16&&l<=25)difficultyBonus=32;
-  else if(l>=26)difficultyBonus=40;
-
-  // Level 1 is exactly 60. Maximum reward is 200.
-  return Math.min(200,60+progression+difficultyBonus);
 }
 
 function say(message,color){
@@ -517,109 +384,46 @@ function updateStats(){
   $("coins").textContent=progress.coins;
   $("moves").textContent=moves;
 
-  const undoCost=undoUsed>=3?75:0;
+  const undoCost=freeUndoUsed<3?0:75;
+  $("undoBtn").textContent=freeUndoUsed<3
+    ?"↶ UNDO ("+(3-freeUndoUsed)+" FREE)"
+    :"↶ UNDO · "+undoCost+" 🪙";
 
-  $("undoBtn").textContent=undoCost
-    ?"↶ UNDO · 75 🪙"
-    :"↶ UNDO ("+(3-undoUsed)+" FREE)";
-
-  $("undoBtn").disabled=!history.length||completed;
+  $("undoBtn").disabled=!history.length||completed||
+    (freeUndoUsed>=3&&progress.coins<75);
 
   $("extraBtn").disabled=extraStickActive||completed||progress.coins<150;
-
   $("extraBtn").textContent=extraStickActive
-    ?"✓ EXTRA STICK ACTIVE"
+    ?"✓ EXTRA STICK ADDED"
     :"➕ ADD STICK · 150 🪙";
 
-  $("switchBtn").disabled=completed||progress.coins<150||switchMode;
-
+  $("switchBtn").disabled=completed||progress.coins<150;
+  $("switchBtn").classList.toggle("switching",switchMode);
   $("switchBtn").textContent=switchMode
-    ?"✓ SELECT TWO HOOPS"
-    :"⇄ SWITCH · 150 🪙";
-
-  $("restartBtn").disabled=completed;
+    ?"✕ CANCEL SWITCH"
+    :"🔀 SWITCH HOOPS · 150 🪙";
 }
 
-function createDonut(colour){
-  const donut=document.createElement("div");
-  donut.className="donut "+colour;
+function createDonut(colour,index){
+  const d=document.createElement("div");
+  d.className="donut "+colour;
+  d.setAttribute("aria-label",colour+" hoop");
 
-  const svg=document.createElementNS(SVG_NS,"svg");
-  svg.setAttribute("viewBox","0 0 76 40");
-  svg.setAttribute("aria-hidden","true");
+  const sprinkles=document.createElement("span");
+  sprinkles.className="sprinkles";
+  d.appendChild(sprinkles);
 
-  const side=document.createElementNS(SVG_NS,"path");
-  side.setAttribute("d","M3 17 C3 26 19 34 38 34 S73 26 73 17 L73 24 C73 32 57 39 38 39 S3 32 3 24 Z");
-  side.setAttribute("fill","#b97843");
-  side.setAttribute("stroke","#75401f");
-  side.setAttribute("stroke-width","1");
-
-  const sideHighlight=document.createElementNS(SVG_NS,"path");
-  sideHighlight.setAttribute("d","M5 23 C13 31 25 34 38 34 S64 31 71 23");
-  sideHighlight.setAttribute("fill","none");
-  sideHighlight.setAttribute("stroke","#fff5");
-  sideHighlight.setAttribute("stroke-width","1.8");
-
-  const icing=document.createElementNS(SVG_NS,"path");
-  icing.setAttribute("d","M3 17 C3 8 19 2 38 2 S73 8 73 17 C73 26 57 32 38 32 S3 26 3 17 Z");
-  icing.setAttribute("fill","var(--icing)");
-  icing.setAttribute("stroke","#ffffff99");
-  icing.setAttribute("stroke-width","1.2");
-
-  const shine=document.createElementNS(SVG_NS,"path");
-  shine.setAttribute("d","M12 13 C19 5 32 4 43 5");
-  shine.setAttribute("fill","none");
-  shine.setAttribute("stroke","#ffffff99");
-  shine.setAttribute("stroke-width","2.5");
-  shine.setAttribute("stroke-linecap","round");
-
-  const hole=document.createElementNS(SVG_NS,"ellipse");
-  hole.setAttribute("cx","38");
-  hole.setAttribute("cy","17");
-  hole.setAttribute("rx","8");
-  hole.setAttribute("ry","5");
-  hole.setAttribute("fill","#100d19");
-  hole.setAttribute("stroke","#e4b17a");
-  hole.setAttribute("stroke-width","2");
-
-  const holeShadow=document.createElementNS(SVG_NS,"ellipse");
-  holeShadow.setAttribute("cx","38");
-  holeShadow.setAttribute("cy","16");
-  holeShadow.setAttribute("rx","5");
-  holeShadow.setAttribute("ry","2.5");
-  holeShadow.setAttribute("fill","#000");
-
-  const sprinkles=[
-    [19,12,"#fff"],[28,8,"#ffe36b"],
-    [49,9,"#fff"],[58,15,"#20d6c2"],
-    [24,22,"#ff4f87"],[52,23,"#ffe36b"]
-  ];
-
-  svg.append(side,sideHighlight,icing,shine);
-
-  sprinkles.forEach(([x,y,color])=>{
-    const sprinkle=document.createElementNS(SVG_NS,"ellipse");
-    sprinkle.setAttribute("cx",x);
-    sprinkle.setAttribute("cy",y);
-    sprinkle.setAttribute("rx","1.5");
-    sprinkle.setAttribute("ry","2.5");
-    sprinkle.setAttribute("fill",color);
-    sprinkle.setAttribute("transform","rotate(25 "+x+" "+y+")");
-    svg.appendChild(sprinkle);
+  d.addEventListener("click",()=>{
+    if(switchMode)selectSwitchHoop(index);
   });
 
-  svg.append(hole,holeShadow);
-  donut.appendChild(svg);
-
-  donut.setAttribute("aria-label",colour+" hoop");
-  return donut;
+  return d;
 }
 
 function render(){
   boardEl.innerHTML="";
-
   const cap=capacity();
-  const stickHeight=cap*34+105;
+  const stickHeight=cap*29+105;
 
   tubes.forEach((tube,index)=>{
     const stick=document.createElement("div");
@@ -627,16 +431,15 @@ function render(){
     stick.dataset.index=index;
     stick.style.setProperty("--stick-height",stickHeight+"px");
 
-    if(index===selectedSource||switchSelection.includes(index)){
-      stick.classList.add("selected");
-    }
+    if(switchFirst===index)stick.classList.add("selected-stick");
 
     tube.forEach((colour,i)=>{
-      const donut=createDonut(colour);
+      const donut=createDonut(colour,index);
 
-      if(i===tube.length-1&&!completed){
-        donut.classList.add("top-hoop");
-        donut.dataset.index=index;
+      if(i===tube.length-1&&!completed&&!switchMode){
+        donut.addEventListener("pointerdown",startDrag);
+      }else{
+        donut.style.cursor="default";
       }
 
       stick.appendChild(donut);
@@ -646,42 +449,124 @@ function render(){
   });
 
   boardEl.style.minHeight=(stickHeight+8)+"px";
-
-  const columns=Math.min(8,tubes.length);
-  boardEl.style.gridTemplateColumns=`repeat(${columns},76px)`;
-
   updateStats();
 }
 
 function canMove(from,to){
   if(from===to||!tubes[from]||!tubes[to]||!tubes[from].length)return false;
   if(tubes[to].length>=capacity())return false;
-
   if(!tubes[to].length)return true;
 
   return tubes[to][tubes[to].length-1]===
          tubes[from][tubes[from].length-1];
 }
 
+function startDrag(e){
+  if(completed||drag||switchMode||e.button!==0)return;
+
+  const donut=e.currentTarget;
+  const stick=donut.closest(".stick");
+  const from=Number(stick.dataset.index);
+
+  if(!tubes[from]||!tubes[from].length)return;
+
+  e.preventDefault();
+
+  ghost=donut.cloneNode(true);
+  ghost.classList.add("drag-ghost");
+  ghost.style.left=e.clientX+"px";
+  ghost.style.top=e.clientY+"px";
+  document.body.appendChild(ghost);
+
+  donut.classList.add("dragging-source");
+  drag={from,pointerId:e.pointerId,source:donut};
+
+  say("Release over a stick to drop your hoop!");
+
+  window.addEventListener("pointermove",moveDrag,{passive:false});
+  window.addEventListener("pointerup",endDrag);
+  window.addEventListener("pointercancel",cancelDrag);
+}
+
+function moveDrag(e){
+  if(!drag||e.pointerId!==drag.pointerId)return;
+  e.preventDefault();
+
+  if(ghost){
+    ghost.style.left=e.clientX+"px";
+    ghost.style.top=e.clientY+"px";
+  }
+
+  document.querySelectorAll(".stick").forEach(s=>
+    s.classList.remove("drag-over","invalid")
+  );
+
+  const target=document.elementFromPoint(e.clientX,e.clientY);
+  const stick=target&&target.closest(".stick");
+
+  if(stick){
+    const to=Number(stick.dataset.index);
+    if(to!==drag.from){
+      stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
+    }
+  }
+}
+
+function cleanDrag(){
+  if(ghost)ghost.remove();
+  ghost=null;
+
+  if(drag&&drag.source)drag.source.classList.remove("dragging-source");
+
+  document.querySelectorAll(".stick").forEach(s=>
+    s.classList.remove("drag-over","invalid")
+  );
+
+  window.removeEventListener("pointermove",moveDrag);
+  window.removeEventListener("pointerup",endDrag);
+  window.removeEventListener("pointercancel",cancelDrag);
+}
+
+function endDrag(e){
+  if(!drag||e.pointerId!==drag.pointerId)return;
+
+  const target=document.elementFromPoint(e.clientX,e.clientY);
+  const stick=target&&target.closest(".stick");
+  const from=drag.from;
+  const to=stick?Number(stick.dataset.index):-1;
+
+  cleanDrag();
+  drag=null;
+
+  if(to>=0&&canMove(from,to)){
+    makeMove(from,to);
+  }else{
+    render();
+    say("Try an empty stick or a matching colour.","var(--pink)");
+  }
+}
+
+function cancelDrag(){
+  if(!drag)return;
+  cleanDrag();
+  drag=null;
+  render();
+  say("Drag cancelled. Try again!");
+}
+
 function saveHistory(){
   history.push({
     tubes:cloneTubes(tubes),
-    moves,
-    extraStickActive
+    moves:moves
   });
-
-  // Prevent unlimited memory growth.
-  if(history.length>500)history.shift();
 }
 
 function makeMove(from,to){
-  if(completed||!canMove(from,to))return;
+  if(!canMove(from,to)||completed)return;
 
   saveHistory();
-
   tubes[to].push(tubes[from].pop());
   moves++;
-  selectedSource=null;
 
   render();
 
@@ -696,27 +581,24 @@ function isSolved(){
   const cap=capacity();
 
   return tubes.every(t=>
-    t.length===0||
-    (t.length===cap&&t.every(c=>c===t[0]))
+    t.length===0||(t.length===cap&&t.every(c=>c===t[0]))
   );
 }
 
 function finishLevel(){
-  if(completed)return;
-
   completed=true;
+  switchMode=false;
+  switchFirst=null;
 
-  const reward=rewardForLevel();
+  const reward=rewardAmount();
   progress.coins+=reward;
-
   saveProgress();
+
   render();
 
   $("winText").textContent=
     "You completed level "+progress.level+
-    " and earned "+reward+" coins!";
-
-  $("rewardText").textContent="+"+reward+" 🪙";
+    " and earned "+reward+" coins! 🪙";
 
   overlay.classList.add("show");
   say("All colours sorted! Amazing work!","var(--gold)");
@@ -725,168 +607,133 @@ function finishLevel(){
 function startLevel(){
   tubes=makePuzzle();
   startingPuzzle=cloneTubes(tubes);
-
   history=[];
   moves=0;
-  completed=false;
+  freeUndoUsed=0;
   extraStickActive=false;
-  undoUsed=0;
-  selectedSource=null;
   switchMode=false;
-  switchSelection=[];
-
-  overlay.classList.remove("show");
+  switchFirst=null;
+  completed=false;
 
   render();
 
-  say(
-    "Level "+progress.level+
-    " · "+capacity()+" capacity · "+difficultyName()
-  );
+  say("Level "+progress.level+" · "+capacity()+
+      " hoops per stick. Sort every colour!");
 }
 
 function nextLevel(){
-  if(!completed)return;
-
   progress.level++;
   saveProgress();
+  overlay.classList.remove("show");
   startLevel();
 }
 
-function restartLevel(){
+/* UNDO: 3 free uses, then 75 coins per use */
+$("undoBtn").addEventListener("click",()=>{
+  if(!history.length||completed)return;
+
+  if(freeUndoUsed>=3){
+    if(progress.coins<75){
+      say("You need 75 coins for another Undo.","var(--gold)");
+      return;
+    }
+    progress.coins-=75;
+  }
+
+  freeUndoUsed++;
+
+  const previous=history.pop();
+  tubes=cloneTubes(previous.tubes);
+  moves=previous.moves;
+
+  saveProgress();
+  render();
+  say(freeUndoUsed<=3&&freeUndoUsed>0
+    ?"Last move undone.":"Last move undone.");
+});
+
+/* RESTART: free, returns to the original level board */
+$("restartBtn").addEventListener("click",()=>{
   if(completed)return;
 
   tubes=cloneTubes(startingPuzzle);
   history=[];
   moves=0;
-  undoUsed=0;
-  extraStickActive=false;
-  selectedSource=null;
   switchMode=false;
-  switchSelection=[];
+  switchFirst=null;
 
   render();
-  say("Level restarted. Your coins are safe!");
-}
+  say("Level restarted. You can do this!");
+});
 
-function undoMove(){
-  if(!history.length||completed)return;
+/* SWITCH HOOPS: select two exposed top hoops */
+$("switchBtn").addEventListener("click",()=>{
+  if(completed)return;
 
-  if(undoUsed>=3&&progress.coins<75){
-    say("You need 75 coins for another Undo.","var(--gold)");
+  if(switchMode){
+    switchMode=false;
+    switchFirst=null;
+    render();
+    say("Switch cancelled.");
     return;
   }
-
-  if(undoUsed>=3){
-    progress.coins-=75;
-    saveProgress();
-  }
-
-  const previous=history.pop();
-
-  tubes=cloneTubes(previous.tubes);
-  moves=previous.moves;
-  extraStickActive=previous.extraStickActive;
-
-  undoUsed++;
-
-  selectedSource=null;
-  switchSelection=[];
-
-  render();
-  say(undoUsed<=3
-    ?"Free Undo used! ("+(3-undoUsed)+" free left)"
-    :"Previous move restored. 75 coins spent.",
-    "var(--gold)"
-  );
-}
-
-function addStick(){
-  if(completed||extraStickActive)return;
 
   if(progress.coins<150){
-    say("You need 150 coins to add a stick.","var(--gold)");
-    return;
-  }
-
-  if(tubes.length>=8){
-    say("There is no room for another stick!");
-    return;
-  }
-
-  progress.coins-=150;
-  extraStickActive=true;
-  tubes.push([]);
-
-  selectedSource=null;
-
-  saveProgress();
-  render();
-
-  say("Extra empty stick added for this level!","var(--gold)");
-}
-
-function beginSwitch(){
-  if(completed||switchMode)return;
-
-  if(progress.coins<150){
-    say("You need 150 coins to switch hoops.","var(--gold)");
+    say("You need 150 coins to Switch Hoops.","var(--gold)");
     return;
   }
 
   switchMode=true;
-  switchSelection=[];
-  selectedSource=null;
-
+  switchFirst=null;
   render();
-  say("Select the first exposed hoop, then the second.","var(--gold)");
-}
+  say("Choose the first top hoop, then choose another top hoop.");
+});
 
-function selectForSwitch(index){
+function selectSwitchHoop(index){
+  if(!switchMode||completed)return;
+
   if(!tubes[index]||!tubes[index].length){
-    say("Choose a stick with an exposed hoop.","var(--pink)");
+    say("Choose a stick with a hoop on top.","var(--pink)");
     return;
   }
 
-  if(switchSelection.includes(index)){
-    switchSelection=switchSelection.filter(i=>i!==index);
+  if(switchFirst===null){
+    switchFirst=index;
     render();
+    say("Now choose the second top hoop.");
     return;
   }
 
-  switchSelection.push(index);
-
-  if(switchSelection.length===1){
+  if(switchFirst===index){
+    switchFirst=null;
     render();
-    say("Now select a second exposed hoop.","var(--gold)");
+    say("Choose a different stick.");
     return;
   }
-
-  const [a,b]=switchSelection;
-
-  if(a===b)return;
 
   if(progress.coins<150){
     switchMode=false;
-    switchSelection=[];
+    switchFirst=null;
     render();
-    say("You need 150 coins for this switch.","var(--gold)");
+    say("You need 150 coins to Switch Hoops.","var(--gold)");
     return;
   }
 
   saveHistory();
 
-  const topA=tubes[a].length-1;
-  const topB=tubes[b].length-1;
+  const first=tubes[switchFirst];
+  const second=tubes[index];
 
-  [tubes[a][topA],tubes[b][topB]]=
-  [tubes[b][topB],tubes[a][topA]];
+  const firstTop=first.pop();
+  const secondTop=second.pop();
+
+  first.push(secondTop);
+  second.push(firstTop);
 
   progress.coins-=150;
-  moves++;
-
   switchMode=false;
-  switchSelection=[];
+  switchFirst=null;
+  moves++;
 
   saveProgress();
   render();
@@ -894,180 +741,33 @@ function selectForSwitch(index){
   if(isSolved()){
     finishLevel();
   }else{
-    say("Hoops switched! Keep sorting.","var(--teal)");
+    say("Hoops switched! Keep sorting.");
   }
 }
 
-/* Pointer Events: drag and tap support */
+/* ADD STICK: temporary, one extra empty stick for this level */
+$("extraBtn").addEventListener("click",()=>{
+  if(completed||extraStickActive)return;
 
-function getStickAt(x,y){
-  const el=document.elementFromPoint(x,y);
-  return el&&el.closest(".stick");
-}
-
-function cleanPointer(){
-  if(ghost)ghost.remove();
-  ghost=null;
-
-  if(pointer&&pointer.source){
-    pointer.source.classList.remove("dragging-source");
-  }
-
-  document.querySelectorAll(".stick").forEach(s=>
-    s.classList.remove("drag-over","invalid")
-  );
-
-  window.removeEventListener("pointermove",movePointer);
-  window.removeEventListener("pointerup",endPointer);
-  window.removeEventListener("pointercancel",cancelPointer);
-}
-
-function startPointer(e){
-  if(completed||pointer||e.button!==0)return;
-
-  const stick=e.target.closest(".stick");
-  if(!stick)return;
-
-  const index=Number(stick.dataset.index);
-  const donut=e.target.closest(".donut");
-
-  // Switch mode requires selecting exposed hoops.
-  if(switchMode){
-    if(donut&&donut.classList.contains("top-hoop")){
-      e.preventDefault();
-      selectForSwitch(index);
-    }
+  if(progress.coins<150){
+    say("You need 150 coins to add a stick.","var(--gold)");
     return;
   }
 
-  if(donut&&donut.classList.contains("top-hoop")){
-    e.preventDefault();
+  progress.coins-=150;
+  extraStickActive=true;
+  tubes.push([]);
 
-    pointer={
-      from:index,
-      pointerId:e.pointerId,
-      source:donut,
-      startX:e.clientX,
-      startY:e.clientY,
-      dragging:false
-    };
-
-    window.addEventListener("pointermove",movePointer,{passive:false});
-    window.addEventListener("pointerup",endPointer);
-    window.addEventListener("pointercancel",cancelPointer);
-
-    return;
-  }
-
-  // Tapping a destination after selecting a source.
-  if(selectedSource!==null){
-    if(canMove(selectedSource,index)){
-      makeMove(selectedSource,index);
-    }else{
-      say("Choose an empty stick or a matching colour.","var(--pink)");
-    }
-  }
-}
-
-function movePointer(e){
-  if(!pointer||e.pointerId!==pointer.pointerId)return;
-
-  const dx=e.clientX-pointer.startX;
-  const dy=e.clientY-pointer.startY;
-
-  if(!pointer.dragging&&Math.hypot(dx,dy)>8){
-    pointer.dragging=true;
-
-    ghost=pointer.source.cloneNode(true);
-    ghost.classList.add("drag-ghost");
-    ghost.style.left=e.clientX+"px";
-    ghost.style.top=e.clientY+"px";
-
-    document.body.appendChild(ghost);
-    pointer.source.classList.add("dragging-source");
-  }
-
-  if(!pointer.dragging)return;
-
-  e.preventDefault();
-
-  if(ghost){
-    ghost.style.left=e.clientX+"px";
-    ghost.style.top=e.clientY+"px";
-  }
-
-  document.querySelectorAll(".stick").forEach(s=>
-    s.classList.remove("drag-over","invalid")
-  );
-
-  const target=getStickAt(e.clientX,e.clientY);
-
-  if(target){
-    const to=Number(target.dataset.index);
-
-    if(to!==pointer.from){
-      target.classList.add(
-        canMove(pointer.from,to)?"drag-over":"invalid"
-      );
-    }
-  }
-}
-
-function endPointer(e){
-  if(!pointer||e.pointerId!==pointer.pointerId)return;
-
-  const from=pointer.from;
-  const wasDragging=pointer.dragging;
-  const target=wasDragging?getStickAt(e.clientX,e.clientY):null;
-  const to=target?Number(target.dataset.index):-1;
-
-  cleanPointer();
-  pointer=null;
-
-  if(wasDragging){
-    if(to>=0&&canMove(from,to)){
-      makeMove(from,to);
-    }else{
-      render();
-      say("Try an empty stick or a matching colour.","var(--pink)");
-    }
-    return;
-  }
-
-  // A tap selects the source hoop.
-  selectedSource=selectedSource===from?null:from;
-
+  saveProgress();
   render();
+  say("Extra stick added for this level!","var(--gold)");
+});
 
-  if(selectedSource!==null){
-    say("Hoop selected! Tap a destination stick.","var(--gold)");
-  }else{
-    say("Hoop selection cancelled.");
-  }
-}
-
-function cancelPointer(){
-  if(!pointer)return;
-
-  cleanPointer();
-  pointer=null;
-
-  render();
-  say("Drag cancelled. Try again!");
-}
-
-boardEl.addEventListener("pointerdown",startPointer);
-
-$("undoBtn").addEventListener("click",undoMove);
-$("restartBtn").addEventListener("click",restartLevel);
-$("extraBtn").addEventListener("click",addStick);
-$("switchBtn").addEventListener("click",beginSwitch);
 $("nextBtn").addEventListener("click",nextLevel);
 
 startLevel();
 
 })();
 </script>
-
 </body>
 </html>
