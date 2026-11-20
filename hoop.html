@@ -3,353 +3,228 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#101027">
-<meta name="description" content="Play HOOP at WOBBLE ARCADE.">
-<title>HOOP - WOBBLE ARCADE</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#100b2b">
+<title>HOOP | WOBBLE ARCADE</title>
 <style>
-:root{
-  --bg:#101027;
-  --purple:#9564ff;
-  --pink:#ff4f91;
-  --teal:#20dccb;
-  --gold:#ffc857;
-  --text:#fffaff;
-  --muted:#aaa6c8;
+:root {
+  --bg:#100b2b;
+  --panel:#211746;
+  --panel2:#2c2058;
+  --pink:#ff63bd;
+  --gold:#ffd66b;
+  --text:#fff;
+  --muted:#c6bce7;
 }
 *{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--text)}
 body{
-  margin:0;
   min-height:100vh;
-  padding:20px 6px 35px;
-  color:var(--text);
-  font-family:system-ui,-apple-system,sans-serif;
-  text-align:center;
-  -webkit-tap-highlight-color:transparent;
   overflow-x:hidden;
   background:
-    radial-gradient(ellipse at 10% 15%,#6738a955 0%,transparent 32%),
-    radial-gradient(ellipse at 90% 25%,#135c9b44 0%,transparent 32%),
-    radial-gradient(ellipse at 50% 70%,#722b9c25 0%,transparent 45%),
-    linear-gradient(160deg,#11102c 0%,#191632 48%,#10172e 100%);
+    radial-gradient(ellipse at 15% 10%,#49318a 0,transparent 38%),
+    radial-gradient(ellipse at 90% 75%,#242b68 0,transparent 35%),
+    linear-gradient(145deg,#100b2b,#17113b 55%,#0d1735);
+  padding:12px 10px 28px;
 }
 body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  opacity:.22;
-  background-image:
-    radial-gradient(circle at 15% 20%,#ffffff 1px,transparent 2px),
-    radial-gradient(circle at 80% 35%,#ffffff 1px,transparent 2px),
-    radial-gradient(circle at 45% 80%,#ffffff 1px,transparent 2px),
-    radial-gradient(circle at 90% 90%,#ffffff 1px,transparent 2px);
-  background-size:115px 130px,160px 170px,190px 190px,140px 160px;
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;
+  background-image:radial-gradient(#fff 1px,transparent 1px);
+  background-size:34px 34px;
 }
-button{font:inherit;cursor:pointer}
-.brand{font-size:21px;font-weight:950;letter-spacing:2px}
-.brand span{color:var(--purple)}
-.arcade{font-size:10px;color:var(--muted);letter-spacing:4px;font-weight:800}
-h1{
-  font-size:43px;letter-spacing:4px;color:var(--gold);
-  margin:17px 0 3px;text-shadow:0 4px 25px #ffc85766;
+.page{position:relative;width:100%;max-width:620px;margin:auto}
+header{text-align:center;margin:4px 0 12px}
+.logo{font-size:clamp(30px,9vw,43px);font-weight:1000;letter-spacing:5px;color:#fff;text-shadow:0 3px 0 #8d43bd,0 0 22px #b65bff}
+.subtitle{font-size:11px;letter-spacing:4px;color:#cbb8ff;margin-top:2px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:12px 0}
+.pill{background:#24194c;border:1px solid #59468d;border-radius:18px;padding:9px 13px;font-size:13px;font-weight:800;box-shadow:0 5px 14px #07051a66}
+.pill span{color:var(--gold)}
+.level-area{display:flex;justify-content:center;align-items:center;gap:9px;margin:8px 0 12px}
+.level-area label{font-size:13px;color:var(--muted);font-weight:bold}
+select{
+  background:#30225d;color:#fff;border:1px solid #7964b5;border-radius:12px;
+  padding:9px 13px;font-weight:bold;font-size:14px;max-width:160px
 }
-.subtitle{font-size:13px;color:var(--muted);margin:5px 0 20px}
-.stats{
-  width:min(100%,470px);margin:auto;
-  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
-}
-.stat{
-  background:linear-gradient(145deg,#302d53dd,#201e3ddd);
-  border:1px solid #ffffff20;border-radius:14px;
-  padding:11px 4px;box-shadow:0 7px 18px #0004;
-  backdrop-filter:blur(8px);
-}
-.stat small{
-  display:block;color:var(--muted);font-size:9px;
-  font-weight:850;letter-spacing:1px;
-}
-.stat strong{display:block;font-size:20px;margin-top:4px}
-#coins{color:var(--gold)}
-.message{
-  width:min(100%,470px);min-height:42px;margin:14px auto 12px;
-  padding:11px;border-radius:12px;
-  background:linear-gradient(110deg,#8b5cf629,#3a8bba20);
-  border:1px solid #a98aff30;color:#e8ddff;
-  font-size:12px;font-weight:750;
-}
-.board-wrap{
-  width:min(100%,760px);margin:auto;padding:17px 8px;
-  border-radius:23px;
-  background:
-    radial-gradient(ellipse at 50% 0%,#9873ff20,transparent 65%),
-    linear-gradient(145deg,#292747ed,#17172fee);
-  border:1px solid #ffffff25;
-  box-shadow:0 20px 45px #0008,inset 0 1px 0 #ffffff15;
-  backdrop-filter:blur(12px);
-}
+.progress{height:7px;border-radius:9px;background:#ffffff20;overflow:hidden;margin:0 4px 13px}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#ff65be,#ffd66b);border-radius:9px;transition:width .25s}
+.message{text-align:center;min-height:22px;color:#e1d7ff;font-size:13px;font-weight:700;margin:8px 0}
 .board{
-  display:grid;
-  grid-template-columns:repeat(4,68px);
-  gap:14px 4px;
-  align-items:end;
-  justify-content:center;
-  width:max-content;
-  margin:auto;
+  width:100%;padding:17px 10px 19px;border-radius:24px;
+  background:linear-gradient(145deg,#34265fdd,#1c1745ee);
+  border:1px solid #7760a7;box-shadow:0 15px 35px #05031588,inset 0 2px 12px #ffffff12;
+}
+.sticks{
+  width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:22px 7px;align-items:end;justify-items:center;
 }
 .stick{
-  width:68px;height:var(--stick-height,350px);
-  padding:0 0 14px;
-  display:flex;flex-direction:column-reverse;
-  align-items:center;justify-content:flex-start;
-  gap:0;position:relative;
-  border:1px solid #ffffff17;
-  border-radius:17px 17px 13px 13px;
-  background:
-    linear-gradient(90deg,#ffffff04,#ffffff0b 45%,#ffffff03),
-    linear-gradient(180deg,#171629,#10101f);
-  box-shadow:inset 0 0 15px #0009,0 7px 13px #0005;
-  touch-action:none;
-  transition:background .15s,border-color .15s,transform .15s;
+  width:100%;min-width:0;min-height:190px;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  border:0;background:transparent;padding:0 1px 5px;touch-action:none;
+  -webkit-tap-highlight-color:transparent;
 }
-.stick:before{
-  content:"";position:absolute;z-index:0;bottom:12px;left:50%;
-  height:calc(100% - 30px);width:7px;transform:translateX(-50%);
-  border-radius:9px;
-  background:linear-gradient(90deg,#aeb4c7,#fff 35%,#e5e9f5 65%,#929bb2);
-  box-shadow:1px 0 5px #0009,inset 0 0 2px #fff;
+.stick:focus-visible{outline:2px solid white;border-radius:12px}
+.rod{
+  position:absolute;bottom:13px;width:9px;height:146px;border-radius:8px;
+  background:linear-gradient(90deg,#aeb9d5,#fff 40%,#c9d4ed 75%,#7c8caf);
+  box-shadow:2px 3px 6px #05051b88;z-index:0;
 }
-.stick:after{
-  content:"";position:absolute;z-index:1;bottom:3px;left:50%;
-  width:94%;height:13px;transform:translateX(-50%);
-  border-radius:50%;
-  background:linear-gradient(#fff,#d6d9e5 55%,#777f98);
-  box-shadow:0 3px 5px #0009;
+.base{
+  position:absolute;bottom:7px;width:88%;height:13px;border-radius:50%;
+  background:linear-gradient(180deg,#fff,#a8b4d2 50%,#59658c);
+  box-shadow:0 4px 6px #08051e;z-index:1;
 }
-.stick.drag-over{
-  border-color:var(--teal);background:#20d6c225;
-  transform:translateY(-4px)
+.hoop-stack{
+  width:100%;display:flex;flex-direction:column-reverse;align-items:center;
+  position:relative;z-index:2;min-height:0;padding-bottom:14px;pointer-events:none;
 }
-.stick.invalid{border-color:var(--pink)}
-.stick.selected-stick{
-  border:2px solid var(--gold);background:#ffc85720;
+.hoop{
+  position:relative;width:min(100%,76px);height:31px;flex:none;margin-top:-3px;
+  border-radius:50% / 42%;
+  border:3px solid #ffffff65;
+  box-shadow:0 4px 5px #09051d99,inset 0 3px 3px #ffffff75,inset 0 -5px 5px #00000030;
 }
-.donut{
-  --icing:#ff6b9d;--shade:#a51e58;
-  position:relative;z-index:2;
-  width:68px;height:34px;flex:0 0 34px;
-  margin:0;border-radius:50%;
-  cursor:grab;touch-action:none;
-  user-select:none;-webkit-user-select:none;
-  background:
-    radial-gradient(ellipse 7px 4px at 50% 42%,transparent 0 88%,#a7653e 92% 100%),
-    linear-gradient(180deg,#ffe3b0 0%,#e6a66a 38%,#b66b37 78%,#79401f 100%);
-  box-shadow:inset 0 3px 3px #fff9,inset 0 -5px 5px #542b20aa,0 4px 5px #0009;
+.hoop:before{
+  content:"";position:absolute;left:18%;right:18%;top:5px;height:9px;
+  border-radius:50%;background:#160d36;
+  box-shadow:inset 0 2px 3px #000,0 1px 1px #ffffff70;
 }
-.donut:before{
-  content:"";position:absolute;z-index:2;left:0;top:-3px;
-  width:100%;height:25px;border-radius:50%;
-  background:
-    radial-gradient(ellipse 7px 4px at 50% 48%,transparent 0 88%,var(--shade) 92% 100%),
-    radial-gradient(ellipse at 30% 20%,#ffffffbb 0%,transparent 42%),
-    linear-gradient(145deg,#ffffff55 0%,transparent 35%),var(--icing);
-  border:1px solid #ffffff65;
-  box-shadow:inset 0 3px 4px #ffffff88,inset 0 -3px 4px var(--shade),0 2px 3px #0005;
+.hoop:after{
+  content:"";position:absolute;left:13%;right:13%;top:2px;height:5px;
+  border-radius:50%;background:#ffffff55;
 }
-.donut:after{
-  content:"";position:absolute;z-index:4;left:50%;top:9px;
-  width:15px;height:9px;transform:translateX(-50%);
-  border-radius:50%;
-  background:radial-gradient(ellipse at 35% 25%,#25202b 0%,#080711 65%,#000 100%);
-  border:2px solid #d5a16a;
-  box-shadow:inset 0 2px 3px #000,0 1px 2px #fff8,0 2px 3px #0008;
+.stick.selected .hoop-stack .hoop:first-child{filter:brightness(1.3)}
+.stick.selected .base{box-shadow:0 0 0 3px var(--gold),0 4px 10px #000}
+.stick.target .base{box-shadow:0 0 0 3px #75f4c4,0 4px 10px #000}
+.stick-number{position:absolute;bottom:-13px;font-size:10px;color:#a99bcf}
+.stick.drag-over .base{box-shadow:0 0 0 3px #75f4c4}
+.empty-label{font-size:9px;color:#a99bcf;position:absolute;bottom:25px;pointer-events:none}
+.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0 0}
+.action{
+  min-height:44px;border:1px solid #7661a9;border-radius:13px;
+  color:#fff;background:linear-gradient(180deg,#453477,#2c2058);
+  font-size:12px;font-weight:800;padding:9px 7px;
+  box-shadow:0 4px 0 #17102f;cursor:pointer;touch-action:manipulation
 }
-.sprinkles{
-  position:absolute;z-index:3;left:8px;top:2px;
-  width:52px;height:19px;pointer-events:none;border-radius:50%;
-  background:
-    radial-gradient(ellipse 2px 3px at 20% 35%,#fff 98%,transparent),
-    radial-gradient(ellipse 2px 3px at 72% 30%,#ffe36b 98%,transparent),
-    radial-gradient(ellipse 2px 3px at 30% 72%,#ff4f87 98%,transparent),
-    radial-gradient(ellipse 2px 3px at 80% 67%,#fff 98%,transparent),
-    radial-gradient(ellipse 2px 3px at 53% 15%,#20d6c2 98%,transparent),
-    radial-gradient(ellipse 2px 3px at 55% 80%,#ffe36b 98%,transparent);
-}
-.donut+.donut{margin-top:-5px}
-.pink{--icing:#ff6b9d;--shade:#a51e58}
-.blue{--icing:#168cff;--shade:#0750aa}
-.yellow{--icing:#ffd45e;--shade:#a36b12}
-.green{--icing:#55e64b;--shade:#138b32}
-.purple{--icing:#a52be8;--shade:#5d168f}
-.orange{--icing:#ff9d50;--shade:#b94e16}
-.dragging-source{opacity:.18}
-.drag-ghost{
-  position:fixed;z-index:9999;pointer-events:none;
-  transform:translate(-50%,-50%) scale(1.2) rotate(-5deg);
-  filter:drop-shadow(0 15px 12px #000c);
-}
-.controls{
-  display:flex;flex-wrap:wrap;justify-content:center;
-  gap:9px;margin:18px auto;width:min(100%,600px);
-}
-button{
-  border:1px solid #ffffff18;border-radius:12px;padding:12px 13px;
-  background:linear-gradient(145deg,#484064,#302b4c);
-  color:white;font-size:11px;font-weight:850;
-  box-shadow:0 4px 0 #171329,0 7px 13px #0004;
-}
-button:active{transform:translateY(2px);box-shadow:none}
-button:disabled{opacity:.4;cursor:not-allowed}
-.primary{background:linear-gradient(145deg,#a17aff,#7146cf)}
-.gold{background:linear-gradient(145deg,#aa7a2a,#76501d)}
-.switching{outline:2px solid var(--gold);background:#75531e}
-.how-to{
-  width:min(100%,470px);margin:25px auto 0;padding:17px;
-  text-align:left;border-radius:17px;
-  background:linear-gradient(145deg,#292644ee,#1b1b35ee);
-  border:1px solid #ffffff20;color:var(--muted);
-  font-size:13px;line-height:1.7;
-  box-shadow:0 10px 25px #0003;
-}
-.how-to h2{color:white;font-size:15px;margin:0 0 8px}
-.how-to ol{padding-left:20px;margin:0}
-.how-to p{margin-bottom:0}
+.action:active{transform:translateY(2px);box-shadow:0 2px 0 #17102f}
+.action small{display:block;font-size:10px;color:#f6d98b;margin-top:3px}
+.action.primary{background:linear-gradient(180deg,#ff79c8,#d63c9c);border-color:#ffb0dc}
+.action:disabled{opacity:.42;filter:grayscale(.6);cursor:not-allowed}
+.hint{text-align:center;color:#bfb4e2;font-size:11px;line-height:1.5;margin:14px 5px 0}
 .overlay{
-  position:fixed;inset:0;z-index:10000;display:none;
-  align-items:center;justify-content:center;padding:20px;
-  background:#090817dc;
+  position:fixed;inset:0;background:#09051ddd;z-index:20;display:none;
+  align-items:center;justify-content:center;padding:20px
 }
 .overlay.show{display:flex}
 .modal{
-  width:min(100%,340px);padding:28px 22px;border-radius:22px;
-  background:linear-gradient(145deg,#35305b,#201d3b);
-  border:1px solid var(--purple);box-shadow:0 20px 60px #0009;
+  width:min(100%,360px);text-align:center;padding:25px 20px;border-radius:23px;
+  background:linear-gradient(145deg,#382565,#1d1746);
+  border:1px solid #a48bd7;box-shadow:0 15px 45px #0009
 }
-.modal h2{font-size:28px;margin:0 0 8px}
-.modal p{color:var(--muted);line-height:1.5}
-footer{margin-top:25px;color:#8983a7;font-size:11px}
-
-/* Portrait phone: four full-size sticks per row */
+.modal h2{font-size:27px;margin:0 0 8px;color:#ffb7e1}
+.modal p{color:#e0d7f7;font-size:14px;line-height:1.5}
+.modal button{width:100%;margin-top:10px}
 @media(max-width:380px){
-  body{padding-left:5px;padding-right:5px}
-  .board-wrap{padding:14px 5px}
-  .board{grid-template-columns:repeat(4,68px);gap:12px 3px}
-  .stick{width:68px}
-  .controls{gap:7px}
-  button{padding:11px 9px;font-size:10px}
+  body{padding:9px 7px 22px}
+  .board{padding:14px 7px 17px;border-radius:20px}
+  .sticks{column-gap:4px;row-gap:18px}
+  .stick{min-height:178px}
+  .rod{height:137px;width:8px}
+  .hoop{height:30px;width:min(100%,70px)}
+  .action{font-size:11px;padding:8px 4px}
 }
-
-/* Larger screens get more columns without shrinking the hoops */
-@media(min-width:600px){
-  .board{grid-template-columns:repeat(6,78px);gap:14px 9px}
-  .stick{width:78px}
-}
-@media(min-width:900px){
-  .board{grid-template-columns:repeat(8,78px)}
-}
-@media(prefers-reduced-motion:no-preference){
-  .donut:not(.drag-ghost){animation:donutShine 4s ease-in-out infinite}
-  @keyframes donutShine{
-    0%,100%{filter:brightness(1)}
-    50%{filter:brightness(1.08)}
-  }
+@media(min-width:520px){
+  .sticks{column-gap:13px;row-gap:25px}
+  .stick{min-height:205px}
+  .hoop{height:34px;width:min(100%,88px)}
+  .rod{height:158px}
 }
 </style>
 </head>
-
 <body>
-<header>
-  <div class="brand">WOBBLE<span>.</span></div>
-  <div class="arcade">⚡ ARCADE</div>
-  <h1>HOOP</h1>
-  <p class="subtitle">Stack the colours. Sort the donuts. Beat the levels!</p>
-</header>
+<div class="page">
+  <header>
+    <div class="logo">HOOP</div>
+    <div class="subtitle">A WOBBLE ARCADE GAME</div>
+  </header>
 
-<section class="stats">
-  <div class="stat"><small>LEVEL</small><strong id="level">1</strong></div>
-  <div class="stat"><small>COINS 🪙</small><strong id="coins">0</strong></div>
-  <div class="stat"><small>MOVES</small><strong id="moves">0</strong></div>
-</section>
+  <div class="topbar">
+    <div class="pill">🪙 <span id="coins">0</span> coins</div>
+    <div class="pill">🏆 Best: <span id="best">1</span></div>
+  </div>
 
-<div class="message" id="message">Drag a top hoop onto an empty stick or matching colour.</div>
+  <div class="level-area">
+    <label for="levelSelect">LEVEL</label>
+    <select id="levelSelect" aria-label="Choose unlocked level"></select>
+  </div>
+  <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="message" id="message">Sort the hoops by colour!</div>
 
-<div class="board-wrap">
-  <div class="board" id="board"></div>
-</div>
+  <main class="board">
+    <div class="sticks" id="sticks"></div>
+  </main>
 
-<div class="controls">
-  <button id="undoBtn">↶ UNDO (3 FREE)</button>
-  <button id="restartBtn">↻ RESTART</button>
-  <button class="gold" id="switchBtn">🔀 SWITCH HOOPS · 150 🪙</button>
-  <button class="gold" id="extraBtn">➕ ADD STICK · 150 🪙</button>
-</div>
-
-<section class="how-to">
-  <h2>🍩 HOW TO PLAY</h2>
-  <ol>
-    <li>Drag the top hoop from one stick to another.</li>
-    <li>You can move a hoop onto an empty stick or a matching colour.</li>
-    <li>Use Switch Hoops to swap two exposed top hoops, even different colours.</li>
-    <li>Add Stick gives you one extra empty stick for the current level.</li>
-    <li>You get 3 free Undo uses per level. Further Undo uses cost 75 coins.</li>
-    <li>Stick capacity grows as you progress: 4, 5, 6, then up to 7 hoops.</li>
-    <li>Sort every colour into its own full stick to win!</li>
-  </ol>
-  <p>🪙 Earn coins by completing levels. Power-ups cost coins; there are no real-money purchases.</p>
-</section>
-
-<div class="overlay" id="winOverlay">
-  <div class="modal">
-    <h2>🍩 Delicious!</h2>
-    <p id="winText">You sorted every hoop!</p>
-    <button class="primary" id="nextBtn">NEXT LEVEL →</button>
+  <div class="controls">
+    <button class="action" id="undoBtn">↶ Undo <small id="undoInfo">3 free per level</small></button>
+    <button class="action" id="restartBtn">⟳ Restart <small>Free</small></button>
+    <button class="action" id="switchBtn">⇄ Switch Hoops <small>150 coins</small></button>
+    <button class="action" id="extraBtn">＋ Add Stick <small>150 coins</small></button>
+  </div>
+  <div class="hint" id="hint">
+    Move a top hoop onto an empty stick or a stick with the same top colour.
+    Complete each colour stack to win!
   </div>
 </div>
 
-<footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2 id="modalTitle">Level complete!</h2>
+    <p id="modalText">Great job!</p>
+    <button class="action primary" id="nextBtn">Next Level</button>
+    <button class="action" id="replayBtn">Play this level again</button>
+  </div>
+</div>
 
 <script>
-(()=>{
+(() => {
 "use strict";
 
-const STORAGE_KEY="wobbleHoopProgress";
-const COLOURS=["pink","blue","yellow","green","purple","orange"];
-const $=id=>document.getElementById(id);
-const boardEl=$("board");
-const messageEl=$("message");
-const overlay=$("winOverlay");
+const STORAGE_KEY = "wobbleHoopProgress";
+const COLOURS = [
+  "#ff557f","#35c9f2","#ffd34e","#9b72ff",
+  "#55dc9b","#ff944d","#f06bd1","#9bd94c"
+];
 
-function loadProgress(){
+const $ = id => document.getElementById(id);
+const clone = board => board.map(stack => [...stack]);
+
+function readProgress(){
   try{
-    const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+    const old = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
     return {
-      level:Math.max(1,Number(s.level)||1),
-      coins:Math.max(0,Number(s.coins)||0)
+      level: Math.max(1, Number(old.level) || 1),
+      unlockedLevel: Math.max(1, Number(old.unlockedLevel) || Number(old.level) || 1),
+      coins: Math.max(0, Number(old.coins) || 0),
+      completedLevels: Array.isArray(old.completedLevels) ? old.completedLevels : [],
+      best: Math.max(1, Number(old.best) || Number(old.unlockedLevel) || 1)
     };
-  }catch{
-    return {level:1,coins:0};
+  }catch(e){
+    return {level:1,unlockedLevel:1,coins:0,completedLevels:[],best:1};
   }
 }
+let progress = readProgress();
 
-let progress=loadProgress();
-let tubes=[];
-let startingPuzzle=[];
-let moves=0;
-let history=[];
-let completed=false;
-let drag=null;
-let ghost=null;
-let freeUndoUsed=0;
-let extraStickActive=false;
-let switchMode=false;
-let switchFirst=null;
+function saveProgress(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
+  }catch(e){}
+}
 
 function capacity(){
-  return progress.level<=3?4:
-         progress.level<=6?5:
-         progress.level<=9?6:7;
+  if(progress.level<=3)return 4;
+  if(progress.level<=6)return 5;
+  if(progress.level<=9)return 6;
+  return 7;
 }
 function colourCount(){
   if(progress.level<=3)return 3;
@@ -357,397 +232,375 @@ function colourCount(){
   if(progress.level<=9)return 5;
   return 6;
 }
-function cloneTubes(v){return v.map(t=>[...t])}
-
-function saveProgress(){
-  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress))}
-  catch(e){console.warn("Could not save progress",e)}
+function stickCount(){
+  if(progress.level<=3)return 4;
+  if(progress.level<=6)return 5;
+  if(progress.level<=9)return 6;
+  return 7;
+}
+function reward(){
+  return Math.min(200,60 + Math.floor((progress.level-1)/3)*15);
 }
 
-function rewardAmount(){
-  if(progress.level===1)return 60;
-  return Math.min(200,60+progress.level*8);
+let board = [];
+let startingBoard = [];
+let history = [];
+let freeUndos = 3;
+let extraStickActive = false;
+let switchMode = false;
+let switchFirst = null;
+let selectedStick = null;
+let levelWon = false;
+
+function shuffle(array){
+  for(let i=array.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
+  }
+  return array;
 }
 
+/* Create a puzzle by reversing legal moves from a solved board.
+   Each reverse move can be undone by a legal forward move. */
 function makePuzzle(){
-  const cap=capacity();
-  const count=colourCount();
+  const count = colourCount();
+  const cap = capacity();
+  const totalSticks = stickCount();
+  const solved = Array.from({length:totalSticks},(_,i)=>i<count?Array(cap).fill(i):[]);
+  let puzzle = clone(solved);
+  let lastFrom = -1;
+  let lastTo = -1;
+  const steps = Math.max(18,progress.level*7);
 
-  for(let attempt=0;attempt<100;attempt++){
-    const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
-    candidate.push([]);
-    let previous=null;
-    const scrambleMoves=Math.min(90,12+progress.level*4);
-    let made=0;
-
-    for(let step=0;step<scrambleMoves;step++){
-      const choices=[];
-
-      for(let from=0;from<candidate.length;from++){
-        if(!candidate[from].length)continue;
-        const colour=candidate[from][candidate[from].length-1];
-
-        for(let to=0;to<candidate.length;to++){
-          if(from===to||candidate[to].length>=cap)continue;
-          const targetColour=candidate[to].length
-            ?candidate[to][candidate[to].length-1]:null;
-          if(targetColour===colour)continue;
-          if(previous&&from===previous.to&&to===previous.from)continue;
-          choices.push({from,to});
-        }
+  for(let step=0;step<steps;step++){
+    const options=[];
+    for(let from=0;from<puzzle.length;from++){
+      if(!puzzle[from].length)continue;
+      for(let to=0;to<puzzle.length;to++){
+        if(to===from || puzzle[to].length>=cap)continue;
+        if(puzzle[from].length>1 &&
+           puzzle[from][puzzle[from].length-2]!==puzzle[from][puzzle[from].length-1])continue;
+        if(puzzle[to].length && puzzle[to][puzzle[to].length-1]===puzzle[from][puzzle[from].length-1])continue;
+        if(from===lastTo && to===lastFrom)continue;
+        options.push([from,to]);
       }
-
-      if(!choices.length)break;
-      const move=choices[Math.floor(Math.random()*choices.length)];
-      candidate[move.to].push(candidate[move.from].pop());
-      previous=move;
-      made++;
     }
-
-    const mixed=candidate.some(t=>t.length>0&&new Set(t).size>1);
-    const empty=candidate.some(t=>t.length===0);
-    if(mixed&&empty&&made>=5)return candidate;
+    if(!options.length)break;
+    const [from,to]=options[Math.floor(Math.random()*options.length)];
+    puzzle[to].push(puzzle[from].pop());
+    lastFrom=from;lastTo=to;
   }
-
-  const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
-  candidate.push([]);
-  candidate[count].push(candidate[0].pop());
-  candidate[1].push(candidate[0].pop());
-  return candidate;
+  return puzzle;
 }
 
-function say(message,color){
-  messageEl.textContent=message;
-  messageEl.style.color=color||"var(--teal)";
-}
-
-function updateStats(){
-  $("level").textContent=progress.level;
-  $("coins").textContent=progress.coins;
-  $("moves").textContent=moves;
-
-  $("undoBtn").textContent=freeUndoUsed<3
-    ?"↶ UNDO ("+(3-freeUndoUsed)+" FREE)"
-    :"↶ UNDO · 75 🪙";
-
-  $("undoBtn").disabled=!history.length||completed||
-    (freeUndoUsed>=3&&progress.coins<75);
-
-  $("extraBtn").disabled=extraStickActive||completed||progress.coins<150;
-  $("extraBtn").textContent=extraStickActive
-    ?"✓ EXTRA STICK ADDED"
-    :"➕ ADD STICK · 150 🪙";
-
-  $("switchBtn").disabled=completed||progress.coins<150;
-  $("switchBtn").classList.toggle("switching",switchMode);
-  $("switchBtn").textContent=switchMode
-    ?"✕ CANCEL SWITCH"
-    :"🔀 SWITCH HOOPS · 150 🪙";
-}
-
-function createDonut(colour,index){
-  const d=document.createElement("div");
-  d.className="donut "+colour;
-  d.setAttribute("aria-label",colour+" hoop");
-
-  const sprinkles=document.createElement("span");
-  sprinkles.className="sprinkles";
-  d.appendChild(sprinkles);
-
-  d.addEventListener("click",()=>{
-    if(switchMode)selectSwitchHoop(index);
-  });
-  return d;
-}
-
-function render(){
-  boardEl.innerHTML="";
-  const stickHeight=capacity()*29+105;
-
-  tubes.forEach((tube,index)=>{
-    const stick=document.createElement("div");
-    stick.className="stick";
-    stick.dataset.index=index;
-    stick.style.setProperty("--stick-height",stickHeight+"px");
-
-    if(switchFirst===index)stick.classList.add("selected-stick");
-
-    tube.forEach((colour,i)=>{
-      const donut=createDonut(colour,index);
-
-      if(i===tube.length-1&&!completed&&!switchMode){
-        donut.addEventListener("pointerdown",startDrag);
-      }else{
-        donut.style.cursor="default";
-      }
-      stick.appendChild(donut);
-    });
-    boardEl.appendChild(stick);
-  });
-  updateStats();
-}
-
-function canMove(from,to){
-  if(from===to||!tubes[from]||!tubes[to]||!tubes[from].length)return false;
-  if(tubes[to].length>=capacity())return false;
-  if(!tubes[to].length)return true;
-  return tubes[to][tubes[to].length-1]===tubes[from][tubes[from].length-1];
-}
-
-function startDrag(e){
-  if(completed||drag||switchMode||e.button!==0)return;
-  const donut=e.currentTarget;
-  const from=Number(donut.closest(".stick").dataset.index);
-  if(!tubes[from]||!tubes[from].length)return;
-
-  e.preventDefault();
-  ghost=donut.cloneNode(true);
-  ghost.classList.add("drag-ghost");
-  ghost.style.left=e.clientX+"px";
-  ghost.style.top=e.clientY+"px";
-  document.body.appendChild(ghost);
-
-  donut.classList.add("dragging-source");
-  drag={from,pointerId:e.pointerId,source:donut};
-  say("Release over a stick to drop your hoop!");
-
-  window.addEventListener("pointermove",moveDrag,{passive:false});
-  window.addEventListener("pointerup",endDrag);
-  window.addEventListener("pointercancel",cancelDrag);
-}
-
-function moveDrag(e){
-  if(!drag||e.pointerId!==drag.pointerId)return;
-  e.preventDefault();
-  if(ghost){
-    ghost.style.left=e.clientX+"px";
-    ghost.style.top=e.clientY+"px";
-  }
-
-  document.querySelectorAll(".stick").forEach(s=>
-    s.classList.remove("drag-over","invalid")
-  );
-
-  const target=document.elementFromPoint(e.clientX,e.clientY);
-  const stick=target&&target.closest(".stick");
-
-  if(stick){
-    const to=Number(stick.dataset.index);
-    if(to!==drag.from)stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
-  }
-}
-
-function cleanDrag(){
-  if(ghost)ghost.remove();
-  ghost=null;
-  if(drag&&drag.source)drag.source.classList.remove("dragging-source");
-
-  document.querySelectorAll(".stick").forEach(s=>
-    s.classList.remove("drag-over","invalid")
-  );
-  window.removeEventListener("pointermove",moveDrag);
-  window.removeEventListener("pointerup",endDrag);
-  window.removeEventListener("pointercancel",cancelDrag);
-}
-
-function endDrag(e){
-  if(!drag||e.pointerId!==drag.pointerId)return;
-  const target=document.elementFromPoint(e.clientX,e.clientY);
-  const stick=target&&target.closest(".stick");
-  const from=drag.from;
-  const to=stick?Number(stick.dataset.index):-1;
-
-  cleanDrag();
-  drag=null;
-
-  if(to>=0&&canMove(from,to))makeMove(from,to);
-  else{
-    render();
-    say("Try an empty stick or a matching colour.","var(--pink)");
-  }
-}
-
-function cancelDrag(){
-  if(!drag)return;
-  cleanDrag();
-  drag=null;
-  render();
-  say("Drag cancelled. Try again!");
-}
-
-function saveHistory(){
-  history.push({tubes:cloneTubes(tubes),moves:moves});
-}
-
-function makeMove(from,to){
-  if(!canMove(from,to)||completed)return;
-  saveHistory();
-  tubes[to].push(tubes[from].pop());
-  moves++;
-  render();
-
-  if(isSolved())finishLevel();
-  else say("Nice move! Keep sorting.");
-}
-
-function isSolved(){
-  const cap=capacity();
-  return tubes.every(t=>
-    t.length===0||(t.length===cap&&t.every(c=>c===t[0]))
-  );
-}
-
-function finishLevel(){
-  completed=true;
-  switchMode=false;
-  switchFirst=null;
-  const reward=rewardAmount();
-  progress.coins+=reward;
-  saveProgress();
-  render();
-
-  $("winText").textContent=
-    "You completed level "+progress.level+
-    " and earned "+reward+" coins! 🪙";
-
-  overlay.classList.add("show");
-  say("All colours sorted! Amazing work!","var(--gold)");
-}
-
-function startLevel(){
-  tubes=makePuzzle();
-  startingPuzzle=cloneTubes(tubes);
+function setupLevel(){
+  board=makePuzzle();
+  startingBoard=clone(board);
   history=[];
-  moves=0;
-  freeUndoUsed=0;
+  freeUndos=3;
   extraStickActive=false;
   switchMode=false;
   switchFirst=null;
-  completed=false;
+  selectedStick=null;
+  levelWon=false;
+  $("overlay").classList.remove("show");
+  $("message").textContent="Sort the hoops by colour!";
   render();
-  say("Level "+progress.level+" · "+capacity()+
-      " hoops per stick. Sort every colour!");
 }
 
-function nextLevel(){
-  progress.level++;
-  saveProgress();
-  overlay.classList.remove("show");
-  startLevel();
+function render(){
+  const root=$("sticks");
+  root.innerHTML="";
+  board.forEach((stack,index)=>{
+    const stick=document.createElement("button");
+    stick.type="button";
+    stick.className="stick";
+    stick.dataset.index=index;
+    stick.setAttribute("aria-label","Stick "+(index+1)+", "+stack.length+" hoops");
+    if(selectedStick===index)stick.classList.add("selected");
+    if(switchFirst===index)stick.classList.add("target");
+
+    const rod=document.createElement("span");
+    rod.className="rod";
+    const base=document.createElement("span");
+    base.className="base";
+    const stackEl=document.createElement("span");
+    stackEl.className="hoop-stack";
+
+    stack.forEach(colourIndex=>{
+      const hoop=document.createElement("span");
+      hoop.className="hoop";
+      hoop.style.background=
+        `linear-gradient(180deg,${lighten(COLOURS[colourIndex])},${COLOURS[colourIndex]} 48%,${darken(COLOURS[colourIndex])})`;
+      hoop.dataset.colour=colourIndex;
+      stackEl.appendChild(hoop);
+    });
+
+    stick.append(rod,stackEl,base);
+    if(stack.length===0){
+      const empty=document.createElement("span");
+      empty.className="empty-label";
+      empty.textContent="EMPTY";
+      stick.appendChild(empty);
+    }
+    const number=document.createElement("span");
+    number.className="stick-number";
+    number.textContent=index+1;
+    stick.appendChild(number);
+
+    stick.addEventListener("click",()=>handleStick(index));
+    root.appendChild(stick);
+  });
+
+  $("coins").textContent=progress.coins;
+  $("best").textContent=progress.best;
+  $("levelSelect").value=String(progress.level);
+  $("progressFill").style.width=(board.filter(s=>isCompleteStack(s)).length/colourCount()*100)+"%";
+  $("undoInfo").textContent=freeUndos>0?freeUndos+" free left":"75 coins";
+  $("undoBtn").disabled=history.length===0;
+  $("switchBtn").textContent=switchMode?"Cancel Switch":"⇄ Switch Hoops";
+  $("switchBtn").innerHTML=switchMode?"Cancel Switch <small>Choose two top hoops</small>":"⇄ Switch Hoops <small>150 coins</small>";
+  $("extraBtn").disabled=extraStickActive;
+  $("extraBtn").innerHTML=extraStickActive?"＋ Stick Added <small>This level only</small>":"＋ Add Stick <small>150 coins</small>";
+  $("levelSelect").innerHTML="";
+  for(let i=1;i<=progress.unlockedLevel;i++){
+    const option=document.createElement("option");
+    option.value=i;
+    option.textContent="Level "+i;
+    $("levelSelect").appendChild(option);
+  }
+  $("levelSelect").value=String(progress.level);
 }
 
-$("undoBtn").addEventListener("click",()=>{
-  if(!history.length||completed)return;
+function lighten(hex){
+  const n=parseInt(hex.slice(1),16);
+  const r=Math.min(255,((n>>16)&255)+55);
+  const g=Math.min(255,((n>>8)&255)+55);
+  const b=Math.min(255,(n&255)+55);
+  return `rgb(${r},${g},${b})`;
+}
+function darken(hex){
+  const n=parseInt(hex.slice(1),16);
+  const r=Math.max(0,((n>>16)&255)-55);
+  const g=Math.max(0,((n>>8)&255)-55);
+  const b=Math.max(0,(n&255)-55);
+  return `rgb(${r},${g},${b})`;
+}
+function isCompleteStack(stack){
+  return stack.length>0 &&
+    stack.length===capacity() &&
+    stack.every(colour=>colour===stack[0]);
+}
+function canMove(from,to){
+  if(from===to || !board[from] || !board[from].length)return false;
+  if(board[to].length>=capacity())return false;
+  if(board[to].length===0)return true;
+  return board[to][board[to].length-1]===board[from][board[from].length-1];
+}
+function remember(){
+  history.push({
+    board:clone(board),
+    freeUndos,
+    extraStickActive,
+    startingBoard:clone(startingBoard)
+  });
+}
+function handleStick(index){
+  if(levelWon)return;
+  if(switchMode){
+    handleSwitch(index);
+    return;
+  }
+  if(selectedStick===null){
+    if(board[index].length){
+      selectedStick=index;
+      $("message").textContent="Now choose where to move the top hoop.";
+      render();
+    }
+    return;
+  }
+  if(selectedStick===index){
+    selectedStick=null;
+    $("message").textContent="Choose a hoop to move.";
+    render();
+    return;
+  }
+  const from=selectedStick;
+  selectedStick=null;
+  if(canMove(from,index)){
+    remember();
+    board[index].push(board[from].pop());
+    $("message").textContent="Nice move!";
+    render();
+    checkWin();
+  }else{
+    if(board[index].length){
+      selectedStick=index;
+      $("message").textContent="That move isn't allowed. Choose another stick.";
+    }else{
+      $("message").textContent="That move isn't allowed.";
+    }
+    render();
+  }
+}
 
-  if(freeUndoUsed>=3){
-    if(progress.coins<75){
-      say("You need 75 coins for another Undo.","var(--gold)");
+function handleSwitch(index){
+  if(switchFirst===null){
+    if(!board[index].length){
+      $("message").textContent="Choose a stick with a hoop on top.";
       return;
     }
-    progress.coins-=75;
+    switchFirst=index;
+    $("message").textContent="Now choose a second stick with a top hoop.";
+    render();
+    return;
   }
-
-  freeUndoUsed++;
-  const previous=history.pop();
-  tubes=cloneTubes(previous.tubes);
-  moves=previous.moves;
-  saveProgress();
-  render();
-  say("Last move undone.");
-});
-
-$("restartBtn").addEventListener("click",()=>{
-  if(completed)return;
-  tubes=cloneTubes(startingPuzzle);
-  history=[];
-  moves=0;
+  if(index===switchFirst){
+    switchFirst=null;
+    $("message").textContent="Choose the first hoop again.";
+    render();
+    return;
+  }
+  if(!board[index].length){
+    $("message").textContent="Choose a second stick with a top hoop.";
+    return;
+  }
+  remember();
+  const a=board[switchFirst].length-1;
+  const b=board[index].length-1;
+  [board[switchFirst][a],board[index][b]]=
+    [board[index][b],board[switchFirst][a]];
   switchMode=false;
   switchFirst=null;
+  $("message").textContent="Hoops switched!";
   render();
-  say("Level restarted. You can do this!");
-});
+  checkWin();
+}
 
-$("switchBtn").addEventListener("click",()=>{
-  if(completed)return;
+function undo(){
+  if(!history.length)return;
+  if(freeUndos<=0 && progress.coins<75){
+    $("message").textContent="You need 75 coins for another Undo.";
+    return;
+  }
+  if(freeUndos<=0)progress.coins-=75;
+  const previous=history.pop();
+  board=clone(previous.board);
+  freeUndos=previous.freeUndos;
+  extraStickActive=previous.extraStickActive;
+  startingBoard=clone(previous.startingBoard);
+  switchMode=false;
+  switchFirst=null;
+  selectedStick=null;
+  levelWon=false;
+  saveProgress();
+  $("message").textContent="Last move undone.";
+  render();
+}
+
+function restart(){
+  board=clone(startingBoard);
+  history=[];
+  freeUndos=3;
+  switchMode=false;
+  switchFirst=null;
+  selectedStick=null;
+  levelWon=false;
+  $("overlay").classList.remove("show");
+  $("message").textContent="Level restarted. Try a new approach!";
+  render();
+}
+
+function buyExtraStick(){
+  if(extraStickActive || levelWon)return;
+  if(progress.coins<150){
+    $("message").textContent="You need 150 coins to add a stick.";
+    return;
+  }
+  remember();
+  progress.coins-=150;
+  board.push([]);
+  startingBoard.push([]);
+  extraStickActive=true;
+  saveProgress();
+  $("message").textContent="An extra empty stick has been added!";
+  render();
+}
+
+function toggleSwitch(){
+  if(levelWon)return;
   if(switchMode){
     switchMode=false;
     switchFirst=null;
+    $("message").textContent="Switch cancelled.";
     render();
-    say("Switch cancelled.");
     return;
   }
   if(progress.coins<150){
-    say("You need 150 coins to Switch Hoops.","var(--gold)");
+    $("message").textContent="You need 150 coins to switch hoops.";
     return;
   }
+  progress.coins-=150;
+  saveProgress();
   switchMode=true;
   switchFirst=null;
+  selectedStick=null;
+  $("message").textContent="Choose the first top hoop to switch.";
   render();
-  say("Choose the first top hoop, then choose another top hoop.");
-});
-
-function selectSwitchHoop(index){
-  if(!switchMode||completed)return;
-  if(!tubes[index]||!tubes[index].length){
-    say("Choose a stick with a hoop on top.","var(--pink)");
-    return;
-  }
-  if(switchFirst===null){
-    switchFirst=index;
-    render();
-    say("Now choose the second top hoop.");
-    return;
-  }
-  if(switchFirst===index){
-    switchFirst=null;
-    render();
-    say("Choose a different stick.");
-    return;
-  }
-  if(progress.coins<150){
-    switchMode=false;
-    switchFirst=null;
-    render();
-    say("You need 150 coins to Switch Hoops.","var(--gold)");
-    return;
-  }
-
-  saveHistory();
-  const first=tubes[switchFirst];
-  const second=tubes[index];
-  const firstTop=first.pop();
-  const secondTop=second.pop();
-  first.push(secondTop);
-  second.push(firstTop);
-
-  progress.coins-=150;
-  switchMode=false;
-  switchFirst=null;
-  moves++;
-  saveProgress();
-  render();
-
-  if(isSolved())finishLevel();
-  else say("Hoops switched! Keep sorting.");
 }
 
-$("extraBtn").addEventListener("click",()=>{
-  if(completed||extraStickActive)return;
-  if(progress.coins<150){
-    say("You need 150 coins to add a stick.","var(--gold)");
-    return;
+function checkWin(){
+  const allSorted=board.every(stack=>stack.length===0 || isCompleteStack(stack));
+  const completeCount=board.filter(isCompleteStack).length;
+  $("progressFill").style.width=(completeCount/colourCount()*100)+"%";
+  if(allSorted && completeCount===colourCount()){
+    finishLevel();
   }
-  progress.coins-=150;
-  extraStickActive=true;
-  tubes.push([]);
+}
+function finishLevel(){
+  if(levelWon)return;
+  levelWon=true;
+  const prize=reward();
+  if(!progress.completedLevels.includes(progress.level)){
+    progress.coins+=prize;
+    progress.completedLevels.push(progress.level);
+  }
+  progress.unlockedLevel=Math.max(progress.unlockedLevel,progress.level+1);
+  progress.best=Math.max(progress.best,progress.unlockedLevel);
   saveProgress();
-  render();
-  say("Extra stick added for this level!","var(--gold)");
-});
+  $("coins").textContent=progress.coins;
+  $("best").textContent=progress.best;
+  $("modalTitle").textContent="🎉 Level complete!";
+  $("modalText").textContent="Beautifully sorted! You earned "+(progress.completedLevels.includes(progress.level)?"your level reward":"")+" "+prize+" coins.";
+  $("nextBtn").style.display="block";
+  $("overlay").classList.add("show");
+}
+function nextLevel(){
+  progress.level++;
+  saveProgress();
+  setupLevel();
+}
+function replayLevel(){
+  setupLevel();
+}
+function changeLevel(){
+  const chosen=Number($("levelSelect").value);
+  if(chosen>=1 && chosen<=progress.unlockedLevel){
+    progress.level=chosen;
+    saveProgress();
+    setupLevel();
+  }
+}
 
+$("undoBtn").addEventListener("click",undo);
+$("restartBtn").addEventListener("click",restart);
+$("switchBtn").addEventListener("click",toggleSwitch);
+$("extraBtn").addEventListener("click",buyExtraStick);
+$("levelSelect").addEventListener("change",changeLevel);
 $("nextBtn").addEventListener("click",nextLevel);
+$("replayBtn").addEventListener("click",replayLevel);
 
-startLevel();
+setupLevel();
 })();
 </script>
 </body>
