@@ -8,201 +8,794 @@
 <meta name="description" content="Play HOOP, the colourful donut sorting puzzle at WOBBLE ARCADE.">
 <link rel="canonical" href="https://masego101-coder.github.io/wobble/hoop.html">
 <title>HOOP - WOBBLE ARCADE</title>
+
 <style>
-:root{--bg:#17172b;--purple:#8B5CF6;--pink:#FF4F87;--teal:#20D6C2;--gold:#FFC857;--text:#f8f5ff;--muted:#aaa5c5}
+:root{
+  --bg:#17172b;
+  --purple:#8B5CF6;
+  --pink:#FF4F87;
+  --teal:#20D6C2;
+  --gold:#FFC857;
+  --text:#f8f5ff;
+  --muted:#aaa5c5;
+}
+
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:20px 9px 35px;color:var(--text);background:radial-gradient(ellipse at 50% 0%,#49306d 0%,transparent 55%),var(--bg);font-family:system-ui,-apple-system,sans-serif;text-align:center;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+
+body{
+  margin:0;
+  min-height:100vh;
+  padding:20px 9px 35px;
+  color:var(--text);
+  background:radial-gradient(ellipse at 50% 0%,#49306d 0%,transparent 55%),var(--bg);
+  font-family:system-ui,-apple-system,sans-serif;
+  text-align:center;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+
 button{font:inherit;cursor:pointer}
-.brand{font-size:20px;font-weight:950;letter-spacing:2px}.brand span{color:var(--purple)}
+
+.brand{font-size:20px;font-weight:950;letter-spacing:2px}
+.brand span{color:var(--purple)}
 .arcade{font-size:10px;color:var(--muted);letter-spacing:4px;font-weight:800}
-h1{font-size:46px;letter-spacing:4px;color:var(--gold);margin:20px 0 3px;text-shadow:0 4px 18px #ffc85755}
+
+h1{
+  font-size:46px;
+  letter-spacing:4px;
+  color:var(--gold);
+  margin:20px 0 3px;
+  text-shadow:0 4px 18px #ffc85755;
+}
+
 .subtitle{font-size:13px;color:var(--muted);margin:5px 0 22px}
-.stats{width:min(100%,470px);margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat{background:linear-gradient(145deg,#302c50,#211f39);border:1px solid #ffffff18;border-radius:14px;padding:11px 4px;box-shadow:0 5px 12px #0003}
-.stat small{display:block;color:var(--muted);font-size:9px;font-weight:850;letter-spacing:1px}
-.stat strong{display:block;font-size:20px;margin-top:4px}#coins{color:var(--gold)}
-.message{width:min(100%,470px);min-height:42px;margin:15px auto 12px;padding:11px;border-radius:12px;background:#8b5cf61b;border:1px solid #8b5cf633;color:#ded4ff;font-size:12px;font-weight:750}
-.board-wrap{width:min(100%,560px);margin:auto;padding:16px 10px;border-radius:22px;background:radial-gradient(ellipse at 50% 0%,#ffffff0c,transparent 65%),linear-gradient(145deg,#302e4e,#1b1a31);border:1px solid #ffffff1c;box-shadow:0 18px 40px #0006,inset 0 1px 0 #ffffff12;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#8b5cf6 #211f39}
-.board{display:grid;grid-template-columns:repeat(5,78px);gap:9px;align-items:end;justify-content:center;width:max-content;min-height:250px;margin:auto}
-.board.six{grid-template-columns:repeat(6,74px);gap:7px}
-.stick{width:100%;height:var(--stick-height,270px);padding:0 4px 14px;display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-start;position:relative;border:1px solid #ffffff13;border-radius:17px 17px 13px 13px;background:linear-gradient(90deg,#ffffff04,#ffffff0a 45%,#ffffff03),#151426;box-shadow:inset 0 0 15px #0008,0 6px 12px #0004;touch-action:pan-x;transition:background .15s,border-color .15s,transform .15s}
-.stick:before{content:"";position:absolute;z-index:0;bottom:12px;left:50%;height:calc(100% - 30px);width:7px;transform:translateX(-50%);border-radius:9px;background:linear-gradient(90deg,#aeb4c7,#fff 35%,#e5e9f5 65%,#929bb2);box-shadow:1px 0 5px #0009,inset 0 0 2px #fff}
-.stick:after{content:"";position:absolute;z-index:1;bottom:3px;left:50%;width:94%;height:13px;transform:translateX(-50%);border-radius:50%;background:linear-gradient(#fff,#d6d9e5 55%,#777f98);box-shadow:0 3px 5px #0009}
-.stick.drag-over{border-color:var(--teal);background:#20d6c225;transform:translateY(-4px)}.stick.invalid{border-color:var(--pink)}
-.donut{--icing:#ff6b9d;--shade:#a51e58;position:relative;z-index:2;width:66px;height:48px;flex:0 0 48px;margin-top:-7px;border-radius:50%;background:radial-gradient(ellipse at 50% 48%,#8c4b28 0 10%,#f0c18a 11% 18%,transparent 19%),linear-gradient(145deg,#ffe8bd 0%,#e9b277 55%,#a75c30 100%);border:2px solid #a76338;box-shadow:inset 0 5px 7px #fff9,inset 0 -7px 9px #693519bb,0 5px 6px #0009,0 2px 3px #0008;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
-.donut:before{content:"";position:absolute;inset:3px;border-radius:50%;background:radial-gradient(ellipse at 50% 48%,transparent 0 12%,var(--shade) 13% 19%,transparent 20%),radial-gradient(ellipse at 28% 20%,#ffffffee 0 2%,#ffffff70 12%,transparent 40%),radial-gradient(ellipse at 75% 80%,#00000055,transparent 44%),var(--icing);box-shadow:inset 0 5px 6px #ffffffbb,inset 0 -7px 9px var(--shade),0 2px 3px #0006}
-.donut:after{content:"";position:absolute;z-index:4;left:50%;top:48%;width:23%;height:31%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(ellipse at 35% 30%,#100a10 0 48%,#392318 70%,#a96a3c 100%);border:2px solid #bd7c49;box-shadow:inset 0 3px 4px #000e,0 1px 2px #fff7,0 2px 4px #0009}
-.sprinkles{position:absolute;z-index:3;inset:5px;pointer-events:none;border-radius:50%;background:radial-gradient(ellipse 2px 4px at 25% 35%,#fff 98%,transparent),radial-gradient(ellipse 2px 4px at 72% 30%,#ffe36b 98%,transparent),radial-gradient(ellipse 2px 4px at 32% 72%,#ff4f87 98%,transparent),radial-gradient(ellipse 2px 4px at 78% 67%,#fff 98%,transparent),radial-gradient(ellipse 2px 4px at 52% 15%,#20d6c2 98%,transparent),radial-gradient(ellipse 2px 4px at 55% 80%,#ffe36b 98%,transparent)}
-.pink{--icing:#ff6b9d;--shade:#a51e58}.blue{--icing:#168cff;--shade:#0750aa}.yellow{--icing:#ffd45e;--shade:#a36b12}.green{--icing:#55e64b;--shade:#138b32}.purple{--icing:#a52be8;--shade:#5d168f}.orange{--icing:#ff9d50;--shade:#b94e16}
-.dragging-source{opacity:.18}.drag-ghost{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%) scale(1.2) rotate(-5deg);filter:drop-shadow(0 15px 12px #000c)}
-.controls{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin:18px auto}
-button{border:0;border-radius:12px;padding:12px 14px;background:#393258;color:white;font-size:12px;font-weight:850;box-shadow:0 4px 0 #211b36}
-button:active{transform:translateY(2px);box-shadow:none}button:disabled{opacity:.4}.primary{background:var(--purple)}.gold{background:#916319}
-.how-to{width:min(100%,470px);margin:25px auto 0;padding:17px;text-align:left;border-radius:17px;background:#22223d;border:1px solid #39365c;color:var(--muted);font-size:13px;line-height:1.7}
-.how-to h2{color:white;font-size:15px;margin:0 0 8px}.how-to ol{padding-left:20px;margin:0}.how-to p{margin-bottom:0}
-.overlay{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;background:#090817dc}.overlay.show{display:flex}
-.modal{width:min(100%,340px);padding:28px 22px;border-radius:22px;background:#292544;border:1px solid var(--purple);box-shadow:0 20px 60px #0009}
-.modal h2{font-size:28px;margin:0 0 8px}.modal p{color:var(--muted);line-height:1.5}
+
+.stats{
+  width:min(100%,470px);
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.stat{
+  background:linear-gradient(145deg,#302c50,#211f39);
+  border:1px solid #ffffff18;
+  border-radius:14px;
+  padding:11px 4px;
+  box-shadow:0 5px 12px #0003;
+}
+
+.stat small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:1px;
+}
+
+.stat strong{display:block;font-size:20px;margin-top:4px}
+#coins{color:var(--gold)}
+
+.message{
+  width:min(100%,470px);
+  min-height:42px;
+  margin:15px auto 12px;
+  padding:11px;
+  border-radius:12px;
+  background:#8b5cf61b;
+  border:1px solid #8b5cf633;
+  color:#ded4ff;
+  font-size:12px;
+  font-weight:750;
+}
+
+.board-wrap{
+  width:min(100%,560px);
+  margin:auto;
+  padding:16px 10px;
+  border-radius:22px;
+  background:radial-gradient(ellipse at 50% 0%,#ffffff0c,transparent 65%),linear-gradient(145deg,#302e4e,#1b1a31);
+  border:1px solid #ffffff1c;
+  box-shadow:0 18px 40px #0006,inset 0 1px 0 #ffffff12;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:#8b5cf6 #211f39;
+}
+
+.board{
+  display:grid;
+  grid-template-columns:repeat(5,78px);
+  gap:9px;
+  align-items:end;
+  justify-content:center;
+  width:max-content;
+  min-height:250px;
+  margin:auto;
+}
+
+.board.six{
+  grid-template-columns:repeat(6,74px);
+  gap:7px;
+  justify-content:center;
+}
+
+/* DONUT STICKS */
+.stick{
+  width:100%;
+  height:var(--stick-height,350px);
+  padding:0 4px 14px;
+  display:flex;
+  flex-direction:column-reverse;
+  align-items:center;
+  justify-content:flex-start;
+  gap:5px;
+  position:relative;
+  border:1px solid #ffffff13;
+  border-radius:17px 17px 13px 13px;
+  background:linear-gradient(90deg,#ffffff04,#ffffff0a 45%,#ffffff03),#151426;
+  box-shadow:inset 0 0 15px #0008,0 6px 12px #0004;
+  touch-action:pan-x;
+  transition:background .15s,border-color .15s,transform .15s;
+}
+
+.stick:before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  bottom:12px;
+  left:50%;
+  height:calc(100% - 30px);
+  width:7px;
+  transform:translateX(-50%);
+  border-radius:9px;
+  background:linear-gradient(90deg,#aeb4c7,#fff 35%,#e5e9f5 65%,#929bb2);
+  box-shadow:1px 0 5px #0009,inset 0 0 2px #fff;
+}
+
+.stick:after{
+  content:"";
+  position:absolute;
+  z-index:1;
+  bottom:3px;
+  left:50%;
+  width:94%;
+  height:13px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:linear-gradient(#fff,#d6d9e5 55%,#777f98);
+  box-shadow:0 3px 5px #0009;
+}
+
+.stick.drag-over{
+  border-color:var(--teal);
+  background:#20d6c225;
+  transform:translateY(-4px);
+}
+
+.stick.invalid{border-color:var(--pink)}
+
+/* ROUND, THICK, INDIVIDUAL DONUTS */
+.donut{
+  --icing:#ff6b9d;
+  --shade:#a51e58;
+  position:relative;
+  z-index:2;
+  width:60px;
+  height:60px;
+  flex:0 0 60px;
+  margin:0;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%,#75401f 0 9%,#f0c18a 10% 17%,transparent 18%),
+    linear-gradient(145deg,#ffe8bd 0%,#e9b277 55%,#a75c30 100%);
+  border:2px solid #a76338;
+  box-shadow:
+    inset 0 5px 7px #fff9,
+    inset 0 -7px 9px #693519bb,
+    0 4px 6px #0009;
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+.donut:before{
+  content:"";
+  position:absolute;
+  inset:3px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%,transparent 0 13%,var(--shade) 14% 20%,transparent 21%),
+    radial-gradient(ellipse at 28% 20%,#ffffffee 0 2%,#ffffff70 12%,transparent 40%),
+    radial-gradient(ellipse at 75% 80%,#00000055,transparent 44%),
+    var(--icing);
+  box-shadow:
+    inset 0 5px 6px #ffffffbb,
+    inset 0 -7px 9px var(--shade),
+    0 2px 3px #0006;
+}
+
+.donut:after{
+  content:"";
+  position:absolute;
+  z-index:4;
+  left:50%;
+  top:50%;
+  width:25%;
+  height:25%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#100a10 0 48%,#392318 70%,#a96a3c 100%);
+  border:2px solid #bd7c49;
+  box-shadow:
+    inset 0 3px 4px #000e,
+    0 1px 2px #fff7,
+    0 2px 4px #0009;
+}
+
+.sprinkles{
+  position:absolute;
+  z-index:3;
+  inset:5px;
+  pointer-events:none;
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse 2px 4px at 25% 35%,#fff 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 72% 30%,#ffe36b 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 32% 72%,#ff4f87 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 78% 67%,#fff 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 52% 15%,#20d6c2 98%,transparent),
+    radial-gradient(ellipse 2px 4px at 55% 80%,#ffe36b 98%,transparent);
+}
+
+.pink{--icing:#ff6b9d;--shade:#a51e58}
+.blue{--icing:#168cff;--shade:#0750aa}
+.yellow{--icing:#ffd45e;--shade:#a36b12}
+.green{--icing:#55e64b;--shade:#138b32}
+.purple{--icing:#a52be8;--shade:#5d168f}
+.orange{--icing:#ff9d50;--shade:#b94e16}
+
+.dragging-source{opacity:.18}
+
+.drag-ghost{
+  position:fixed;
+  z-index:9999;
+  pointer-events:none;
+  transform:translate(-50%,-50%) scale(1.2) rotate(-5deg);
+  filter:drop-shadow(0 15px 12px #000c);
+}
+
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:9px;
+  margin:18px auto;
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 14px;
+  background:#393258;
+  color:white;
+  font-size:12px;
+  font-weight:850;
+  box-shadow:0 4px 0 #211b36;
+}
+
+button:active{transform:translateY(2px);box-shadow:none}
+button:disabled{opacity:.4}
+.primary{background:var(--purple)}
+.gold{background:#916319}
+
+.how-to{
+  width:min(100%,470px);
+  margin:25px auto 0;
+  padding:17px;
+  text-align:left;
+  border-radius:17px;
+  background:#22223d;
+  border:1px solid #39365c;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.how-to h2{color:white;font-size:15px;margin:0 0 8px}
+.how-to ol{padding-left:20px;margin:0}
+.how-to p{margin-bottom:0}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:#090817dc;
+}
+
+.overlay.show{display:flex}
+
+.modal{
+  width:min(100%,340px);
+  padding:28px 22px;
+  border-radius:22px;
+  background:#292544;
+  border:1px solid var(--purple);
+  box-shadow:0 20px 60px #0009;
+}
+
+.modal h2{font-size:28px;margin:0 0 8px}
+.modal p{color:var(--muted);line-height:1.5}
 footer{margin-top:25px;color:#77718f;font-size:11px}
-@media(max-width:390px){.board-wrap{padding:12px 5px}.board{gap:6px}.board.six{gap:5px}}
-@media(prefers-reduced-motion:no-preference){.donut:not(.drag-ghost){animation:donutShine 4s ease-in-out infinite}@keyframes donutShine{0%,100%{filter:brightness(1)}50%{filter:brightness(1.07)}}}
+
+@media(max-width:390px){
+  .board-wrap{padding:12px 5px}
+  .board{gap:6px}
+  .board.six{gap:5px}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .donut:not(.drag-ghost){
+    animation:donutShine 4s ease-in-out infinite;
+  }
+  @keyframes donutShine{
+    0%,100%{filter:brightness(1)}
+    50%{filter:brightness(1.07)}
+  }
+}
 </style>
 </head>
+
 <body>
-<header><div class="brand">WOBBLE<span>.</span></div><div class="arcade">⚡ ARCADE</div><h1>HOOP</h1><p class="subtitle">Stack the colours. Sort the donuts. Beat the levels!</p></header>
+
+<header>
+  <div class="brand">WOBBLE<span>.</span></div>
+  <div class="arcade">⚡ ARCADE</div>
+  <h1>HOOP</h1>
+  <p class="subtitle">Stack the colours. Sort the donuts. Beat the levels!</p>
+</header>
+
 <section class="stats">
-<div class="stat"><small>LEVEL</small><strong id="level">1</strong></div>
-<div class="stat"><small>COINS 🪙</small><strong id="coins">0</strong></div>
-<div class="stat"><small>MOVES</small><strong id="moves">0</strong></div>
+  <div class="stat"><small>LEVEL</small><strong id="level">1</strong></div>
+  <div class="stat"><small>COINS 🪙</small><strong id="coins">0</strong></div>
+  <div class="stat"><small>MOVES</small><strong id="moves">0</strong></div>
 </section>
+
 <div class="message" id="message">Hold a donut, drag it, and release!</div>
-<div class="board-wrap"><div class="board" id="board"></div></div>
-<div class="controls"><button id="undoBtn">↶ UNDO</button><button id="restartBtn">↻ RESTART</button><button class="gold" id="extraBtn">🔓 EXTRA STICK · 100 🪙</button></div>
-<section class="how-to"><h2>🍩 HOW TO PLAY</h2><ol>
-<li>Touch and hold the top donut on a stick.</li><li>Drag it to another stick and release your finger.</li><li>Move a donut to an empty stick or onto the same colour.</li>
-<li>Stick capacity grows as you progress: 4, 5, 6, then up to 7 donuts.</li><li>Sort every colour into its own stick to win!</li>
-</ol><p>🪙 Earn coins by completing levels. Save 100 coins to unlock a sixth stick!</p></section>
-<div class="overlay" id="winOverlay"><div class="modal"><h2>🍩 Delicious!</h2><p id="winText">You sorted every donut!</p><button class="primary" id="nextBtn">NEXT LEVEL →</button></div></div>
+
+<div class="board-wrap">
+  <div class="board" id="board"></div>
+</div>
+
+<div class="controls">
+  <button id="undoBtn">↶ UNDO</button>
+  <button id="restartBtn">↻ RESTART</button>
+  <button class="gold" id="extraBtn">🔓 EXTRA STICK · 100 🪙</button>
+</div>
+
+<section class="how-to">
+  <h2>🍩 HOW TO PLAY</h2>
+  <ol>
+    <li>Touch and hold the top donut on a stick.</li>
+    <li>Drag it to another stick and release your finger.</li>
+    <li>Move a donut to an empty stick or onto the same colour.</li>
+    <li>Stick capacity grows as you progress: 4, 5, 6, then up to 7 donuts.</li>
+    <li>Sort every colour into its own stick to win!</li>
+  </ol>
+  <p>🪙 Earn coins by completing levels. Save 100 coins to unlock a sixth stick!</p>
+</section>
+
+<div class="overlay" id="winOverlay">
+  <div class="modal">
+    <h2>🍩 Delicious!</h2>
+    <p id="winText">You sorted every donut!</p>
+    <button class="primary" id="nextBtn">NEXT LEVEL →</button>
+  </div>
+</div>
+
 <footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
+
 <script>
 (()=>{
 "use strict";
+
 const STORAGE_KEY="wobbleHoopProgress";
 const COLOURS=["pink","blue","yellow","green","purple","orange"];
-const $=id=>document.getElementById(id),boardEl=$("board"),messageEl=$("message"),overlay=$("winOverlay");
-function loadProgress(){try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");return{level:Math.max(1,Number(s.level)||1),coins:Math.max(0,Number(s.coins)||0),extraStick:Boolean(s.extraStick||s.extraTube||s.unlocked)}}catch{return{level:1,coins:0,extraStick:false}}}
-let progress=loadProgress(),tubes=[],startingPuzzle=[],moves=0,history=[],completed=false,drag=null,ghost=null;
-function capacity(){return progress.level<=3?4:progress.level<=6?5:progress.level<=9?6:7}
-function stickCount(){return progress.extraStick?6:5}
-function colourCount(){return progress.extraStick?5:4}
-function cloneTubes(v){return v.map(t=>[...t])}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function makePuzzle(){
- const cap=capacity(),count=colourCount();
- for(let attempt=0;attempt<600;attempt++){
-  const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));candidate.push([]);
-  const scramble=Math.min(220,40+progress.level*12);let previous=null;
-  for(let step=0;step<scramble;step++){
-   const choices=[];
-   for(let from=0;from<candidate.length;from++){
-    if(!candidate[from].length)continue;
-    for(let to=0;to<candidate.length;to++){
-     if(from===to||candidate[to].length>=cap)continue;
-     const colour=candidate[from][candidate[from].length-1];
-     if(candidate[to].length&&candidate[to][candidate[to].length-1]!==colour)continue;
-     if(previous&&from===previous.to&&to===previous.from)continue;
-     choices.push({from,to});
-    }
-   }
-   if(!choices.length)break;
-   const m=choices[Math.floor(Math.random()*choices.length)];
-   candidate[m.to].push(candidate[m.from].pop());previous=m;
+
+const $=id=>document.getElementById(id);
+const boardEl=$("board");
+const messageEl=$("message");
+const overlay=$("winOverlay");
+
+function loadProgress(){
+  try{
+    const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+    return{
+      level:Math.max(1,Number(s.level)||1),
+      coins:Math.max(0,Number(s.coins)||0),
+      extraStick:Boolean(s.extraStick||s.extraTube||s.unlocked)
+    };
+  }catch{
+    return{level:1,coins:0,extraStick:false};
   }
-  const mixed=candidate.filter(t=>t.length).every(t=>new Set(t).size>=2);
-  if(mixed&&candidate.some(t=>t.length===0))return candidate;
- }
- // Valid mixed fallback: distribute each colour evenly across the full tubes.
- const all=[];COLOURS.slice(0,count).forEach(c=>{for(let i=0;i<cap;i++)all.push(c)});
- for(let attempt=0;attempt<10000;attempt++){
-  shuffle(all);const candidate=[];
-  for(let i=0;i<count;i++)candidate.push(all.slice(i*cap,(i+1)*cap));
-  if(candidate.every(t=>new Set(t).size>=2)){candidate.push([]);return candidate}
- }
- return COLOURS.slice(0,count).map((c,i)=>Array.from({length:cap},(_,j)=>COLOURS[(i+j)%count])).concat([[]]);
 }
-function saveProgress(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress))}catch(e){console.warn("Could not save progress",e)}}
-function updateStats(){
- $("level").textContent=progress.level;$("coins").textContent=progress.coins;$("moves").textContent=moves;
- $("undoBtn").disabled=!history.length||completed;
- $("extraBtn").disabled=progress.extraStick||progress.coins<100;
- $("extraBtn").textContent=progress.extraStick?"✓ SIXTH STICK UNLOCKED":"🔓 EXTRA STICK · 100 🪙";
+
+let progress=loadProgress();
+let tubes=[],startingPuzzle=[],moves=0,history=[];
+let completed=false,drag=null,ghost=null;
+
+function capacity(){
+  return progress.level<=3?4:
+         progress.level<=6?5:
+         progress.level<=9?6:7;
 }
-function createDonut(colour){
- const d=document.createElement("div");d.className="donut "+colour;d.setAttribute("aria-label",colour+" donut");
- const s=document.createElement("span");s.className="sprinkles";d.appendChild(s);return d;
+
+function stickCount(){
+  return progress.extraStick?6:5;
 }
-function render(){
- boardEl.innerHTML="";boardEl.classList.toggle("six",tubes.length===6);
- const cap=capacity(),stickHeight=cap*40+94;
- tubes.forEach((tube,index)=>{
-  const stick=document.createElement("div");stick.className="stick";stick.dataset.index=index;
-  stick.style.setProperty("--stick-height",stickHeight+"px");
-  tube.forEach((colour,i)=>{
-   const donut=createDonut(colour);
-   if(i===tube.length-1&&!completed)donut.addEventListener("pointerdown",startDrag);
-   else donut.style.cursor="default";
-   stick.appendChild(donut);
+
+function colourCount(){
+  return progress.extraStick?5:4;
+}
+
+function cloneTubes(v){
+  return v.map(t=>[...t]);
+}
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function makePuzzle(){
+  const cap=capacity();
+  const count=colourCount();
+
+  for(let attempt=0;attempt<600;attempt++){
+    const candidate=COLOURS.slice(0,count).map(c=>Array(cap).fill(c));
+    candidate.push([]);
+    const scramble=Math.min(220,40+progress.level*12);
+    let previous=null;
+
+    for(let step=0;step<scramble;step++){
+      const choices=[];
+
+      for(let from=0;from<candidate.length;from++){
+        if(!candidate[from].length)continue;
+
+        for(let to=0;to<candidate.length;to++){
+          if(from===to||candidate[to].length>=cap)continue;
+          const colour=candidate[from][candidate[from].length-1];
+
+          if(candidate[to].length&&candidate[to][candidate[to].length-1]!==colour)continue;
+          if(previous&&from===previous.to&&to===previous.from)continue;
+
+          choices.push({from,to});
+        }
+      }
+
+      if(!choices.length)break;
+
+      const m=choices[Math.floor(Math.random()*choices.length)];
+      candidate[m.to].push(candidate[m.from].pop());
+      previous=m;
+    }
+
+    const mixed=candidate.filter(t=>t.length).every(t=>new Set(t).size>=2);
+
+    if(mixed&&candidate.some(t=>t.length===0))return candidate;
+  }
+
+  const all=[];
+
+  COLOURS.slice(0,count).forEach(c=>{
+    for(let i=0;i<cap;i++)all.push(c);
   });
-  boardEl.appendChild(stick);
- });
- boardEl.style.minHeight=(stickHeight+8)+"px";updateStats();
+
+  for(let attempt=0;attempt<10000;attempt++){
+    shuffle(all);
+    const candidate=[];
+
+    for(let i=0;i<count;i++){
+      candidate.push(all.slice(i*cap,(i+1)*cap));
+    }
+
+    if(candidate.every(t=>new Set(t).size>=2)){
+      candidate.push([]);
+      return candidate;
+    }
+  }
+
+  return COLOURS.slice(0,count).map((c,i)=>
+    Array.from({length:cap},(_,j)=>COLOURS[(i+j)%count])
+  ).concat([[]]);
 }
-function say(m,c){messageEl.textContent=m;messageEl.style.color=c||"var(--teal)"}
+
+function saveProgress(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));
+  }catch(e){
+    console.warn("Could not save progress",e);
+  }
+}
+
+function updateStats(){
+  $("level").textContent=progress.level;
+  $("coins").textContent=progress.coins;
+  $("moves").textContent=moves;
+  $("undoBtn").disabled=!history.length||completed;
+  $("extraBtn").disabled=progress.extraStick||progress.coins<100;
+
+  $("extraBtn").textContent=progress.extraStick
+    ?"✓ SIXTH STICK UNLOCKED"
+    :"🔓 EXTRA STICK · 100 🪙";
+}
+
+function createDonut(colour){
+  const d=document.createElement("div");
+  d.className="donut "+colour;
+  d.setAttribute("aria-label",colour+" donut");
+
+  const s=document.createElement("span");
+  s.className="sprinkles";
+  d.appendChild(s);
+
+  return d;
+}
+
+function render(){
+  boardEl.innerHTML="";
+  boardEl.classList.toggle("six",tubes.length===6);
+
+  const cap=capacity();
+  const stickHeight=cap*65+89;
+
+  tubes.forEach((tube,index)=>{
+    const stick=document.createElement("div");
+    stick.className="stick";
+    stick.dataset.index=index;
+    stick.style.setProperty("--stick-height",stickHeight+"px");
+
+    tube.forEach((colour,i)=>{
+      const donut=createDonut(colour);
+
+      if(i===tube.length-1&&!completed){
+        donut.addEventListener("pointerdown",startDrag);
+      }else{
+        donut.style.cursor="default";
+      }
+
+      stick.appendChild(donut);
+    });
+
+    boardEl.appendChild(stick);
+  });
+
+  boardEl.style.minHeight=(stickHeight+8)+"px";
+  updateStats();
+}
+
+function say(m,c){
+  messageEl.textContent=m;
+  messageEl.style.color=c||"var(--teal)";
+}
+
 function canMove(from,to){
- if(from===to||!tubes[from]||!tubes[to]||!tubes[from].length)return false;
- if(tubes[to].length>=capacity())return false;
- if(!tubes[to].length)return true;
- return tubes[to][tubes[to].length-1]===tubes[from][tubes[from].length-1];
+  if(from===to||!tubes[from]||!tubes[to]||!tubes[from].length)return false;
+  if(tubes[to].length>=capacity())return false;
+  if(!tubes[to].length)return true;
+  return tubes[to][tubes[to].length-1]===tubes[from][tubes[from].length-1];
 }
+
 function startDrag(e){
- if(completed||drag||e.button!==0)return;
- const donut=e.currentTarget,stick=donut.closest(".stick"),from=Number(stick.dataset.index);
- if(!tubes[from]||!tubes[from].length)return;
- e.preventDefault();ghost=donut.cloneNode(true);ghost.classList.add("drag-ghost");
- ghost.style.left=e.clientX+"px";ghost.style.top=e.clientY+"px";document.body.appendChild(ghost);
- donut.classList.add("dragging-source");drag={from,pointerId:e.pointerId,source:donut};
- say("Release over a stick to drop your donut!");
- window.addEventListener("pointermove",moveDrag,{passive:false});window.addEventListener("pointerup",endDrag);window.addEventListener("pointercancel",cancelDrag);
+  if(completed||drag||e.button!==0)return;
+
+  const donut=e.currentTarget;
+  const stick=donut.closest(".stick");
+  const from=Number(stick.dataset.index);
+
+  if(!tubes[from]||!tubes[from].length)return;
+
+  e.preventDefault();
+
+  ghost=donut.cloneNode(true);
+  ghost.classList.add("drag-ghost");
+  ghost.style.left=e.clientX+"px";
+  ghost.style.top=e.clientY+"px";
+
+  document.body.appendChild(ghost);
+  donut.classList.add("dragging-source");
+
+  drag={from,pointerId:e.pointerId,source:donut};
+
+  say("Release over a stick to drop your donut!");
+
+  window.addEventListener("pointermove",moveDrag,{passive:false});
+  window.addEventListener("pointerup",endDrag);
+  window.addEventListener("pointercancel",cancelDrag);
 }
+
 function moveDrag(e){
- if(!drag||e.pointerId!==drag.pointerId)return;e.preventDefault();
- if(ghost){ghost.style.left=e.clientX+"px";ghost.style.top=e.clientY+"px"}
- document.querySelectorAll(".stick").forEach(s=>s.classList.remove("drag-over","invalid"));
- const target=document.elementFromPoint(e.clientX,e.clientY),stick=target&&target.closest(".stick");
- if(stick){const to=Number(stick.dataset.index);if(to!==drag.from)stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid")}
+  if(!drag||e.pointerId!==drag.pointerId)return;
+
+  e.preventDefault();
+
+  if(ghost){
+    ghost.style.left=e.clientX+"px";
+    ghost.style.top=e.clientY+"px";
+  }
+
+  document.querySelectorAll(".stick").forEach(s=>
+    s.classList.remove("drag-over","invalid")
+  );
+
+  const target=document.elementFromPoint(e.clientX,e.clientY);
+  const stick=target&&target.closest(".stick");
+
+  if(stick){
+    const to=Number(stick.dataset.index);
+    if(to!==drag.from){
+      stick.classList.add(canMove(drag.from,to)?"drag-over":"invalid");
+    }
+  }
 }
+
 function cleanDrag(){
- if(ghost)ghost.remove();ghost=null;if(drag&&drag.source)drag.source.classList.remove("dragging-source");
- document.querySelectorAll(".stick").forEach(s=>s.classList.remove("drag-over","invalid"));
- window.removeEventListener("pointermove",moveDrag);window.removeEventListener("pointerup",endDrag);window.removeEventListener("pointercancel",cancelDrag);
+  if(ghost)ghost.remove();
+  ghost=null;
+
+  if(drag&&drag.source){
+    drag.source.classList.remove("dragging-source");
+  }
+
+  document.querySelectorAll(".stick").forEach(s=>
+    s.classList.remove("drag-over","invalid")
+  );
+
+  window.removeEventListener("pointermove",moveDrag);
+  window.removeEventListener("pointerup",endDrag);
+  window.removeEventListener("pointercancel",cancelDrag);
 }
+
 function endDrag(e){
- if(!drag||e.pointerId!==drag.pointerId)return;
- const target=document.elementFromPoint(e.clientX,e.clientY),stick=target&&target.closest(".stick");
- const from=drag.from,to=stick?Number(stick.dataset.index):-1;cleanDrag();drag=null;
- if(to>=0&&canMove(from,to))makeMove(from,to);else{render();say("Try an empty stick or a matching colour.","var(--pink)")}
+  if(!drag||e.pointerId!==drag.pointerId)return;
+
+  const target=document.elementFromPoint(e.clientX,e.clientY);
+  const stick=target&&target.closest(".stick");
+  const from=drag.from;
+  const to=stick?Number(stick.dataset.index):-1;
+
+  cleanDrag();
+  drag=null;
+
+  if(to>=0&&canMove(from,to)){
+    makeMove(from,to);
+  }else{
+    render();
+    say("Try an empty stick or a matching colour.","var(--pink)");
+  }
 }
-function cancelDrag(){if(!drag)return;cleanDrag();drag=null;render();say("Drag cancelled. Try again!")}
+
+function cancelDrag(){
+  if(!drag)return;
+  cleanDrag();
+  drag=null;
+  render();
+  say("Drag cancelled. Try again!");
+}
+
 function makeMove(from,to){
- if(!canMove(from,to)||completed)return;
- history.push({tubes:cloneTubes(tubes),moves});tubes[to].push(tubes[from].pop());moves++;render();
- if(isSolved())finishLevel();else say("Nice move! Keep sorting.");
+  if(!canMove(from,to)||completed)return;
+
+  history.push({tubes:cloneTubes(tubes),moves});
+  tubes[to].push(tubes[from].pop());
+  moves++;
+
+  render();
+
+  if(isSolved()){
+    finishLevel();
+  }else{
+    say("Nice move! Keep sorting.");
+  }
 }
-function isSolved(){const cap=capacity();return tubes.every(t=>t.length===0||(t.length===cap&&t.every(c=>c===t[0])))}
+
+function isSolved(){
+  const cap=capacity();
+  return tubes.every(t=>
+    t.length===0||(t.length===cap&&t.every(c=>c===t[0]))
+  );
+}
+
 function finishLevel(){
- completed=true;const reward=10+progress.level*2;progress.coins+=reward;saveProgress();render();
- $("winText").textContent="You completed level "+progress.level+" and earned "+reward+" coins! 🪙";
- overlay.classList.add("show");say("All colours sorted! Amazing work!","var(--gold)");
+  completed=true;
+  const reward=10+progress.level*2;
+  progress.coins+=reward;
+  saveProgress();
+  render();
+
+  $("winText").textContent=
+    "You completed level "+progress.level+
+    " and earned "+reward+" coins! 🪙";
+
+  overlay.classList.add("show");
+  say("All colours sorted! Amazing work!","var(--gold)");
 }
+
 function startLevel(){
- tubes=makePuzzle();startingPuzzle=cloneTubes(tubes);history=[];moves=0;completed=false;render();
- say("Level "+progress.level+" · "+capacity()+" donuts per stick. Sort every colour!");
+  tubes=makePuzzle();
+  startingPuzzle=cloneTubes(tubes);
+  history=[];
+  moves=0;
+  completed=false;
+  render();
+
+  say(
+    "Level "+progress.level+
+    " · "+capacity()+" donuts per stick. Sort every colour!"
+  );
 }
-function nextLevel(){progress.level++;saveProgress();overlay.classList.remove("show");startLevel()}
+
+function nextLevel(){
+  progress.level++;
+  saveProgress();
+  overlay.classList.remove("show");
+  startLevel();
+}
+
 $("undoBtn").addEventListener("click",()=>{
- if(!history.length||completed)return;const p=history.pop();tubes=cloneTubes(p.tubes);moves=p.moves;render();say("Last move undone.");
+  if(!history.length||completed)return;
+
+  const p=history.pop();
+  tubes=cloneTubes(p.tubes);
+  moves=p.moves;
+  render();
+  say("Last move undone.");
 });
+
 $("restartBtn").addEventListener("click",()=>{
- if(completed)return;tubes=cloneTubes(startingPuzzle);history=[];moves=0;render();say("Level restarted. You can do this!");
+  if(completed)return;
+
+  tubes=cloneTubes(startingPuzzle);
+  history=[];
+  moves=0;
+  render();
+  say("Level restarted. You can do this!");
 });
+
 $("extraBtn").addEventListener("click",()=>{
- if(progress.extraStick){say("Your sixth stick is already unlocked!");return}
- if(progress.coins<100){say("You need 100 coins to unlock another stick.","var(--gold)");return}
- progress.coins-=100;progress.extraStick=true;saveProgress();startLevel();say("Sixth stick unlocked! More room to sort!","var(--gold)");
+  if(progress.extraStick){
+    say("Your sixth stick is already unlocked!");
+    return;
+  }
+
+  if(progress.coins<100){
+    say("You need 100 coins to unlock another stick.","var(--gold)");
+    return;
+  }
+
+  progress.coins-=100;
+  progress.extraStick=true;
+  saveProgress();
+  startLevel();
+  say("Sixth stick unlocked! More room to sort!","var(--gold)");
 });
+
 $("nextBtn").addEventListener("click",nextLevel);
+
 startLevel();
+
 })();
 </script>
+
 </body>
 </html>
