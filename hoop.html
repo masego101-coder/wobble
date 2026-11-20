@@ -12,7 +12,7 @@ function makePuzzle(){
     ];
   }
 
-  // Levels 2 and 3: gentle introductory difficulty.
+  // Levels 2 and 3: preserve introductory difficulty.
   if(progress.level <= 3){
     const puzzle = Array.from(
       {length: count + 1},
@@ -27,7 +27,7 @@ function makePuzzle(){
       const options = [];
 
       for(let from = 0; from < puzzle.length; from++){
-        if(puzzle[from].length <= 0) continue;
+        if(puzzle[from].length === 0) continue;
 
         const colour = puzzle[from][puzzle[from].length - 1];
 
@@ -56,7 +56,7 @@ function makePuzzle(){
     return puzzle;
   }
 
-  // Level 4 onward: progressively deeper puzzles.
+  // Level 4 onward: improved strategic puzzle generation.
   const level = progress.level;
   const steps = Math.min(500, 95 + (level - 4) * 24);
 
@@ -64,22 +64,30 @@ function makePuzzle(){
     let score = 0;
     let mixedStacks = 0;
     let transitions = 0;
+    let buriedTransitions = 0;
+    let occupiedSticks = 0;
 
     for(const stack of puzzle){
       if(stack.length === 0) continue;
 
-      const colours = new Set(stack);
-      const diversity = colours.size;
+      occupiedSticks++;
+
+      const diversity = new Set(stack).size;
 
       if(diversity > 1){
         mixedStacks++;
         score += 45 + diversity * 30 + stack.length * 12;
       }
 
-      for(let i = 1; i <= stack.length - 1; i++){
+      for(let i = 1; i < stack.length; i++){
         if(stack[i] !== stack[i-1]){
           transitions++;
           score += 15;
+
+          // Reward colour changes buried beneath other hoops.
+          if(i < stack.length - 1){
+            buriedTransitions++;
+          }
         }
       }
 
@@ -98,6 +106,8 @@ function makePuzzle(){
 
     score += mixedStacks * 25;
     score += transitions * 12;
+    score += buriedTransitions * 18;
+    score += occupiedSticks * 4;
 
     return score;
   }
@@ -105,7 +115,7 @@ function makePuzzle(){
   let bestPuzzle = null;
   let bestScore = -Infinity;
 
-  // Generate 100 candidate puzzles.
+  // Compare 100 candidate puzzles.
   for(let attempt = 0; attempt < 100; attempt++){
     const puzzle = Array.from(
       {length: count + 1},
@@ -121,15 +131,22 @@ function makePuzzle(){
       for(let from = 0; from < puzzle.length; from++){
         if(puzzle[from].length === 0) continue;
 
-        const colour = puzzle[from][puzzle[from].length - 1];
+        const source = puzzle[from];
+        const colour = source[source.length - 1];
 
-        // Only move from single-colour stacks.
-        if(!puzzle[from].every(c => c === colour)) continue;
+        // The source must remain empty or have the same
+        // colour exposed after the hoop is removed.
+        if(
+          source.length >= 2 &&
+          source[source.length - 2] !== colour
+        ){
+          continue;
+        }
 
         for(let to = 0; to < puzzle.length; to++){
           if(to === from || puzzle[to].length >= cap) continue;
 
-          // Avoid immediately reversing the last move.
+          // Avoid immediately undoing the previous scramble.
           if(from === lastTo && to === lastFrom) continue;
 
           options.push([from,to]);
