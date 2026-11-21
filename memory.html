@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="theme-color" content="#17172b">
 
 <meta name="description" content="Play Memory Blitz free online at WOBBLE ARCADE! Match pairs of cards, test your memory, improve your concentration and beat your best time.">
@@ -42,7 +41,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto 35px;
 }
 
@@ -57,6 +56,10 @@ header {
   color: #20d6c2;
   text-decoration: none;
   font-size: 14px;
+}
+
+.back:hover {
+  text-decoration: underline;
 }
 
 h1 {
@@ -110,6 +113,10 @@ button {
   margin-bottom: 28px;
 }
 
+.restart:hover {
+  background: #7c3aed;
+}
+
 .game {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -132,6 +139,12 @@ button {
   border-color: #8b5cf6;
 }
 
+.card:focus-visible,
+.restart:focus-visible {
+  outline: 3px solid #20d6c2;
+  outline-offset: 3px;
+}
+
 .card.flipped,
 .card.matched {
   background: #39305e;
@@ -152,20 +165,135 @@ button {
   min-height: 25px;
 }
 
+/* Gameplay guide */
+
+.guide {
+  max-width: 760px;
+  margin: 55px auto 0;
+  text-align: left;
+}
+
+.guide-intro {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.guide-intro h2 {
+  font-size: 27px;
+  color: #a78bfa;
+  margin-bottom: 10px;
+}
+
+.guide-intro p {
+  color: #b8b8ca;
+  line-height: 1.7;
+}
+
+.guide-card {
+  background: #22223b;
+  border: 1px solid #353553;
+  border-radius: 15px;
+  padding: 23px;
+  margin-bottom: 16px;
+}
+
+.guide-card h3 {
+  color: #20d6c2;
+  font-size: 19px;
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+.guide-card p {
+  color: #c3c3d3;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.guide-card ul,
+.guide-card ol {
+  padding-left: 22px;
+  color: #c3c3d3;
+}
+
+.guide-card li {
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.tip {
+  background: #30264e;
+  border-left: 4px solid #a78bfa;
+  border-radius: 8px;
+  padding: 13px 15px;
+  margin-top: 14px;
+  color: #e0d5ff;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.guide-card details {
+  border-bottom: 1px solid #393953;
+  padding: 13px 0;
+}
+
+.guide-card details:last-child {
+  border-bottom: none;
+}
+
+.guide-card summary {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1.6;
+}
+
+.guide-card details p {
+  margin-bottom: 5px;
+}
+
 footer {
   margin-top: 45px;
   color: #77778f;
   font-size: 12px;
 }
 
-@media (max-width: 360px) {
+footer a {
+  color: #a78bfa;
+  text-decoration: none;
+  margin: 0 6px;
+}
+
+@media (max-width: 500px) {
+  body {
+    padding: 20px 13px;
+  }
+
+  h1 {
+    font-size: 29px;
+  }
+
   .stats {
-    gap: 6px;
+    gap: 7px;
   }
 
   .stat {
-    padding: 12px;
+    padding: 12px 10px;
     min-width: 75px;
+  }
+
+  .game {
+    gap: 8px;
+  }
+
+  .guide-card {
+    padding: 18px;
+  }
+
+  .guide-intro h2 {
+    font-size: 23px;
   }
 }
 </style>
@@ -186,25 +314,213 @@ footer {
     <span>MOVES</span>
     <strong id="moves">0</strong>
   </div>
+
   <div class="stat">
     <span>TIME</span>
     <strong id="timer">0:00</strong>
   </div>
+
   <div class="stat">
     <span>PAIRS</span>
     <strong id="pairs">0/8</strong>
   </div>
 </div>
 
-<button class="restart" onclick="startGame()">↻ Restart game</button>
+<button class="restart" onclick="startGame()">
+  ↻ Restart game
+</button>
 
 <div class="game" id="game"></div>
 
-<div class="message" id="message">
+<div class="message" id="message" aria-live="polite">
   Find your first matching pair!
 </div>
 
-<footer>WOBBLE © 2026 · Play. Challenge. Repeat.</footer>
+<!-- MEMORY BLITZ GUIDE -->
+
+<section class="guide">
+
+  <div class="guide-intro">
+    <h2>How to Play Memory Blitz</h2>
+    <p>
+      Ready to put your memory to the test?
+      Memory Blitz is a fun matching game where you
+      flip cards, remember their positions and find
+      all the matching pairs. The challenge is simple:
+      remember what you've seen and match all eight pairs!
+    </p>
+  </div>
+
+  <div class="guide-card">
+    <h3>🎮 How to Play</h3>
+
+    <ol>
+      <li>Start with a board of 16 face-down cards.</li>
+      <li>Tap any card to reveal the emoji underneath.</li>
+      <li>Tap a second card to try to find its matching pair.</li>
+      <li>If the two cards match, they stay face-up.</li>
+      <li>If they don't match, both cards turn face-down again after a short delay.</li>
+      <li>Remember the positions of the revealed cards and use that information to find future matches.</li>
+      <li>Continue until all eight matching pairs have been found.</li>
+    </ol>
+
+    <div class="tip">
+      💡 Remember: You can only reveal two unmatched cards
+      at a time. Take your time and pay attention to what
+      appears on the board.
+    </div>
+  </div>
+
+  <div class="guide-card">
+    <h3>📊 Understanding the Game Stats</h3>
+
+    <p><strong>Moves:</strong> Counts each attempt after you
+    reveal your second card. One attempt consists of two
+    card flips.</p>
+
+    <p><strong>Time:</strong> Tracks how long you've been
+    playing. The timer starts when you reveal your first
+    card and stops when you find all eight pairs.</p>
+
+    <p><strong>Pairs:</strong> Shows how many matching pairs
+    you have successfully found out of eight.</p>
+
+    <div class="tip">
+      🏆 Your challenge is to find all eight pairs using
+      as few moves and as little time as possible.
+    </div>
+  </div>
+
+  <div class="guide-card">
+    <h3>🧠 Tips and Strategies</h3>
+
+    <ul>
+      <li><strong>Pay attention:</strong> Remember the emoji and position of every card you reveal.</li>
+
+      <li><strong>Build your memory:</strong> When two cards don't match, remember both positions for later.</li>
+
+      <li><strong>Look for familiar cards:</strong> If you recognise an emoji from an earlier turn, use that information to find its partner.</li>
+
+      <li><strong>Stay focused:</strong> Avoid rushing through your turns. A little concentration can save several moves.</li>
+
+      <li><strong>Practice regularly:</strong> The more you play, the better you can become at remembering card positions.</li>
+
+      <li><strong>Challenge yourself:</strong> Try completing the board in fewer moves or beating your previous time.</li>
+    </ul>
+  </div>
+
+  <div class="guide-card">
+    <h3>📋 Game Rules</h3>
+
+    <ul>
+      <li>The game contains 16 cards and eight matching pairs.</li>
+      <li>Only two unmatched cards can be revealed at a time.</li>
+      <li>Matching pairs remain face-up.</li>
+      <li>Incorrect pairs are hidden again after approximately 850 milliseconds.</li>
+      <li>You cannot select another card while an incorrect pair is being turned back over.</li>
+      <li>The game ends when all eight pairs have been matched.</li>
+      <li>You can restart the game at any time.</li>
+    </ul>
+  </div>
+
+  <div class="guide-card">
+    <h3>❓ Frequently Asked Questions</h3>
+
+    <details>
+      <summary>How many cards are in Memory Blitz?</summary>
+      <p>
+        There are 16 cards arranged in four columns
+        and four rows, containing eight matching pairs.
+      </p>
+    </details>
+
+    <details>
+      <summary>What happens when I find a matching pair?</summary>
+      <p>
+        Both cards remain face-up, and your pair count
+        increases by one.
+      </p>
+    </details>
+
+    <details>
+      <summary>What happens when I choose two different cards?</summary>
+      <p>
+        Both cards are briefly displayed before turning
+        face-down again. Try to remember their positions
+        for your next turns.
+      </p>
+    </details>
+
+    <details>
+      <summary>When does the timer start?</summary>
+      <p>
+        The timer starts automatically when you flip
+        your first card. It stops when you find all
+        eight matching pairs.
+      </p>
+    </details>
+
+    <details>
+      <summary>Can I restart the game?</summary>
+      <p>
+        Yes! Select the Restart Game button above the
+        board. The cards will be shuffled again, and
+        your moves, timer and pair count will reset.
+      </p>
+    </details>
+
+    <details>
+      <summary>Does Memory Blitz save my progress?</summary>
+      <p>
+        No. The current version does not save individual
+        game progress or scores. Each restart begins
+        a fresh game.
+      </p>
+    </details>
+
+    <details>
+      <summary>Can I play on my phone?</summary>
+      <p>
+        Yes! Memory Blitz is designed to work on mobile
+        phones as well as larger screens. Simply tap
+        the cards to play.
+      </p>
+    </details>
+
+    <details>
+      <summary>Is Memory Blitz free to play?</summary>
+      <p>
+        Yes! Memory Blitz is free to play on WOBBLE ARCADE.
+      </p>
+    </details>
+
+  </div>
+
+  <div class="guide-card" style="text-align:center;">
+    <h3>💜 Ready for Another Round?</h3>
+
+    <p>
+      Put your memory to the test again!
+      Challenge yourself to find all eight pairs
+      in fewer moves and less time.
+    </p>
+
+    <div class="tip">
+      Play. Challenge. Repeat.
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  WOBBLE © 2026 · Play. Challenge. Repeat.
+  <br><br>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="terms.html">Terms</a>
+</footer>
 
 <script>
 const emojis = [
@@ -246,6 +562,7 @@ function startGame() {
 
   cards.forEach((emoji) => {
     const card = document.createElement("button");
+    card.type = "button";
     card.className = "card";
     card.textContent = "?";
     card.dataset.emoji = emoji;
@@ -257,6 +574,7 @@ function startGame() {
 
 function startTimer() {
   if (started) return;
+
   started = true;
 
   timerInterval = setInterval(() => {
@@ -298,16 +616,20 @@ function flipCard(card) {
     secondCard.classList.add("matched");
 
     matches++;
-    document.getElementById("pairs").textContent = matches + "/8";
+
+    document.getElementById("pairs").textContent =
+      matches + "/8";
 
     firstCard = null;
     secondCard = null;
 
     if (matches === 8) {
       clearInterval(timerInterval);
+
       document.getElementById("message").textContent =
         "🎉 You won! Amazing memory!";
     }
+
   } else {
     locked = true;
 
@@ -324,6 +646,7 @@ function flipCard(card) {
       firstCard = null;
       secondCard = null;
       locked = false;
+
     }, 850);
   }
 }
