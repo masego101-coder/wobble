@@ -5,77 +5,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#17172b">
-
-<meta name="description" content="Play Word Rush free online at WOBBLE ARCADE! Unscramble letters, solve word puzzles, build streaks and challenge your vocabulary in Classic, Time Attack and Level modes.">
+<meta name="description" content="Play Word Rush free online at WOBBLE ARCADE! Unscramble letters, solve word puzzles, build streaks and challenge your vocabulary.">
 <link rel="canonical" href="https://masego101-coder.github.io/wobble/wordrush.html">
-
 <title>Word Rush - Free Online Word Puzzle Game | WOBBLE ARCADE</title>
-
 <meta property="og:type" content="website">
 <meta property="og:title" content="Word Rush | WOBBLE ARCADE">
-<meta property="og:description" content="Unscramble letters and test your vocabulary! Play Classic Mode, take on the 60-second Time Attack or conquer 10 levels.">
+<meta property="og:description" content="Unscramble letters and test your vocabulary! Play Classic Mode, Time Attack or conquer 10 levels.">
 <meta property="og:url" content="https://masego101-coder.github.io/wobble/wordrush.html">
 <meta property="og:site_name" content="WOBBLE ARCADE">
-
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word Rush | WOBBLE ARCADE">
-<meta name="twitter:description" content="Challenge your brain with free online word puzzles. Unscramble, build streaks and beat your best score!">
-
+<meta name="twitter:description" content="Challenge your brain with free online word puzzles.">
 <style>
-:root {
-  --bg:#17172b; --panel:#22223d; --panel2:#2d2c4c;
-  --purple:#8B5CF6; --light:#a78bfa; --pink:#FF4F87;
-  --teal:#20D6C2; --gold:#FFC857; --white:#f8f7ff;
-  --muted:#aaa8c5; --red:#ff657a;
-}
+:root{--bg:#17172b;--panel:#22223d;--panel2:#2d2c4c;--purple:#8B5CF6;--light:#a78bfa;--pink:#FF4F87;--teal:#20D6C2;--gold:#FFC857;--white:#f8f7ff;--muted:#aaa8c5;--red:#ff657a}
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-  min-height:100vh;padding:20px 14px;color:var(--white);
-  background:radial-gradient(circle at top left,#332052,transparent 38%),
-  radial-gradient(circle at bottom right,#17364a,transparent 38%),var(--bg);
-  font-family:Arial,Helvetica,sans-serif
-}
-button,input{font:inherit}
-button{cursor:pointer}
+body{min-height:100vh;padding:20px 14px;color:var(--white);background:radial-gradient(circle at top left,#332052,transparent 38%),radial-gradient(circle at bottom right,#17364a,transparent 38%),var(--bg);font-family:Arial,Helvetica,sans-serif}
+button,input{font:inherit}button{cursor:pointer}
 .container{max-width:760px;margin:auto}
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-.logo{font-size:25px;font-weight:900;letter-spacing:2px}
-.logo span{color:var(--purple)}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px}.logo span{color:var(--purple)}
 .back{color:var(--muted);text-decoration:none;font-size:14px}
-.screen{display:none;animation:appear .3s ease}
-.screen.active{display:block}
+.screen{display:none;animation:appear .3s ease}.screen.active{display:block}
 @keyframes appear{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
 .hero{text-align:center;margin:35px 0}
 .eyebrow{color:var(--teal);font-size:12px;font-weight:bold;letter-spacing:3px;margin-bottom:12px}
-h1{font-size:clamp(40px,9vw,66px);font-weight:900;letter-spacing:-2px}
-h1 span{color:var(--pink)}
+h1{font-size:clamp(40px,9vw,66px);font-weight:900;letter-spacing:-2px}h1 span{color:var(--pink)}
 .subtitle{color:var(--muted);line-height:1.6;margin-top:12px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:25px 0}
 .stat{background:var(--panel);border:1px solid #393858;border-radius:14px;text-align:center;padding:16px 5px}
-.stat strong{display:block;font-size:25px;color:var(--gold);margin-bottom:5px}
-.stat small{font-size:10px;color:var(--muted);letter-spacing:1px}
+.stat strong{display:block;font-size:25px;color:var(--gold);margin-bottom:5px}.stat small{font-size:10px;color:var(--muted);letter-spacing:1px}
 .section-title{font-size:19px;margin:30px 0 14px}
 .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .mode-card{background:var(--panel);border:1px solid #414060;border-radius:17px;padding:18px 12px;text-align:left;color:var(--white)}
 .mode-card:hover{border-color:var(--purple);transform:translateY(-3px)}
-.mode-icon{font-size:28px;margin-bottom:12px}
-.mode-card h3{font-size:16px;margin-bottom:9px}
+.mode-icon{font-size:28px;margin-bottom:12px}.mode-card h3{font-size:16px;margin-bottom:9px}
 .mode-card p{font-size:12px;color:var(--muted);line-height:1.5;min-height:75px}
 .mode-card small{display:block;color:var(--teal);font-size:10px;font-weight:bold;margin-top:13px}
-.instructions{background:var(--panel);border-radius:15px;padding:18px;margin-top:24px}
-.instructions p{color:var(--muted);font-size:13px;line-height:1.8}
-.instructions b{color:var(--white)}
+.instructions{background:var(--panel);border:1px solid #393858;border-radius:15px;padding:20px;margin-top:24px}
+.instructions h2{font-size:21px;margin-bottom:14px}.instructions h3{margin:20px 0 9px}
+.instructions p{color:var(--muted);font-size:13px;line-height:1.8}.instructions b{color:var(--white)}
 .panel{background:var(--panel);border:1px solid #393858;border-radius:19px;padding:20px;margin-bottom:16px}
 .game-top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:18px}
-.pill{background:var(--panel2);border-radius:30px;padding:8px 12px;font-size:12px;color:var(--muted)}
-.pill b{color:var(--white)}
+.pill{background:var(--panel2);border-radius:30px;padding:8px 12px;font-size:12px;color:var(--muted)}.pill b{color:var(--white)}
 .progress{height:7px;background:#3b3958;border-radius:20px;overflow:hidden;margin:12px 0 20px}
 .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .3s}
-.timer-wrap{margin:15px 0}
-.timer-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px}
+.timer-wrap{margin:15px 0}.timer-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px}
 .timer-track{height:9px;background:#393752;border-radius:20px;overflow:hidden}
-.timer-fill{height:100%;width:100%;background:var(--teal);transition:width .2s linear}
-.timer-fill.warning{background:var(--red)}
+.timer-fill{height:100%;width:100%;background:var(--teal);transition:width .2s linear}.timer-fill.warning{background:var(--red)}
 .category{color:var(--teal);font-size:11px;font-weight:bold;letter-spacing:2px;text-align:center;margin:18px 0 8px}
 .question{text-align:center;font-size:17px;color:var(--muted);margin-bottom:18px}
 .scrambled{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:22px 0}
@@ -84,150 +60,179 @@ h1 span{color:var(--pink)}
 .answer-area input{min-width:0;flex:1;background:#17172b;border:1px solid #555174;border-radius:11px;padding:14px;color:white;outline:none;text-transform:uppercase;letter-spacing:2px;font-size:17px}
 .answer-area input:focus{border-color:var(--purple)}
 .btn{border:0;border-radius:11px;padding:13px 17px;font-weight:bold;color:white;background:var(--purple)}
-.btn:hover{filter:brightness(1.13)}
-.btn.teal{background:#168f85}
-.btn.pink{background:#b83b68}
-.btn.dark{background:var(--panel2);border:1px solid #484665}
-.btn.gold{background:#a77b16;color:white}
+.btn:hover{filter:brightness(1.13)}.btn.dark{background:var(--panel2);border:1px solid #484665}.btn.gold{background:#a77b16;color:white}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
-.actions .btn{flex:1}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.actions .btn{flex:1}
 .feedback{text-align:center;min-height:27px;font-weight:bold;font-size:14px;margin:12px 0}
-.feedback.good{color:var(--teal)}
-.feedback.bad{color:var(--red)}
+.feedback.good{color:var(--teal)}.feedback.bad{color:var(--red)}
 .hint-box{background:#30294b;border-left:3px solid var(--gold);padding:12px;border-radius:8px;color:#e4d8ff;font-size:13px;line-height:1.5;margin-top:12px;display:none}
-.hint-box.show{display:block}
-.game-bottom{text-align:center;color:var(--muted);font-size:12px;margin:16px 0}
-.result{text-align:center;padding:30px 15px}
-.result-icon{font-size:58px;margin-bottom:15px}
-.result h2{font-size:32px;margin-bottom:10px}
-.result p{color:var(--muted);line-height:1.6}
+.hint-box.show{display:block}.game-bottom{text-align:center;color:var(--muted);font-size:12px;margin:16px 0}
+.result{text-align:center;padding:30px 15px}.result-icon{font-size:58px;margin-bottom:15px}
+.result h2{font-size:32px;margin-bottom:10px}.result p{color:var(--muted);line-height:1.6}
 .result-score{font-size:52px;font-weight:900;color:var(--gold);margin:20px 0}
 .result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:22px 0}
 .result-stat{background:var(--panel2);padding:16px;border-radius:12px}
-.result-stat strong{display:block;font-size:23px;margin-bottom:5px}
-.result-stat small{color:var(--muted);font-size:11px}
+.result-stat strong{display:block;font-size:23px;margin-bottom:5px}.result-stat small{color:var(--muted);font-size:11px}
 footer{text-align:center;color:#77758f;font-size:12px;margin:35px 0 12px}
-@media(max-width:600px){
- .modes{grid-template-columns:1fr}
- .mode-card{display:grid;grid-template-columns:40px 1fr;column-gap:10px}
- .mode-icon{grid-row:span 3}
- .mode-card p{min-height:0}
- .stats{gap:7px}
- .stat strong{font-size:21px}
- .panel{padding:15px}
- .letter{width:37px;height:43px;font-size:20px}
-}
+@media(max-width:600px){.modes{grid-template-columns:1fr}.mode-card{display:grid;grid-template-columns:40px 1fr;column-gap:10px}.mode-icon{grid-row:span 3}.mode-card p{min-height:0}.stats{gap:7px}.stat strong{font-size:21px}.panel{padding:15px}.letter{width:37px;height:43px;font-size:20px}}
 </style>
 </head>
 <body>
 <div class="container">
 <header>
-  <div class="logo">WOBBLE<span>.</span></div>
-  <a class="back" href="./index.html">← Back Home</a>
+<div class="logo">WOBBLE<span>.</span></div>
+<a class="back" href="./index.html">← Back Home</a>
 </header>
 
 <section id="home" class="screen active">
-  <div class="hero">
-    <div class="eyebrow">WOBBLE ARCADE PRESENTS</div>
-    <h1>WORD <span>RUSH</span></h1>
-    <p class="subtitle">Unscramble. Think fast. Find the word.<br>How good is your vocabulary?</p>
-  </div>
-  <div class="stats">
-    <div class="stat"><strong id="bestHome">0</strong><small>BEST SCORE</small></div>
-    <div class="stat"><strong>120+</strong><small>WORD BANK</small></div>
-    <div class="stat"><strong>10</strong><small>LEVELS</small></div>
-  </div>
-  <h2 class="section-title">Choose your game mode</h2>
-  <div class="modes">
-    <button class="mode-card" onclick="startGame('classic')">
-      <div class="mode-icon">♾️</div>
-      <h3>Classic Mode</h3>
-      <p>Keep solving words. One mistake ends your run. Build your score and protect your streak.</p>
-      <small>NO TIME LIMIT →</small>
-    </button>
-    <button class="mode-card" onclick="startGame('time')">
-      <div class="mode-icon">⏱️</div>
-      <h3>Time Attack</h3>
-      <p>You have 60 seconds. Solve as many words as you can before the clock reaches zero.</p>
-      <small>60 SECOND CHALLENGE →</small>
-    </button>
-    <button class="mode-card" onclick="startGame('level')">
-      <div class="mode-icon">🏆</div>
-      <h3>Level Mode</h3>
-      <p>Climb through 10 levels. Five words per level. Each new level brings tougher words.</p>
-      <small>50 WORD CHALLENGE →</small>
-    </button>
-  </div>
-  <div class="instructions">
-    <h3 style="margin-bottom:9px">🎮 How to play</h3>
-    <p>
-      <b>1.</b> Look at the scrambled letters.<br>
-      <b>2.</b> Rearrange them to make a real word.<br>
-      <b>3.</b> Type your answer and submit.<br>
-      <b>4.</b> Use hints if you get stuck, but they cost points!<br>
-      <b>5.</b> Build streaks to earn bonus points.<br>
-      <b>6.</b> Take your time in Classic and Level Mode!
-    </p>
-  </div>
+<div class="hero">
+<div class="eyebrow">WOBBLE ARCADE PRESENTS</div>
+<h1>WORD <span>RUSH</span></h1>
+<p class="subtitle">Unscramble. Think fast. Find the word.<br>How good is your vocabulary?</p>
+</div>
+<div class="stats">
+<div class="stat"><strong id="bestHome">0</strong><small>BEST SCORE</small></div>
+<div class="stat"><strong>120+</strong><small>WORD BANK</small></div>
+<div class="stat"><strong>10</strong><small>LEVELS</small></div>
+</div>
+<h2 class="section-title">Choose your game mode</h2>
+<div class="modes">
+<button class="mode-card" onclick="startGame('classic')">
+<div class="mode-icon">♾️</div><h3>Classic Mode</h3>
+<p>Keep solving words. One mistake ends your run. Build your score and protect your streak.</p><small>NO TIME LIMIT →</small>
+</button>
+<button class="mode-card" onclick="startGame('time')">
+<div class="mode-icon">⏱️</div><h3>Time Attack</h3>
+<p>You have 60 seconds. Solve as many words as you can before the clock reaches zero.</p><small>60 SECOND CHALLENGE →</small>
+</button>
+<button class="mode-card" onclick="startGame('level')">
+<div class="mode-icon">🏆</div><h3>Level Mode</h3>
+<p>Climb through 10 levels. Five words per level. Each new level brings tougher words.</p><small>50 WORD CHALLENGE →</small>
+</button>
+</div>
+<div class="instructions">
+<h3>🎮 How to play</h3>
+<p>
+<b>1.</b> Look at the scrambled letters.<br>
+<b>2.</b> Rearrange them to make a real word.<br>
+<b>3.</b> Type your answer and submit.<br>
+<b>4.</b> Use hints if you get stuck, but they cost points!<br>
+<b>5.</b> Build streaks to earn bonus points.<br>
+<b>6.</b> Take your time in Classic and Level Mode!
+</p>
+</div>
 </section>
 
 <section id="game" class="screen">
-  <div class="game-top">
-    <span class="pill" id="modeLabel">CLASSIC MODE</span>
-    <button class="btn dark" onclick="goHome()">✕ Quit</button>
-  </div>
-  <div class="stats">
-    <div class="stat"><strong id="score">0</strong><small>SCORE</small></div>
-    <div class="stat"><strong id="streak">0</strong><small>STREAK 🔥</small></div>
-    <div class="stat"><strong id="progressText">1</strong><small id="progressLabel">WORD</small></div>
-  </div>
-  <div class="panel">
-    <div class="game-top">
-      <span class="pill" id="difficulty">EASY</span>
-      <span class="pill">Points: <b id="wordPoints">10</b></span>
-    </div>
-    <div class="progress"><div id="progressFill" class="progress-fill"></div></div>
-    <div class="timer-wrap" id="timerWrap" style="display:none">
-      <div class="timer-label"><span>TIME LEFT</span><b id="timerText">60s</b></div>
-      <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
-    </div>
-    <div class="category" id="category">GENERAL KNOWLEDGE</div>
-    <div class="question" id="question">Unscramble this word!</div>
-    <div class="scrambled" id="scrambled"></div>
-    <div class="answer-area">
-      <input id="answer" type="text" placeholder="Type your answer..." autocomplete="off" autocapitalize="characters">
-      <button class="btn" id="submitBtn" onclick="submitAnswer()">GO!</button>
-    </div>
-    <div class="feedback" id="feedback"></div>
-    <div class="hint-box" id="hintBox"></div>
-    <div class="actions">
-      <button class="btn gold" id="hintBtn" onclick="showHint()">💡 Hint (-5)</button>
-      <button class="btn dark" onclick="skipWord()">Skip word</button>
-    </div>
-  </div>
-  <div class="game-bottom" id="gameMessage">Think carefully. You've got this!</div>
+<div class="game-top">
+<span class="pill" id="modeLabel">CLASSIC MODE</span>
+<button class="btn dark" onclick="goHome()">✕ Quit</button>
+</div>
+<div class="stats">
+<div class="stat"><strong id="score">0</strong><small>SCORE</small></div>
+<div class="stat"><strong id="streak">0</strong><small>STREAK 🔥</small></div>
+<div class="stat"><strong id="progressText">1</strong><small id="progressLabel">WORD</small></div>
+</div>
+<div class="panel">
+<div class="game-top">
+<span class="pill" id="difficulty">EASY</span>
+<span class="pill">Points: <b id="wordPoints">10</b></span>
+</div>
+<div class="progress"><div id="progressFill" class="progress-fill"></div></div>
+<div class="timer-wrap" id="timerWrap" style="display:none">
+<div class="timer-label"><span>TIME LEFT</span><b id="timerText">60s</b></div>
+<div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
+</div>
+<div class="category" id="category">GENERAL KNOWLEDGE</div>
+<div class="question" id="question">Unscramble this word!</div>
+<div class="scrambled" id="scrambled"></div>
+<div class="answer-area">
+<input id="answer" type="text" placeholder="Type your answer..." autocomplete="off" autocapitalize="characters">
+<button class="btn" id="submitBtn" onclick="submitAnswer()">GO!</button>
+</div>
+<div class="feedback" id="feedback"></div>
+<div class="hint-box" id="hintBox"></div>
+<div class="actions">
+<button class="btn gold" id="hintBtn" onclick="showHint()">💡 Hint (-5)</button>
+<button class="btn dark" onclick="skipWord()">Skip word</button>
+</div>
+</div>
+<div class="game-bottom" id="gameMessage">Think carefully. You've got this!</div>
 </section>
 
 <section id="result" class="screen">
-  <div class="panel result">
-    <div class="result-icon" id="resultIcon">🏆</div>
-    <h2 id="resultTitle">Well played!</h2>
-    <p id="resultMessage">Here's how you did.</p>
-    <div class="result-score" id="finalScore">0</div>
-    <p>FINAL SCORE</p>
-    <div class="result-grid">
-      <div class="result-stat"><strong id="correctCount">0</strong><small>WORDS SOLVED</small></div>
-      <div class="result-stat"><strong id="wrongCount">0</strong><small>MISSED / SKIPPED</small></div>
-      <div class="result-stat"><strong id="bestResult">0</strong><small>PERSONAL BEST</small></div>
-      <div class="result-stat"><strong id="accuracy">0%</strong><small>ACCURACY</small></div>
-    </div>
-    <div class="actions">
-      <button class="btn" onclick="replay()">↻ Play Again</button>
-      <button class="btn dark" onclick="goHome()">⌂ Game Menu</button>
-    </div>
-  </div>
+<div class="panel result">
+<div class="result-icon" id="resultIcon">🏆</div>
+<h2 id="resultTitle">Well played!</h2>
+<p id="resultMessage">Here's how you did.</p>
+<div class="result-score" id="finalScore">0</div>
+<p>FINAL SCORE</p>
+<div class="result-grid">
+<div class="result-stat"><strong id="correctCount">0</strong><small>WORDS SOLVED</small></div>
+<div class="result-stat"><strong id="wrongCount">0</strong><small>MISSED / SKIPPED</small></div>
+<div class="result-stat"><strong id="bestResult">0</strong><small>PERSONAL BEST</small></div>
+<div class="result-stat"><strong id="accuracy">0%</strong><small>ACCURACY</small></div>
+</div>
+<div class="actions">
+<button class="btn" onclick="replay()">↻ Play Again</button>
+<button class="btn dark" onclick="goHome()">⌂ Game Menu</button>
+</div>
+</div>
 </section>
+
+<!-- WORD RUSH GUIDE -->
+<section class="instructions" id="wordRushGuide">
+<h2>📖 Word Rush — How to Play</h2>
+<p>Word Rush is a vocabulary game where you rearrange scrambled letters to discover the hidden word. Choose a mode, solve words and aim for your highest score!</p>
+
+<h3>🎮 Game Modes</h3>
+<p>
+<b>♾️ Classic Mode:</b> Solve as many words as possible. There is no time limit, but one incorrect answer ends your run.<br><br>
+<b>⏱️ Time Attack:</b> You have 60 seconds to solve as many words as possible. Correct answers add 2 seconds, while incorrect attempts cost 5 seconds.<br><br>
+<b>🏆 Level Mode:</b> Complete 50 words across 10 levels, with five words per level. Words become more challenging as you progress.
+</p>
+
+<h3>⭐ Scoring and Bonuses</h3>
+<p>
+<b>Base points:</b> Each word earns points according to its difficulty, starting at 10 points for easy words.<br><br>
+<b>Streak bonuses:</b> Consecutive correct answers earn extra points. The bonus increases with your streak, up to 20 extra points.<br><br>
+<b>Hints:</b> Reveal a clue about the current word, but using a hint costs 5 points. You can use one hint per word.
+</p>
+
+<h3>💡 Tips to Improve</h3>
+<p>
+<b>1.</b> Look for common letter combinations such as TH, SH and CH.<br>
+<b>2.</b> Try identifying vowels first to discover possible word patterns.<br>
+<b>3.</b> Read the category for clues about the answer.<br>
+<b>4.</b> Use hints when you're genuinely stuck.<br>
+<b>5.</b> Protect your streak by checking your spelling before submitting.<br>
+<b>6.</b> Practise in Classic Mode before attempting Time Attack.
+</p>
+
+<h3>📌 Game Rules</h3>
+<p>
+• Enter your answer using the letters shown.<br>
+• Answers are not case-sensitive.<br>
+• Classic Mode ends after an incorrect answer or a skipped word.<br>
+• Time Attack ends when the timer reaches zero.<br>
+• Level Mode ends after all 50 words have been completed.<br>
+• Skipping a word counts as missed and resets your streak.<br>
+• Your personal best is saved in your browser.
+</p>
+
+<h3>❓ Frequently Asked Questions</h3>
+<p>
+<b>Can I play without a time limit?</b><br>
+Yes! Classic and Level Mode do not have a countdown timer.<br><br>
+<b>Do hints reduce my score?</b><br>
+Yes. Each hint costs 5 points.<br><br>
+<b>What happens if I get a word wrong?</b><br>
+In Classic Mode, an incorrect answer ends your run. In the other modes, you can continue, but your streak resets.<br><br>
+<b>Does my best score get saved?</b><br>
+Yes. Your personal best is saved in your browser on your device.
+</p>
+</section>
+
 <footer>WOBBLE — Play. Challenge. Repeat. 💜</footer>
 </div>
 
@@ -355,312 +360,282 @@ const words = [
 {w:"SIGNIFICANT",c:"VOCABULARY",h:"Important enough to be noticed.",d:6}
 ];
 
-let mode="classic";
-let deck=[];
-let current=null;
+let mode="classic",deck=[],current=null;
 let score=0,streak=0,correct=0,missed=0,usedHints=0;
-let index=0,timer=null,locked=false;
-let timeLeft=60;
-let hintUsed=false;
-let runNumber=0;
+let index=0,timer=null,locked=false,timeLeft=60,hintUsed=false,runNumber=0;
 
 const $=id=>document.getElementById(id);
-
 const shuffle=array=>{
-  const copy=[...array];
-  for(let i=copy.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [copy[i],copy[j]]=[copy[j],copy[i]];
-  }
-  return copy;
+const copy=[...array];
+for(let i=copy.length-1;i>0;i--){
+const j=Math.floor(Math.random()*(i+1));
+[copy[i],copy[j]]=[copy[j],copy[i]];
+}
+return copy;
 };
 
 function getBest(){
-  return Number(localStorage.getItem("wobble_wordrush_best")||0);
+try{return Number(localStorage.getItem("wobble_wordrush_best")||0)}
+catch(e){return 0}
 }
-function updateBestHome(){
-  $("bestHome").textContent=getBest();
-}
+function updateBestHome(){$("bestHome").textContent=getBest()}
 updateBestHome();
 
 function showScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  $(id).classList.add("active");
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+$(id).classList.add("active");
 }
 
 function startGame(selected){
-  clearInterval(timer);
-  mode=selected;
-  score=0;streak=0;correct=0;missed=0;usedHints=0;index=0;
-  timeLeft=60;locked=false;runNumber++;
-  const run=runNumber;
+clearInterval(timer);
+mode=selected;
+score=0;streak=0;correct=0;missed=0;usedHints=0;index=0;
+timeLeft=60;locked=false;runNumber++;
+const run=runNumber;
 
-  if(mode==="level"){
-    deck=shuffle(words.filter(w=>w.d>=1));
-    deck.sort((a,b)=>a.d-b.d);
-    deck=deck.slice(0,50);
-    $("modeLabel").textContent="LEVEL MODE";
-    $("progressLabel").textContent="LEVEL";
-    $("gameMessage").textContent="Five words per level. Keep climbing!";
-  }else{
-    deck=shuffle(words);
-    $("modeLabel").textContent=mode==="time"?"TIME ATTACK":"CLASSIC MODE";
-    $("progressLabel").textContent=mode==="time"?"SOLVED":"WORD";
-    $("gameMessage").textContent=mode==="time"?"60 seconds. Make every second count!":"No time limit. Think carefully!";
-  }
+if(mode==="level"){
+deck=shuffle(words.filter(w=>w.d>=1));
+deck.sort((a,b)=>a.d-b.d);
+deck=deck.slice(0,50);
+$("modeLabel").textContent="LEVEL MODE";
+$("progressLabel").textContent="LEVEL";
+$("gameMessage").textContent="Five words per level. Keep climbing!";
+}else{
+deck=shuffle(words);
+$("modeLabel").textContent=mode==="time"?"TIME ATTACK":"CLASSIC MODE";
+$("progressLabel").textContent=mode==="time"?"SOLVED":"WORD";
+$("gameMessage").textContent=mode==="time"?"60 seconds. Make every second count!":"No time limit. Think carefully!";
+}
 
-  $("timerWrap").style.display=mode==="time"?"block":"none";
-  showScreen("game");
-  nextWord();
+$("timerWrap").style.display=mode==="time"?"block":"none";
+showScreen("game");
+nextWord();
 
-  if(mode==="time"){
-    timeLeft=60;
-    startTimeAttack(run);
-  }
+if(mode==="time"){
+timeLeft=60;
+startTimeAttack(run);
+}
 }
 
 function getDifficulty(d){
-  return ["","EASY","MEDIUM","TRICKY","HARD","VERY HARD","EXPERT"][d]||"EXPERT";
+return ["","EASY","MEDIUM","TRICKY","HARD","VERY HARD","EXPERT"][d]||"EXPERT";
 }
 
 function nextWord(){
-  // Only Time Attack uses a timer. Its clock must keep running between words.
-  if(mode!=="time")clearInterval(timer);
+if(mode!=="time")clearInterval(timer);
+locked=false;
+hintUsed=false;
+$("hintBox").classList.remove("show");
+$("hintBox").textContent="";
+$("hintBtn").disabled=false;
+$("submitBtn").disabled=false;
+$("answer").disabled=false;
+$("answer").value="";
+$("feedback").textContent="";
+$("feedback").className="feedback";
 
-  locked=false;
-  hintUsed=false;
-  $("hintBox").classList.remove("show");
-  $("hintBox").textContent="";
-  $("hintBtn").disabled=false;
-  $("submitBtn").disabled=false;
-  $("answer").disabled=false;
-  $("answer").value="";
-  $("feedback").textContent="";
-  $("feedback").className="feedback";
+if(mode==="classic"&&index>=deck.length){
+deck=shuffle(words);
+index=0;
+}
 
-  if(mode==="classic" && index>=deck.length){
-    deck=shuffle(words);
-    index=0;
-  }
+if(index>=deck.length){
+endGame("complete");
+return;
+}
 
-  if(index>=deck.length){
-    endGame("complete");
-    return;
-  }
+current=deck[index];
 
-  current=deck[index];
+if(mode==="level"){
+const level=Math.floor(index/5)+1;
+$("progressText").textContent=level+"/10";
+$("progressFill").style.width=(index/50*100)+"%";
+$("gameMessage").textContent="Level "+level+" — Word "+((index%5)+1)+" of 5";
+}else if(mode==="time"){
+$("progressText").textContent=correct;
+$("progressFill").style.width=(index/deck.length*100)+"%";
+}else{
+$("progressText").textContent=index+1;
+$("progressFill").style.width=((index%deck.length)/deck.length*100)+"%";
+}
 
-  if(mode==="level"){
-    const level=Math.floor(index/5)+1;
-    $("progressText").textContent=level+"/10";
-    $("progressFill").style.width=(index/50*100)+"%";
-    $("gameMessage").textContent="Level "+level+" — Word "+((index%5)+1)+" of 5";
-  }else if(mode==="time"){
-    $("progressText").textContent=correct;
-    $("progressFill").style.width=(index/deck.length*100)+"%";
-  }else{
-    $("progressText").textContent=index+1;
-    $("progressFill").style.width=((index%deck.length)/deck.length*100)+"%";
-  }
-
-  $("score").textContent=score;
-  $("streak").textContent=streak;
-  $("category").textContent=current.c;
-  $("difficulty").textContent=getDifficulty(current.d);
-  $("wordPoints").textContent=current.d*10;
-  $("question").textContent="Unscramble the letters to reveal the word!";
-  renderLetters();
-  $("answer").focus();
-
-  // The timer is visible and active only in Time Attack.
-  $("timerWrap").style.display=mode==="time"?"block":"none";
+$("score").textContent=score;
+$("streak").textContent=streak;
+$("category").textContent=current.c;
+$("difficulty").textContent=getDifficulty(current.d);
+$("wordPoints").textContent=current.d*10;
+$("question").textContent="Unscramble the letters to reveal the word!";
+renderLetters();
+$("answer").focus();
+$("timerWrap").style.display=mode==="time"?"block":"none";
 }
 
 function renderLetters(){
-  const letters=shuffle(current.w.split(""));
-  $("scrambled").innerHTML="";
-  letters.forEach(letter=>{
-    const span=document.createElement("div");
-    span.className="letter";
-    span.textContent=letter;
-    $("scrambled").appendChild(span);
-  });
+const letters=shuffle(current.w.split(""));
+$("scrambled").innerHTML="";
+letters.forEach(letter=>{
+const span=document.createElement("div");
+span.className="letter";
+span.textContent=letter;
+$("scrambled").appendChild(span);
+});
 }
 
 function startTimeAttack(run){
-  clearInterval(timer);
-  updateTimerDisplay(timeLeft,60);
-
-  timer=setInterval(()=>{
-    if(run!==runNumber){
-      clearInterval(timer);
-      return;
-    }
-
-    timeLeft--;
-    updateTimerDisplay(timeLeft,60);
-
-    if(timeLeft<=0){
-      clearInterval(timer);
-      endGame("complete");
-    }
-  },1000);
+clearInterval(timer);
+updateTimerDisplay(timeLeft,60);
+timer=setInterval(()=>{
+if(run!==runNumber){clearInterval(timer);return}
+timeLeft--;
+updateTimerDisplay(timeLeft,60);
+if(timeLeft<=0){
+clearInterval(timer);
+endGame("complete");
+}
+},1000);
 }
 
 function updateTimerDisplay(value,total){
-  $("timerText").textContent=value+"s";
-  $("timerFill").style.width=Math.max(0,value/total*100)+"%";
-  $("timerFill").classList.toggle("warning",value<=5 || (total===60 && value<=15));
+$("timerText").textContent=value+"s";
+$("timerFill").style.width=Math.max(0,value/total*100)+"%";
+$("timerFill").classList.toggle("warning",value<=5||(total===60&&value<=15));
 }
 
 function disableInputs(){
-  $("answer").disabled=true;
-  $("submitBtn").disabled=true;
-  $("hintBtn").disabled=true;
+$("answer").disabled=true;
+$("submitBtn").disabled=true;
+$("hintBtn").disabled=true;
 }
 
 function submitAnswer(){
-  if(locked || !$("answer").value.trim())return;
+if(locked||!$("answer").value.trim())return;
+const answer=$("answer").value.trim().toUpperCase().replace(/[^A-Z]/g,"");
 
-  const answer=$("answer").value.trim().toUpperCase().replace(/[^A-Z]/g,"");
+if(answer===current.w){
+if(mode!=="time")clearInterval(timer);
+locked=true;
+correct++;
+streak++;
+const base=current.d*10;
+const bonus=Math.min(streak*2,20);
+const points=base+bonus;
+score+=points;
 
-  if(answer===current.w){
-    // Do not stop the Time Attack clock between words.
-    if(mode!=="time")clearInterval(timer);
+if(mode==="time"){
+timeLeft=Math.min(60,timeLeft+2);
+updateTimerDisplay(timeLeft,60);
+}
 
-    locked=true;
-    correct++;
-    streak++;
+$("score").textContent=score;
+$("streak").textContent=streak;
+$("feedback").textContent="✓ Correct! +"+points+" points"+(streak>=3?" 🔥 Streak bonus!":"");
+$("feedback").className="feedback good";
+$("gameMessage").textContent="Excellent! Keep that momentum going.";
+disableInputs();
 
-    const base=current.d*10;
-    const bonus=Math.min(streak*2,20);
-    const points=base+bonus;
+setTimeout(()=>{
+index++;
+nextWord();
+},1000);
 
-    score+=points;
+}else{
+$("feedback").textContent="Not quite! Try again.";
+$("feedback").className="feedback bad";
+$("answer").select();
 
-    if(mode==="time"){
-      timeLeft=Math.min(60,timeLeft+2);
-      updateTimerDisplay(timeLeft,60);
-    }
-
-    $("score").textContent=score;
-    $("streak").textContent=streak;
-    $("feedback").textContent="✓ Correct! +"+points+" points"+(streak>=3?" 🔥 Streak bonus!":"");
-    $("feedback").className="feedback good";
-    $("gameMessage").textContent="Excellent! Keep that momentum going.";
-    disableInputs();
-
-    setTimeout(()=>{
-      index++;
-      nextWord();
-    },1000);
-
-  }else{
-    $("feedback").textContent="Not quite! Try again.";
-    $("feedback").className="feedback bad";
-    $("answer").select();
-
-    if(mode==="classic"){
-      locked=true;
-      missed++;
-      streak=0;
-      $("feedback").textContent="✕ Incorrect! The word was "+current.w;
-      disableInputs();
-      setTimeout(()=>endGame("failed"),1600);
-    }else if(mode==="time"){
-      timeLeft=Math.max(0,timeLeft-5);
-      updateTimerDisplay(timeLeft,60);
-      if(timeLeft<=0)endGame("complete");
-    }
-  }
+if(mode==="classic"){
+locked=true;
+missed++;
+streak=0;
+$("feedback").textContent="✕ Incorrect! The word was "+current.w;
+disableInputs();
+setTimeout(()=>endGame("failed"),1600);
+}else if(mode==="time"){
+timeLeft=Math.max(0,timeLeft-5);
+updateTimerDisplay(timeLeft,60);
+if(timeLeft<=0)endGame("complete");
+}
+}
 }
 
 function showHint(){
-  if(locked || hintUsed)return;
-
-  hintUsed=true;
-  usedHints++;
-  score=Math.max(0,score-5);
-  $("score").textContent=score;
-  $("hintBox").textContent="💡 Hint: "+current.h;
-  $("hintBox").classList.add("show");
-  $("hintBtn").disabled=true;
+if(locked||hintUsed)return;
+hintUsed=true;
+usedHints++;
+score=Math.max(0,score-5);
+$("score").textContent=score;
+$("hintBox").textContent="💡 Hint: "+current.h;
+$("hintBox").classList.add("show");
+$("hintBtn").disabled=true;
 }
 
 function skipWord(){
-  if(locked)return;
+if(locked)return;
+if(mode!=="time")clearInterval(timer);
+missed++;
+streak=0;
+locked=true;
+$("feedback").textContent="Skipped! The word was "+current.w;
+$("feedback").className="feedback bad";
+disableInputs();
 
-  // Keep Time Attack's main clock running when a word is skipped.
-  if(mode!=="time")clearInterval(timer);
-
-  missed++;
-  streak=0;
-  locked=true;
-  $("feedback").textContent="Skipped! The word was "+current.w;
-  $("feedback").className="feedback bad";
-  disableInputs();
-
-  if(mode==="classic"){
-    setTimeout(()=>endGame("failed"),1200);
-  }else{
-    setTimeout(()=>{
-      index++;
-      nextWord();
-    },1200);
-  }
+if(mode==="classic"){
+setTimeout(()=>endGame("failed"),1200);
+}else{
+setTimeout(()=>{
+index++;
+nextWord();
+},1200);
+}
 }
 
 function endGame(reason){
-  clearInterval(timer);
-  runNumber++;
-  locked=true;
+clearInterval(timer);
+runNumber++;
+locked=true;
 
-  const best=Math.max(score,getBest());
-  localStorage.setItem("wobble_wordrush_best",best);
-  updateBestHome();
+const best=Math.max(score,getBest());
+try{localStorage.setItem("wobble_wordrush_best",best)}catch(e){}
+updateBestHome();
 
-  $("finalScore").textContent=score;
-  $("correctCount").textContent=correct;
-  $("wrongCount").textContent=missed;
-  $("bestResult").textContent=best;
+$("finalScore").textContent=score;
+$("correctCount").textContent=correct;
+$("wrongCount").textContent=missed;
+$("bestResult").textContent=best;
 
-  const total=correct+missed;
-  $("accuracy").textContent=total?Math.round(correct/total*100)+"%":"0%";
+const total=correct+missed;
+$("accuracy").textContent=total?Math.round(correct/total*100)+"%":"0%";
 
-  if(mode==="level" && reason==="complete"){
-    $("resultIcon").textContent="🏆";
-    $("resultTitle").textContent="LEVELS COMPLETED!";
-    $("resultMessage").textContent="You conquered all 10 levels. Incredible work!";
-  }else if(mode==="time"){
-    $("resultIcon").textContent="⏱️";
-    $("resultTitle").textContent="TIME'S UP!";
-    $("resultMessage").textContent="The clock has stopped. Here's your result!";
-  }else if(reason==="failed"){
-    $("resultIcon").textContent="💥";
-    $("resultTitle").textContent="RUN OVER!";
-    $("resultMessage").textContent="One mistake ended your classic run. Can you beat your score?";
-  }else{
-    $("resultIcon").textContent="🎉";
-    $("resultTitle").textContent="WELL PLAYED!";
-    $("resultMessage").textContent="You've completed the challenge!";
-  }
-
-  showScreen("result");
+if(mode==="level"&&reason==="complete"){
+$("resultIcon").textContent="🏆";
+$("resultTitle").textContent="LEVELS COMPLETED!";
+$("resultMessage").textContent="You conquered all 10 levels. Incredible work!";
+}else if(mode==="time"){
+$("resultIcon").textContent="⏱️";
+$("resultTitle").textContent="TIME'S UP!";
+$("resultMessage").textContent="The clock has stopped. Here's your result!";
+}else if(reason==="failed"){
+$("resultIcon").textContent="💥";
+$("resultTitle").textContent="RUN OVER!";
+$("resultMessage").textContent="One mistake ended your classic run. Can you beat your score?";
+}else{
+$("resultIcon").textContent="🎉";
+$("resultTitle").textContent="WELL PLAYED!";
+$("resultMessage").textContent="You've completed the challenge!";
+}
+showScreen("result");
 }
 
-function replay(){
-  startGame(mode);
-}
-
+function replay(){startGame(mode)}
 function goHome(){
-  clearInterval(timer);
-  runNumber++;
-  updateBestHome();
-  showScreen("home");
+clearInterval(timer);
+runNumber++;
+updateBestHome();
+showScreen("home");
 }
 
 $("answer").addEventListener("keydown",event=>{
-  if(event.key==="Enter")submitAnswer();
+if(event.key==="Enter")submitAnswer();
 });
 </script>
 </body>
