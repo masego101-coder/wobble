@@ -5,18 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#17172b">
-
 <meta name="description" content="Play Quick Quiz free online at WOBBLE ARCADE! Test your general knowledge with Endless Mode, the 50-Question Challenge and 10 exciting levels.">
 <link rel="canonical" href="https://masego101-coder.github.io/wobble/quiz.html">
-
 <title>Quick Quiz - Free Online Trivia Game | WOBBLE ARCADE</title>
-
 <meta property="og:type" content="website">
 <meta property="og:title" content="Quick Quiz | WOBBLE ARCADE">
 <meta property="og:description" content="Think fast and test your knowledge! Play Endless Mode, take the 50-question challenge or climb through 10 levels.">
 <meta property="og:url" content="https://masego101-coder.github.io/wobble/quiz.html">
 <meta property="og:site_name" content="WOBBLE ARCADE">
-
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Quick Quiz | WOBBLE ARCADE">
 <meta name="twitter:description" content="Challenge your brain with free online trivia. Play, score points and beat your personal best!">
@@ -55,6 +51,7 @@ h1 span{color:var(--purple)}
 .mode .best{color:var(--gold);font-size:12px;margin-top:12px}
 .mode .start-label{color:var(--light);font-size:12px;font-weight:bold;margin-top:15px}
 footer{text-align:center;color:var(--muted);font-size:12px;margin:55px 0 20px}
+footer a{color:var(--light);text-decoration:none;margin:0 6px}
 .screen{display:none}
 .game-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:22px}
 .mode-label{color:var(--light);font-size:12px;font-weight:bold}
@@ -89,101 +86,356 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin:55px 0 20px}
 .result-grid small{font-size:10px;color:var(--muted)}
 .result p{color:var(--muted);line-height:1.5}
 .result-actions{display:grid;gap:10px;margin-top:22px}
-@media(min-width:600px){.modes{grid-template-columns:repeat(3,1fr)}.mode{min-height:225px}}
+
+/* Quick Quiz guide */
+
+.guide{max-width:760px;margin:65px auto 0}
+.guide-intro{text-align:center;margin-bottom:30px}
+.guide-intro h2{font-size:27px;color:var(--light)}
+.guide-intro p{color:var(--muted);line-height:1.8;font-size:14px}
+.guide-card{background:var(--panel);border:1px solid #353552;border-radius:15px;padding:23px;margin-bottom:16px;text-align:left}
+.guide-card h3{color:var(--teal);font-size:19px;margin-top:0;margin-bottom:14px}
+.guide-card p{color:#c3c3d3;font-size:14px;line-height:1.8}
+.guide-card ul,.guide-card ol{padding-left:22px;color:#c3c3d3}
+.guide-card li{font-size:14px;line-height:1.8;margin-bottom:9px}
+.guide-card strong{color:white}
+.tip{background:#30264e;border-left:4px solid var(--light);border-radius:8px;padding:13px 15px;margin-top:14px;color:#e0d5ff;font-size:14px;line-height:1.7}
+.guide-card details{border-bottom:1px solid #393953;padding:13px 0}
+.guide-card details:last-child{border-bottom:none}
+.guide-card summary{color:white;font-size:14px;font-weight:bold;cursor:pointer;line-height:1.6}
+.guide-card details p{margin-bottom:5px}
+
+@media(min-width:600px){
+  .modes{grid-template-columns:repeat(3,1fr)}
+  .mode{min-height:225px}
+}
+@media(max-width:500px){
+  body{padding:16px}
+  .guide-card{padding:18px}
+  .guide-intro h2{font-size:23px}
+  .question-card{padding:18px}
+  .result{padding:23px 15px}
+}
 @keyframes pulse{to{opacity:.55}}
 </style>
 </head>
+
 <body>
+
 <header>
   <div class="logo">WOBBLE<span>.</span></div>
   <a class="back" href="./index.html">← Back Home</a>
 </header>
 
 <main class="container">
-  <section id="homeScreen" class="screen" style="display:block">
-    <div class="intro">
-      <div class="eyebrow">WOBBLE ARCADE PRESENTS</div>
-      <h1>QUICK <span>QUIZ</span></h1>
-      <p class="subtitle">Think fast. Trust your instincts. Beat your best score!</p>
+
+<section id="homeScreen" class="screen" style="display:block">
+  <div class="intro">
+    <div class="eyebrow">WOBBLE ARCADE PRESENTS</div>
+    <h1>QUICK <span>QUIZ</span></h1>
+    <p class="subtitle">Think fast. Trust your instincts. Beat your best score!</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong id="homeBest">0</strong><small>BEST SCORE</small></div>
+    <div class="stat"><strong>50</strong><small>QUESTIONS</small></div>
+    <div class="stat"><strong>15s</strong><small>PER QUESTION</small></div>
+  </div>
+
+  <div class="section-title"><h2>Choose your game mode</h2></div>
+
+  <div class="modes">
+    <button class="mode" onclick="startGame('endless')">
+      <div class="mode-icon">♾️</div>
+      <h3>Endless Mode</h3>
+      <p>Keep answering until you get one wrong or run out of time. How long can you last?</p>
+      <div class="best">NO QUESTION LIMIT</div>
+      <div class="start-label">PLAY NOW →</div>
+    </button>
+
+    <button class="mode" onclick="startGame('challenge')">
+      <div class="mode-icon">🏆</div>
+      <h3>50-Question Challenge</h3>
+      <p>Take on all 50 questions. See how many you can get right before the challenge ends.</p>
+      <div class="best">50 QUESTIONS</div>
+      <div class="start-label">PLAY NOW →</div>
+    </button>
+
+    <button class="mode" onclick="startGame('level')">
+      <div class="mode-icon">🚀</div>
+      <h3>Level Mode</h3>
+      <p>Progress through 10 levels, with 5 questions in each level. Keep climbing!</p>
+      <div class="best">10 LEVELS</div>
+      <div class="start-label">PLAY NOW →</div>
+    </button>
+  </div>
+</section>
+
+<section id="gameScreen" class="screen">
+  <div class="game-top">
+    <div>
+      <div class="mode-label" id="modeName">ENDLESS MODE</div>
+      <div class="subtitle" id="levelLabel">Question 1</div>
+    </div>
+    <div class="timer" id="timer">15s</div>
+  </div>
+
+  <div class="progress-info">
+    <span id="progressText">Question 1</span>
+    <span id="scoreText">Score: 0</span>
+  </div>
+
+  <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="question-card">
+    <div class="category" id="category">GENERAL KNOWLEDGE</div>
+    <h2 class="question" id="question">Question goes here?</h2>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="primary" id="nextButton" onclick="nextQuestion()" disabled>Next Question →</button>
+  </div>
+</section>
+
+<section id="resultScreen" class="screen">
+  <div class="result">
+    <div class="result-icon" id="resultIcon">🏆</div>
+    <h2 id="resultTitle">Game Over!</h2>
+    <div class="subtitle" id="resultMode">ENDLESS MODE</div>
+    <div class="result-score" id="finalScore">0</div>
+
+    <div class="result-grid">
+      <div><strong id="correctCount">0</strong><small>CORRECT</small></div>
+      <div><strong id="playedCount">0</strong><small>PLAYED</small></div>
+      <div><strong id="accuracy">0%</strong><small>ACCURACY</small></div>
     </div>
 
-    <div class="stats">
-      <div class="stat"><strong id="homeBest">0</strong><small>BEST SCORE</small></div>
-      <div class="stat"><strong>50</strong><small>QUESTIONS</small></div>
-      <div class="stat"><strong>15s</strong><small>PER QUESTION</small></div>
-    </div>
+    <p id="resultMessage"></p>
+    <p id="bestMessage"></p>
 
-    <div class="section-title"><h2>Choose your game mode</h2></div>
-    <div class="modes">
-      <button class="mode" onclick="startGame('endless')">
-        <div class="mode-icon">♾️</div>
-        <h3>Endless Mode</h3>
-        <p>Keep answering until you get one wrong or run out of time. How long can you last?</p>
-        <div class="best">NO QUESTION LIMIT</div>
-        <div class="start-label">PLAY NOW →</div>
-      </button>
-      <button class="mode" onclick="startGame('challenge')">
-        <div class="mode-icon">🏆</div>
-        <h3>50-Question Challenge</h3>
-        <p>Take on all 50 questions. See how many you can get right before the challenge ends.</p>
-        <div class="best">50 QUESTIONS</div>
-        <div class="start-label">PLAY NOW →</div>
-      </button>
-      <button class="mode" onclick="startGame('level')">
-        <div class="mode-icon">🚀</div>
-        <h3>Level Mode</h3>
-        <p>Progress through 10 levels, with 5 questions in each level. Keep climbing!</p>
-        <div class="best">10 LEVELS</div>
-        <div class="start-label">PLAY NOW →</div>
-      </button>
+    <div class="result-actions">
+      <button class="primary" onclick="startGame(currentMode)">Play Again ↻</button>
+      <button class="secondary" onclick="goHome()">Back to Modes</button>
+      <a class="secondary" style="text-decoration:none" href="./index.html">Back Home</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="gameScreen" class="screen">
-    <div class="game-top">
-      <div>
-        <div class="mode-label" id="modeName">ENDLESS MODE</div>
-        <div class="subtitle" id="levelLabel">Question 1</div>
-      </div>
-      <div class="timer" id="timer">15s</div>
-    </div>
-    <div class="progress-info">
-      <span id="progressText">Question 1</span>
-      <span id="scoreText">Score: 0</span>
-    </div>
-    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="question-card">
-      <div class="category" id="category">GENERAL KNOWLEDGE</div>
-      <h2 class="question" id="question">Question goes here?</h2>
-      <div class="answers" id="answers"></div>
-      <div class="feedback" id="feedback"></div>
-      <button class="primary" id="nextButton" onclick="nextQuestion()" disabled>Next Question →</button>
-    </div>
-  </section>
-
-  <section id="resultScreen" class="screen">
-    <div class="result">
-      <div class="result-icon" id="resultIcon">🏆</div>
-      <h2 id="resultTitle">Game Over!</h2>
-      <div class="subtitle" id="resultMode">ENDLESS MODE</div>
-      <div class="result-score" id="finalScore">0</div>
-      <div class="result-grid">
-        <div><strong id="correctCount">0</strong><small>CORRECT</small></div>
-        <div><strong id="playedCount">0</strong><small>PLAYED</small></div>
-        <div><strong id="accuracy">0%</strong><small>ACCURACY</small></div>
-      </div>
-      <p id="resultMessage"></p>
-      <p id="bestMessage"></p>
-      <div class="result-actions">
-        <button class="primary" onclick="startGame(currentMode)">Play Again ↻</button>
-        <button class="secondary" onclick="goHome()">Back to Modes</button>
-        <a class="secondary" style="text-decoration:none" href="./index.html">Back Home</a>
-      </div>
-    </div>
-  </section>
 </main>
 
-<footer>WOBBLE — Play. Challenge. Repeat. 💜</footer>
+<!-- QUICK QUIZ GAMEPLAY GUIDE -->
+
+<section class="guide">
+
+  <div class="guide-intro">
+    <h2>How to Play Quick Quiz</h2>
+    <p>
+      Think you know a little bit about everything?
+      Quick Quiz is your chance to put your general
+      knowledge to the test! Answer questions across
+      different categories, earn points and challenge
+      yourself to beat your personal best.
+    </p>
+  </div>
+
+  <div class="guide-card">
+    <h3>🎮 Choose Your Game Mode</h3>
+
+    <p><strong>Endless Mode ♾️</strong></p>
+    <ul>
+      <li>Answer questions one after another.</li>
+      <li>You have 15 seconds to answer each question.</li>
+      <li>One incorrect answer or a time-out ends your run.</li>
+      <li>Keep going for as long as you can and build your score.</li>
+    </ul>
+
+    <p><strong>50-Question Challenge 🏆</strong></p>
+    <ul>
+      <li>Take on a full set of 50 questions.</li>
+      <li>Try to answer as many questions correctly as possible.</li>
+      <li>An incorrect answer does not end this mode.</li>
+      <li>Finish all 50 questions to complete the challenge.</li>
+    </ul>
+
+    <p><strong>Level Mode 🚀</strong></p>
+    <ul>
+      <li>Progress through 10 levels.</li>
+      <li>Each level contains five questions.</li>
+      <li>There are 50 questions in total.</li>
+      <li>Keep answering until you reach the final level.</li>
+    </ul>
+
+    <div class="tip">
+      💡 Choose the mode that suits your mood.
+      Want a quick challenge? Try Endless Mode.
+      Want to test your knowledge over a longer game?
+      Try the 50-Question Challenge or Level Mode.
+    </div>
+  </div>
+
+  <div class="guide-card">
+    <h3>⏱️ How Questions Work</h3>
+
+    <ol>
+      <li>Read the question displayed on the screen.</li>
+      <li>Choose one of the four available answers.</li>
+      <li>You have 15 seconds to make your choice.</li>
+      <li>The correct answer will be highlighted after your selection.</li>
+      <li>Read the feedback and select Next Question to continue.</li>
+    </ol>
+
+    <p>
+      If the timer reaches zero, the question is treated
+      as an incorrect answer. In Endless Mode, this ends
+      your run.
+    </p>
+  </div>
+
+  <div class="guide-card">
+    <h3>📊 Understanding Your Score</h3>
+
+    <p><strong>Points:</strong> Every correct answer earns
+    10 base points, plus the number of seconds remaining
+    on the timer.</p>
+
+    <p><strong>Correct:</strong> Shows how many questions
+    you answered correctly.</p>
+
+    <p><strong>Played:</strong> Shows how many questions
+    you attempted during that game.</p>
+
+    <p><strong>Accuracy:</strong> Displays the percentage
+    of attempted questions you answered correctly.</p>
+
+    <p><strong>Best Score:</strong> Your highest score for
+    a particular game mode is saved in your browser.</p>
+
+    <div class="tip">
+      🏆 Answer correctly and quickly to earn more points.
+      Every second counts!
+    </div>
+  </div>
+
+  <div class="guide-card">
+    <h3>🧠 Tips and Strategies</h3>
+
+    <ul>
+      <li><strong>Read carefully:</strong> Pay attention to the entire question before choosing an answer.</li>
+      <li><strong>Watch the timer:</strong> You only have 15 seconds, so avoid spending too long on one question.</li>
+      <li><strong>Use what you know:</strong> Think through the available options and eliminate answers that don't make sense.</li>
+      <li><strong>Stay calm:</strong> Don't let the countdown make you panic.</li>
+      <li><strong>Learn as you play:</strong> Take note of interesting questions and facts you discover.</li>
+      <li><strong>Try different modes:</strong> Each mode gives you a different way to challenge yourself.</li>
+      <li><strong>Beat your best:</strong> Return to your favourite mode and try to improve your previous score.</li>
+    </ul>
+  </div>
+
+  <div class="guide-card">
+    <h3>📋 Game Rules</h3>
+
+    <ul>
+      <li>Each question has four possible answers.</li>
+      <li>Only one answer is correct.</li>
+      <li>You have 15 seconds to answer each question.</li>
+      <li>Correct answers earn points based on your remaining time.</li>
+      <li>In Endless Mode, an incorrect answer or time-out ends the game.</li>
+      <li>The 50-Question Challenge and Level Mode continue after incorrect answers.</li>
+      <li>Level Mode has 10 levels with five questions each.</li>
+      <li>Your best score is tracked separately for each mode.</li>
+    </ul>
+  </div>
+
+  <div class="guide-card">
+    <h3>❓ Frequently Asked Questions</h3>
+
+    <details>
+      <summary>How many questions are available?</summary>
+      <p>
+        Quick Quiz has 50 questions covering different
+        categories, including science, geography,
+        mathematics, history, animals and general knowledge.
+      </p>
+    </details>
+
+    <details>
+      <summary>How much time do I get per question?</summary>
+      <p>
+        You have 15 seconds to select your answer.
+        The countdown begins automatically when a question appears.
+      </p>
+    </details>
+
+    <details>
+      <summary>What happens if I get an answer wrong?</summary>
+      <p>
+        In Endless Mode, an incorrect answer ends your run.
+        In the 50-Question Challenge and Level Mode,
+        you can continue playing.
+      </p>
+    </details>
+
+    <details>
+      <summary>How are points calculated?</summary>
+      <p>
+        A correct answer earns 10 points plus the number
+        of seconds remaining when you answer.
+        Incorrect answers earn no points.
+      </p>
+    </details>
+
+    <details>
+      <summary>Does Quick Quiz save my best score?</summary>
+      <p>
+        Yes! Your best score for each game mode is saved
+        in your browser using local storage. Clearing
+        your browser data may remove these records.
+      </p>
+    </details>
+
+    <details>
+      <summary>Can I play again?</summary>
+      <p>
+        Absolutely! Select Play Again on the results
+        screen or return to the mode selection screen
+        to choose another mode.
+      </p>
+    </details>
+
+    <details>
+      <summary>Is Quick Quiz free to play?</summary>
+      <p>
+        Yes! Quick Quiz is free to play on WOBBLE ARCADE.
+      </p>
+    </details>
+
+    <details>
+      <summary>Can I play on my phone?</summary>
+      <p>
+        Yes! The game is designed to work on mobile
+        phones and larger screens.
+      </p>
+    </details>
+  </div>
+
+  <div class="guide-card" style="text-align:center">
+    <h3>💜 Ready to Test Your Knowledge?</h3>
+    <p>
+      Pick your favourite game mode, trust your instincts
+      and see how high you can score!
+    </p>
+    <div class="tip">Play. Challenge. Repeat.</div>
+  </div>
+
+</section>
+
+<footer>
+  WOBBLE — Play. Challenge. Repeat. 💜
+  <br><br>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="terms.html">Terms</a>
+</footer>
 
 <script>
 const questions = [
@@ -241,9 +493,9 @@ const questions = [
 
 let currentMode="endless",deck=[],index=0,score=0,correct=0,played=0;
 let timeLeft=15,timerInterval=null,answered=false;
-let best=0;
 
 const $=id=>document.getElementById(id);
+
 function shuffle(array){
   const copy=[...array];
   for(let i=copy.length-1;i>0;i--){
@@ -252,48 +504,68 @@ function shuffle(array){
   }
   return copy;
 }
+
 function getBest(mode){
   try{return Number(localStorage.getItem("wobbleQuizBest_"+mode))||0}
   catch(e){return 0}
 }
+
 function saveBest(mode,value){
   try{localStorage.setItem("wobbleQuizBest_"+mode,String(value))}
   catch(e){}
 }
+
 function showScreen(id){
   document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
   $(id).style.display="block";
 }
+
 function updateHomeBest(){
-  $("homeBest").textContent=Math.max(getBest("endless"),getBest("challenge"),getBest("level"));
+  $("homeBest").textContent=Math.max(
+    getBest("endless"),
+    getBest("challenge"),
+    getBest("level")
+  );
 }
+
 function goHome(){
   clearInterval(timerInterval);
   updateHomeBest();
   showScreen("homeScreen");
 }
+
 function startGame(mode){
   clearInterval(timerInterval);
   currentMode=mode;
   deck=shuffle(questions);
-  index=0;score=0;correct=0;played=0;
-  $("modeName").textContent=mode==="endless"?"ENDLESS MODE":mode==="challenge"?"50-QUESTION CHALLENGE":"LEVEL MODE";
+  index=0;
+  score=0;
+  correct=0;
+  played=0;
+
+  $("modeName").textContent=mode==="endless"?"ENDLESS MODE":
+    mode==="challenge"?"50-QUESTION CHALLENGE":"LEVEL MODE";
+
   showScreen("gameScreen");
   showQuestion();
 }
+
 function showQuestion(){
   if(index>=deck.length){
-    if(currentMode==="endless") {
+    if(currentMode==="endless"){
       deck=shuffle(questions);
       index=0;
-    } else {
+    }else{
       finishGame("complete");
       return;
     }
   }
+
   answered=false;
   timeLeft=15;
+
   const q=deck[index];
+
   $("category").textContent=q.c;
   $("question").textContent=q.q;
   $("feedback").textContent="";
@@ -303,9 +575,14 @@ function showQuestion(){
   $("timer").textContent="15s";
   $("timer").classList.remove("urgent");
 
-  let options=q.a.map((answer,i)=>({answer,isCorrect:i===q.x}));
+  let options=q.a.map((answer,i)=>({
+    answer,
+    isCorrect:i===q.x
+  }));
+
   options=shuffle(options);
   $("answers").innerHTML="";
+
   options.forEach((option,i)=>{
     const button=document.createElement("button");
     button.className="answer";
@@ -315,28 +592,38 @@ function showQuestion(){
     $("answers").appendChild(button);
   });
 
-  const total=currentMode==="challenge"?50:currentMode==="level"?50:"∞";
+  const total=currentMode==="challenge"?50:
+    currentMode==="level"?50:"∞";
+
   $("progressText").textContent=currentMode==="level"
     ?"Level "+(Math.floor(index/5)+1)+" · Question "+(index%5+1)
     :"Question "+(index+1)+" / "+total;
+
   $("levelLabel").textContent=currentMode==="level"
     ?"Level "+(Math.floor(index/5)+1)+" of 10"
     :"Question "+(index+1);
+
   $("scoreText").textContent="Score: "+score;
-  $("progressFill").style.width=currentMode==="endless"?"0%":((index/50)*100)+"%";
+
+  $("progressFill").style.width=currentMode==="endless"
+    ?"0%":((index/50)*100)+"%";
 
   timerInterval=setInterval(()=>{
     timeLeft--;
     $("timer").textContent=timeLeft+"s";
+
     if(timeLeft<=5)$("timer").classList.add("urgent");
+
     if(timeLeft<=0){
       clearInterval(timerInterval);
       selectAnswer(null,false,true);
     }
   },1000);
 }
+
 function selectAnswer(button,isCorrect,timedOut=false){
   if(answered)return;
+
   answered=true;
   clearInterval(timerInterval);
   played++;
@@ -350,52 +637,78 @@ function selectAnswer(button,isCorrect,timedOut=false){
     correct++;
     const points=10+timeLeft;
     score+=points;
+
     $("feedback").textContent="Correct! +"+points+" points 🎉";
     $("feedback").className="feedback good";
   }else{
     if(button)button.classList.add("wrong");
-    $("feedback").textContent=timedOut?"Time's up! ⏰":"Not quite! Better luck next time.";
+
+    $("feedback").textContent=timedOut
+      ?"Time's up! ⏰":"Not quite! Better luck next time.";
+
     $("feedback").className="feedback bad";
   }
 
   $("scoreText").textContent="Score: "+score;
   $("nextButton").disabled=false;
-  $("nextButton").textContent=currentMode==="endless"&&!isCorrect?"See Results":"Next Question →";
 
   if(currentMode==="endless"&&!isCorrect){
     $("nextButton").textContent="See Results";
   }
 }
+
 function nextQuestion(){
   if(!answered)return;
+
   if(currentMode==="endless"){
     const lastAnswer=$("feedback").classList.contains("bad");
-    if(lastAnswer){finishGame("failed");return;}
+
+    if(lastAnswer){
+      finishGame("failed");
+      return;
+    }
   }
+
   index++;
   showQuestion();
 }
+
 function finishGame(reason){
   clearInterval(timerInterval);
+
   const accuracy=played?Math.round((correct/played)*100):0;
   const oldBest=getBest(currentMode);
   const newRecord=score>oldBest;
+
   if(newRecord)saveBest(currentMode,score);
 
-  $("resultMode").textContent=currentMode==="endless"?"ENDLESS MODE":currentMode==="challenge"?"50-QUESTION CHALLENGE":"LEVEL MODE";
+  $("resultMode").textContent=currentMode==="endless"?"ENDLESS MODE":
+    currentMode==="challenge"?"50-QUESTION CHALLENGE":"LEVEL MODE";
+
   $("finalScore").textContent=score;
   $("correctCount").textContent=correct;
   $("playedCount").textContent=played;
   $("accuracy").textContent=accuracy+"%";
-  $("resultIcon").textContent=reason==="complete"?"🏆":newRecord?"🌟":"💜";
-  $("resultTitle").textContent=reason==="complete"?"Challenge Complete!":reason==="failed"?"Game Over!":"Time's Up!";
+
+  $("resultIcon").textContent=reason==="complete"?"🏆":
+    newRecord?"🌟":"💜";
+
+  $("resultTitle").textContent=reason==="complete"?"Challenge Complete!":
+    reason==="failed"?"Game Over!":"Time's Up!";
+
   $("resultMessage").textContent=reason==="complete"
     ?"You made it through all the questions. Well played!"
     :"You answered "+correct+" question"+(correct===1?"":"s")+" correctly. Want to try again?";
-  $("bestMessage").textContent=newRecord?"🎉 New personal best! Your previous best was "+oldBest+".":"Your best score for this mode is "+Math.max(oldBest,score)+".";
+
+  $("bestMessage").textContent=newRecord
+    ?"🎉 New personal best! Your previous best was "+oldBest+"."
+    :"Your best score for this mode is "+Math.max(oldBest,score)+".";
+
   showScreen("resultScreen");
 }
+
 updateHomeBest();
 </script>
+
 </body>
 </html>
