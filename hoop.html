@@ -71,6 +71,33 @@ select{background:#fff;color:var(--ink);border:1px solid #ded8eb;border-radius:1
 .action:disabled{opacity:.42;filter:grayscale(.5);cursor:not-allowed}
 .action.danger{grid-column:1/-1;background:linear-gradient(180deg,#fff,#fff0f0);border-color:#f0caca;color:#a43c52;box-shadow:0 4px 0 #ead5d9}
 .hint{text-align:center;color:#9992a9;font-size:11px;line-height:1.5;margin:14px 5px 0}
+
+/* Game information */
+.info-section{
+  margin-top:30px;
+  padding:22px;
+  background:#fff;
+  border:1px solid #e9e5f2;
+  border-radius:18px;
+  box-shadow:0 5px 18px #29243d0a;
+}
+.info-section h2{
+  color:#8b62d9;
+  font-size:20px;
+  margin:0 0 12px;
+}
+.info-section h3{
+  color:#39314f;
+  font-size:15px;
+  margin:20px 0 6px;
+}
+.info-section p{
+  color:#77718c;
+  font-size:13px;
+  line-height:1.7;
+  margin:7px 0;
+}
+
 .overlay{position:fixed;inset:0;background:#29243d88;z-index:20;display:none;align-items:center;justify-content:center;padding:20px}
 .overlay.show{display:flex}
 .modal{width:min(100%,370px);text-align:center;padding:26px 21px;border-radius:24px;background:linear-gradient(145deg,#fff,#f7f3ff);border:1px solid #e4dcef;box-shadow:0 15px 45px #21173533}
@@ -94,6 +121,7 @@ select{background:#fff;color:var(--ink);border:1px solid #ded8eb;border-radius:1
   .rod{height:137px;width:8px}
   .hoop{height:32px;flex-basis:32px;width:min(100%,70px)}
   .action{font-size:11px;padding:8px 4px}
+  .info-section{padding:19px}
 }
 @media(min-width:520px){
   .sticks{column-gap:13px;row-gap:25px}
@@ -136,6 +164,72 @@ select{background:#fff;color:var(--ink);border:1px solid #ded8eb;border-radius:1
 </div>
 
 <div class="hint">Move a top hoop onto an empty stick or a stick with the same top colour. Complete each colour stack to win!</div>
+
+<section class="info-section">
+  <h2>How to Play HOOP</h2>
+
+  <p>
+    HOOP is a colourful sorting puzzle game where your goal
+    is to organise hoops into matching colour stacks.
+    Plan your moves carefully and complete each level
+    to unlock the next challenge.
+  </p>
+
+  <h3>How to Move the Hoops</h3>
+  <p>
+    Tap a stick to select its top hoop. Then tap another
+    stick to move it. You can move a hoop only when the
+    destination stick is empty or has a matching colour
+    on top.
+  </p>
+
+  <h3>Game Rules</h3>
+  <p>
+    Each stick has a limited capacity. Only the top hoop
+    can be moved, and you cannot place a hoop on a
+    different colour. Complete a full matching stack
+    for each colour to finish the level.
+  </p>
+
+  <h3>Tips and Strategies</h3>
+  <p>
+    • Think a few moves ahead before moving a hoop.<br>
+    • Use empty sticks to organise colours temporarily.<br>
+    • Avoid blocking colours you need to move later.<br>
+    • Use Undo if you make a mistake.<br>
+    • Save your coins for tools that can help with
+    difficult puzzles.
+  </p>
+
+  <h3>Coins and Game Tools</h3>
+  <p>
+    Earn coins by completing levels for the first time.
+    You can use coins to purchase additional Undo moves,
+    switch two top hoops or add an extra stick to help
+    solve a puzzle.
+  </p>
+
+  <h3>Frequently Asked Questions</h3>
+
+  <p><strong>Can I replay a completed level?</strong><br>
+    Yes. You can select any unlocked level and play it again.
+  </p>
+
+  <p><strong>Do I lose my coins when I restart a level?</strong><br>
+    No. Restarting the current level resets the puzzle,
+    not your coins or overall progress.
+  </p>
+
+  <p><strong>Does HOOP have an ending?</strong><br>
+    HOOP is designed with ongoing level progression,
+    so there are more puzzles to tackle as you advance.
+  </p>
+
+  <p><strong>Can I play on my phone?</strong><br>
+    Yes. HOOP is designed to work on mobile phones
+    and desktop devices.
+  </p>
+</section>
 </div>
 
 <div class="overlay show" id="welcomeOverlay">
